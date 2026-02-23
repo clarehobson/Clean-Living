@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NA Recovery">
+<meta name="theme-color" content="#0f0f1a">
+<title>NA Recovery</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f0f1a;
+  --sf: #1a1a2e;
+  --sf2: #16213e;
+  --ac: #e8c97a;
+  --tx: #f0ead6;
+  --tm: #8a8090;
+  --bd: rgba(232,201,122,0.15);
+  --r: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; height: 100dvh; }
+body { font-family: "DM Sans", sans-serif; background: var(--bg); color: var(--tx); overflow: hidden; }
+
+#app { display: flex; flex-direction: column; height: 100%; height: 100dvh; }
+
+/* SCREENS */
+.screen { display: none; flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 20px 16px 24px; }
+.screen.active { display: block; }
+
+/* NAV */
+nav {
+  flex-shrink: 0;
+  display: flex;
+  background: rgba(15,15,26,0.97);
+  border-top: 1px solid var(--bd);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 10px 2px 8px;
+  cursor: pointer;
+  color: var(--tm);
+  font-size: 0.46rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.nav-item.active { color: var(--ac); }
+.nav-icon { font-size: 1.2rem; line-height: 1; }
+
+/* CARDS */
+.card {
+  background: var(--sf);
+  border: 1px solid var(--bd);
+  border-radius: var(--r);
+  padding: 16px;
+  margin-bottom: 10px;
+}
+.label {
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: var(--ac);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.btn {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: var(--r);
+  background: var(--ac);
+  color: #1a1208;
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 8px;
+}
+.input {
+  width: 100%;
+  background: var(--sf2);
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  color: var(--tx);
+  font-size: 0.84rem;
+  padding: 10px 12px;
+  outline: none;
+}
+.input:focus { border-color: var(--ac); }
+
+/* MOOD BUTTONS */
+.mood-row { display: flex; gap: 6px; }
+.mood-btn {
+  flex: 1;
+  background: var(--sf);
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  padding: 10px 4px;
+  cursor: pointer;
+  text-align: center;
+}
+.mood-btn.selected { border-color: var(--ac); background: rgba(232,201,122,0.1); }
+.mood-emoji { font-size: 1.3rem; }
+.mood-label { font-size: 0.56rem; color: var(--tm); margin-top: 3px; }
+
+
+.step-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--sf);
+  border: 1px solid var(--bd);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  margin-bottom: 8px;
+  text-decoration: none;
+  color: var(--tx);
+}
+.step-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--ac);
+  background: rgba(232,201,122,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--ac);
+  flex-shrink: 0;
+}
+.step-body { flex: 1; min-width: 0; }
+.step-title { font-size: 0.86rem; font-weight: 600; color: var(--tx); }
+.step-sub { font-size: 0.7rem; color: var(--tm); margin-top: 2px; }
+.step-arrow { color: var(--tm); font-size: 0.9rem; }
+.bt-ch {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--bd);
+}
+.bt-ch:last-child { border-bottom: none; }
+.bt-ch span { font-size: 0.78rem; font-weight: 600; color: var(--tx); }
+.bt-ch audio { width: 100%; height: 32px; }
+
+/* TOAST */
+#toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  background: var(--ac);
+  color: #1a1208;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity 0.25s, transform 0.25s;
+  pointer-events: none;
+  z-index: 999;
+}
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- HOME SCREEN -->
+  <div class="screen active" id="screen-home">
+
+    <!-- Header -->
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:300; color:var(--ac);">Just For Today</div>
+        <div style="font-size:0.62rem; color:var(--tm); letter-spacing:0.08em; text-transform:uppercase;">NA Recovery</div>
+      </div>
+    </div>
+
+    <!-- Clean Date Counter -->
+    <div class="card">
+      <div style="display:flex; align-items:center; gap:14px;">
+        <div style="text-align:center; min-width:64px;">
+          <div id="days-count" style="font-family:'Cormorant Garamond',serif; font-size:2.8rem; font-weight:300; color:var(--ac); line-height:1;">0</div>
+          <div style="font-size:0.54rem; font-weight:700; color:var(--tm); letter-spacing:0.1em; text-transform:uppercase;">Days Clean</div>
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:0.68rem; color:var(--tm); margin-bottom:6px;">Set your clean date</div>
+          <input type="date" id="clean-date-input" class="input" onchange="saveCleanDate(this.value)">
+          <div id="clean-date-label" style="font-size:0.64rem; color:var(--tm); margin-top:4px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mood Check-in -->
+    <div class="card">
+      <div class="label">Today's Check-In</div>
+      <div class="mood-row">
+        <div class="mood-btn" id="mood-sad" onclick="setMood('sad')">
+          <div class="mood-emoji">&#x1F614;</div>
+          <div class="mood-label">Low</div>
+        </div>
+        <div class="mood-btn" id="mood-meh" onclick="setMood('meh')">
+          <div class="mood-emoji">&#x1F610;</div>
+          <div class="mood-label">Okay</div>
+        </div>
+        <div class="mood-btn" id="mood-good" onclick="setMood('good')">
+          <div class="mood-emoji">&#x1F642;</div>
+          <div class="mood-label">Good</div>
+        </div>
+        <div class="mood-btn" id="mood-great" onclick="setMood('great')">
+          <div class="mood-emoji">&#x1F60A;</div>
+          <div class="mood-label">Great</div>
+        </div>
+        <div class="mood-btn" id="mood-wow" onclick="setMood('wow')">
+          <div class="mood-emoji">&#x1F31F;</div>
+          <div class="mood-label">Amazing</div>
+        </div>
+      </div>
+      <div id="mood-history" style="font-size:0.74rem; color:var(--tm); margin-top:10px;"></div>
+    </div>
+
+    <!-- Daily Quote -->
+    <div class="card" style="border-left: 3px solid var(--ac);">
+      <div id="daily-quote" style="font-style:italic; font-size:0.84rem; line-height:1.6;"></div>
+    </div>
+
+    <!-- Quick Links -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:2px;">
+      <div class="card" onclick="showScreen('journal')" style="text-align:center; cursor:pointer; margin-bottom:0;">
+        <div style="font-size:1.4rem;">&#x270D;</div>
+        <div style="font-size:0.7rem; color:var(--tm); margin-top:4px;">Journal</div>
+      </div>
+      <div class="card" onclick="showScreen('meetings')" style="text-align:center; cursor:pointer; margin-bottom:0;">
+        <div style="font-size:1.4rem;">&#x1F5D3;</div>
+        <div style="font-size:0.7rem; color:var(--tm); margin-top:4px;">Meetings</div>
+      </div>
+    </div>
+
+    <!-- Crisis Line -->
+    <div style="background:rgba(180,60,60,0.12); border:1px solid rgba(180,60,60,0.25); border-radius:var(--r); padding:12px 14px; margin-top:10px; display:flex; gap:10px; align-items:center;">
+      <div style="font-size:1rem;">&#x1F4DE;</div>
+      <div style="font-size:0.74rem;">
+        &#x1F1EC;&#x1F1E7; UK Helpline: <span style="color:#ff6b6b; font-weight:700;">0300 999 1212</span><br>
+        <span style="font-size:0.63rem; color:var(--tm);">10am&ndash;midnight daily</span>
+      </div>
+    </div>
+
+  </div><!-- end home -->
+
+  <!-- PLACEHOLDER SCREENS (we'll build these next) -->
+  <div class="screen" id="screen-journal">
+    <div style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:300; color:var(--ac); margin-bottom:8px;">Journal</div>
+    <div style="color:var(--tm); font-size:0.84rem;">Coming soon</div>
+  </div>
+
+  <div class="screen" id="screen-steps">
+    <div style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:300; color:var(--ac); margin-bottom:2px;">Literature</div>
+    <div style="font-size:0.62rem; color:var(--tm); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:18px;">Steps, Basic Text &amp; Daily Reading</div>
+
+    <!-- SPAD -->
+    <div class="label"><span style="margin-right:5px;">&#x2728;</span>A Spiritual Principle a Day</div>
+    <a href="https://spadna.org" target="_blank" style="display:flex;align-items:center;gap:14px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px;margin-bottom:18px;text-decoration:none;color:var(--tx);">
+      <div style="font-size:1.5rem;">&#x1F4D6;</div>
+      <div style="flex:1;">
+        <div style="font-weight:600;font-size:0.86rem;">Read Today's Entry</div>
+        <div style="font-size:0.7rem;color:var(--tm);margin-top:2px;">Daily spiritual principle, quote &amp; reflection &mdash; spadna.org</div>
+      </div>
+      <div style="color:var(--tm);">&#8250;</div>
+    </a>
+
+    <!-- BASIC TEXT AUDIO -->
+    <div class="label"><span style="margin-right:5px;">&#x1F4FB;</span>Basic Text &mdash; Audio</div>
+    <div class="card" style="margin-bottom:18px;">
+      <div onclick="toggleBT()" style="display:flex;align-items:center;gap:12px;cursor:pointer;">
+        <div style="font-size:1.5rem;">&#x1F4FB;</div>
+        <div style="flex:1;">
+          <div style="font-weight:600;font-size:0.86rem;color:var(--tx);">NA Basic Text, 6th Edition</div>
+          <div style="font-size:0.7rem;color:var(--tm);margin-top:2px;">17 chapters &middot; tap to expand</div>
+        </div>
+        <div id="bt-arrow" style="color:var(--ac);font-size:0.8rem;">&#9660;</div>
+      </div>
+      <div id="bt-chapters" style="display:none;margin-top:14px;border-top:1px solid var(--bd);padding-top:12px;">
+        <div class="bt-ch"><span>Our Symbol</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD1-03-Our-Symbol.mp3"></audio></div>
+        <div class="bt-ch"><span>Preface</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD1-04-Preface.mp3"></audio></div>
+        <div class="bt-ch"><span>Introduction</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD1-05-Introduction.mp3"></audio></div>
+        <div class="bt-ch"><span>Book One: Narcotics Anonymous</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD1-06-Book-One-Narcotics-Anonymous.mp3"></audio></div>
+        <div class="bt-ch"><span>Ch.1 Who Is an Addict?</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD1-07-Chapter-One-Who-Is-An-Addict.mp3"></audio></div>
+        <div class="bt-ch"><span>Ch.2 What Is NA?</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD1-08-Chapter-Two-What-Is-The-Narcotics-Anonymous-Program.mp3"></audio></div>
+        <div class="bt-ch"><span>Ch.3 Why Are We Here?</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD1-09-Chapter-Three-Why-Are-We-Here.mp3"></audio></div>
+        <div class="bt-ch"><span>Ch.4 How It Works</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD2-02-Chapter-Four-How-It-Works.mp3"></audio></div>
+        <div class="bt-ch"><span>Step One</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD2-03-Step-One.mp3"></audio></div>
+        <div class="bt-ch"><span>Step Two</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD2-04-Step-Two.mp3"></audio></div>
+        <div class="bt-ch"><span>Step Three</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD2-05-Step-Three.mp3"></audio></div>
+        <div class="bt-ch"><span>Step Four</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD2-06-Step-Four.mp3"></audio></div>
+        <div class="bt-ch"><span>Step Five</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD2-07-Step-Five.mp3"></audio></div>
+        <div class="bt-ch"><span>Step Six</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD2-08-Step-Six.mp3"></audio></div>
+        <div class="bt-ch"><span>Step Seven</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD2-09-Step-Seven.mp3"></audio></div>
+        <div class="bt-ch"><span>Step Eight</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD2-10-Step-Eight.mp3"></audio></div>
+        <div class="bt-ch"><span>Step Nine</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD2-11-Step-Nine.mp3"></audio></div>
+        <div class="bt-ch"><span>Step Ten</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD2-12-Step-Ten.mp3"></audio></div>
+        <div class="bt-ch"><span>Step Eleven</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD2-13-Step-Eleven.mp3"></audio></div>
+        <div class="bt-ch"><span>Step Twelve</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD2-14-Step-Twelve.mp3"></audio></div>
+        <div class="bt-ch"><span>Ch.5 What Can I Do?</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD3-02-Chapter-Five-What-Can-I-Do.mp3"></audio></div>
+        <div class="bt-ch"><span>Ch.6 The 12 Traditions</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD3-03-Chapter-Six-The-Twelve-Traditions-Of-Narcotics-Anonymous.mp3"></audio></div>
+        <div class="bt-ch"><span>Ch.7 Recovery and Relapse</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD3-16-Chapter-Seven-Recovery-And-Relapse.mp3"></audio></div>
+        <div class="bt-ch"><span>Ch.8 We Do Recover</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD3-17-Chapter-Eight-We-Do-Recover.mp3"></audio></div>
+        <div class="bt-ch"><span>Ch.9 Just for Today</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD4-02-Chapter-Nine-Just-For-Today-Living-The-Program.mp3"></audio></div>
+        <div class="bt-ch"><span>Ch.10 More Will Be Revealed</span><audio controls src="https://nauca.us/wp-content/uploads/2016/08/BTCD4-03-Chapter-Ten-More-Will-Be-Revealed.mp3"></audio></div>
+      </div>
+    </div>
+  </div>
+
+    <!-- 12 STEPS -->
+    <div class="label"><span style="margin-right:5px;">&#x1F4CB;</span>The 12 Steps</div>
+    <a href="https://www.nwnjna.org/wp-content/uploads/2020/03/NARCOTICS-ANONYMOUS-STEP-WRITING-GUIDE.pdf#page=2" target="_blank" class="step-card">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Admitted powerlessness</div>
+        <div class="step-sub">We admitted we were powerless over our addiction</div>
+      </div>
+      <div class="step-arrow">&#8250;</div>
+    </a>
+    <a href="https://www.nwnjna.org/wp-content/uploads/2020/03/NARCOTICS-ANONYMOUS-STEP-WRITING-GUIDE.pdf#page=6" target="_blank" class="step-card">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Came to believe</div>
+        <div class="step-sub">Came to believe in a Power greater than ourselves</div>
+      </div>
+      <div class="step-arrow">&#8250;</div>
+    </a>
+    <a href="https://www.nwnjna.org/wp-content/uploads/2020/03/NARCOTICS-ANONYMOUS-STEP-WRITING-GUIDE.pdf#page=10" target="_blank" class="step-card">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Made a decision</div>
+        <div class="step-sub">Made a decision to turn our will and our lives over</div>
+      </div>
+      <div class="step-arrow">&#8250;</div>
+    </a>
+    <a href="https://www.nwnjna.org/wp-content/uploads/2020/03/NARCOTICS-ANONYMOUS-STEP-WRITING-GUIDE.pdf#page=14" target="_blank" class="step-card">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">Made a searching inventory</div>
+        <div class="step-sub">Made a searching and fearless moral inventory of ourselves</div>
+      </div>
+      <div class="step-arrow">&#8250;</div>
+    </a>
+    <a href="https://www.nwnjna.org/wp-content/uploads/2020/03/NARCOTICS-ANONYMOUS-STEP-WRITING-GUIDE.pdf#page=22" target="_blank" class="step-card">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <div class="step-title">Admitted our wrongs</div>
+        <div class="step-sub">Admitted to God, to ourselves, and to another human being</div>
+      </div>
+      <div class="step-arrow">&#8250;</div>
+    </a>
+    <a href="https://www.nwnjna.org/wp-content/uploads/2020/03/NARCOTICS-ANONYMOUS-STEP-WRITING-GUIDE.pdf#page=26" target="_blank" class="step-card">
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <div class="step-title">Ready to have defects removed</div>
+        <div class="step-sub">Were entirely ready to have God remove all these defects</div>
+      </div>
+      <div class="step-arrow">&#8250;</div>
+    </a>
+    <a href="https://www.nwnjna.org/wp-content/uploads/2020/03/NARCOTICS-ANONYMOUS-STEP-WRITING-GUIDE.pdf#page=30" target="_blank" class="step-card">
+      <div class="step-num">7</div>
+      <div class="step-body">
+        <div class="step-title">Humbly asked Him</div>
+        <div class="step-sub">Humbly asked Him to remove our shortcomings</div>
+      </div>
+      <div class="step-arrow">&#8250;</div>
+    </a>
+    <a href="https://www.nwnjna.org/wp-content/uploads/2020/03/NARCOTICS-ANONYMOUS-STEP-WRITING-GUIDE.pdf#page=34" target="_blank" class="step-card">
+      <div class="step-num">8</div>
+      <div class="step-body">
+        <div class="step-title">Made a list</div>
+        <div class="step-sub">Made a list of all persons we had harmed</div>
+      </div>
+      <div class="step-arrow">&#8250;</div>
+    </a>
+    <a href="https://www.nwnjna.org/wp-content/uploads/2020/03/NARCOTICS-ANONYMOUS-STEP-WRITING-GUIDE.pdf#page=38" target="_blank" class="step-card">
+      <div class="step-num">9</div>
+      <div class="step-body">
+        <div class="step-title">Made direct amends</div>
+        <div class="step-sub">Made direct amends to such people wherever possible</div>
+      </div>
+      <div class="step-arrow">&#8250;</div>
+    </a>
+    <a href="https://www.nwnjna.org/wp-content/uploads/2020/03/NARCOTICS-ANONYMOUS-STEP-WRITING-GUIDE.pdf#page=44" target="_blank" class="step-card">
+      <div class="step-num">10</div>
+      <div class="step-body">
+        <div class="step-title">Continued to take inventory</div>
+        <div class="step-sub">Continued to take personal inventory and admitted when wrong</div>
+      </div>
+      <div class="step-arrow">&#8250;</div>
+    </a>
+    <a href="https://www.nwnjna.org/wp-content/uploads/2020/03/NARCOTICS-ANONYMOUS-STEP-WRITING-GUIDE.pdf#page=48" target="_blank" class="step-card">
+      <div class="step-num">11</div>
+      <div class="step-body">
+        <div class="step-title">Sought conscious contact</div>
+        <div class="step-sub">Sought through prayer and meditation to improve our conscious contact</div>
+      </div>
+      <div class="step-arrow">&#8250;</div>
+    </a>
+    <a href="https://www.nwnjna.org/wp-content/uploads/2020/03/NARCOTICS-ANONYMOUS-STEP-WRITING-GUIDE.pdf#page=52" target="_blank" class="step-card">
+      <div class="step-num">12</div>
+      <div class="step-body">
+        <div class="step-title">Carried this message</div>
+        <div class="step-sub">Having had a spiritual awakening, we tried to carry this message</div>
+      </div>
+      <div class="step-arrow">&#8250;</div>
+    </a>
+  </div>
+
+  <div class="screen" id="screen-meetings">
+    <div style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:300; color:var(--ac); margin-bottom:8px;">Meetings</div>
+    <div style="color:var(--tm); font-size:0.84rem;">Coming soon</div>
+  </div>
+
+  <div class="screen" id="screen-resources">
+    <div style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:300; color:var(--ac); margin-bottom:8px;">Resources</div>
+    <div style="color:var(--tm); font-size:0.84rem;">Coming soon</div>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-item active" id="nav-home" onclick="showScreen('home')">
+      <div class="nav-icon">&#x1F3E0;</div>
+      <div>Home</div>
+    </div>
+    <div class="nav-item" id="nav-journal" onclick="showScreen('journal')">
+      <div class="nav-icon">&#x270D;</div>
+      <div>Journal</div>
+    </div>
+    <div class="nav-item" id="nav-steps" onclick="showScreen('steps')">
+      <div class="nav-icon">&#x1F4D6;</div>
+      <div>Literature</div>
+    </div>
+    <div class="nav-item" id="nav-meetings" onclick="showScreen('meetings')">
+      <div class="nav-icon">&#x1F5D3;</div>
+      <div>Meetings</div>
+    </div>
+    <div class="nav-item" id="nav-resources" onclick="showScreen('resources')">
+      <div class="nav-icon">&#x1F4E6;</div>
+      <div>Resources</div>
+    </div>
+  </nav>
+
+</div><!-- end app -->
+<div id="toast"></div>
+
+<script>
+var QUOTES = [
+  {text: "Just for today, I will try to live through this day only.", source: "Just for Today"},
+  {text: "We admitted we were powerless over our addiction.", source: "Step One"},
+  {text: "The foundation of recovery is honesty.", source: "NA Basic Text"},
+  {text: "Recovery is a process, not an event.", source: "NA Fellowship"},
+  {text: "Keep coming back - it works if you work it.", source: "NA Fellowship"},
+  {text: "One day at a time.", source: "NA Fellowship"},
+  {text: "We do not have to be alone anymore.", source: "NA Basic Text"},
+  {text: "Pain is inevitable; suffering is optional.", source: "NA Fellowship"},
+  {text: "We will love and support you no matter what.", source: "NA Fellowship"},
+  {text: "God, grant me the serenity to accept the things I cannot change.", source: "Serenity Prayer"}
+];
+
+// --- STATE ---
+var cleanDate = localStorage.getItem('na_clean_date') || '';
+var moodLog   = JSON.parse(localStorage.getItem('na_mood_log')  || '[]');
+
+// --- NAVIGATION ---
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+  document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
+  document.getElementById('screen-' + name).classList.add('active');
+  document.getElementById('nav-' + name).classList.add('active');
+}
+
+// --- CLEAN DATE ---
+function saveCleanDate(val) {
+  cleanDate = val;
+  localStorage.setItem('na_clean_date', val);
+  updateDaysCount();
+}
+
+function updateDaysCount() {
+  if (!cleanDate) { document.getElementById('days-count').textContent = '0'; return; }
+  var start = new Date(cleanDate);
+  var today = new Date();
+  var days = Math.floor((today - start) / 86400000);
+  if (days < 0) days = 0;
+  document.getElementById('days-count').textContent = days;
+  var label = days === 1 ? '1 day clean' : days + ' days clean';
+  document.getElementById('clean-date-label').textContent = label;
+}
+
+// --- MOOD ---
+function setMood(mood) {
+  var today = new Date().toISOString().split('T')[0];
+  moodLog = moodLog.filter(function(m) { return m.date !== today; });
+  moodLog.push({ date: today, mood: mood });
+  if (moodLog.length > 30) moodLog = moodLog.slice(-30);
+  localStorage.setItem('na_mood_log', JSON.stringify(moodLog));
+  document.querySelectorAll('.mood-btn').forEach(function(b) { b.classList.remove('selected'); });
+  document.getElementById('mood-' + mood).classList.add('selected');
+  renderMoodHistory();
+  toast('Mood saved');
+}
+
+function renderMoodHistory() {
+  var emojis = { sad: '&#x1F614;', meh: '&#x1F610;', good: '&#x1F642;', great: '&#x1F60A;', wow: '&#x1F31F;' };
+  var recent = moodLog.slice(-7);
+  if (!recent.length) { document.getElementById('mood-history').innerHTML = ''; return; }
+  var html = '<div style="font-size:0.62rem; color:var(--tm); margin-bottom:4px;">Recent</div><div style="display:flex; gap:5px;">';
+  recent.forEach(function(m) {
+    html += '<div style="text-align:center;"><div style="font-size:1rem;">' + (emojis[m.mood] || '') + '</div><div style="font-size:0.5rem; color:var(--tm);">' + m.date.slice(5) + '</div></div>';
+  });
+  html += '</div>';
+  document.getElementById('mood-history').innerHTML = html;
+}
+
+function markTodayMood() {
+  var today = new Date().toISOString().split('T')[0];
+  var entry = moodLog.find(function(m) { return m.date === today; });
+  if (entry) {
+    document.getElementById('mood-' + entry.mood).classList.add('selected');
+  }
+}
+
+// --- DAILY QUOTE ---
+function showDailyQuote() {
+  var q = QUOTES[new Date().getDate() % QUOTES.length];
+  document.getElementById('daily-quote').innerHTML =
+    '"' + q.text + '"<div style="font-size:0.7rem; color:var(--tm); margin-top:6px;">-- ' + q.source + '</div>';
+}
+
+// --- TOAST ---
+function toast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 2000);
+}
+
+
+function toggleBT() {
+  var chs = document.getElementById('bt-chapters');
+  var arr = document.getElementById('bt-arrow');
+  if (chs.style.display === 'none') {
+    chs.style.display = 'block';
+    arr.innerHTML = '&#9650;';
+  } else {
+    chs.style.display = 'none';
+    arr.innerHTML = '&#9660;';
+  }
+}
+
+// --- INIT ---
+function init() {
+  if (cleanDate) {
+    document.getElementById('clean-date-input').value = cleanDate;
+    updateDaysCount();
+  }
+  markTodayMood();
+  renderMoodHistory();
+  showDailyQuote();
+}
+
+init();
+</script>
+</body>
+</html>
