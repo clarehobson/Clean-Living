@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NA Recovery">
+<meta name="theme-color" content="#0f0f1a">
+<title>NA Recovery</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f0f1a;--sf:#1a1a2e;--sf2:#16213e;--ac:#e8c97a;--tx:#f0ead6;--tm:#8a8090;--bd:rgba(232,201,122,0.15);--r:16px;}
+.lm{--bg:#f5f0e8;--sf:#fff;--sf2:#f0ebe0;--tx:#1a1a2e;--tm:#6b6070;--bd:rgba(100,80,60,0.15);}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;height:100dvh;}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--tx);overflow:hidden;}
+#app{display:flex;flex-direction:column;height:100%;height:100dvh;overflow:hidden;}
+.scr{display:none;flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:max(env(safe-area-inset-top,16px),18px) 16px 20px;}
+.scr.on{display:block;}
+nav{flex-shrink:0;display:flex;padding-bottom:env(safe-area-inset-bottom,0);background:rgba(15,15,26,.97);border-top:1px solid var(--bd);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);}
+.lm nav{background:rgba(245,240,232,.98);}
+.ni{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;color:var(--tm);font-size:.46rem;letter-spacing:.04em;text-transform:uppercase;padding:10px 2px 8px;-webkit-user-select:none;user-select:none;}
+.ni.on{color:var(--ac);}
+.ni-i{font-size:1.15rem;line-height:1;}
+#pin{position:fixed;inset:0;background:var(--bg);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:32px;}
+#pin.h{display:none;}
+.pd{display:flex;gap:13px;}
+.dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--ac);}
+.dot.f{background:var(--ac);}
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;width:255px;}
+.pb{background:var(--sf);border:1px solid var(--bd);border-radius:13px;color:var(--tx);font-size:1.25rem;padding:14px;cursor:pointer;text-align:center;}
+.pb:active{background:var(--ac);color:#1a1208;}
+.ttl{font-family:"Cormorant Garamond",serif;font-size:1.9rem;font-weight:300;color:var(--ac);margin-bottom:2px;}
+.sub{color:var(--tm);font-size:.68rem;margin-bottom:16px;letter-spacing:.08em;text-transform:uppercase;}
+.lbl{font-size:.65rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:.08em;margin:14px 0 6px;}
+.cd,.card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:14px;margin-bottom:9px;}
+.sbtn{width:100%;padding:12px;border:none;border-radius:var(--r);background:var(--ac);color:#1a1208;font-size:.86rem;font-weight:700;cursor:pointer;margin-top:7px;}
+.bbtn{background:transparent;border:none;color:var(--ac);font-size:.82rem;cursor:pointer;padding:0 0 11px;display:flex;align-items:center;gap:5px;}
+.ta{width:100%;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);color:var(--tx);font-family:"DM Sans",sans-serif;font-size:.83rem;line-height:1.6;padding:11px;resize:none;min-height:130px;outline:none;}
+.ta:focus{border-color:var(--ac);}
+.inp{width:100%;background:var(--sf);border:1px solid var(--bd);border-radius:10px;color:var(--tx);font-size:.83rem;padding:9px 11px;outline:none;margin-bottom:7px;}
+.inp:focus{border-color:var(--ac);}
+.tr{display:flex;align-items:center;justify-content:space-between;padding:9px 0;}
+.tg{width:44px;height:25px;border-radius:13px;background:var(--sf2);border:1px solid var(--bd);cursor:pointer;position:relative;}
+.tg::after{content:"";position:absolute;top:3px;left:3px;width:17px;height:17px;border-radius:50%;background:var(--tm);transition:transform .2s;}
+.tg.on{background:var(--ac);}
+.tg.on::after{transform:translateX(19px);background:#1a1208;}
+.mb{background:var(--sf);border:1px solid var(--bd);border-radius:11px;padding:9px 3px;cursor:pointer;text-align:center;flex:1;}
+.mb.on{border-color:var(--ac);background:rgba(232,201,122,.08);}
+.rl{display:flex;align-items:center;gap:12px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:12px;text-decoration:none;color:var(--tx);margin-bottom:7px;}
+.ri{font-size:1.4rem;flex-shrink:0;}
+.rn{font-weight:600;font-size:.84rem;}
+.rd{font-size:.68rem;color:var(--tm);margin-top:2px;}
+.cr{background:rgba(180,60,60,.15);border:1px solid rgba(180,60,60,.3);border-radius:var(--r);padding:12px 14px;margin-bottom:12px;display:flex;gap:10px;}
+.cn{color:#ff6b6b;font-weight:700;}
+.chip{padding:5px 12px;border-radius:20px;border:1px solid var(--bd);background:var(--sf);color:var(--tm);font-size:.68rem;cursor:pointer;white-space:nowrap;}
+.chip.on{background:var(--ac);color:#1a1208;border-color:var(--ac);font-weight:700;}
+.qb{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:14px;text-align:center;cursor:pointer;}
+.qb:active{border-color:var(--ac);}
+#rm{display:none;position:fixed;inset:0;background:var(--bg);z-index:300;overflow-y:auto;}
+#toast{position:fixed;bottom:70px;left:50%;transform:translateX(-50%) translateY(6px);background:var(--ac);color:#1a1208;padding:8px 18px;border-radius:20px;font-size:.78rem;font-weight:700;z-index:600;pointer-events:none;opacity:0;transition:opacity .25s,transform .25s;}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+<div id="pin" class="h">
+  <div style="font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:var(--ac);">NA Recovery</div>
+  <p style="color:var(--tm);font-size:.8rem;">Enter your PIN to continue</p>
+  <div class="pd"><div class="dot" id="d0"></div><div class="dot" id="d1"></div><div class="dot" id="d2"></div><div class="dot" id="d3"></div></div>
+  <div class="pg" id="pgrid"></div>
+  <div id="perr" style="color:#e74c3c;font-size:.74rem;min-height:15px;"></div>
+  <span onclick="resetApp()" style="color:var(--ac);font-size:.74rem;cursor:pointer;text-decoration:underline;">Forgot PIN? Reset app</span>
+</div>
+<div id="app">
+
+<div class="scr on" id="scr-home">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;">
+    <div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--ac);">Just For Today</div>
+      <div style="font-size:.64rem;color:var(--tm);letter-spacing:.07em;text-transform:uppercase;">NA Recovery</div>
+    </div>
+    <button onclick="toggleTheme()" style="background:var(--sf);border:1px solid var(--bd);border-radius:50%;width:33px;height:33px;font-size:.9rem;cursor:pointer;">&#9728;</button>
+  </div>
+  <div class="cd" style="display:flex;align-items:center;gap:13px;">
+    <div style="text-align:center;min-width:60px;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:var(--ac);line-height:1;" id="days-n">0</div>
+      <div style="font-size:.55rem;font-weight:700;color:var(--tm);letter-spacing:.1em;text-transform:uppercase;">Days Clean</div>
+    </div>
+    <div style="flex:1;">
+      <div style="font-size:.68rem;color:var(--tm);margin-bottom:4px;">Set your clean date</div>
+      <input type="date" id="cd-input" onchange="saveCD(this.value)" style="width:100%;background:var(--sf2);border:1px solid var(--bd);border-radius:9px;color:var(--tx);font-size:.8rem;padding:8px 10px;outline:none;">
+      <div style="font-size:.64rem;color:var(--tm);margin-top:3px;" id="cd-label"></div>
+    </div>
+  </div>
+  <div class="cd" style="margin-top:9px;">
+    <div class="lbl" style="margin-top:0;">Today's Check-In</div>
+    <div style="display:flex;gap:5px;margin-bottom:9px;">
+      <div class="mb" onclick="setMood('sad','Low')"     data-m="sad"><div style="font-size:1.3rem;">&#x1F614;</div><div style="font-size:.56rem;color:var(--tm);margin-top:2px;">Low</div></div>
+      <div class="mb" onclick="setMood('meh','Okay')"    data-m="meh"><div style="font-size:1.3rem;">&#x1F610;</div><div style="font-size:.56rem;color:var(--tm);margin-top:2px;">Okay</div></div>
+      <div class="mb" onclick="setMood('good','Good')"   data-m="good"><div style="font-size:1.3rem;">&#x1F642;</div><div style="font-size:.56rem;color:var(--tm);margin-top:2px;">Good</div></div>
+      <div class="mb" onclick="setMood('great','Great')" data-m="great"><div style="font-size:1.3rem;">&#x1F60A;</div><div style="font-size:.56rem;color:var(--tm);margin-top:2px;">Great</div></div>
+      <div class="mb" onclick="setMood('wow','Amazing')" data-m="wow"><div style="font-size:1.3rem;">&#x1F31F;</div><div style="font-size:.56rem;color:var(--tm);margin-top:2px;">Amazing</div></div>
+    </div>
+    <div class="lbl" style="margin-top:2px;">Recent Moods</div>
+    <div id="mood-hist" style="font-size:.74rem;color:var(--tm);"></div>
+  </div>
+  <div class="cd" style="border-left:3px solid var(--ac);margin-top:9px;">
+    <div style="font-style:italic;font-size:.83rem;" id="dquote"></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px;">
+    <div class="qb" onclick="showScr('steps')"><div style="font-size:1.3rem;margin-bottom:3px;">&#x1F4D6;</div><div style="font-size:.68rem;color:var(--tm);">Literature</div></div>
+    <div class="qb" onclick="showScr('journal')"><div style="font-size:1.3rem;margin-bottom:3px;">&#x270D;</div><div style="font-size:.68rem;color:var(--tm);">Daily Journal</div></div>
+    <div class="qb" onclick="showScr('meetings')"><div style="font-size:1.3rem;margin-bottom:3px;">&#x1F5D3;</div><div style="font-size:.68rem;color:var(--tm);">Meetings</div></div>
+    <div class="qb" onclick="showScr('sponsor')"><div style="font-size:1.3rem;margin-bottom:3px;">&#x1F91D;</div><div style="font-size:.68rem;color:var(--tm);">My Sponsor</div></div>
+  </div>
+  <div class="cr" style="margin-top:9px;">
+    <div style="font-size:1rem;">&#x1F4DE;</div>
+    <div style="font-size:.74rem;">
+      &#x1F1EC;&#x1F1E7; UK Helpline: <span class="cn">0300 999 1212</span><br>
+      <span style="color:var(--tm);font-size:.63rem;">10am-midnight daily</span><br>
+      &#x1F30D; NA Help Line: <span class="cn">1-818-773-9999</span>
+    </div>
+  </div>
+</div>
+
+<div class="scr" id="scr-steps">
+  <div id="sl-list">
+    <div class="ttl">Recovery Literature</div>
+    <div class="sub">The 12 Steps of Narcotics Anonymous</div>
+    <div class="lbl">The 12 Steps</div>
+    <div id="steps-list"></div>
+  </div>
+  <div id="sl-detail" style="display:none;"></div>
+</div>
+
+<div class="scr" id="scr-journal">
+  <div id="j-home">
+    <div class="ttl">Journal</div>
+    <div class="sub">Your private reflections</div>
+    <div style="font-size:.76rem;color:var(--tm);text-align:center;margin-bottom:13px;">What would you like to write today?</div>
+    <div id="j-type-btns" style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div class="lbl" style="margin:0;">Previous Entries</div>
+      <button id="edit-btn" onclick="toggleDelMode()" style="background:transparent;border:none;color:var(--ac);font-size:.74rem;cursor:pointer;">Edit</button>
+    </div>
+    <div id="j-entries" style="margin-top:7px;"></div>
+  </div>
+  <div id="j-write" style="display:none;">
+    <button class="bbtn" onclick="backToJHome()">&#8592; Journal</button>
+    <div style="font-size:1rem;font-weight:700;color:var(--tx);margin-bottom:3px;" id="jw-title"></div>
+    <div style="font-size:.68rem;color:var(--tm);margin-bottom:11px;" id="jw-date"></div>
+    <div id="jw-prompts"></div>
+    <div id="jw-s10" style="display:none;"></div>
+    <textarea id="jw-text" class="ta" placeholder="Start writing here..." style="margin-bottom:9px;"></textarea>
+    <div style="display:flex;gap:7px;">
+      <button onclick="saveEntry()" class="sbtn" style="flex:1;">Save</button>
+      <button onclick="deleteEntry()" id="jw-delbtn" style="display:none;flex:1;padding:12px;border:1px solid rgba(200,60,60,.4);border-radius:var(--r);background:transparent;color:#e74c3c;font-size:.86rem;font-weight:700;cursor:pointer;">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div class="scr" id="scr-meetings">
+  <div class="ttl">Meetings</div>
+  <div class="sub">Find your people</div>
+  <div style="display:flex;gap:6px;margin-bottom:12px;">
+    <button id="mt-meetings" onclick="switchMT('meetings')" style="flex:1;padding:8px;border:none;border-radius:9px;font-size:.73rem;font-weight:600;cursor:pointer;background:var(--ac);color:#1a1208;">Meetings</button>
+    <button id="mt-events"   onclick="switchMT('events')"   style="flex:1;padding:8px;border:none;border-radius:9px;font-size:.73rem;font-weight:600;cursor:pointer;background:var(--sf);color:var(--tm);">Events</button>
+    <button id="mt-virtual"  onclick="switchMT('virtual')"  style="flex:1;padding:8px;border:none;border-radius:9px;font-size:.73rem;font-weight:600;cursor:pointer;background:var(--sf);color:var(--tm);">Virtual</button>
+  </div>
+  <div id="mt-c-meetings">
+    <a href="https://www.ukna.org/meetings" target="_blank" class="rl"><div class="ri">&#x1F1EC;&#x1F1E7;</div><div><div class="rn">Find UK Meetings</div><div class="rd">ukna.org - search by postcode</div></div><div style="color:var(--tm);">&#8250;</div></a>
+    <a href="https://www.na.org/meetingsearch/" target="_blank" class="rl"><div class="ri">&#x1F30D;</div><div><div class="rn">NA World Meeting Search</div><div class="rd">Find meetings anywhere in the world</div></div><div style="color:var(--tm);">&#8250;</div></a>
+  </div>
+  <div id="mt-c-events" style="display:none;">
+    <a href="https://ukna.org/events" target="_blank" class="rl"><div class="ri">&#x1F1EC;&#x1F1E7;</div><div><div class="rn">UK NA Events</div><div class="rd">Conventions, days out &amp; workshops</div></div><div style="color:var(--tm);">&#8250;</div></a>
+    <a href="https://na.org/local-recovery-events/" target="_blank" class="rl"><div class="ri">&#x1F310;</div><div><div class="rn">Global NA Events</div><div class="rd">Worldwide conventions &amp; events</div></div><div style="color:var(--tm);">&#8250;</div></a>
+  </div>
+  <div id="mt-c-virtual" style="display:none;">
+    <div id="virtual-list" style="font-size:.8rem;color:var(--tm);">Loading...</div>
+  </div>
+</div>
+
+<div class="scr" id="scr-movement">
+  <div class="ttl">Movement</div><div class="sub">Mind, body &amp; breath</div>
+  <div class="lbl">Yoga</div>
+  <a href="https://www.youtube.com/results?search_query=yoga+for+recovery+beginners" target="_blank" class="rl"><div class="ri">&#x1F9D8;</div><div><div class="rn">Yoga on YouTube</div><div class="rd">Free yoga for all levels</div></div><div style="color:var(--tm);">&#8250;</div></a>
+  <div class="lbl">Meditation</div>
+  <a href="https://www.youtube.com/results?search_query=guided+meditation+recovery+sobriety" target="_blank" class="rl"><div class="ri">&#x1F9E0;</div><div><div class="rn">Guided Meditation</div><div class="rd">Free guided sessions on YouTube</div></div><div style="color:var(--tm);">&#8250;</div></a>
+  <a href="https://insighttimer.com" target="_blank" class="rl"><div class="ri">&#x23F1;</div><div><div class="rn">Insight Timer</div><div class="rd">Free meditation app</div></div><div style="color:var(--tm);">&#8250;</div></a>
+  <div class="lbl">Breathwork</div>
+  <a href="https://www.youtube.com/results?search_query=breathwork+anxiety+stress+recovery" target="_blank" class="rl"><div class="ri">&#x1F4A8;</div><div><div class="rn">Breathwork for Recovery</div><div class="rd">Free videos for anxiety and stress</div></div><div style="color:var(--tm);">&#8250;</div></a>
+  <div class="lbl">Exercise</div>
+  <a href="https://www.youtube.com/results?search_query=home+workout+beginner+no+equipment" target="_blank" class="rl"><div class="ri">&#x1F3C3;</div><div><div class="rn">Home Workouts</div><div class="rd">Free beginner workouts</div></div><div style="color:var(--tm);">&#8250;</div></a>
+  <a href="https://www.nhs.uk/live-well/exercise/free-fitness-ideas/" target="_blank" class="rl"><div class="ri">&#x1F1EC;&#x1F1E7;</div><div><div class="rn">NHS Free Fitness Ideas</div><div class="rd">Free ways to get active in the UK</div></div><div style="color:var(--tm);">&#8250;</div></a>
+</div>
+
+<div class="scr" id="scr-sponsor">
+  <div class="ttl">My Sponsor</div><div class="sub">Your support network</div>
+  <div class="cd" style="margin-bottom:9px;">
+    <div class="lbl" style="margin-top:0;">Sponsor Details</div>
+    <input type="text" id="sp-name"  class="inp" placeholder="Sponsor's name">
+    <input type="tel"  id="sp-phone" class="inp" placeholder="Phone number">
+    <textarea id="sp-notes" class="ta" placeholder="Meeting times, notes..." style="min-height:70px;"></textarea>
+    <button onclick="saveSponsor()" class="sbtn">Save Details</button>
+  </div>
+  <div class="cd">
+    <div class="lbl" style="margin-top:0;">Other Contacts</div>
+    <div id="sp-contacts"></div>
+    <div style="margin-top:9px;">
+      <input type="text" id="nc-name"  class="inp" placeholder="Name">
+      <input type="tel"  id="nc-phone" class="inp" placeholder="Phone">
+      <textarea id="nc-notes" class="ta" placeholder="Notes..." style="min-height:50px;margin-bottom:7px;"></textarea>
+      <button onclick="addContact()" class="sbtn" style="margin-top:0;">Add Contact</button>
+    </div>
+  </div>
+</div>
+
+<div class="scr" id="scr-resources">
+  <div class="ttl">Resources</div><div class="sub">Literature &amp; support</div>
+  <div class="cr">
+    <div style="font-size:1rem;">&#x1F4DE;</div>
+    <div style="font-size:.74rem;">&#x1F1EC;&#x1F1E7; UK: <span class="cn">0300 999 1212</span><br>&#x1F30D; NA: <span class="cn">1-818-773-9999</span></div>
+  </div>
+  <div class="lbl">Prayers</div><div id="prayers-c"></div>
+  <div class="lbl">Literature</div>
+  <a href="https://www.na.org/?ID=daily-meditation" target="_blank" class="rl"><div class="ri">&#x1F305;</div><div><div class="rn">Just for Today</div><div class="rd">Daily meditation - na.org</div></div><div style="color:var(--tm);">&#8250;</div></a>
+  <a href="https://www.na.org/?ID=ips-index" target="_blank" class="rl"><div class="ri">&#x1F4C4;</div><div><div class="rn">IP Library</div><div class="rd">NA informational pamphlets</div></div><div style="color:var(--tm);">&#8250;</div></a>
+  <a href="https://www.na.org/shop/" target="_blank" class="rl"><div class="ri">&#x1F4DA;</div><div><div class="rn">NA Literature Shop</div><div class="rd">Basic Text, Step Working Guides</div></div><div style="color:var(--tm);">&#8250;</div></a>
+  <div class="lbl">Online</div>
+  <a href="https://ukna.org" target="_blank" class="rl"><div class="ri">&#x1F1EC;&#x1F1E7;</div><div><div class="rn">UK NA</div><div class="rd">ukna.org</div></div><div style="color:var(--tm);">&#8250;</div></a>
+  <a href="https://virtual-na.org/meetings/" target="_blank" class="rl"><div class="ri">&#x1F4BB;</div><div><div class="rn">Virtual NA</div><div class="rd">Online meetings worldwide</div></div><div style="color:var(--tm);">&#8250;</div></a>
+  <a href="https://www.na.org" target="_blank" class="rl"><div class="ri">&#x1F30D;</div><div><div class="rn">NA World Services</div><div class="rd">na.org</div></div><div style="color:var(--tm);">&#8250;</div></a>
+  <div class="lbl">Settings</div>
+  <div class="cd">
+    <div class="tr">
+      <div><div style="font-size:.82rem;font-weight:600;">PIN Lock</div><div style="font-size:.68rem;color:var(--tm);">Protect app with 4-digit PIN</div></div>
+      <div class="tg" id="pin-tog" onclick="togglePin()"></div>
+    </div>
+    <div id="pin-setup" style="display:none;padding-top:7px;">
+      <input type="number" id="pin-inp" class="inp" placeholder="4-digit PIN" style="-webkit-appearance:none;">
+      <button onclick="savePin()" class="sbtn">Save PIN</button>
+    </div>
+    <div class="tr">
+      <div><div style="font-size:.82rem;font-weight:600;">Dark Mode</div><div style="font-size:.68rem;color:var(--tm);">Toggle light/dark theme</div></div>
+      <div class="tg" id="theme-tog" onclick="toggleTheme()"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <div class="ni on" id="ni-home"      onclick="showScr('home')">      <div class="ni-i">&#x1F3E0;</div><div>Home</div></div>
+  <div class="ni"    id="ni-steps"     onclick="showScr('steps')">     <div class="ni-i">&#x1F4D6;</div><div>Literature</div></div>
+  <div class="ni"    id="ni-journal"   onclick="showScr('journal')">   <div class="ni-i">&#x270D;</div><div>Journal</div></div>
+  <div class="ni"    id="ni-meetings"  onclick="showScr('meetings')">  <div class="ni-i">&#x1F5D3;</div><div>Meetings</div></div>
+  <div>Nutrition</div></div>
+  <div class="ni"    id="ni-movement"  onclick="showScr('movement')">  <div class="ni-i">&#x1F9D8;</div><div>Movement</div></div>
+  <div class="ni"    id="ni-resources" onclick="showScr('resources')"> <div class="ni-i">&#x1F4E6;</div><div>Resources</div></div>
+</nav>
+</div>
+
+<div id="toast"></div>
+<script>
+const STEPS=[
+{num:1,short:"We admitted we were powerless over our addiction",pdf:"https://www.na.org/admin/include/spaw2/uploads/pdf/litfiles/us_english/IP/EN3121.pdf"},
+{num:2,short:"We came to believe that a Power greater than ourselves could restore us to sanity",pdf:"https://www.na.org/admin/include/spaw2/uploads/pdf/litfiles/us_english/IP/EN3122.pdf"},
+{num:3,short:"We made a decision to turn our will and our lives over to the care of God",pdf:"https://www.na.org/admin/include/spaw2/uploads/pdf/litfiles/us_english/IP/EN3123.pdf"},
+{num:4,short:"We made a searching and fearless moral inventory of ourselves",pdf:"https://www.na.org/admin/include/spaw2/uploads/pdf/litfiles/us_english/IP/EN3124.pdf"},
+{num:5,short:"We admitted to God, to ourselves, and to another human being the exact nature of our wrongs",pdf:"https://www.na.org/admin/include/spaw2/uploads/pdf/litfiles/us_english/IP/EN3125.pdf"},
+{num:6,short:"We were entirely ready to have God remove all these defects of character",pdf:"https://www.na.org/admin/include/spaw2/uploads/pdf/litfiles/us_english/IP/EN3126.pdf"},
+{num:7,short:"We humbly asked Him to remove our shortcomings",pdf:"https://www.na.org/admin/include/spaw2/uploads/pdf/litfiles/us_english/IP/EN3127.pdf"},
+{num:8,short:"We made a list of all persons we had harmed, and became willing to make amends to them all",pdf:"https://www.na.org/admin/include/spaw2/uploads/pdf/litfiles/us_english/IP/EN3128.pdf"},
+{num:9,short:"We made direct amends to such people wherever possible",pdf:"https://www.na.org/admin/include/spaw2/uploads/pdf/litfiles/us_english/IP/EN3129.pdf"},
+{num:10,short:"We continued to take personal inventory and when we were wrong promptly admitted it",pdf:"https://www.na.org/admin/include/spaw2/uploads/pdf/litfiles/us_english/IP/EN3130.pdf"},
+{num:11,short:"We sought through prayer and meditation to improve our conscious contact with God",pdf:"https://www.na.org/admin/include/spaw2/uploads/pdf/litfiles/us_english/IP/EN3131.pdf"},
+{num:12,short:"Having had a spiritual awakening as a result of these steps, we tried to carry this message",pdf:"https://www.na.org/admin/include/spaw2/uploads/pdf/litfiles/us_english/IP/EN3132.pdf"}
+];
+const QUOTES=[{text:"We admitted we were powerless over our addiction — that our lives had become unmanageable.",source:"Step One, NA"},{text:"Just for today, I will try to live through this day only.",source:"Just for Today"},{text:"The foundation of recovery is honesty.",source:"NA Basic Text"},{text:"Recovery is a process, not an event.",source:"NA Fellowship"},{text:"Keep coming back — it works if you work it.",source:"NA Fellowship"},{text:"One day at a time.",source:"NA Fellowship"},{text:"We come to know happiness, joy, and freedom.",source:"Narcotics Anonymous"},{text:"We do not have to be alone anymore.",source:"NA Basic Text"},{text:"The most important thing I can do for my recovery today is to not use, no matter what.",source:"NA Fellowship"},{text:"Pain is inevitable; suffering is optional.",source:"NA Fellowship"}];
+const PRAYERS=[{title:"Serenity Prayer",text:"God, grant me the serenity to accept the things I cannot change,\nCourage to change the things I can,\nAnd wisdom to know the difference."},{title:"Third Step Prayer",text:"Take my will and my life. Guide me in my recovery. Show me how to live."},{title:"Seventh Step Prayer",text:"My Creator, I am now willing that you should have all of me, good and bad. I pray that you now remove from me every single defect of character which stands in the way of my usefulness to you and my fellows. Grant me strength, as I go out from here, to do your bidding. Amen."},{title:"Just for Today (Full)",text:"Just for today, my thoughts will be on my recovery, living and enjoying life without the use of drugs.\nJust for today, I will have faith in someone in NA who believes in me and wants to help me in my recovery.\nJust for today, I will have a program. I will try to follow it to the best of my ability.\nJust for today, through NA, I will try to get a better perspective on my life.\nJust for today, I will be unafraid. My thoughts will be on my new associations, people who are not using and who have found a new way of life."},{title:"The 12 Traditions",text:"1. Our common welfare should come first.\n2. Our leaders are but trusted servants.\n3. The only requirement for membership is a desire to stop using.\n4. Each group should be autonomous.\n5. Each group has but one primary purpose — to carry the message.\n6. NA ought never endorse, finance, or lend the NA name to any outside enterprise.\n7. Every NA group ought to be fully self-supporting.\n8. NA should remain forever nonprofessional.\n9. NA, as such, ought never be organized.\n10. NA has no opinion on outside issues.\n11. Our public relations policy is based on attraction rather than promotion.\n12. Anonymity is the spiritual foundation of all our traditions."},{title:"Acceptance Prayer",text:"Nothing, absolutely nothing, happens in God's world by mistake.\nUntil I could accept my addiction, I could not stay clean.\nUnless I accept life completely on life's terms, I cannot be happy.\nI need to concentrate not so much on what needs to be changed in the world,\nas on what needs to be changed in me and my attitudes."}];
+const MILESTONES=[{d:1,label:"24 Hours"},{d:7,label:"1 Week"},{d:30,label:"30 Days"},{d:60,label:"60 Days"},{d:90,label:"90 Days"},{d:180,label:"6 Months"},{d:270,label:"9 Months"},{d:365,label:"1 Year"},{d:548,label:"18 Months"},{d:730,label:"2 Years"},{d:1095,label:"3 Years"},{d:1825,label:"5 Years"},{d:3650,label:"10 Years"}];
+const REFLECT_PROMPTS = [
+  "How am I feeling right now — honestly?",
+  "Who did I connect with today, and how did that feel?",
+  "Was there a moment today I'm proud of?",
+  "Did anything challenge me today? How did I respond?",
+  "What was something small but good that happened today?",
+  "Is there anything I need to let go of from today?",
+  "How did my relationships feel today — with others, and with myself?",
+  "What emotions came up for me today, and what triggered them?",
+  "Did I show up the way I wanted to today?",
+  "What do I want to carry into tomorrow?"
+];
+const GRATITUDE_PROMPTS = [
+  "Name three people who have shown up for you recently.",
+  "What's something about your body you're grateful for today?",
+  "Describe a simple moment from today that brought you peace.",
+  "What's a relationship in your life you're grateful for, and why?",
+  "What's something you often take for granted that you appreciate today?",
+  "Write about a challenge that helped you grow.",
+  "What's something you've learned recently that you're grateful for?",
+  "Who has been kind to you this week — however small?",
+  "What does having another clean day mean to you today?",
+  "What's something in your home or surroundings you appreciate?",
+  "Write about a memory that makes you smile.",
+  "What's a quality in yourself you're grateful for?"
+];
+const SPOTCHECK_PROMPTS = [
+  "Right now, in this moment — how am I actually feeling?",
+  "Am I being honest with myself and others right now?",
+  "Is there something sitting on my chest I need to address?",
+  "Have I been selfish, resentful, or fearful today so far?",
+  "Am I present — or am I in yesterday or tomorrow?",
+  "Is there someone I owe a conversation or an amends to?",
+  "What do I need right now to stay on solid ground?",
+  "Am I HALT — Hungry, Angry, Lonely, or Tired?"
+];
+const STEP10_QUESTIONS = [
+  "Have I reaffirmed my faith in a loving, caring Higher Power today?",
+  "Have I sought out the guidance of my Higher Power today? How?",
+  "What have I done to be of service to the people around me?",
+  "What has my Higher Power given me to be grateful for today?",
+  "Do I see any old patterns in my life today? Which ones?",
+  "Have I been resentful, selfish, dishonest, or afraid?",
+  "Have I set myself up for disappointment?",
+  "Have I been kind and loving to all?",
+  "Have I been worrying about yesterday or tomorrow?",
+  "Did I allow myself to become obsessed about anything?",
+  "Have I allowed myself to become too Hungry, Angry, Lonely, or Tired?",
+  "Am I taking myself too seriously in any area of my life?",
+  "Have I kept something to myself that I should discuss with my sponsor?",
+  "Did I have any extreme feelings today? What were they and why?",
+  "What are the problem areas in my life today?",
+  "Which defects played a part in my life today? How?",
+  "Was there fear in my life today?",
+  "What did I do today that I wish I hadn't done?",
+  "What didn't I do today that I wish I had done?",
+  "Am I willing to change?",
+  "Has there been conflict in any of my relationships today?",
+  "Am I maintaining personal integrity in my relations with others?",
+  "Have I harmed myself or others, directly or indirectly today? How?",
+  "Do I owe apologies or amends?",
+  "Where was I wrong? What would I do differently next time?",
+  "Did I stay clean today?",
+  "Was I good to myself today?",
+  "What feelings did I have today? How did I use them to choose principle-centred action?",
+  "What did I do to be of service to others today?",
+  "What have I done today that I feel positive about?",
+  "What has given me satisfaction today?",
+  "What did I do today that I want to be sure to repeat?",
+  "Did I go to a meeting or talk to another recovering addict today?",
+  "What do I have to be grateful for today?"
+];
+const RECIPES = [
+  {name:"Recovery Porridge",time:"10 mins",serves:"1",difficulty:"Easy",emoji:"🥣",cals:380,protein:"12g",carbs:"62g",fat:"8g",
+   ingredients:["80g rolled oats","300ml oat or almond milk","1 banana, sliced","1 tbsp nut butter","Pinch of cinnamon","Drizzle of honey"],
+   steps:["Cook oats in milk over medium heat, stirring for 5 minutes.","Pour into a bowl and top with banana slices.","Add a dollop of nut butter, a sprinkle of cinnamon and a drizzle of honey.","Serve immediately."]},
+  {name:"Simple Lentil Soup",time:"30 mins",serves:"4",difficulty:"Easy",emoji:"🍲",cals:280,protein:"16g",carbs:"44g",fat:"3g",
+   ingredients:["250g red lentils","1 onion, diced","2 carrots, diced","2 garlic cloves","1 tsp cumin","1 tsp turmeric","1 litre vegetable stock","Salt & pepper"],
+   steps:["Fry onion and garlic in a little oil for 5 minutes until soft.","Add carrots, cumin and turmeric — cook 2 more minutes.","Add lentils and stock. Bring to the boil then simmer 20 minutes.","Blend half the soup for a creamy texture. Season and serve."]},
+  {name:"One-Pan Chicken & Veg",time:"35 mins",serves:"2",difficulty:"Easy",emoji:"🍗",cals:490,protein:"45g",carbs:"32g",fat:"18g",
+   ingredients:["2 chicken breasts","1 sweet potato, cubed","1 courgette, sliced","1 red pepper, sliced","2 tbsp olive oil","1 tsp paprika","Salt & pepper"],
+   steps:["Preheat oven to 200°C / 180°C fan.","Toss all veg in oil, paprika, salt and pepper on a baking tray.","Place chicken breasts on top and season well.","Roast for 30-35 minutes until chicken is cooked through."]},
+  {name:"Chickpea Curry",time:"25 mins",serves:"3",difficulty:"Easy",emoji:"🍛",cals:460,protein:"18g",carbs:"68g",fat:"12g",
+   ingredients:["2 tins chickpeas, drained","1 tin chopped tomatoes","1 tin coconut milk","1 onion, diced","2 garlic cloves","1 tsp garam masala","1 tsp cumin","1 tsp turmeric","Handful of spinach"],
+   steps:["Fry onion and garlic until soft, about 5 minutes.","Add spices and cook for 1 minute, stirring constantly.","Add tomatoes, coconut milk and chickpeas. Simmer 15 minutes.","Stir in spinach until wilted. Serve with brown rice."]},
+  {name:"Salmon & Sweet Potato",time:"40 mins",serves:"2",difficulty:"Easy",emoji:"🐟",cals:520,protein:"38g",carbs:"35g",fat:"22g",
+   ingredients:["2 salmon fillets","2 sweet potatoes, cubed","200g tenderstem broccoli","2 tbsp olive oil","1 lemon","Salt & pepper","1 tsp garlic powder"],
+   steps:["Preheat oven to 200°C. Toss sweet potato in oil, garlic powder and salt.","Roast sweet potato for 20 minutes.","Add salmon and broccoli to the tray. Squeeze over lemon juice.","Roast a further 15-18 minutes until salmon is cooked. Season and serve."]},
+  {name:"Overnight Oats",time:"5 mins + overnight",serves:"1",difficulty:"Easy",emoji:"🥣",cals:380,protein:"12g",carbs:"62g",fat:"8g",
+   ingredients:["80g rolled oats","200ml almond milk","1 tbsp chia seeds","1 tbsp honey","1 tsp vanilla extract","Fruit and nuts to top"],
+   steps:["Mix oats, milk, chia seeds, honey and vanilla in a jar or bowl.","Stir well, cover and refrigerate overnight.","In the morning, stir again and add your favourite toppings.","Eat cold straight from the jar — no cooking needed."]},
+  {name:"Greek Chicken Bowl",time:"30 mins",serves:"4",difficulty:"Easy",emoji:"🥗",cals:473,protein:"35g",carbs:"9g",fat:"33g",
+   tags:["💪 High Protein","🥗 Low Carb","🌿 Gluten-Free"],
+   ingredients:["455g chicken breast, cut into cubes","3 tbsp olive oil","2 tbsp lemon juice","1 tbsp red wine vinegar","1 tbsp Greek seasoning","¼ tsp sea salt","224g full-fat Greek yoghurt","½ cucumber, grated","2 cloves garlic, grated","Zest & juice of 1 lemon","2 tbsp fresh dill, minced","1 large cucumber, diced","200g cherry tomatoes, halved","½ red onion, thinly sliced","80g Kalamata olives","115g feta cheese, crumbled","3 tbsp olive oil (for dressing)","1 tbsp red wine vinegar (for dressing)","1 tsp fresh oregano"],
+   steps:["Combine chicken, olive oil, lemon juice, vinegar, Greek seasoning and salt. Marinate in the fridge for at least 30 minutes.","Make the tzatziki: mix yoghurt, grated cucumber, garlic, lemon zest, lemon juice, dill, salt and pepper. Refrigerate.","Heat a frying pan over medium-high heat. Cook chicken and marinade for 3-4 minutes each side until cooked through.","Make dressing: whisk together olive oil, red wine vinegar, oregano and salt.","Divide chicken into bowls. Top with cucumber, tomatoes, red onion, olives and feta. Drizzle dressing over and top with tzatziki to serve."]},
+  {name:"Farro & Blackened Salmon Salad",time:"40 mins",serves:"2",difficulty:"Medium",emoji:"🐟",cals:510,protein:"40g",carbs:"48g",fat:"16g",
+   tags:["💪 High Protein","🌿 Gluten-Free","🥗 Macro-Friendly"],
+   source:"lillieeatsandtells.com",
+   ingredients:["2 x 150g salmon fillets","100g farro (dry)","1 large sweet potato","2 large handfuls rocket / arugula","1 corn on the cob","100g cherry tomatoes, halved","½ avocado, sliced","Small bunch fresh basil","1 jalapeño","100g Greek yogurt","Juice of 1 lemon","1 tbsp blackening seasoning (paprika, cayenne, garlic, oregano)","Salt & pepper"],
+   steps:["Cook farro according to packet (usually 25-30 mins). Bake sweet potato at 200°C for 35-40 mins then dice.","Make dressing: blend Greek yogurt, jalapeño, lemon juice, salt and a splash of water until smooth.","Coat salmon in blackening spice. Cook in a hot dry pan 3-4 mins each side.","Char corn in the same pan until golden, then slice off the cob.","Build bowls: rocket, farro, sweet potato, corn, tomatoes, basil. Top with salmon and avocado. Drizzle dressing over."]},
+  {name:"Roasted Tomato Chicken Sandwich",time:"45 mins",serves:"2",difficulty:"Medium",emoji:"🥪",cals:430,protein:"38g",carbs:"34g",fat:"14g",
+   tags:["💪 High Protein","⚡ Meal Prep Friendly","🥗 Macro-Friendly"],
+   source:"lillieeatsandtells.com",
+   ingredients:["2 x 150g chicken breasts","2 wholegrain buns","300g tomatoes on the vine, halved","Small bunch fresh basil","1 tbsp light mayo","1 garlic clove, minced","1 onion, thinly sliced","4 rashers lean back bacon","60g reduced fat mozzarella","2 handfuls rocket / arugula","Olive oil, salt & pepper"],
+   steps:["Roast tomatoes: place cut-side up on a tray with olive oil and salt at 180°C for 30 mins until caramelised.","Caramelise onions in a pan with a little oil over low heat for 20 mins, stirring occasionally.","Make basil aioli: blend mayo, basil, garlic and a squeeze of lemon. Season to taste.","Grill chicken breasts until cooked through. Grill bacon until crispy.","Toast buns. Spread basil aioli on each half. Layer with rocket, chicken, bacon, caramelised onion, roasted tomatoes and mozzarella."]}
+];
+// STATE
+let cleanDate=localStorage.getItem('na_cd')||'';
+let moodLog=JSON.parse(localStorage.getItem('na_moods')||'[]');
+let journalEntries=JSON.parse(localStorage.getItem('na_journal')||'[]');
+let curJType=null,curEntryId=null,delMode=false;
+let mealFilter='all';
+let mealPlan=JSON.parse(localStorage.getItem('na_plan')||'{}');
+let shopping=JSON.parse(localStorage.getItem('na_shop')||'[]');
+let planDay=new Date().toISOString().split('T')[0];
+let pinEnabled=localStorage.getItem('na_pin_on')==='true';
+let savedPin=localStorage.getItem('na_pin')||'';
+let pinBuf='';
+let dark=localStorage.getItem('na_dark')!=='false';
+let sponsorData=JSON.parse(localStorage.getItem('na_sponsor')||'{}');
+let contacts=JSON.parse(localStorage.getItem('na_contacts')||'[]');
+
+// INIT
+function init(){
+  if(!dark){document.body.classList.add('lm');}
+  document.getElementById('theme-tog').classList.toggle('on',!dark);
+  buildPinGrid();
+  document.getElementById('pin-tog').classList.toggle('on',pinEnabled);
+  document.getElementById('pin-setup').style.display=pinEnabled?'block':'none';
+  if(pinEnabled&&savedPin)document.getElementById('pin').classList.remove('h');
+  if(cleanDate){document.getElementById('cd-input').value=cleanDate;updateDays();}
+  var q=QUOTES[new Date().getDate()%QUOTES.length];
+  document.getElementById('dquote').innerHTML='"'+q.text+'"<div style="font-size:.7rem;color:var(--tm);margin-top:3px;">— '+q.source+'</div>';
+  renderMoodHist();markTodayMood();
+  renderStepsList();
+  renderJTypeBtns();renderJList();
+    renderPrayers();
+  loadSponsor();
+}
+
+// NAV
+function showScr(name){
+  document.querySelectorAll('.scr').forEach(function(s){s.classList.remove('on');});
+  document.querySelectorAll('.ni').forEach(function(n){n.classList.remove('on');});
+  document.getElementById('scr-'+name).classList.add('on');
+  var ni=document.getElementById('ni-'+name);if(ni)ni.classList.add('on');
+  if(name==='journal'){showJHome();renderJList();}
+  if(name==='food'){renderMeals();renderPlanner();}
+  if(name==='meetings')loadVirtual();
+  if(name==='sponsor')loadSponsor();
+}
+
+// THEME
+function toggleTheme(){
+  dark=!dark;document.body.classList.toggle('lm',!dark);
+  document.getElementById('theme-tog').classList.toggle('on',!dark);
+  localStorage.setItem('na_dark',dark);
+}
+
+// PIN
+function buildPinGrid(){
+  var g=document.getElementById('pgrid');
+  [1,2,3,4,5,6,7,8,9,'',0,'\u232b'].forEach(function(n){
+    var b=document.createElement('button');b.className='pbtn';b.textContent=n;
+    if(n===''){b.style.opacity='0';b.style.pointerEvents='none';}
+    b.onclick=function(){handlePin(n);};g.appendChild(b);
+  });
+}
+function handlePin(v){
+  if(v==='\u232b')pinBuf=pinBuf.slice(0,-1);
+  else if(pinBuf.length<4&&v!=='')pinBuf+=v;
+  for(var i=0;i<4;i++)document.getElementById('d'+i).classList.toggle('f',i<pinBuf.length);
+  if(pinBuf.length===4){
+    var buf=pinBuf;pinBuf='';
+    setTimeout(function(){
+      if(buf===savedPin){document.getElementById('pin').classList.add('h');}
+      else{document.getElementById('perr').textContent='Incorrect PIN. Try again.';for(var i=0;i<4;i++)document.getElementById('d'+i).classList.remove('f');}
+    },120);
+  }
+}
+function togglePin(){
+  pinEnabled=!pinEnabled;
+  document.getElementById('pin-tog').classList.toggle('on',pinEnabled);
+  document.getElementById('pin-setup').style.display=pinEnabled?'block':'none';
+  if(!pinEnabled){localStorage.removeItem('na_pin');localStorage.setItem('na_pin_on','false');savedPin='';}
+}
+function savePin(){
+  var v=document.getElementById('pin-inp').value;
+  if(v.length!==4||isNaN(v)){toast('Enter a valid 4-digit PIN');return;}
+  savedPin=v;localStorage.setItem('na_pin',v);localStorage.setItem('na_pin_on','true');toast('PIN saved');
+}
+function resetApp(){if(confirm('Clear ALL data and reset?')){localStorage.clear();location.reload();}}
+
+// HOME
+function saveCD(v){cleanDate=v;localStorage.setItem('na_cd',v);updateDays();}
+function updateDays(){
+  if(!cleanDate)return;
+  var diff=Math.floor((Date.now()-new Date(cleanDate).getTime())/86400000);
+  document.getElementById('days-n').textContent=Math.max(0,diff);
+  document.getElementById('cd-label').textContent=diff>=0?'Since '+new Date(cleanDate).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}):'';
+}
+function setMood(emoji,label){
+  var today=new Date().toDateString();
+  moodLog=moodLog.filter(function(m){return m.date!==today;});
+  moodLog.push({date:today,emoji:emoji,label:label});
+  if(moodLog.length>30)moodLog=moodLog.slice(-30);
+  localStorage.setItem('na_moods',JSON.stringify(moodLog));
+  markTodayMood();renderMoodHist();toast('Mood logged '+emoji);
+}
+function markTodayMood(){
+  var today=new Date().toDateString();
+  var tm=moodLog.find(function(m){return m.date===today;});
+  document.querySelectorAll('.moodbtn').forEach(function(b){b.classList.toggle('on',!!(tm&&b.dataset.m===tm.emoji));});
+}
+function renderMoodHist(){
+  var el=document.getElementById('mood-hist');
+  if(!moodLog.length){el.textContent='No moods logged yet';return;}
+  el.innerHTML=moodLog.slice(-7).reverse().map(function(m){
+    return '<span style="margin-right:8px;">'+m.emoji+' <span style="font-size:.68rem;color:var(--tm);">'+new Date(m.date).toLocaleDateString('en-GB',{weekday:'short'})+'</span></span>';
+  }).join('');
+}
+
+// STEPS
+function renderStepsList(){
+  var c=document.getElementById('steps-list');if(!c)return;
+  c.innerHTML=STEPS.map(function(s){
+    return '<a href="'+s.pdf+'" target="_blank" style="display:flex;align-items:center;gap:13px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:13px 15px;margin-bottom:7px;text-decoration:none;color:var(--tx);">'+
+      '<div style="width:30px;height:30px;border-radius:50%;background:rgba(232,201,122,.12);border:1px solid var(--ac);display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;color:var(--ac);flex-shrink:0;">'+s.num+'</div>'+
+      '<div style="flex:1;"><div style="font-size:.86rem;font-weight:600;color:var(--tx);">Step '+s.num+'</div><div style="font-size:.72rem;color:var(--tm);margin-top:1px;">'+s.short+'</div></div>'+
+      '<div style="color:var(--ac);font-size:.8rem;">PDF &#8250;</div>'+
+    '</a>';
+  }).join('');
+}
+function openStep(num){}
+function showStepsList(){}
+
+// PRAYERS
+function renderPrayers(){
+  var c=document.getElementById('prayers-c');if(!c)return;
+  c.innerHTML=PRAYERS.map(function(p){
+    return '<div class="card" style="margin-bottom:8px;"><div style="font-weight:700;font-size:.88rem;color:var(--ac);margin-bottom:7px;">'+p.title+'</div><div style="font-size:.8rem;color:var(--tx);white-space:pre-line;line-height:1.7;">'+p.text+'</div></div>';
+  }).join('');
+}
+
+// JOURNAL
+function renderJTypeBtns(){
+  var c=document.getElementById('j-type-btns');if(!c)return;
+  var types=[
+    {k:'reflect', e:'&#x1F4DD;', t:'Reflective Journal', d:'Free writing with prompts'},
+    {k:'gratitude',e:'&#x1F64F;', t:'Gratitude List', d:'Count your blessings'},
+    {k:'stepwork', e:'&#x1F4D6;', t:'Step Work', d:'Notes for your sponsor'},
+    {k:'spotcheck',e:'&#x26A1;', t:'Spot Check Inventory', d:'Quick honest pause'},
+    {k:'step10',   e:'&#x1F51F;', t:'Step 10 Daily Inventory', d:'Full daily review'}
+  ];
+  c.innerHTML=types.map(function(ty){
+    return '<button onclick="startJEntry(\''+ty.k+'\')" style="display:flex;align-items:center;gap:14px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px;cursor:pointer;text-align:left;width:100%;">'+
+      '<div style="font-size:1.6rem;">'+ty.e+'</div>'+
+      '<div><div style="font-weight:700;font-size:.88rem;color:var(--tx);">'+ty.t+'</div><div style="font-size:.72rem;color:var(--tm);margin-top:2px;">'+ty.d+'</div></div>'+
+      '</button>';
+  }).join('');
+}
+function startJEntry(type){
+  curJType=type;curEntryId=null;
+  document.getElementById('j-home').style.display='none';
+  document.getElementById('j-write').style.display='block';
+  var titles={reflect:'Reflective Journal',gratitude:'Gratitude List',stepwork:'Step Work',spotcheck:'Spot Check',step10:'Step 10 Inventory'};
+  document.getElementById('jw-title').textContent=titles[type]||type;
+  document.getElementById('jw-date').textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  document.getElementById('jw-delbtn').style.display='none';
+  var pEl=document.getElementById('jw-prompts');
+  var s10=document.getElementById('jw-s10');
+  var ta=document.getElementById('jw-text');
+  pEl.innerHTML='';s10.style.display='none';ta.style.display='block';ta.value='';
+  if(type==='step10'){
+    ta.style.display='none';s10.style.display='block';
+    s10.innerHTML=STEP10_QUESTIONS.map(function(q,i){
+      return '<div style="margin-bottom:12px;"><div style="font-size:.8rem;font-weight:600;color:var(--tx);margin-bottom:5px;">'+(i+1)+'. '+q+'</div><textarea class="ta" id="s10q'+i+'" placeholder="Your answer..." style="min-height:65px;font-size:.8rem;"></textarea></div>';
+    }).join('');
+  } else if(type==='reflect'){
+    var pp=REFLECT_PROMPTS.slice().sort(function(){return Math.random()-.5;}).slice(0,3);
+    pEl.innerHTML='<div style="margin-bottom:12px;">'+pp.map(function(p){return '<div style="background:rgba(232,201,122,.08);border-left:3px solid var(--ac);border-radius:8px;padding:10px 12px;margin-bottom:7px;font-size:.8rem;color:var(--tm);">'+p+'</div>';}).join('')+'</div>';
+  } else if(type==='gratitude'){
+    var gp=GRATITUDE_PROMPTS.slice().sort(function(){return Math.random()-.5;}).slice(0,3);
+    pEl.innerHTML='<div style="margin-bottom:12px;">'+gp.map(function(p){return '<div style="background:rgba(232,201,122,.08);border-left:3px solid var(--ac);border-radius:8px;padding:10px 12px;margin-bottom:7px;font-size:.8rem;color:var(--tm);">'+p+'</div>';}).join('')+'</div>';
+  } else if(type==='spotcheck'){
+    var sp=SPOTCHECK_PROMPTS.slice();
+    pEl.innerHTML='<div style="margin-bottom:12px;">'+sp.map(function(p){return '<div style="background:rgba(232,201,122,.08);border-left:3px solid var(--ac);border-radius:8px;padding:10px 12px;margin-bottom:7px;font-size:.8rem;color:var(--tm);">'+p+'</div>';}).join('')+'</div>';
+  } else if(type==='stepwork'){
+    pEl.innerHTML='<div style="background:rgba(232,201,122,.08);border-left:3px solid var(--ac);border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:.8rem;color:var(--tm);">What is coming up in your step work? What do you want to bring to your sponsor?</div>';
+  }
+}
+function openJEntry(id){
+  var entry=journalEntries.find(function(e){return e.id===id;});if(!entry)return;
+  curJType=entry.type;curEntryId=id;
+  document.getElementById('j-home').style.display='none';
+  document.getElementById('j-write').style.display='block';
+  var titles={reflect:'Reflective Journal',gratitude:'Gratitude List',stepwork:'Step Work',spotcheck:'Spot Check',step10:'Step 10 Inventory'};
+  document.getElementById('jw-title').textContent=titles[entry.type]||entry.type;
+  document.getElementById('jw-date').textContent=new Date(entry.id).toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  document.getElementById('jw-delbtn').style.display='block';
+  document.getElementById('jw-prompts').innerHTML='';
+  var s10=document.getElementById('jw-s10');
+  var ta=document.getElementById('jw-text');
+  s10.style.display='none';ta.style.display='block';
+  if(entry.type==='step10'){
+    ta.style.display='none';s10.style.display='block';
+    s10.innerHTML=STEP10_QUESTIONS.map(function(q,i){
+      return '<div style="margin-bottom:12px;"><div style="font-size:.8rem;font-weight:600;color:var(--tx);margin-bottom:5px;">'+(i+1)+'. '+q+'</div><textarea class="ta" id="s10q'+i+'" placeholder="Your answer..." style="min-height:65px;font-size:.8rem;"></textarea></div>';
+    }).join('');
+    setTimeout(function(){
+      var answers={};
+      entry.text.split('\n\n').forEach(function(block){
+        var m=block.match(/^(\d+)\.\s[\s\S]*?\n([\s\S]*)/);
+        if(m)answers[parseInt(m[1])-1]=m[2].trim();
+      });
+      Object.keys(answers).forEach(function(i){var el=document.getElementById('s10q'+i);if(el)el.value=answers[i];});
+    },50);
+  } else {
+    ta.value=entry.text;
+  }
+}
+function saveEntry(){
+  var text='';
+  if(curJType==='step10'){
+    text=STEP10_QUESTIONS.map(function(q,i){
+      var v=document.getElementById('s10q'+i);
+      return (i+1)+'. '+q+'\n'+(v?v.value.trim():'');
+    }).join('\n\n');
+    if(!text.replace(/\d+\.\s[\s\S]*?\n/g,'').trim()){toast('Please answer at least one question');return;}
+  } else {
+    text=document.getElementById('jw-text').value.trim();
+    if(!text){toast('Nothing to save');return;}
+  }
+  if(curEntryId){
+    var idx=journalEntries.findIndex(function(e){return e.id===curEntryId;});
+    if(idx!==-1)journalEntries[idx].text=text;
+  } else {
+    journalEntries.unshift({id:Date.now(),type:curJType,text:text});
+    if(journalEntries.length>200)journalEntries=journalEntries.slice(0,200);
+  }
+  localStorage.setItem('na_journal',JSON.stringify(journalEntries));
+  toast('Saved');backToJHome();
+}
+function deleteEntry(){
+  if(!curEntryId)return;
+  if(!confirm('Delete this entry?'))return;
+  journalEntries=journalEntries.filter(function(e){return e.id!==curEntryId;});
+  localStorage.setItem('na_journal',JSON.stringify(journalEntries));
+  toast('Deleted');backToJHome();
+}
+function backToJHome(){
+  document.getElementById('j-home').style.display='block';
+  document.getElementById('j-write').style.display='none';
+  curEntryId=null;curJType=null;renderJList();
+}
+function showJHome(){
+  document.getElementById('j-home').style.display='block';
+  document.getElementById('j-write').style.display='none';
+}
+function toggleDelMode(){
+  delMode=!delMode;
+  document.getElementById('edit-btn').textContent=delMode?'Done':'Edit';
+  renderJList();
+}
+function renderJList(){
+  var c=document.getElementById('j-entries');if(!c)return;
+  if(!journalEntries.length){c.innerHTML='<div style="font-size:.78rem;color:var(--tm);text-align:center;padding:20px 0;">No entries yet</div>';return;}
+  var typeLabel={reflect:'Reflective',gratitude:'Gratitude',stepwork:'Step Work',spotcheck:'Spot Check',step10:'Step 10'};
+  c.innerHTML=journalEntries.slice(0,50).map(function(e){
+    var preview=e.text.replace(/\d+\.\s.*?\n/g,'').slice(0,60);
+    return '<div style="display:flex;align-items:center;gap:10px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:12px 14px;margin-bottom:7px;" onclick="'+(delMode?'':'openJEntry('+e.id+')')+'">'+
+      (delMode?'<button onclick="event.stopPropagation();delEntry('+e.id+')" style="width:24px;height:24px;border-radius:50%;background:#c0392b;border:none;color:#fff;font-size:.8rem;cursor:pointer;flex-shrink:0;">&#8722;</button>':'')+
+      '<div style="flex:1;min-width:0;">'+
+        '<div style="font-size:.76rem;font-weight:600;color:var(--ac);">'+(typeLabel[e.type]||e.type)+'</div>'+
+        '<div style="font-size:.72rem;color:var(--tm);margin-top:1px;">'+new Date(e.id).toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})+'</div>'+
+        '<div style="font-size:.78rem;color:var(--tx);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+preview+'...</div>'+
+      '</div>'+
+      (delMode?'':'<div style="color:var(--tm);">&#8250;</div>')+
+    '</div>';
+  }).join('');
+}
+function delEntry(id){
+  journalEntries=journalEntries.filter(function(e){return e.id!==id;});
+  localStorage.setItem('na_journal',JSON.stringify(journalEntries));
+  renderJList();toast('Deleted');
+}
+
+// MEETINGS
+function switchMT(tab){
+  ['meetings','events','virtual'].forEach(function(t){
+    document.getElementById('mt-c-'+t).style.display=t===tab?'block':'none';
+    var b=document.getElementById('mt-'+t);
+    if(b){b.style.background=t===tab?'var(--ac)':'var(--sf)';b.style.color=t===tab?'#1a1208':'var(--tm)';}
+  });
+  if(tab==='virtual')loadVirtual();
+}
+async function loadVirtual(){
+  var el=document.getElementById('virtual-list');if(!el)return;
+  el.innerHTML='<div style="color:var(--tm);">Loading...</div>';
+  try{
+    var r=await fetch('https://www.bmlt.app/api/v1/meetings?formats=VM&sort_keys=start_time&per_page=20');
+    var data=await r.json();
+    if(!data.length){el.innerHTML='<div style="color:var(--tm);">No virtual meetings found</div>';return;}
+    var days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    el.innerHTML=data.slice(0,15).map(function(m){
+      return '<div class="card" style="margin-bottom:8px;">'+
+        '<div style="font-weight:600;font-size:.86rem;">'+(m.name||'NA Meeting')+'</div>'+
+        '<div style="font-size:.74rem;color:var(--tm);margin-top:3px;">'+(m.weekday_tinyint?days[m.weekday_tinyint-1]:'')+' '+(m.start_time||'')+'</div>'+
+        (m.virtual_meeting_link?'<a href="'+m.virtual_meeting_link+'" target="_blank" style="display:inline-block;margin-top:7px;background:var(--ac);color:#1a1208;font-size:.74rem;font-weight:700;padding:5px 14px;border-radius:20px;text-decoration:none;">Join Meeting</a>':'')+
+      '</div>';
+    }).join('');
+  }catch(e){el.innerHTML='<div style="color:var(--tm);">Unable to load. Check your connection.</div>';}
+}
+
+// SPONSOR
+function saveSponsor(){
+  sponsorData={name:document.getElementById('sp-name').value,phone:document.getElementById('sp-phone').value,notes:document.getElementById('sp-notes').value};
+  localStorage.setItem('na_sponsor',JSON.stringify(sponsorData));toast('Saved');
+}
+function loadSponsor(){
+  if(sponsorData.name)document.getElementById('sp-name').value=sponsorData.name||'';
+  if(sponsorData.phone)document.getElementById('sp-phone').value=sponsorData.phone||'';
+  if(sponsorData.notes)document.getElementById('sp-notes').value=sponsorData.notes||'';
+  renderContacts();
+}
+function addContact(){
+  var n=document.getElementById('nc-name').value.trim();if(!n)return;
+  contacts.push({id:Date.now(),name:n,phone:document.getElementById('nc-phone').value,notes:document.getElementById('nc-notes').value});
+  localStorage.setItem('na_contacts',JSON.stringify(contacts));
+  document.getElementById('nc-name').value='';document.getElementById('nc-phone').value='';document.getElementById('nc-notes').value='';
+  renderContacts();toast('Contact added');
+}
+function renderContacts(){
+  var c=document.getElementById('sp-contacts');if(!c)return;
+  if(!contacts.length){c.innerHTML='<div style="font-size:.76rem;color:var(--tm);padding:8px 0;">No contacts yet</div>';return;}
+  c.innerHTML=contacts.map(function(ct){
+    return '<div class="card" style="margin-bottom:7px;display:flex;align-items:center;gap:10px;">'+
+      '<div style="flex:1;"><div style="font-weight:600;font-size:.86rem;">'+ct.name+'</div>'+(ct.phone?'<div style="font-size:.74rem;color:var(--tm);">'+ct.phone+'</div>':'')+'</div>'+
+      (ct.phone?'<a href="tel:'+ct.phone+'" style="background:var(--ac);color:#1a1208;border:none;border-radius:8px;padding:5px 11px;font-size:.72rem;font-weight:700;text-decoration:none;">Call</a>':'')+
+      '<button onclick="delContact('+ct.id+')" style="background:transparent;border:none;color:var(--tm);cursor:pointer;">&#215;</button>'+
+    '</div>';
+  }).join('');
+}
+function delContact(id){contacts=contacts.filter(function(c){return c.id!==id;});localStorage.setItem('na_contacts',JSON.stringify(contacts));renderContacts();}
+
+// TOAST
+function toast(msg){
+  var t=document.getElementById('toast');t.textContent=msg;t.classList.add('on');
+  setTimeout(function(){t.classList.remove('on');},2200);
+}
+
+// BOOT
+init();
+</script>
+</body>
+</html>
