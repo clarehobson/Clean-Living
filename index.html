@@ -2413,18 +2413,22 @@ var authMode = 'login'; // 'login' or 'signup'
 
 // --- Check session on load ---
 (async function checkSession() {
-  const { data: { session } } = await supa.auth.getSession();
-  if (session) {
-    currentUser = session.user;
-    hideAuthScreen();
-    await pullFromCloud();
-  } else {
-    // Check if user chose to skip
-    if (localStorage.getItem('na_skip_auth') === 'true') {
+  try {
+    const { data: { session } } = await supa.auth.getSession();
+    if (session) {
+      currentUser = session.user;
       hideAuthScreen();
+      pullFromCloud(); // don't await — let it sync in background
     } else {
-      showAuthScreen();
+      if (localStorage.getItem('na_skip_auth') === 'true') {
+        hideAuthScreen();
+      } else {
+        showAuthScreen();
+      }
     }
+  } catch(e) {
+    // If Supabase fails, just show the app
+    hideAuthScreen();
   }
 
   // Listen for auth changes
@@ -2432,7 +2436,7 @@ var authMode = 'login'; // 'login' or 'signup'
     if (event === 'SIGNED_IN' && session) {
       currentUser = session.user;
       hideAuthScreen();
-      await pullFromCloud();
+      pullFromCloud(); // background sync
     } else if (event === 'SIGNED_OUT') {
       currentUser = null;
     }
@@ -2506,6 +2510,10 @@ async function doEmailAuth() {
     errEl.style.color = '#e74c3c';
     errEl.textContent = result.error.message;
     errEl.style.display = 'block';
+    btn.textContent = authMode === 'login' ? 'Sign In' : 'Create Account';
+    btn.disabled = false;
+  } else {
+    // Success — onAuthStateChange will handle the transition
     btn.textContent = authMode === 'login' ? 'Sign In' : 'Create Account';
     btn.disabled = false;
   }
@@ -2588,38 +2596,40 @@ async function pushToCloud() {
 
 async function pullFromCloud() {
   if (!currentUser) return;
-  var uid = currentUser.id;
-  var { data, error } = await supa.from('user_data').select('*').eq('user_id', uid).single();
-  if (error || !data) {
-    // No cloud data yet — push local data up
-    await pushToCloud();
-    return;
+  try {
+    var uid = currentUser.id;
+    var { data, error } = await supa.from('user_data').select('*').eq('user_id', uid).single();
+    if (error || !data) {
+      await pushToCloud();
+      return;
+    }
+    if (data.clean_date) {
+      cleanDate = data.clean_date;
+      localStorage.setItem('na_clean_date', cleanDate);
+      var inp = document.getElementById('clean-date-input');
+      if (inp) inp.value = cleanDate;
+      updateDaysCount();
+    }
+    if (data.mood_log && data.mood_log.length) {
+      moodLog = data.mood_log;
+      localStorage.setItem('na_mood_log', JSON.stringify(moodLog));
+      markTodayMood();
+      renderMoodHistory();
+    }
+    if (data.journal && data.journal.length) {
+      journalEntries = data.journal;
+      localStorage.setItem('na_journal', JSON.stringify(journalEntries));
+      renderJournalEntries();
+    }
+    if (data.network && data.network.length) {
+      networkContacts = data.network;
+      localStorage.setItem('na_network', JSON.stringify(networkContacts));
+      renderNetwork();
+    }
+    toast('✓ Data synced');
+  } catch(e) {
+    console.log('Sync error:', e);
   }
-  // Merge: cloud wins if it has data, otherwise keep local
-  if (data.clean_date) {
-    cleanDate = data.clean_date;
-    localStorage.setItem('na_clean_date', cleanDate);
-    var inp = document.getElementById('clean-date-input');
-    if (inp) inp.value = cleanDate;
-    updateDaysCount();
-  }
-  if (data.mood_log && data.mood_log.length) {
-    moodLog = data.mood_log;
-    localStorage.setItem('na_mood_log', JSON.stringify(moodLog));
-    markTodayMood();
-    renderMoodHistory();
-  }
-  if (data.journal && data.journal.length) {
-    journalEntries = data.journal;
-    localStorage.setItem('na_journal', JSON.stringify(journalEntries));
-    renderJournalEntries();
-  }
-  if (data.network && data.network.length) {
-    networkContacts = data.network;
-    localStorage.setItem('na_network', JSON.stringify(networkContacts));
-    renderNetwork();
-  }
-  toast('✓ Data synced');
 }
 
 // Patch save functions to also push to cloud
