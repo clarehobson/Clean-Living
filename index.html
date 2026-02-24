@@ -743,7 +743,7 @@ z-index: 999;
 
 <div id="splash" style="
   position:fixed; inset:0; z-index:9999;
-  display:flex; flex-direction:column;
+  display:none; flex-direction:column;
   align-items:center; justify-content:center;
   background:#0a0f1a;
   overflow:hidden;
@@ -2445,6 +2445,14 @@ function showAuthScreen() {
 
 function hideAuthScreen() {
   document.getElementById('auth-screen').style.display = 'none';
+  showSplash();
+}
+
+function showSplash() {
+  var splash = document.getElementById('splash');
+  if (splash) {
+    splash.style.display = 'flex';
+  }
 }
 
 function switchAuthTab(mode) {
