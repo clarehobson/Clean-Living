@@ -659,10 +659,87 @@ z-index: 999;
 #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 </style>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 </head>
 <body>
 
 <!-- SPLASH SCREEN -->
+
+<!-- AUTH SCREEN -->
+
+<div id="auth-screen" style="position:fixed;inset:0;z-index:99999;background:#0f0f1a;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;">
+  <div style="width:100%;max-width:380px;">
+    <!-- Logo -->
+    <div style="text-align:center;margin-bottom:40px;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:#e8c97a;letter-spacing:0.05em;">Clean Living</div>
+      <div style="font-size:0.72rem;color:#8a8090;letter-spacing:0.15em;text-transform:uppercase;margin-top:4px;">Recovery Companion</div>
+    </div>
+
+```
+<!-- Tab switcher -->
+<div id="auth-tabs" style="display:flex;background:#1a1a2e;border:1px solid rgba(232,201,122,0.15);border-radius:12px;padding:4px;margin-bottom:24px;">
+  <button onclick="switchAuthTab('login')" id="tab-login" style="flex:1;padding:9px;border:none;border-radius:9px;background:#e8c97a;color:#0f0f1a;font-size:0.8rem;font-weight:600;cursor:pointer;">Sign In</button>
+  <button onclick="switchAuthTab('signup')" id="tab-signup" style="flex:1;padding:9px;border:none;border-radius:9px;background:transparent;color:#8a8090;font-size:0.8rem;font-weight:500;cursor:pointer;">Create Account</button>
+</div>
+
+<!-- Email/password form -->
+<div style="margin-bottom:16px;">
+  <input id="auth-email" type="email" placeholder="Email address" autocomplete="email" style="width:100%;padding:14px 16px;background:#1a1a2e;border:1px solid rgba(232,201,122,0.2);border-radius:12px;color:#f0ead6;font-size:0.9rem;margin-bottom:10px;outline:none;-webkit-text-fill-color:#f0ead6;">
+  <input id="auth-password" type="password" placeholder="Password" autocomplete="current-password" style="width:100%;padding:14px 16px;background:#1a1a2e;border:1px solid rgba(232,201,122,0.2);border-radius:12px;color:#f0ead6;font-size:0.9rem;outline:none;-webkit-text-fill-color:#f0ead6;">
+</div>
+
+<!-- Forgot password -->
+<div id="forgot-wrap" style="text-align:right;margin-bottom:16px;margin-top:-6px;">
+  <span onclick="showForgotPassword()" style="font-size:0.72rem;color:#8a8090;cursor:pointer;text-decoration:underline;">Forgot password?</span>
+</div>
+
+<!-- Main CTA -->
+<button onclick="doEmailAuth()" id="auth-btn" style="width:100%;padding:15px;background:#e8c97a;color:#0f0f1a;border:none;border-radius:12px;font-size:0.92rem;font-weight:700;cursor:pointer;margin-bottom:20px;letter-spacing:0.02em;">Sign In</button>
+
+<!-- Divider -->
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+  <div style="flex:1;height:1px;background:rgba(232,201,122,0.15);"></div>
+  <div style="font-size:0.7rem;color:#8a8090;">or continue with</div>
+  <div style="flex:1;height:1px;background:rgba(232,201,122,0.15);"></div>
+</div>
+
+<!-- Social buttons -->
+<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px;">
+  <button onclick="doAppleAuth()" style="width:100%;padding:13px;background:#1a1a2e;border:1px solid rgba(232,201,122,0.2);border-radius:12px;color:#f0ead6;font-size:0.85rem;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;">
+    <span style="font-size:1.1rem;">🍎</span> Continue with Apple
+  </button>
+  <button onclick="doGoogleAuth()" style="width:100%;padding:13px;background:#1a1a2e;border:1px solid rgba(232,201,122,0.2);border-radius:12px;color:#f0ead6;font-size:0.85rem;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;">
+    <span style="font-size:1.1rem;">🌐</span> Continue with Google
+  </button>
+</div>
+
+<!-- Skip / use without account -->
+<div style="text-align:center;">
+  <span onclick="skipAuth()" style="font-size:0.75rem;color:#8a8090;cursor:pointer;text-decoration:underline;">Use without an account</span>
+</div>
+
+<!-- Error message -->
+<div id="auth-error" style="display:none;margin-top:16px;padding:12px 14px;background:rgba(192,57,43,0.15);border:1px solid rgba(192,57,43,0.3);border-radius:10px;font-size:0.78rem;color:#e74c3c;text-align:center;"></div>
+```
+
+  </div>
+</div>
+
+<!-- FORGOT PASSWORD SCREEN -->
+
+<div id="forgot-screen" style="display:none;position:fixed;inset:0;z-index:99999;background:#0f0f1a;align-items:center;justify-content:center;padding:32px 24px;">
+  <div style="width:100%;max-width:380px;">
+    <div style="text-align:center;margin-bottom:32px;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:#e8c97a;">Reset Password</div>
+      <div style="font-size:0.8rem;color:#8a8090;margin-top:8px;">We'll send you a reset link</div>
+    </div>
+    <input id="forgot-email" type="email" placeholder="Your email address" style="width:100%;padding:14px 16px;background:#1a1a2e;border:1px solid rgba(232,201,122,0.2);border-radius:12px;color:#f0ead6;font-size:0.9rem;margin-bottom:16px;outline:none;-webkit-text-fill-color:#f0ead6;">
+    <button onclick="doForgotPassword()" style="width:100%;padding:15px;background:#e8c97a;color:#0f0f1a;border:none;border-radius:12px;font-size:0.92rem;font-weight:700;cursor:pointer;margin-bottom:12px;">Send Reset Link</button>
+    <button onclick="hideForgotPassword()" style="width:100%;padding:13px;background:transparent;border:1px solid rgba(232,201,122,0.2);border-radius:12px;color:#8a8090;font-size:0.85rem;cursor:pointer;">Back to Sign In</button>
+    <div id="forgot-msg" style="display:none;margin-top:16px;padding:12px 14px;background:rgba(95,207,128,0.1);border:1px solid rgba(95,207,128,0.3);border-radius:10px;font-size:0.78rem;color:#5fcf80;text-align:center;"></div>
+  </div>
+</div>
 
 <div id="splash" style="
   position:fixed; inset:0; z-index:9999;
@@ -2322,6 +2399,257 @@ window.addEventListener('load', function() {
     }, 300);
   }
 });
+
+// =====================
+// SUPABASE AUTH & SYNC
+// =====================
+
+const SUPA_URL = 'https://gencdhyxlyekpjvuwvpu.supabase.co';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlbmNkaHl4bHlla3BqdnV3dnB1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5NzEyNDEsImV4cCI6MjA4NzU0NzI0MX0.BR9biMN2K8Vj6SBbfBrEChppsuIMp2lSL3WOW7Z-1Ss';
+const supa = supabase.createClient(SUPA_URL, SUPA_KEY);
+
+var currentUser = null;
+var authMode = 'login'; // 'login' or 'signup'
+
+// --- Check session on load ---
+(async function checkSession() {
+  const { data: { session } } = await supa.auth.getSession();
+  if (session) {
+    currentUser = session.user;
+    hideAuthScreen();
+    await pullFromCloud();
+  } else {
+    // Check if user chose to skip
+    if (localStorage.getItem('na_skip_auth') === 'true') {
+      hideAuthScreen();
+    } else {
+      showAuthScreen();
+    }
+  }
+
+  // Listen for auth changes
+  supa.auth.onAuthStateChange(async (event, session) => {
+    if (event === 'SIGNED_IN' && session) {
+      currentUser = session.user;
+      hideAuthScreen();
+      await pullFromCloud();
+    } else if (event === 'SIGNED_OUT') {
+      currentUser = null;
+    }
+  });
+})();
+
+function showAuthScreen() {
+  document.getElementById('auth-screen').style.display = 'flex';
+}
+
+function hideAuthScreen() {
+  document.getElementById('auth-screen').style.display = 'none';
+}
+
+function switchAuthTab(mode) {
+  authMode = mode;
+  var isLogin = mode === 'login';
+  document.getElementById('tab-login').style.background = isLogin ? '#e8c97a' : 'transparent';
+  document.getElementById('tab-login').style.color = isLogin ? '#0f0f1a' : '#8a8090';
+  document.getElementById('tab-signup').style.background = isLogin ? 'transparent' : '#e8c97a';
+  document.getElementById('tab-signup').style.color = isLogin ? '#8a8090' : '#0f0f1a';
+  document.getElementById('auth-btn').textContent = isLogin ? 'Sign In' : 'Create Account';
+  document.getElementById('forgot-wrap').style.display = isLogin ? 'block' : 'none';
+  document.getElementById('auth-error').style.display = 'none';
+}
+
+async function doEmailAuth() {
+  var email = document.getElementById('auth-email').value.trim();
+  var password = document.getElementById('auth-password').value;
+  var errEl = document.getElementById('auth-error');
+  errEl.style.display = 'none';
+
+  if (!email || !password) {
+    errEl.textContent = 'Please enter your email and password.';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  var btn = document.getElementById('auth-btn');
+  btn.textContent = authMode === 'login' ? 'Signing in...' : 'Creating account...';
+  btn.disabled = true;
+
+  var result;
+  if (authMode === 'login') {
+    result = await supa.auth.signInWithPassword({ email, password });
+  } else {
+    result = await supa.auth.signUp({ email, password });
+    if (!result.error && result.data.user && !result.data.session) {
+      errEl.style.background = 'rgba(95,207,128,0.1)';
+      errEl.style.borderColor = 'rgba(95,207,128,0.3)';
+      errEl.style.color = '#5fcf80';
+      errEl.textContent = 'Check your email to confirm your account, then sign in.';
+      errEl.style.display = 'block';
+      btn.textContent = 'Create Account';
+      btn.disabled = false;
+      return;
+    }
+  }
+
+  if (result.error) {
+    errEl.style.background = 'rgba(192,57,43,0.15)';
+    errEl.style.borderColor = 'rgba(192,57,43,0.3)';
+    errEl.style.color = '#e74c3c';
+    errEl.textContent = result.error.message;
+    errEl.style.display = 'block';
+    btn.textContent = authMode === 'login' ? 'Sign In' : 'Create Account';
+    btn.disabled = false;
+  }
+}
+
+async function doAppleAuth() {
+  await supa.auth.signInWithOAuth({
+    provider: 'apple',
+    options: { redirectTo: window.location.href }
+  });
+}
+
+async function doGoogleAuth() {
+  await supa.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: window.location.href }
+  });
+}
+
+function skipAuth() {
+  localStorage.setItem('na_skip_auth', 'true');
+  hideAuthScreen();
+}
+
+function showForgotPassword() {
+  document.getElementById('auth-screen').style.display = 'none';
+  var fs = document.getElementById('forgot-screen');
+  fs.style.display = 'flex';
+}
+
+function hideForgotPassword() {
+  document.getElementById('forgot-screen').style.display = 'none';
+  document.getElementById('auth-screen').style.display = 'flex';
+}
+
+async function doForgotPassword() {
+  var email = document.getElementById('forgot-email').value.trim();
+  var msg = document.getElementById('forgot-msg');
+  if (!email) return;
+  var { error } = await supa.auth.resetPasswordForEmail(email, {
+    redirectTo: window.location.href
+  });
+  msg.style.display = 'block';
+  if (error) {
+    msg.style.background = 'rgba(192,57,43,0.15)';
+    msg.style.color = '#e74c3c';
+    msg.textContent = error.message;
+  } else {
+    msg.style.background = 'rgba(95,207,128,0.1)';
+    msg.style.color = '#5fcf80';
+    msg.textContent = 'Reset link sent! Check your email.';
+  }
+}
+
+// --- Sign Out (add to settings if needed) ---
+async function signOut() {
+  await supa.auth.signOut();
+  currentUser = null;
+  localStorage.removeItem('na_skip_auth');
+  showAuthScreen();
+  toast('Signed out');
+}
+
+// =====================
+// CLOUD SYNC
+// =====================
+
+async function pushToCloud() {
+  if (!currentUser) return;
+  var uid = currentUser.id;
+  await supa.from('user_data').upsert({
+    user_id: uid,
+    clean_date: cleanDate,
+    mood_log: moodLog,
+    journal: journalEntries,
+    network: networkContacts,
+    updated_at: new Date().toISOString()
+  }, { onConflict: 'user_id' });
+}
+
+async function pullFromCloud() {
+  if (!currentUser) return;
+  var uid = currentUser.id;
+  var { data, error } = await supa.from('user_data').select('*').eq('user_id', uid).single();
+  if (error || !data) {
+    // No cloud data yet — push local data up
+    await pushToCloud();
+    return;
+  }
+  // Merge: cloud wins if it has data, otherwise keep local
+  if (data.clean_date) {
+    cleanDate = data.clean_date;
+    localStorage.setItem('na_clean_date', cleanDate);
+    var inp = document.getElementById('clean-date-input');
+    if (inp) inp.value = cleanDate;
+    updateDaysCount();
+  }
+  if (data.mood_log && data.mood_log.length) {
+    moodLog = data.mood_log;
+    localStorage.setItem('na_mood_log', JSON.stringify(moodLog));
+    markTodayMood();
+    renderMoodHistory();
+  }
+  if (data.journal && data.journal.length) {
+    journalEntries = data.journal;
+    localStorage.setItem('na_journal', JSON.stringify(journalEntries));
+    renderJournalEntries();
+  }
+  if (data.network && data.network.length) {
+    networkContacts = data.network;
+    localStorage.setItem('na_network', JSON.stringify(networkContacts));
+    renderNetwork();
+  }
+  toast('✓ Data synced');
+}
+
+// Patch save functions to also push to cloud
+var _origSaveCleanDate = saveCleanDate;
+saveCleanDate = async function() {
+  _origSaveCleanDate();
+  await pushToCloud();
+};
+
+var _origSaveJournal = saveJournal;
+saveJournal = async function() {
+  _origSaveJournal();
+  await pushToCloud();
+};
+
+var _origSaveContact = saveContact;
+saveContact = async function() {
+  _origSaveContact();
+  await pushToCloud();
+};
+
+var _origDeleteContact = deleteContact;
+deleteContact = async function(id) {
+  _origDeleteContact(id);
+  await pushToCloud();
+};
+
+var _origDeleteJournal = deleteJournal;
+deleteJournal = async function(id) {
+  _origDeleteJournal(id);
+  await pushToCloud();
+};
+
+var _origSetMood = setMood;
+setMood = async function(m) {
+  _origSetMood(m);
+  await pushToCloud();
+};
 </script>
 
 </body>
