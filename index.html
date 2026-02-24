@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -32,540 +33,540 @@ body { font-family: "DM Sans", sans-serif; background: var(--bg); color: var(--t
 
 /* NAV */
 nav {
-  flex-shrink: 0;
-  display: flex;
-  background: rgba(15,15,26,0.97);
-  border-top: 1px solid var(--bd);
-  padding-bottom: env(safe-area-inset-bottom, 0);
+flex-shrink: 0;
+display: flex;
+background: rgba(15,15,26,0.97);
+border-top: 1px solid var(–bd);
+padding-bottom: env(safe-area-inset-bottom, 0);
 }
 .nav-item {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 3px;
-  padding: 10px 2px 8px;
-  cursor: pointer;
-  color: var(--tm);
-  font-size: 0.46rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  -webkit-user-select: none;
-  user-select: none;
+flex: 1;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 3px;
+padding: 10px 2px 8px;
+cursor: pointer;
+color: var(–tm);
+font-size: 0.46rem;
+letter-spacing: 0.05em;
+text-transform: uppercase;
+-webkit-user-select: none;
+user-select: none;
 }
-.nav-item.active { color: var(--ac); }
+.nav-item.active { color: var(–ac); }
 .nav-icon { font-size: 1.2rem; line-height: 1; }
 
 /* CARDS */
 .card {
-  background: var(--sf);
-  border: 1px solid var(--bd);
-  border-radius: var(--r);
-  padding: 16px;
-  margin-bottom: 10px;
+background: var(–sf);
+border: 1px solid var(–bd);
+border-radius: var(–r);
+padding: 16px;
+margin-bottom: 10px;
 }
 .label {
-  font-size: 0.62rem;
-  font-weight: 800;
-  color: var(--ac);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 8px;
+font-size: 0.62rem;
+font-weight: 800;
+color: var(–ac);
+text-transform: uppercase;
+letter-spacing: 0.08em;
+margin-bottom: 8px;
 }
 .btn {
-  width: 100%;
-  padding: 13px;
-  border: none;
-  border-radius: var(--r);
-  background: var(--ac);
-  color: #1a1208;
-  font-size: 0.86rem;
-  font-weight: 700;
-  cursor: pointer;
-  margin-top: 8px;
+width: 100%;
+padding: 13px;
+border: none;
+border-radius: var(–r);
+background: var(–ac);
+color: #1a1208;
+font-size: 0.86rem;
+font-weight: 700;
+cursor: pointer;
+margin-top: 8px;
 }
 .input {
-  width: 100%;
-  background: var(--sf2);
-  border: 1px solid var(--bd);
-  border-radius: 10px;
-  color: var(--tx);
-  font-size: 0.84rem;
-  padding: 10px 12px;
-  outline: none;
+width: 100%;
+background: var(–sf2);
+border: 1px solid var(–bd);
+border-radius: 10px;
+color: var(–tx);
+font-size: 0.84rem;
+padding: 10px 12px;
+outline: none;
 }
-.input:focus { border-color: var(--ac); }
+.input:focus { border-color: var(–ac); }
 
 /* MOOD BUTTONS */
 .mood-row { display: flex; gap: 6px; }
 .mood-btn {
-  flex: 1;
-  background: var(--sf);
-  border: 1px solid var(--bd);
-  border-radius: 12px;
-  padding: 10px 4px;
-  cursor: pointer;
-  text-align: center;
+flex: 1;
+background: var(–sf);
+border: 1px solid var(–bd);
+border-radius: 12px;
+padding: 10px 4px;
+cursor: pointer;
+text-align: center;
 }
-.mood-btn.selected { border-color: var(--ac); background: rgba(232,201,122,0.1); }
+.mood-btn.selected { border-color: var(–ac); background: rgba(232,201,122,0.1); }
 .mood-emoji { font-size: 1.3rem; }
-.mood-label { font-size: 0.56rem; color: var(--tm); margin-top: 3px; }
-
+.mood-label { font-size: 0.56rem; color: var(–tm); margin-top: 3px; }
 
 .step-card {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  background: var(--sf);
-  border: 1px solid var(--bd);
-  border-radius: var(--r);
-  padding: 14px 16px;
-  margin-bottom: 8px;
-  text-decoration: none;
-  color: var(--tx);
+display: flex;
+align-items: center;
+gap: 14px;
+background: var(–sf);
+border: 1px solid var(–bd);
+border-radius: var(–r);
+padding: 14px 16px;
+margin-bottom: 8px;
+text-decoration: none;
+color: var(–tx);
 }
 .step-num {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 1px solid var(--ac);
-  background: rgba(232,201,122,0.08);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1rem;
-  font-weight: 400;
-  color: var(--ac);
-  flex-shrink: 0;
+width: 32px;
+height: 32px;
+border-radius: 50%;
+border: 1px solid var(–ac);
+background: rgba(232,201,122,0.08);
+display: flex;
+align-items: center;
+justify-content: center;
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1rem;
+font-weight: 400;
+color: var(–ac);
+flex-shrink: 0;
 }
 .step-body { flex: 1; min-width: 0; }
-.step-title { font-size: 0.86rem; font-weight: 600; color: var(--tx); }
-.step-sub { font-size: 0.7rem; color: var(--tm); margin-top: 2px; }
-.step-arrow { color: var(--tm); font-size: 0.9rem; }
+.step-title { font-size: 0.86rem; font-weight: 600; color: var(–tx); }
+.step-sub { font-size: 0.7rem; color: var(–tm); margin-top: 2px; }
+.step-arrow { color: var(–tm); font-size: 0.9rem; }
 .bt-ch {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  padding: 9px 0;
-  border-bottom: 1px solid var(--bd);
+display: flex;
+flex-direction: column;
+gap: 5px;
+padding: 9px 0;
+border-bottom: 1px solid var(–bd);
 }
 .bt-ch:last-child { border-bottom: none; }
-.bt-ch span { font-size: 0.78rem; font-weight: 600; color: var(--tx); }
+.bt-ch span { font-size: 0.78rem; font-weight: 600; color: var(–tx); }
 .bt-ch audio { width: 100%; height: 32px; }
 
-
 .j-type-card {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  background: var(--sf);
-  border: 1px solid var(--bd);
-  border-radius: var(--r);
-  padding: 14px 16px;
-  margin-bottom: 8px;
-  cursor: pointer;
+display: flex;
+align-items: center;
+gap: 13px;
+background: var(–sf);
+border: 1px solid var(–bd);
+border-radius: var(–r);
+padding: 14px 16px;
+margin-bottom: 8px;
+cursor: pointer;
 }
-.j-type-card:active { background: var(--sf2); }
+.j-type-card:active { background: var(–sf2); }
 .j-entry-card {
-  background: var(--sf);
-  border: 1px solid var(--bd);
-  border-radius: var(--r);
-  padding: 12px 14px;
-  margin-bottom: 8px;
-  cursor: pointer;
+background: var(–sf);
+border: 1px solid var(–bd);
+border-radius: var(–r);
+padding: 12px 14px;
+margin-bottom: 8px;
+cursor: pointer;
 }
-.j-entry-card:active { background: var(--sf2); }
-
+.j-entry-card:active { background: var(–sf2); }
 
 .j-entry-wrap {
-  position: relative;
-  margin-bottom: 8px;
-  overflow: hidden;
-  border-radius: var(--r);
+position: relative;
+margin-bottom: 8px;
+overflow: hidden;
+border-radius: var(–r);
 }
 .j-delete-reveal {
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 80px;
-  background: #c0392b;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  cursor: pointer;
+position: absolute;
+right: 0;
+top: 0;
+bottom: 0;
+width: 80px;
+background: #c0392b;
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+font-size: 0.75rem;
+font-weight: 700;
+letter-spacing: 0.05em;
+cursor: pointer;
 }
 .j-entry-card {
-  position: relative;
-  transform: translateX(0);
-  transition: transform 0.2s ease;
-  cursor: pointer;
-  touch-action: pan-y;
+position: relative;
+transform: translateX(0);
+transition: transform 0.2s ease;
+cursor: pointer;
+touch-action: pan-y;
 }
-
 
 .book-card {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: var(--sf);
-  border: 1px solid var(--bd);
-  border-radius: var(--r);
-  padding: 12px 14px;
-  margin-bottom: 6px;
-  text-decoration: none;
-  color: var(--tx);
+display: flex;
+align-items: center;
+gap: 12px;
+background: var(–sf);
+border: 1px solid var(–bd);
+border-radius: var(–r);
+padding: 12px 14px;
+margin-bottom: 6px;
+text-decoration: none;
+color: var(–tx);
 }
-.book-card:active { background: var(--sf2); }
+.book-card:active { background: var(–sf2); }
 .book-icon { font-size: 1.2rem; flex-shrink: 0; }
 .book-body { flex: 1; min-width: 0; }
 .book-title { font-size: 0.84rem; font-weight: 600; }
-.book-sub { font-size: 0.68rem; color: var(--tm); margin-top: 2px; }
-.book-arr { color: var(--tm); font-size: 0.9rem; flex-shrink: 0; }
+.book-sub { font-size: 0.68rem; color: var(–tm); margin-top: 2px; }
+.book-arr { color: var(–tm); font-size: 0.9rem; flex-shrink: 0; }
 
 .book-expand-card {
-  background: var(--sf);
-  border: 1px solid var(--bd);
-  border-radius: var(--r);
-  margin-bottom: 10px;
-  overflow: hidden;
+background: var(–sf);
+border: 1px solid var(–bd);
+border-radius: var(–r);
+margin-bottom: 10px;
+overflow: hidden;
 }
 .book-expand-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 13px 14px;
-  cursor: pointer;
+display: flex;
+align-items: center;
+gap: 12px;
+padding: 13px 14px;
+cursor: pointer;
 }
-.book-expand-header:active { background: var(--sf2); }
+.book-expand-header:active { background: var(–sf2); }
 .book-expand-chevron {
-  color: var(--tm);
-  font-size: 0.75rem;
-  margin-left: auto;
-  transition: transform 0.2s;
-  flex-shrink: 0;
+color: var(–tm);
+font-size: 0.75rem;
+margin-left: auto;
+transition: transform 0.2s;
+flex-shrink: 0;
 }
 .book-expand-card.open .book-expand-chevron { transform: rotate(90deg); }
 .book-expand-body {
-  display: none;
-  padding: 0 14px 14px 14px;
-  border-top: 1px solid var(--bd);
+display: none;
+padding: 0 14px 14px 14px;
+border-top: 1px solid var(–bd);
 }
 .book-expand-card.open .book-expand-body { display: block; }
 .book-expand-section {
-  font-size: 0.6rem;
-  color: var(--tm);
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  margin: 12px 0 6px 0;
+font-size: 0.6rem;
+color: var(–tm);
+letter-spacing: 0.09em;
+text-transform: uppercase;
+margin: 12px 0 6px 0;
 }
 .book-buy-row {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-bottom: 4px;
+display: flex;
+gap: 6px;
+flex-wrap: wrap;
+margin-bottom: 4px;
 }
 .book-buy-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 7px 11px;
-  border-radius: 8px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-decoration: none;
-  white-space: nowrap;
+display: inline-flex;
+align-items: center;
+gap: 5px;
+padding: 7px 11px;
+border-radius: 8px;
+font-size: 0.7rem;
+font-weight: 600;
+text-decoration: none;
+white-space: nowrap;
 }
 .book-buy-btn.apple { background: #1c1c1e; color: #fff; border: 1px solid #3a3a3c; }
 .book-buy-btn.android { background: #1a3c27; color: #5fcf80; border: 1px solid #2d6b45; }
-.book-buy-btn.hardcopy { background: #2a2418; color: var(--ac); border: 1px solid #4a3f28; }
+.book-buy-btn.hardcopy { background: #2a2418; color: var(–ac); border: 1px solid #4a3f28; }
 .book-buy-btn:active { opacity: 0.75; }
 
-
-
 .book-expand-card {
-  background: var(--sf);
-  border: 1px solid var(--bd);
-  border-radius: var(--r);
-  margin-bottom: 8px;
-  overflow: hidden;
+background: var(–sf);
+border: 1px solid var(–bd);
+border-radius: var(–r);
+margin-bottom: 8px;
+overflow: hidden;
 }
 .book-card-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 13px 14px;
-  cursor: pointer;
+display: flex;
+align-items: center;
+gap: 12px;
+padding: 13px 14px;
+cursor: pointer;
 }
-.book-card-header:active { background: var(--sf2); }
+.book-card-header:active { background: var(–sf2); }
 .book-chevron {
-  color: var(--tm);
-  font-size: 1.2rem;
-  transition: transform 0.25s;
-  flex-shrink: 0;
+color: var(–tm);
+font-size: 1.2rem;
+transition: transform 0.25s;
+flex-shrink: 0;
 }
 .book-expand-card.open .book-chevron { transform: rotate(90deg); }
 .book-card-body {
-  display: none;
-  padding: 0 14px 14px 14px;
-  border-top: 1px solid var(--bd);
+display: none;
+padding: 0 14px 14px 14px;
+border-top: 1px solid var(–bd);
 }
 .book-expand-card.open .book-card-body { display: block; }
 .book-section-label {
-  font-size: 0.68rem;
-  color: var(--tm);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin: 12px 0 7px;
+font-size: 0.68rem;
+color: var(–tm);
+letter-spacing: 0.06em;
+text-transform: uppercase;
+margin: 12px 0 7px;
 }
 .book-btn-row {
-  display: flex;
-  gap: 8px;
+display: flex;
+gap: 8px;
 }
 .buy-btn {
-  display: block;
-  text-align: center;
-  padding: 9px 10px;
-  border-radius: 8px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-decoration: none;
-  margin-bottom: 6px;
+display: block;
+text-align: center;
+padding: 9px 10px;
+border-radius: 8px;
+font-size: 0.75rem;
+font-weight: 600;
+text-decoration: none;
+margin-bottom: 6px;
 }
 .book-btn-row .buy-btn { flex: 1; margin-bottom: 0; }
 .apple-btn  { background: #1c1c1e; color: #fff; border: 1px solid #3a3a3c; }
 .google-btn { background: #1a73e8; color: #fff; }
-.world-btn  { background: var(--sf2); color: var(--tx); border: 1px solid var(--bd); }
+.world-btn  { background: var(–sf2); color: var(–tx); border: 1px solid var(–bd); }
 .uk-btn     { background: #012169; color: #fff; }
 .eu-btn     { background: #003399; color: #ffd700; }
 
-
 .meeting-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--sf);
-  border: 1px solid var(--bd);
-  border-radius: var(--r);
-  padding: 13px 14px;
-  margin-bottom: 8px;
-  text-decoration: none;
-  color: var(--tx);
+display: flex;
+align-items: center;
+justify-content: space-between;
+background: var(–sf);
+border: 1px solid var(–bd);
+border-radius: var(–r);
+padding: 13px 14px;
+margin-bottom: 8px;
+text-decoration: none;
+color: var(–tx);
 }
-.meeting-card:active { background: var(--sf2); }
+.meeting-card:active { background: var(–sf2); }
 .meeting-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+display: flex;
+align-items: center;
+gap: 12px;
 }
 .meeting-flag { font-size: 1.4rem; flex-shrink: 0; }
 .meeting-title { font-size: 0.84rem; font-weight: 600; }
-.meeting-sub { font-size: 0.68rem; color: var(--tm); margin-top: 2px; line-height: 1.4; }
-.meeting-arr { color: var(--tm); font-size: 1rem; flex-shrink: 0; margin-left: 8px; }
+.meeting-sub { font-size: 0.68rem; color: var(–tm); margin-top: 2px; line-height: 1.4; }
+.meeting-arr { color: var(–tm); font-size: 1rem; flex-shrink: 0; margin-left: 8px; }
 
 /* TOAST */
 #toast {
-  position: fixed;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%) translateY(8px);
-  background: var(--ac);
-  color: #1a1208;
-  padding: 8px 20px;
-  border-radius: 20px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  opacity: 0;
-  transition: opacity 0.25s, transform 0.25s;
-  pointer-events: none;
-  z-index: 999;
+position: fixed;
+bottom: 80px;
+left: 50%;
+transform: translateX(-50%) translateY(8px);
+background: var(–ac);
+color: #1a1208;
+padding: 8px 20px;
+border-radius: 20px;
+font-size: 0.78rem;
+font-weight: 700;
+opacity: 0;
+transition: opacity 0.25s, transform 0.25s;
+pointer-events: none;
+z-index: 999;
 }
 #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 </style>
+
 </head>
 <body>
 <div id="app">
 
   <!-- HOME SCREEN -->
+
   <div class="screen active" id="screen-home">
 
-    <!-- Header -->
-    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
-      <div>
-        <div style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:300; color:var(--ac);">Just For Today</div>
-        <div style="font-size:0.62rem; color:var(--tm); letter-spacing:0.08em; text-transform:uppercase;">NA Recovery</div>
-      </div>
+```
+<!-- Header -->
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+  <div>
+    <div style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:300; color:var(--ac);">Just For Today</div>
+    <div style="font-size:0.62rem; color:var(--tm); letter-spacing:0.08em; text-transform:uppercase;">NA Recovery</div>
+  </div>
+</div>
+
+<!-- Clean Date Counter -->
+<div class="card">
+  <div style="display:flex; align-items:center; gap:14px;">
+    <div style="text-align:center; min-width:64px;">
+      <div id="days-count" style="font-family:'Cormorant Garamond',serif; font-size:2.8rem; font-weight:300; color:var(--ac); line-height:1;">0</div>
+      <div style="font-size:0.54rem; font-weight:700; color:var(--tm); letter-spacing:0.1em; text-transform:uppercase;">Days Clean</div>
     </div>
-
-    <!-- Clean Date Counter -->
-    <div class="card">
-      <div style="display:flex; align-items:center; gap:14px;">
-        <div style="text-align:center; min-width:64px;">
-          <div id="days-count" style="font-family:'Cormorant Garamond',serif; font-size:2.8rem; font-weight:300; color:var(--ac); line-height:1;">0</div>
-          <div style="font-size:0.54rem; font-weight:700; color:var(--tm); letter-spacing:0.1em; text-transform:uppercase;">Days Clean</div>
-        </div>
-        <div style="flex:1;">
-          <div style="font-size:0.68rem; color:var(--tm); margin-bottom:6px;">Set your clean date</div>
-          <input type="date" id="clean-date-input" class="input" onchange="saveCleanDate(this.value)">
-          <div id="clean-date-label" style="font-size:0.64rem; color:var(--tm); margin-top:4px;"></div>
-        </div>
-      </div>
+    <div style="flex:1;">
+      <div style="font-size:0.68rem; color:var(--tm); margin-bottom:6px;">Set your clean date</div>
+      <input type="date" id="clean-date-input" class="input" onchange="saveCleanDate(this.value)">
+      <div id="clean-date-label" style="font-size:0.64rem; color:var(--tm); margin-top:4px;"></div>
     </div>
+  </div>
+</div>
 
-    <!-- Mood Check-in -->
-    <div class="card">
-      <div class="label">Today's Check-In</div>
-      <div class="mood-row">
-        <div class="mood-btn" id="mood-sad" onclick="setMood('sad')">
-          <div class="mood-emoji">&#x1F614;</div>
-          <div class="mood-label">Low</div>
-        </div>
-        <div class="mood-btn" id="mood-meh" onclick="setMood('meh')">
-          <div class="mood-emoji">&#x1F610;</div>
-          <div class="mood-label">Okay</div>
-        </div>
-        <div class="mood-btn" id="mood-good" onclick="setMood('good')">
-          <div class="mood-emoji">&#x1F642;</div>
-          <div class="mood-label">Good</div>
-        </div>
-        <div class="mood-btn" id="mood-great" onclick="setMood('great')">
-          <div class="mood-emoji">&#x1F60A;</div>
-          <div class="mood-label">Great</div>
-        </div>
-        <div class="mood-btn" id="mood-wow" onclick="setMood('wow')">
-          <div class="mood-emoji">&#x1F31F;</div>
-          <div class="mood-label">Amazing</div>
-        </div>
-      </div>
-      <div id="mood-history" style="font-size:0.74rem; color:var(--tm); margin-top:10px;"></div>
+<!-- Mood Check-in -->
+<div class="card">
+  <div class="label">Today's Check-In</div>
+  <div class="mood-row">
+    <div class="mood-btn" id="mood-sad" onclick="setMood('sad')">
+      <div class="mood-emoji">&#x1F614;</div>
+      <div class="mood-label">Low</div>
     </div>
-
-    <!-- Daily Quote -->
-    <div class="card" style="border-left: 3px solid var(--ac);">
-      <div id="daily-quote" style="font-style:italic; font-size:0.84rem; line-height:1.6;"></div>
+    <div class="mood-btn" id="mood-meh" onclick="setMood('meh')">
+      <div class="mood-emoji">&#x1F610;</div>
+      <div class="mood-label">Okay</div>
     </div>
-
-
-    <!-- Daily Readings -->
-    <div class="label" style="margin-top:4px;">Today's Readings</div>
-    <a href="https://www.jftna.org/jft/" target="_blank" style="display:flex;align-items:center;gap:13px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:13px 15px;margin-bottom:8px;text-decoration:none;color:var(--tx);">
-      <div style="font-size:1.4rem;">&#x1F4D4;</div>
-      <div style="flex:1;">
-        <div style="font-weight:600;font-size:0.86rem;">Just For Today</div>
-        <div style="font-size:0.7rem;color:var(--tm);margin-top:2px;">Read today's daily meditation</div>
-      </div>
-      <div style="color:var(--tm);">&#8250;</div>
-    </a>
-    <a href="https://spadna.org" target="_blank" style="display:flex;align-items:center;gap:13px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:13px 15px;margin-bottom:8px;text-decoration:none;color:var(--tx);">
-      <div style="font-size:1.4rem;">&#x2728;</div>
-      <div style="flex:1;">
-        <div style="font-weight:600;font-size:0.86rem;">Spiritual Principle a Day</div>
-        <div style="font-size:0.7rem;color:var(--tm);margin-top:2px;">Read today's spiritual principle</div>
-      </div>
-      <div style="color:var(--tm);">&#8250;</div>
-    </a>
-
-    <!-- Quick Links -->
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:2px;">
-      <div class="card" onclick="showScreen('journal')" style="text-align:center; cursor:pointer; margin-bottom:0;">
-        <div style="font-size:1.4rem;">&#x270D;</div>
-        <div style="font-size:0.7rem; color:var(--tm); margin-top:4px;">Journal</div>
-      </div>
-      <div class="card" onclick="showScreen('meetings')" style="text-align:center; cursor:pointer; margin-bottom:0;">
-        <div style="font-size:1.4rem;">&#x1F5D3;</div>
-        <div style="font-size:0.7rem; color:var(--tm); margin-top:4px;">Meetings</div>
-      </div>
+    <div class="mood-btn" id="mood-good" onclick="setMood('good')">
+      <div class="mood-emoji">&#x1F642;</div>
+      <div class="mood-label">Good</div>
     </div>
-
-    <!-- Crisis Line -->
-    <div style="background:rgba(180,60,60,0.12); border:1px solid rgba(180,60,60,0.25); border-radius:var(--r); padding:12px 14px; margin-top:10px; display:flex; gap:10px; align-items:center;">
-      <div style="font-size:1rem;">&#x1F4DE;</div>
-      <div style="font-size:0.74rem;">
-        &#x1F1EC;&#x1F1E7; UK Helpline: <span style="color:#ff6b6b; font-weight:700;">0300 999 1212</span><br>
-        <span style="font-size:0.63rem; color:var(--tm);">10am&ndash;midnight daily</span>
-      </div>
+    <div class="mood-btn" id="mood-great" onclick="setMood('great')">
+      <div class="mood-emoji">&#x1F60A;</div>
+      <div class="mood-label">Great</div>
     </div>
+    <div class="mood-btn" id="mood-wow" onclick="setMood('wow')">
+      <div class="mood-emoji">&#x1F31F;</div>
+      <div class="mood-label">Amazing</div>
+    </div>
+  </div>
+  <div id="mood-history" style="font-size:0.74rem; color:var(--tm); margin-top:10px;"></div>
+</div>
+
+<!-- Daily Quote -->
+<div class="card" style="border-left: 3px solid var(--ac);">
+  <div id="daily-quote" style="font-style:italic; font-size:0.84rem; line-height:1.6;"></div>
+</div>
+
+
+<!-- Daily Readings -->
+<div class="label" style="margin-top:4px;">Today's Readings</div>
+<a href="https://www.jftna.org/jft/" target="_blank" style="display:flex;align-items:center;gap:13px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:13px 15px;margin-bottom:8px;text-decoration:none;color:var(--tx);">
+  <div style="font-size:1.4rem;">&#x1F4D4;</div>
+  <div style="flex:1;">
+    <div style="font-weight:600;font-size:0.86rem;">Just For Today</div>
+    <div style="font-size:0.7rem;color:var(--tm);margin-top:2px;">Read today's daily meditation</div>
+  </div>
+  <div style="color:var(--tm);">&#8250;</div>
+</a>
+<a href="https://spadna.org" target="_blank" style="display:flex;align-items:center;gap:13px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:13px 15px;margin-bottom:8px;text-decoration:none;color:var(--tx);">
+  <div style="font-size:1.4rem;">&#x2728;</div>
+  <div style="flex:1;">
+    <div style="font-weight:600;font-size:0.86rem;">Spiritual Principle a Day</div>
+    <div style="font-size:0.7rem;color:var(--tm);margin-top:2px;">Read today's spiritual principle</div>
+  </div>
+  <div style="color:var(--tm);">&#8250;</div>
+</a>
+
+<!-- Quick Links -->
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:2px;">
+  <div class="card" onclick="showScreen('journal')" style="text-align:center; cursor:pointer; margin-bottom:0;">
+    <div style="font-size:1.4rem;">&#x270D;</div>
+    <div style="font-size:0.7rem; color:var(--tm); margin-top:4px;">Journal</div>
+  </div>
+  <div class="card" onclick="showScreen('meetings')" style="text-align:center; cursor:pointer; margin-bottom:0;">
+    <div style="font-size:1.4rem;">&#x1F5D3;</div>
+    <div style="font-size:0.7rem; color:var(--tm); margin-top:4px;">Meetings</div>
+  </div>
+</div>
+
+<!-- Crisis Line -->
+<div style="background:rgba(180,60,60,0.12); border:1px solid rgba(180,60,60,0.25); border-radius:var(--r); padding:12px 14px; margin-top:10px; display:flex; gap:10px; align-items:center;">
+  <div style="font-size:1rem;">&#x1F4DE;</div>
+  <div style="font-size:0.74rem;">
+    &#x1F1EC;&#x1F1E7; UK Helpline: <span style="color:#ff6b6b; font-weight:700;">0300 999 1212</span><br>
+    <span style="font-size:0.63rem; color:var(--tm);">10am&ndash;midnight daily</span>
+  </div>
+</div>
+```
 
   </div><!-- end home -->
 
   <!-- PLACEHOLDER SCREENS (we'll build these next) -->
+
   <div class="screen" id="screen-journal">
 
-    <div style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:300; color:var(--ac); margin-bottom:2px;">Journal</div>
-    <div style="font-size:0.62rem; color:var(--tm); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:18px;">Your daily recovery writing</div>
+```
+<div style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:300; color:var(--ac); margin-bottom:2px;">Journal</div>
+<div style="font-size:0.62rem; color:var(--tm); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:18px;">Your daily recovery writing</div>
 
-    <!-- JOURNAL HOME - type selector -->
-    <div id="j-home">
-      <div class="label">Choose a journal type</div>
+<!-- JOURNAL HOME - type selector -->
+<div id="j-home">
+  <div class="label">Choose a journal type</div>
 
-      <div onclick="openJournal('gratitude')" class="j-type-card">
-        <div style="font-size:1.4rem;">&#x1F64F;</div>
-        <div style="flex:1;">
-          <div style="font-weight:600; font-size:0.88rem;">Gratitude List</div>
-          <div style="font-size:0.72rem; color:var(--tm); margin-top:2px;">Count your blessings with guided prompts</div>
-        </div>
-        <div style="color:var(--tm);">&#8250;</div>
-      </div>
-
-      <div onclick="openJournal('spotcheck')" class="j-type-card">
-        <div style="font-size:1.4rem;">&#x26A1;</div>
-        <div style="flex:1;">
-          <div style="font-weight:600; font-size:0.88rem;">Spot Check Inventory</div>
-          <div style="font-size:0.72rem; color:var(--tm); margin-top:2px;">Quick nightly check-in based on Step 10</div>
-        </div>
-        <div style="color:var(--tm);">&#8250;</div>
-      </div>
-
-      <div onclick="openJournal('step10')" class="j-type-card">
-        <div style="font-size:1.4rem;">&#x1F4CB;</div>
-        <div style="flex:1;">
-          <div style="font-weight:600; font-size:0.88rem;">Full Step 10 Inventory</div>
-          <div style="font-size:0.72rem; color:var(--tm); margin-top:2px;">Complete NA daily inventory questions</div>
-        </div>
-        <div style="color:var(--tm);">&#8250;</div>
-      </div>
-
-      <div onclick="openJournal('daily')" class="j-type-card">
-        <div style="font-size:1.4rem;">&#x270D;</div>
-        <div style="flex:1;">
-          <div style="font-weight:600; font-size:0.88rem;">Daily Journal</div>
-          <div style="font-size:0.72rem; color:var(--tm); margin-top:2px;">Free writing with gentle prompts</div>
-        </div>
-        <div style="color:var(--tm);">&#8250;</div>
-      </div>
-
-      <!-- Past entries -->
-      <div class="label" style="margin-top:20px;">Recent Entries</div>
-      <div id="j-entries"></div>
+  <div onclick="openJournal('gratitude')" class="j-type-card">
+    <div style="font-size:1.4rem;">&#x1F64F;</div>
+    <div style="flex:1;">
+      <div style="font-weight:600; font-size:0.88rem;">Gratitude List</div>
+      <div style="font-size:0.72rem; color:var(--tm); margin-top:2px;">Count your blessings with guided prompts</div>
     </div>
+    <div style="color:var(--tm);">&#8250;</div>
+  </div>
 
-    <!-- JOURNAL WRITE VIEW -->
-    <div id="j-write" style="display:none;">
-      <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
-        <button onclick="closeJournal()" style="background:var(--sf);border:1px solid var(--bd);border-radius:50%;width:34px;height:34px;color:var(--tx);font-size:1rem;cursor:pointer;flex-shrink:0;">&#8592;</button>
-        <div>
-          <div id="j-write-title" style="font-weight:700; font-size:0.94rem;"></div>
-          <div id="j-write-date" style="font-size:0.68rem; color:var(--tm);"></div>
-        </div>
-      </div>
-
-      <!-- Prompts area -->
-      <div id="j-prompts"></div>
-
-      <!-- Text area -->
-      <textarea id="j-text" class="input" rows="10" placeholder="Write here..." style="resize:none; line-height:1.6; padding:12px;"></textarea>
-
-      <div style="display:flex; gap:8px; margin-top:10px;">
-        <button onclick="saveJournal()" class="btn" style="flex:1;">Save Entry</button>
-        <button id="j-delete-btn" onclick="deleteJournal()" style="display:none; background:transparent; border:1px solid rgba(180,60,60,0.4); border-radius:var(--r); padding:13px 16px; color:#ff6b6b; font-size:0.8rem; cursor:pointer;">Delete</button>
-      </div>
+  <div onclick="openJournal('spotcheck')" class="j-type-card">
+    <div style="font-size:1.4rem;">&#x26A1;</div>
+    <div style="flex:1;">
+      <div style="font-weight:600; font-size:0.88rem;">Spot Check Inventory</div>
+      <div style="font-size:0.72rem; color:var(--tm); margin-top:2px;">Quick nightly check-in based on Step 10</div>
     </div>
+    <div style="color:var(--tm);">&#8250;</div>
+  </div>
+
+  <div onclick="openJournal('step10')" class="j-type-card">
+    <div style="font-size:1.4rem;">&#x1F4CB;</div>
+    <div style="flex:1;">
+      <div style="font-weight:600; font-size:0.88rem;">Full Step 10 Inventory</div>
+      <div style="font-size:0.72rem; color:var(--tm); margin-top:2px;">Complete NA daily inventory questions</div>
+    </div>
+    <div style="color:var(--tm);">&#8250;</div>
+  </div>
+
+  <div onclick="openJournal('daily')" class="j-type-card">
+    <div style="font-size:1.4rem;">&#x270D;</div>
+    <div style="flex:1;">
+      <div style="font-weight:600; font-size:0.88rem;">Daily Journal</div>
+      <div style="font-size:0.72rem; color:var(--tm); margin-top:2px;">Free writing with gentle prompts</div>
+    </div>
+    <div style="color:var(--tm);">&#8250;</div>
+  </div>
+
+  <!-- Past entries -->
+  <div class="label" style="margin-top:20px;">Recent Entries</div>
+  <div id="j-entries"></div>
+</div>
+
+<!-- JOURNAL WRITE VIEW -->
+<div id="j-write" style="display:none;">
+  <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+    <button onclick="closeJournal()" style="background:var(--sf);border:1px solid var(--bd);border-radius:50%;width:34px;height:34px;color:var(--tx);font-size:1rem;cursor:pointer;flex-shrink:0;">&#8592;</button>
+    <div>
+      <div id="j-write-title" style="font-weight:700; font-size:0.94rem;"></div>
+      <div id="j-write-date" style="font-size:0.68rem; color:var(--tm);"></div>
+    </div>
+  </div>
+
+  <!-- Prompts area -->
+  <div id="j-prompts"></div>
+
+  <!-- Text area -->
+  <textarea id="j-text" class="input" rows="10" placeholder="Write here..." style="resize:none; line-height:1.6; padding:12px;"></textarea>
+
+  <div style="display:flex; gap:8px; margin-top:10px;">
+    <button onclick="saveJournal()" class="btn" style="flex:1;">Save Entry</button>
+    <button id="j-delete-btn" onclick="deleteJournal()" style="display:none; background:transparent; border:1px solid rgba(180,60,60,0.4); border-radius:var(--r); padding:13px 16px; color:#ff6b6b; font-size:0.8rem; cursor:pointer;">Delete</button>
+  </div>
+</div>
+```
 
   </div>
 
@@ -575,23 +576,25 @@ nav {
         <!-- WORKSHEETS -->
     <div class="label"><span style="margin-right:5px;">&#x1F4CB;</span>Worksheets</div>
 
-    <a href="https://www.nwnjna.org/wp-content/uploads/2020/03/NARCOTICS-ANONYMOUS-STEP-WRITING-GUIDE.pdf" target="_blank" style="display:flex;align-items:center;gap:14px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px;margin-bottom:8px;text-decoration:none;color:var(--tx);">
-      <div style="font-size:1.5rem;">&#x1F4C4;</div>
-      <div style="flex:1;">
-        <div style="font-weight:600;font-size:0.88rem;">The 12 Steps</div>
-        <div style="font-size:0.72rem;color:var(--tm);margin-top:2px;">NA Step Writing Guide — full workbook PDF</div>
-      </div>
-      <div style="color:var(--tm);">&#8250;</div>
-    </a>
+```
+<a href="https://www.nwnjna.org/wp-content/uploads/2020/03/NARCOTICS-ANONYMOUS-STEP-WRITING-GUIDE.pdf" target="_blank" style="display:flex;align-items:center;gap:14px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px;margin-bottom:8px;text-decoration:none;color:var(--tx);">
+  <div style="font-size:1.5rem;">&#x1F4C4;</div>
+  <div style="flex:1;">
+    <div style="font-weight:600;font-size:0.88rem;">The 12 Steps</div>
+    <div style="font-size:0.72rem;color:var(--tm);margin-top:2px;">NA Step Writing Guide — full workbook PDF</div>
+  </div>
+  <div style="color:var(--tm);">&#8250;</div>
+</a>
 
-    <a href="https://nameetingmakers.com/literature/NA-GUIDING-PRINCIPLES-TRADITIONS.pdf" target="_blank" style="display:flex;align-items:center;gap:14px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px;margin-bottom:8px;text-decoration:none;color:var(--tx);">
-      <div style="font-size:1.5rem;">&#x1F4D6;</div>
-      <div style="flex:1;">
-        <div style="font-weight:600;font-size:0.88rem;">Guiding Principles</div>
-        <div style="font-size:0.72rem;color:var(--tm);margin-top:2px;">The Spirit of Our Traditions — full workbook PDF</div>
-      </div>
-      <div style="color:var(--tm);">&#8250;</div>
-    </a>
+<a href="https://nameetingmakers.com/literature/NA-GUIDING-PRINCIPLES-TRADITIONS.pdf" target="_blank" style="display:flex;align-items:center;gap:14px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px;margin-bottom:8px;text-decoration:none;color:var(--tx);">
+  <div style="font-size:1.5rem;">&#x1F4D6;</div>
+  <div style="flex:1;">
+    <div style="font-weight:600;font-size:0.88rem;">Guiding Principles</div>
+    <div style="font-size:0.72rem;color:var(--tm);margin-top:2px;">The Spirit of Our Traditions — full workbook PDF</div>
+  </div>
+  <div style="color:var(--tm);">&#8250;</div>
+</a>
+```
 
   </div><!-- end screen-steps -->
 
@@ -599,263 +602,261 @@ nav {
     <div style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:300; color:var(--ac); margin-bottom:2px;">Meetings</div>
     <div style="font-size:0.62rem; color:var(--tm); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:20px;">Find your fellowship</div>
 
-    <!-- IN-PERSON FINDERS -->
-    <div class="label">📍 Find an In-Person Meeting</div>
+```
+<!-- IN-PERSON FINDERS -->
+<div class="label">📍 Find an In-Person Meeting</div>
 
-    <a href="https://na.org/meetingsearch/" target="_blank" class="meeting-card">
-      <div class="meeting-left">
-        <div class="meeting-flag">🌍</div>
-        <div>
-          <div class="meeting-title">NA World Meeting Search</div>
-          <div class="meeting-sub">Find meetings anywhere in the world</div>
-        </div>
-      </div>
-      <div class="meeting-arr">›</div>
-    </a>
-
-    <a href="https://meetings.ukna.org/meeting/search" target="_blank" class="meeting-card">
-      <div class="meeting-left">
-        <div class="meeting-flag">🇬🇧</div>
-        <div>
-          <div class="meeting-title">UK Meeting Finder</div>
-          <div class="meeting-sub">Search by postcode, town or county</div>
-        </div>
-      </div>
-      <div class="meeting-arr">›</div>
-    </a>
-
-    <a href="https://edmna.org/regions-and-events/" target="_blank" class="meeting-card">
-      <div class="meeting-left">
-        <div class="meeting-flag">🇪🇺</div>
-        <div>
-          <div class="meeting-title">European Meeting Finder</div>
-          <div class="meeting-sub">NA European Delegates Meeting — all regions</div>
-        </div>
-      </div>
-      <div class="meeting-arr">›</div>
-    </a>
-
-    <!-- ONLINE MEETINGS -->
-    <div class="label" style="margin-top:20px;">💻 Online & Virtual Meetings</div>
-    <div style="font-size:0.72rem; color:var(--tm); margin-bottom:12px; line-height:1.5;">Can't get to a meeting? Online meetings are available 24/7 from anywhere in the world.</div>
-
-    <a href="https://virtual-na.org/meetings/" target="_blank" class="meeting-card">
-      <div class="meeting-left">
-        <div class="meeting-flag">🌐</div>
-        <div>
-          <div class="meeting-title">Virtual NA</div>
-          <div class="meeting-sub">Worldwide online & phone meetings, sorted by language & day</div>
-        </div>
-      </div>
-      <div class="meeting-arr">›</div>
-    </a>
-
-    <a href="https://meetings.ukna.org/meeting/search/online" target="_blank" class="meeting-card">
-      <div class="meeting-left">
-        <div class="meeting-flag">🇬🇧</div>
-        <div>
-          <div class="meeting-title">UK Online Meetings</div>
-          <div class="meeting-sub">450+ online UK NA meetings</div>
-        </div>
-      </div>
-      <div class="meeting-arr">›</div>
-    </a>
-
-    <a href="https://online.ukna.org/" target="_blank" class="meeting-card">
-      <div class="meeting-left">
-        <div class="meeting-flag">🎙️</div>
-        <div>
-          <div class="meeting-title">UKNA Daily Audio Meetings</div>
-          <div class="meeting-sub">Audio-only meetings via phone or app, daily</div>
-        </div>
-      </div>
-      <div class="meeting-arr">›</div>
-    </a>
-
-    <a href="https://www.na.org/?ID=vm_listings" target="_blank" class="meeting-card">
-      <div class="meeting-left">
-        <div class="meeting-flag">📋</div>
-        <div>
-          <div class="meeting-title">NA World Virtual Meetings List</div>
-          <div class="meeting-sub">Official NAWS virtual meeting listings</div>
-        </div>
-      </div>
-      <div class="meeting-arr">›</div>
-    </a>
-
-    <!-- HELPLINE REMINDER -->
-    <div style="background:var(--sf); border:1px solid var(--bd); border-radius:var(--r); padding:14px; margin-top:20px; text-align:center;">
-      <div style="font-size:0.72rem; color:var(--tm); margin-bottom:4px; text-transform:uppercase; letter-spacing:0.06em;">UK Helpline</div>
-      <a href="tel:03009991212" style="font-size:1.2rem; font-weight:700; color:var(--ac); text-decoration:none;">0300 999 1212</a>
-      <div style="font-size:0.68rem; color:var(--tm); margin-top:4px;">10am – midnight daily · Can help find your nearest meeting</div>
+<a href="https://na.org/meetingsearch/" target="_blank" class="meeting-card">
+  <div class="meeting-left">
+    <div class="meeting-flag">🌍</div>
+    <div>
+      <div class="meeting-title">NA World Meeting Search</div>
+      <div class="meeting-sub">Find meetings anywhere in the world</div>
     </div>
+  </div>
+  <div class="meeting-arr">›</div>
+</a>
+
+<a href="https://meetings.ukna.org/meeting/search" target="_blank" class="meeting-card">
+  <div class="meeting-left">
+    <div class="meeting-flag">🇬🇧</div>
+    <div>
+      <div class="meeting-title">UK Meeting Finder</div>
+      <div class="meeting-sub">Search by postcode, town or county</div>
+    </div>
+  </div>
+  <div class="meeting-arr">›</div>
+</a>
+
+<a href="https://edmna.org/regions-and-events/" target="_blank" class="meeting-card">
+  <div class="meeting-left">
+    <div class="meeting-flag">🇪🇺</div>
+    <div>
+      <div class="meeting-title">European Meeting Finder</div>
+      <div class="meeting-sub">NA European Delegates Meeting — all regions</div>
+    </div>
+  </div>
+  <div class="meeting-arr">›</div>
+</a>
+
+<!-- ONLINE MEETINGS -->
+<div class="label" style="margin-top:20px;">💻 Online & Virtual Meetings</div>
+<div style="font-size:0.72rem; color:var(--tm); margin-bottom:12px; line-height:1.5;">Can't get to a meeting? Online meetings are available 24/7 from anywhere in the world.</div>
+
+<a href="https://virtual-na.org/meetings/" target="_blank" class="meeting-card">
+  <div class="meeting-left">
+    <div class="meeting-flag">🌐</div>
+    <div>
+      <div class="meeting-title">Virtual NA</div>
+      <div class="meeting-sub">Worldwide online & phone meetings, sorted by language & day</div>
+    </div>
+  </div>
+  <div class="meeting-arr">›</div>
+</a>
+
+<a href="https://meetings.ukna.org/meeting/search/online" target="_blank" class="meeting-card">
+  <div class="meeting-left">
+    <div class="meeting-flag">🇬🇧</div>
+    <div>
+      <div class="meeting-title">UK Online Meetings</div>
+      <div class="meeting-sub">450+ online UK NA meetings</div>
+    </div>
+  </div>
+  <div class="meeting-arr">›</div>
+</a>
+
+<a href="https://online.ukna.org/" target="_blank" class="meeting-card">
+  <div class="meeting-left">
+    <div class="meeting-flag">🎙️</div>
+    <div>
+      <div class="meeting-title">UKNA Daily Audio Meetings</div>
+      <div class="meeting-sub">Audio-only meetings via phone or app, daily</div>
+    </div>
+  </div>
+  <div class="meeting-arr">›</div>
+</a>
+
+
+
+<!-- HELPLINE REMINDER -->
+<div style="background:var(--sf); border:1px solid var(--bd); border-radius:var(--r); padding:14px; margin-top:20px; text-align:center;">
+  <div style="font-size:0.72rem; color:var(--tm); margin-bottom:4px; text-transform:uppercase; letter-spacing:0.06em;">UK Helpline</div>
+  <a href="tel:03009991212" style="font-size:1.2rem; font-weight:700; color:var(--ac); text-decoration:none;">0300 999 1212</a>
+  <div style="font-size:0.68rem; color:var(--tm); margin-top:4px;">10am – midnight daily · Can help find your nearest meeting</div>
+</div>
+```
 
   </div>
 
-    <div style="color:var(--tm); font-size:0.84rem;">Coming soon</div>
+```
+<div style="color:var(--tm); font-size:0.84rem;">Coming soon</div>
+```
+
   </div>
 
   <div class="screen" id="screen-books">
     <div style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:300; color:var(--ac); margin-bottom:2px;">Books</div>
     <div style="font-size:0.62rem; color:var(--tm); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:18px;">NA Literature Library</div>
 
-    <!-- MAIN BOOKS -->
-    <div class="label">📕 Main Books</div>
-    <div style="font-size:0.7rem; color:var(--tm); margin-bottom:12px;">Tap a book to see purchase options</div>
+```
+<!-- MAIN BOOKS -->
+<div class="label">📕 Main Books</div>
+<div style="font-size:0.7rem; color:var(--tm); margin-bottom:12px;">Tap a book to see purchase options</div>
 
-    <div class="book-expand-card">
-      <div class="book-card-header" onclick="toggleBook(this)">
-        <div class="book-icon">📘</div>
-        <div class="book-body"><div class="book-title">Basic Text</div><div class="book-sub">Narcotics Anonymous — 6th Edition</div></div>
-        <div class="book-chevron">&#8250;</div>
-      </div>
-      <div class="book-card-body">
-        <div class="book-section-label">📱 Digital Edition</div>
-        <div class="book-btn-row">
-          <a href="https://books.apple.com/us/book/narcotics-anonymous/id560639864" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
-          <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_Narcotics_Anonymo?id=560639864" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
-        </div>
-        <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
-        <a href="https://cart-us.na.org/recovery-products/books/basic-text-hardcover-1101" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
-        <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
-        <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
-      </div>
+<div class="book-expand-card">
+  <div class="book-card-header" onclick="toggleBook(this)">
+    <div class="book-icon">📘</div>
+    <div class="book-body"><div class="book-title">Basic Text</div><div class="book-sub">Narcotics Anonymous — 6th Edition</div></div>
+    <div class="book-chevron">&#8250;</div>
+  </div>
+  <div class="book-card-body">
+    <div class="book-section-label">📱 Digital Edition</div>
+    <div class="book-btn-row">
+      <a href="https://books.apple.com/us/book/narcotics-anonymous/id560639864" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
+      <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_Narcotics_Anonymo?id=560639864" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
     </div>
-    <div class="book-expand-card">
-      <div class="book-card-header" onclick="toggleBook(this)">
-        <div class="book-icon">📔</div>
-        <div class="book-body"><div class="book-title">Just for Today</div><div class="book-sub">Daily meditations for recovering addicts</div></div>
-        <div class="book-chevron">&#8250;</div>
-      </div>
-      <div class="book-card-body">
-        <div class="book-section-label">📱 Digital Edition</div>
-        <div class="book-btn-row">
-          <a href="https://books.apple.com/us/book/just-for-today/id1608426774" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
-          <a href="https://play.google.com/store/books/details?id=just-for-today-na" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
-        </div>
-        <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
-        <a href="https://cart-us.na.org/recovery-products/books/just-for-today-daily-meditation-book-1112" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
-        <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
-        <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
-      </div>
+    <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
+    <a href="https://cart-us.na.org/recovery-products/books/basic-text-hardcover-1101" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
+    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
+    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
+  </div>
+</div>
+<div class="book-expand-card">
+  <div class="book-card-header" onclick="toggleBook(this)">
+    <div class="book-icon">📔</div>
+    <div class="book-body"><div class="book-title">Just for Today</div><div class="book-sub">Daily meditations for recovering addicts</div></div>
+    <div class="book-chevron">&#8250;</div>
+  </div>
+  <div class="book-card-body">
+    <div class="book-section-label">📱 Digital Edition</div>
+    <div class="book-btn-row">
+      <a href="https://books.apple.com/us/book/just-for-today/id1608426774" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
+      <a href="https://play.google.com/store/books/details?id=just-for-today-na" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
     </div>
-    <div class="book-expand-card">
-      <div class="book-card-header" onclick="toggleBook(this)">
-        <div class="book-icon">📙</div>
-        <div class="book-body"><div class="book-title">It Works: How and Why</div><div class="book-sub">The 12 Steps & 12 Traditions of NA</div></div>
-        <div class="book-chevron">&#8250;</div>
-      </div>
-      <div class="book-card-body">
-        <div class="book-section-label">📱 Digital Edition</div>
-        <div class="book-btn-row">
-          <a href="https://books.apple.com/us/book/it-works-how-and-why/id564200715" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
-          <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_It_Works_How_and?id=564200715" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
-        </div>
-        <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
-        <a href="https://cart-us.na.org/recovery-products/books/it-works-5-how-and-why-hardcover-1140" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
-        <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
-        <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
-      </div>
+    <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
+    <a href="https://cart-us.na.org/recovery-products/books/just-for-today-daily-meditation-book-1112" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
+    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
+    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
+  </div>
+</div>
+<div class="book-expand-card">
+  <div class="book-card-header" onclick="toggleBook(this)">
+    <div class="book-icon">📙</div>
+    <div class="book-body"><div class="book-title">It Works: How and Why</div><div class="book-sub">The 12 Steps & 12 Traditions of NA</div></div>
+    <div class="book-chevron">&#8250;</div>
+  </div>
+  <div class="book-card-body">
+    <div class="book-section-label">📱 Digital Edition</div>
+    <div class="book-btn-row">
+      <a href="https://books.apple.com/us/book/it-works-how-and-why/id564200715" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
+      <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_It_Works_How_and?id=564200715" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
     </div>
-    <div class="book-expand-card">
-      <div class="book-card-header" onclick="toggleBook(this)">
-        <div class="book-icon">📖</div>
-        <div class="book-body"><div class="book-title">Guiding Principles</div><div class="book-sub">The Spirit of Our Traditions</div></div>
-        <div class="book-chevron">&#8250;</div>
-      </div>
-      <div class="book-card-body">
-        <div class="book-section-label">📱 Digital Edition</div>
-        <div class="book-btn-row">
-          <a href="https://books.apple.com/us/book/guiding-principles-the-spirit-of-our-traditions/id1478457214" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
-          <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_Guiding_Principle?id=1478457214" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
-        </div>
-        <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
-        <a href="https://cart-us.na.org/recovery-products/books" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
-        <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
-        <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
-      </div>
+    <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
+    <a href="https://cart-us.na.org/recovery-products/books/it-works-5-how-and-why-hardcover-1140" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
+    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
+    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
+  </div>
+</div>
+<div class="book-expand-card">
+  <div class="book-card-header" onclick="toggleBook(this)">
+    <div class="book-icon">📖</div>
+    <div class="book-body"><div class="book-title">Guiding Principles</div><div class="book-sub">The Spirit of Our Traditions</div></div>
+    <div class="book-chevron">&#8250;</div>
+  </div>
+  <div class="book-card-body">
+    <div class="book-section-label">📱 Digital Edition</div>
+    <div class="book-btn-row">
+      <a href="https://books.apple.com/us/book/guiding-principles-the-spirit-of-our-traditions/id1478457214" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
+      <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_Guiding_Principle?id=1478457214" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
     </div>
-    <div class="book-expand-card">
-      <div class="book-card-header" onclick="toggleBook(this)">
-        <div class="book-icon">🛤️</div>
-        <div class="book-body"><div class="book-title">Living Clean</div><div class="book-sub">The Journey Continues</div></div>
-        <div class="book-chevron">&#8250;</div>
-      </div>
-      <div class="book-card-body">
-        <div class="book-section-label">📱 Digital Edition</div>
-        <div class="book-btn-row">
-          <a href="https://books.apple.com/us/book/living-clean-the-journey-continues/id733950643" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
-          <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_Living_Clean_The?id=733950643" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
-        </div>
-        <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
-        <a href="https://cart-us.na.org/recovery-products/books/living-clean-1160" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
-        <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
-        <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
-      </div>
+    <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
+    <a href="https://cart-us.na.org/recovery-products/books" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
+    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
+    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
+  </div>
+</div>
+<div class="book-expand-card">
+  <div class="book-card-header" onclick="toggleBook(this)">
+    <div class="book-icon">🛤️</div>
+    <div class="book-body"><div class="book-title">Living Clean</div><div class="book-sub">The Journey Continues</div></div>
+    <div class="book-chevron">&#8250;</div>
+  </div>
+  <div class="book-card-body">
+    <div class="book-section-label">📱 Digital Edition</div>
+    <div class="book-btn-row">
+      <a href="https://books.apple.com/us/book/living-clean-the-journey-continues/id733950643" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
+      <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_Living_Clean_The?id=733950643" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
     </div>
-    <div class="book-expand-card">
-      <div class="book-card-header" onclick="toggleBook(this)">
-        <div class="book-icon">📋</div>
-        <div class="book-body"><div class="book-title">Step Working Guides</div><div class="book-sub">NA 12 Step working guides</div></div>
-        <div class="book-chevron">&#8250;</div>
-      </div>
-      <div class="book-card-body">
-        <div class="book-section-label">📱 Digital Edition</div>
-        <div class="book-btn-row">
-          <a href="https://books.apple.com/us/book/the-na-step-working-guides/id1036368127" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
-          <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_The_NA_Step_Worki?id=1036368127" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
-        </div>
-        <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
-        <a href="https://cart-us.na.org/recovery-products/books/the-na-step-working-guides-1400" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
-        <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
-        <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
-      </div>
+    <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
+    <a href="https://cart-us.na.org/recovery-products/books/living-clean-1160" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
+    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
+    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
+  </div>
+</div>
+<div class="book-expand-card">
+  <div class="book-card-header" onclick="toggleBook(this)">
+    <div class="book-icon">📋</div>
+    <div class="book-body"><div class="book-title">Step Working Guides</div><div class="book-sub">NA 12 Step working guides</div></div>
+    <div class="book-chevron">&#8250;</div>
+  </div>
+  <div class="book-card-body">
+    <div class="book-section-label">📱 Digital Edition</div>
+    <div class="book-btn-row">
+      <a href="https://books.apple.com/us/book/the-na-step-working-guides/id1036368127" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
+      <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_The_NA_Step_Worki?id=1036368127" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
     </div>
-    <div class="book-expand-card">
-      <div class="book-card-header" onclick="toggleBook(this)">
-        <div class="book-icon">✨</div>
-        <div class="book-body"><div class="book-title">A Spiritual Principle a Day</div><div class="book-sub">Daily readings on spiritual principles</div></div>
-        <div class="book-chevron">&#8250;</div>
-      </div>
-      <div class="book-card-body">
-        <div class="book-section-label">📱 Digital Edition</div>
-        <div class="book-btn-row">
-          <a href="https://books.apple.com/us/book/a-spiritual-principle-a-day/id1590889673" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
-          <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_A_Spiritual_Princ?id=1590889673" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
-        </div>
-        <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
-        <a href="https://cart-us.na.org/recovery-products/books/a-spiritual-principle-a-day-1170" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
-        <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
-        <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
-      </div>
+    <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
+    <a href="https://cart-us.na.org/recovery-products/books/the-na-step-working-guides-1400" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
+    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
+    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
+  </div>
+</div>
+<div class="book-expand-card">
+  <div class="book-card-header" onclick="toggleBook(this)">
+    <div class="book-icon">✨</div>
+    <div class="book-body"><div class="book-title">A Spiritual Principle a Day</div><div class="book-sub">Daily readings on spiritual principles</div></div>
+    <div class="book-chevron">&#8250;</div>
+  </div>
+  <div class="book-card-body">
+    <div class="book-section-label">📱 Digital Edition</div>
+    <div class="book-btn-row">
+      <a href="https://books.apple.com/us/book/a-spiritual-principle-a-day/id1590889673" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
+      <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_A_Spiritual_Princ?id=1590889673" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
     </div>
+    <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
+    <a href="https://cart-us.na.org/recovery-products/books/a-spiritual-principle-a-day-1170" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
+    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
+    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
+  </div>
+</div>
 
-    <!-- BOOKLETS -->
-    <div class="label" style="margin-top:20px;">📄 Booklets</div>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN1500_LWB-Little-White-Book-English-Anglicized.pdf" target="_blank" class="book-card">
-      <div class="book-icon">📄</div><div class="book-body"><div class="book-title">The White Booklet</div><div class="book-sub">Free PDF — official na.org</div></div><div class="book-arr">›</div>
-    </a>
+<!-- BOOKLETS -->
+<div class="label" style="margin-top:20px;">📄 Booklets</div>
+<a href="https://na.org/wp-content/uploads/2024/05/AN1500_LWB-Little-White-Book-English-Anglicized.pdf" target="_blank" class="book-card">
+  <div class="book-icon">📄</div><div class="book-body"><div class="book-title">The White Booklet</div><div class="book-sub">Free PDF — official na.org</div></div><div class="book-arr">›</div>
+</a>
 
-    <!-- INFORMATIONAL PAMPHLETS -->
-    <div class="label" style="margin-top:16px;">📃 Informational Pamphlets</div>
-    <div style="font-size:0.7rem; color:var(--tm); margin-bottom:10px;">All free official PDFs from na.org</div>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3101_6-22-IP-1-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #1: Who, What, How, and Why</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3105-IP-5-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #5: Another Look</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3106-IP-6-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #6: Recovery &amp; Relapse</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3107-IP-7-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #7: Am I an Addict?</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3108-IP-8-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #8: Just for Today</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3109_10-22-IP-9-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #9: Living the Programme</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3111-IP-11-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #11: Sponsorship</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3112-IP-12-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #12: The Triangle of Self-Obsession</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3113-IP-13-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #13: Youth and Recovery</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3114-IP-14-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #14: One Addict's Experience</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3115_7-22-IP-15-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #15: PI and the NA Member</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3116-IP-16-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #16: For the Newcomer</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3119-IP-19-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #19: Self-Acceptance</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3120_7-22-IP-20-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #20: H&amp;I Service and the NA Member</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3122-IP-22-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #22: Welcome to Narcotics Anonymous</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3123-IP-23-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #23: Staying Clean on the Inside</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3124-IP-24-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #24: Why Are We Self-Supporting?</div></div><div class="book-arr">›</div></a>
+<!-- INFORMATIONAL PAMPHLETS -->
+<div class="label" style="margin-top:16px;">📃 Informational Pamphlets</div>
+<div style="font-size:0.7rem; color:var(--tm); margin-bottom:10px;">All free official PDFs from na.org</div>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3101_6-22-IP-1-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #1: Who, What, How, and Why</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3105-IP-5-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #5: Another Look</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3106-IP-6-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #6: Recovery &amp; Relapse</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3107-IP-7-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #7: Am I an Addict?</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3108-IP-8-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #8: Just for Today</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3109_10-22-IP-9-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #9: Living the Programme</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3111-IP-11-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #11: Sponsorship</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3112-IP-12-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #12: The Triangle of Self-Obsession</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3113-IP-13-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #13: Youth and Recovery</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3114-IP-14-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #14: One Addict's Experience</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3115_7-22-IP-15-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #15: PI and the NA Member</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3116-IP-16-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #16: For the Newcomer</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3119-IP-19-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #19: Self-Acceptance</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3120_7-22-IP-20-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #20: H&amp;I Service and the NA Member</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3122-IP-22-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #22: Welcome to Narcotics Anonymous</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3123-IP-23-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #23: Staying Clean on the Inside</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3124-IP-24-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #24: Why Are We Self-Supporting?</div></div><div class="book-arr">›</div></a>
+```
 
   </div><!-- end screen-books -->
 
@@ -865,6 +866,7 @@ nav {
   </div>
 
   <!-- NAV -->
+
   <nav>
     <div class="nav-item active" id="nav-home" onclick="showScreen('home')">
       <div class="nav-icon">&#x1F3E0;</div>
@@ -1318,5 +1320,6 @@ function toggleBook(header) {
 }
 
 </script>
+
 </body>
 </html>
