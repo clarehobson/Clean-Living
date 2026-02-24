@@ -10,6 +10,7 @@
 <meta name="theme-color" content="#0f0f1a">
 <title>NA Recovery</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
 <style>
 :root {
   --bg: #0f0f1a;
@@ -49,7 +50,7 @@ gap: 3px;
 padding: 10px 2px 8px;
 cursor: pointer;
 color: var(–tm);
-font-size: 0.46rem;
+font-size: 0.42rem;
 letter-spacing: 0.05em;
 text-transform: uppercase;
 -webkit-user-select: none;
@@ -363,6 +364,284 @@ gap: 12px;
 .meeting-sub { font-size: 0.68rem; color: var(–tm); margin-top: 2px; line-height: 1.4; }
 .meeting-arr { color: var(–tm); font-size: 1rem; flex-shrink: 0; margin-left: 8px; }
 
+/* NETWORK */
+.net-card {
+background: var(–sf);
+border: 1px solid var(–bd);
+border-radius: var(–r);
+padding: 14px 16px;
+margin-bottom: 10px;
+}
+.net-card-header {
+display: flex;
+align-items: center;
+gap: 12px;
+}
+.net-avatar {
+width: 44px;
+height: 44px;
+border-radius: 50%;
+background: rgba(232,201,122,0.12);
+border: 1px solid var(–bd);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.2rem;
+flex-shrink: 0;
+}
+.net-info { flex: 1; min-width: 0; }
+.net-name { font-size: 0.9rem; font-weight: 700; color: var(–tx); }
+.net-role { font-size: 0.68rem; color: var(–ac); margin-top: 2px; }
+.net-clean { font-size: 0.66rem; color: var(–tm); margin-top: 2px; }
+.net-location { font-size: 0.66rem; color: var(–tm); margin-top: 1px; }
+.net-actions {
+display: flex;
+gap: 8px;
+margin-top: 12px;
+padding-top: 10px;
+border-top: 1px solid var(–bd);
+}
+.net-action-btn {
+flex: 1;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 4px;
+padding: 8px 4px;
+background: var(–sf2);
+border: 1px solid var(–bd);
+border-radius: 10px;
+cursor: pointer;
+text-decoration: none;
+color: var(–tx);
+font-size: 0.6rem;
+text-align: center;
+}
+.net-action-btn:active { background: rgba(232,201,122,0.1); }
+.net-action-icon { font-size: 1.1rem; }
+
+/* MODAL */
+.modal-overlay {
+display: none;
+position: fixed;
+inset: 0;
+background: rgba(0,0,0,0.7);
+z-index: 200;
+align-items: flex-end;
+}
+.modal-overlay.open { display: flex; }
+.modal-sheet {
+background: var(–sf);
+border-radius: 20px 20px 0 0;
+padding: 20px 16px 40px;
+width: 100%;
+max-height: 85vh;
+overflow-y: auto;
+}
+.modal-title {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.4rem;
+font-weight: 300;
+color: var(–ac);
+margin-bottom: 16px;
+text-align: center;
+}
+.modal-label {
+font-size: 0.62rem;
+font-weight: 800;
+color: var(–ac);
+text-transform: uppercase;
+letter-spacing: 0.08em;
+margin-bottom: 6px;
+margin-top: 14px;
+}
+.role-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 7px;
+margin-bottom: 4px;
+}
+.role-btn {
+padding: 9px 8px;
+border: 1px solid var(–bd);
+border-radius: 10px;
+background: var(–sf2);
+color: var(–tm);
+font-size: 0.74rem;
+cursor: pointer;
+text-align: center;
+}
+.role-btn.selected { border-color: var(–ac); color: var(–ac); background: rgba(232,201,122,0.1); }
+
+/* EXPORT MODAL */
+.export-overlay {
+display: none;
+position: fixed;
+inset: 0;
+background: rgba(0,0,0,0.7);
+z-index: 200;
+align-items: flex-end;
+}
+.export-overlay.open { display: flex; }
+
+/* NETWORK */
+.net-card {
+background: var(–sf);
+border: 1px solid var(–bd);
+border-radius: var(–r);
+padding: 14px 16px;
+margin-bottom: 10px;
+position: relative;
+}
+.net-card-top {
+display: flex;
+align-items: center;
+gap: 12px;
+margin-bottom: 10px;
+}
+.net-avatar {
+width: 42px;
+height: 42px;
+border-radius: 50%;
+background: rgba(232,201,122,0.12);
+border: 1px solid var(–bd);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.2rem;
+flex-shrink: 0;
+}
+.net-name { font-size: 0.92rem; font-weight: 700; color: var(–tx); }
+.net-role {
+display: inline-block;
+font-size: 0.6rem;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 0.07em;
+padding: 2px 8px;
+border-radius: 20px;
+margin-top: 3px;
+background: rgba(232,201,122,0.1);
+border: 1px solid rgba(232,201,122,0.25);
+color: var(–ac);
+}
+.net-meta {
+font-size: 0.72rem;
+color: var(–tm);
+display: flex;
+gap: 10px;
+flex-wrap: wrap;
+margin-bottom: 10px;
+}
+.net-actions {
+display: flex;
+gap: 8px;
+}
+.net-btn {
+flex: 1;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 6px;
+padding: 9px;
+border-radius: 10px;
+font-size: 0.74rem;
+font-weight: 600;
+text-decoration: none;
+border: none;
+cursor: pointer;
+}
+.net-btn.call { background: rgba(52,199,89,0.15); color: #34c759; border: 1px solid rgba(52,199,89,0.25); }
+.net-btn.whatsapp { background: rgba(37,211,102,0.12); color: #25d366; border: 1px solid rgba(37,211,102,0.25); }
+.net-delete-btn {
+position: absolute;
+top: 12px;
+right: 12px;
+background: none;
+border: none;
+color: var(–tm);
+font-size: 1rem;
+cursor: pointer;
+padding: 2px 6px;
+line-height: 1;
+}
+
+/* MODAL */
+.modal-overlay {
+display: none;
+position: fixed;
+inset: 0;
+background: rgba(0,0,0,0.7);
+z-index: 500;
+align-items: flex-end;
+justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+background: var(–sf);
+border: 1px solid var(–bd);
+border-radius: 20px 20px 0 0;
+padding: 24px 18px 40px;
+width: 100%;
+max-width: 500px;
+max-height: 85vh;
+overflow-y: auto;
+}
+.modal-title {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.4rem;
+font-weight: 300;
+color: var(–ac);
+margin-bottom: 16px;
+}
+.modal-label {
+font-size: 0.68rem;
+font-weight: 700;
+color: var(–tm);
+text-transform: uppercase;
+letter-spacing: 0.07em;
+margin-bottom: 5px;
+margin-top: 12px;
+}
+.modal-select {
+width: 100%;
+background: var(–sf2);
+border: 1px solid var(–bd);
+border-radius: 10px;
+color: var(–tx);
+font-size: 0.84rem;
+padding: 10px 12px;
+outline: none;
+-webkit-appearance: none;
+}
+
+/* EXPORT MODAL */
+.export-btn {
+display: flex;
+align-items: center;
+gap: 12px;
+background: var(–sf2);
+border: 1px solid var(–bd);
+border-radius: var(–r);
+padding: 14px 16px;
+margin-bottom: 10px;
+cursor: pointer;
+width: 100%;
+text-align: left;
+color: var(–tx);
+}
+.export-btn:active { opacity: 0.75; }
+
+/* LEAFLET POPUP DARK THEME */
+.net-popup .leaflet-popup-content-wrapper {
+background: #1a1a2e;
+color: #f0ead6;
+border: 1px solid rgba(232,201,122,0.2);
+border-radius: 10px;
+box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+.net-popup .leaflet-popup-tip { background: #1a1a2e; }
+
 /* TOAST */
 #toast {
 position: fixed;
@@ -385,6 +664,63 @@ z-index: 999;
 
 </head>
 <body>
+
+<!-- SPLASH SCREEN -->
+
+<div id="splash" style="
+  position:fixed; inset:0; z-index:9999;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  background:#0a0f1a;
+  overflow:hidden;
+  touch-action:pan-y;
+">
+  <!-- Background image -->
+  <div id="splash-bg" style="
+    position:absolute; inset:0;
+    background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80');
+    background-size:cover; background-position:center;
+    opacity:0; transition:opacity 1.2s ease;
+  "></div>
+  <!-- Dark overlay -->
+  <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.75) 100%);"></div>
+
+  <!-- Content -->
+
+  <div style="position:relative;z-index:2;text-align:center;padding:0 32px;width:100%;">
+    <div style="font-size:0.78rem;font-weight:300;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:18px;">You are clean</div>
+
+```
+<div style="display:flex;justify-content:center;gap:28px;margin-bottom:32px;">
+  <div style="text-align:center;">
+    <div id="splash-years" style="font-family:'Cormorant Garamond',serif;font-size:5rem;font-weight:300;color:#fff;line-height:1;">0</div>
+    <div style="font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-top:4px;">Years</div>
+  </div>
+  <div style="text-align:center;">
+    <div id="splash-months" style="font-family:'Cormorant Garamond',serif;font-size:5rem;font-weight:300;color:#fff;line-height:1;">0</div>
+    <div style="font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-top:4px;">Months</div>
+  </div>
+  <div style="text-align:center;">
+    <div id="splash-weeks" style="font-family:'Cormorant Garamond',serif;font-size:5rem;font-weight:300;color:#fff;line-height:1;">0</div>
+    <div style="font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-top:4px;">Weeks</div>
+  </div>
+</div>
+
+<div id="splash-quote" style="font-size:0.88rem;font-style:italic;color:rgba(255,255,255,0.75);line-height:1.6;max-width:280px;margin:0 auto 48px;"></div>
+```
+
+  </div>
+
+  <!-- Swipe indicator -->
+
+  <div style="position:absolute;bottom:calc(env(safe-area-inset-bottom,0px) + 28px);left:0;right:0;text-align:center;z-index:2;">
+    <div id="splash-swipe-hint" style="display:inline-flex;flex-direction:column;align-items:center;gap:6px;opacity:0.7;">
+      <div style="width:1px;height:32px;background:rgba(255,255,255,0.5);margin:0 auto;"></div>
+      <div style="font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.6);">Swipe up</div>
+    </div>
+  </div>
+</div>
+
 <div id="app">
 
   <!-- HOME SCREEN -->
@@ -481,12 +817,32 @@ z-index: 999;
 </div>
 
 <!-- Crisis Line -->
-<div style="background:rgba(180,60,60,0.12); border:1px solid rgba(180,60,60,0.25); border-radius:var(--r); padding:12px 14px; margin-top:10px; display:flex; gap:10px; align-items:center;">
-  <div style="font-size:1rem;">&#x1F4DE;</div>
-  <div style="font-size:0.74rem;">
-    &#x1F1EC;&#x1F1E7; UK Helpline: <span style="color:#ff6b6b; font-weight:700;">0300 999 1212</span><br>
-    <span style="font-size:0.63rem; color:var(--tm);">10am&ndash;midnight daily</span>
+<div style="background:rgba(180,60,60,0.12); border:1px solid rgba(180,60,60,0.25); border-radius:var(--r); padding:12px 14px; margin-top:10px;">
+  <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+    <div style="font-size:1rem;">📞</div>
+    <div style="font-size:0.74rem; font-weight:700; color:var(--tx);">Helplines</div>
   </div>
+  <a href="tel:03009991212" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0; border-bottom:1px solid rgba(180,60,60,0.2);">
+    <div>
+      <div style="font-size:0.76rem; font-weight:700; color:#ff6b6b;">🇬🇧 UK Helpline</div>
+      <div style="font-size:0.63rem; color:var(--tm);">0300 999 1212 · 10am–midnight daily</div>
+    </div>
+    <div style="font-size:0.7rem; color:var(--tm);">Tap to call ›</div>
+  </a>
+  <a href="tel:+18187739999" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0; border-bottom:1px solid rgba(180,60,60,0.2);">
+    <div>
+      <div style="font-size:0.76rem; font-weight:700; color:#ff6b6b;">🌍 NA World Service Office</div>
+      <div style="font-size:0.63rem; color:var(--tm);">+1 818 773 9999 · Mon–Fri, 8am–5pm PST</div>
+    </div>
+    <div style="font-size:0.7rem; color:var(--tm);">Tap to call ›</div>
+  </a>
+  <a href="https://www.na.org/meetingsearch" target="_blank" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0;">
+    <div>
+      <div style="font-size:0.76rem; font-weight:700; color:#ff6b6b;">🔍 Find Your Local Helpline</div>
+      <div style="font-size:0.63rem; color:var(--tm);">na.org · Search by country or region</div>
+    </div>
+    <div style="font-size:0.7rem; color:var(--tm);">Open ›</div>
+  </a>
 </div>
 ```
 
@@ -541,7 +897,10 @@ z-index: 999;
   </div>
 
   <!-- Past entries -->
-  <div class="label" style="margin-top:20px;">Recent Entries</div>
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-top:20px;margin-bottom:8px;">
+    <div class="label" style="margin:0;">Recent Entries</div>
+    <button onclick="showExportPicker()" style="background:var(--sf);border:1px solid var(--bd);border-radius:20px;padding:5px 12px;font-size:0.66rem;color:var(--ac);cursor:pointer;">↑ Export</button>
+  </div>
   <div id="j-entries"></div>
 </div>
 
@@ -670,17 +1029,30 @@ z-index: 999;
 
 
 <!-- HELPLINE REMINDER -->
-<div style="background:var(--sf); border:1px solid var(--bd); border-radius:var(--r); padding:14px; margin-top:20px; text-align:center;">
-  <div style="font-size:0.72rem; color:var(--tm); margin-bottom:4px; text-transform:uppercase; letter-spacing:0.06em;">UK Helpline</div>
-  <a href="tel:03009991212" style="font-size:1.2rem; font-weight:700; color:var(--ac); text-decoration:none;">0300 999 1212</a>
-  <div style="font-size:0.68rem; color:var(--tm); margin-top:4px;">10am – midnight daily · Can help find your nearest meeting</div>
+<div style="background:var(--sf); border:1px solid var(--bd); border-radius:var(--r); padding:14px; margin-top:20px;">
+  <div style="font-size:0.68rem; color:var(--tm); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:12px;">📞 Helplines</div>
+  <a href="tel:03009991212" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0; border-bottom:1px solid var(--bd);">
+    <div>
+      <div style="font-size:0.82rem; font-weight:700; color:var(--ac);">🇬🇧 UK Helpline</div>
+      <div style="font-size:0.68rem; color:var(--tm); margin-top:2px;">0300 999 1212 · 10am–midnight daily</div>
+    </div>
+    <div style="font-size:0.7rem; color:var(--tm);">Tap to call ›</div>
+  </a>
+  <a href="tel:+18187739999" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0; border-bottom:1px solid var(--bd);">
+    <div>
+      <div style="font-size:0.82rem; font-weight:700; color:var(--ac);">🌍 NA World Service Office</div>
+      <div style="font-size:0.68rem; color:var(--tm); margin-top:2px;">+1 818 773 9999 · Mon–Fri, 8am–5pm PST</div>
+    </div>
+    <div style="font-size:0.7rem; color:var(--tm);">Tap to call ›</div>
+  </a>
+  <a href="https://www.na.org/meetingsearch" target="_blank" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0;">
+    <div>
+      <div style="font-size:0.82rem; font-weight:700; color:var(--ac);">🔍 Find Your Local Helpline</div>
+      <div style="font-size:0.68rem; color:var(--tm); margin-top:2px;">na.org · Search by country or region</div>
+    </div>
+    <div style="font-size:0.7rem; color:var(--tm);">Open ›</div>
+  </a>
 </div>
-```
-
-  </div>
-
-```
-<div style="color:var(--tm); font-size:0.84rem;">Coming soon</div>
 ```
 
   </div>
@@ -978,6 +1350,100 @@ z-index: 999;
 
   </div>
 
+  <!-- NETWORK SCREEN -->
+
+  <div class="screen" id="screen-network">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;">
+      <div style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:300; color:var(--ac);">My Network</div>
+      <button onclick="openAddContact()" style="background:var(--ac);border:none;border-radius:50%;width:36px;height:36px;font-size:1.2rem;cursor:pointer;color:#1a1208;flex-shrink:0;">+</button>
+    </div>
+    <div style="font-size:0.62rem; color:var(--tm); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:12px;">Your recovery people</div>
+
+```
+<!-- NETWORK MAP -->
+<div id="net-map-wrap" style="border-radius:16px;overflow:hidden;margin-bottom:16px;border:1px solid var(--bd);position:relative;">
+  <div id="net-map" style="height:220px;width:100%;background:var(--sf2);"></div>
+  <div style="position:absolute;bottom:8px;left:8px;display:flex;gap:6px;z-index:1000;pointer-events:none;">
+    <div style="background:rgba(15,15,26,0.85);border-radius:20px;padding:3px 8px;font-size:0.58rem;color:#fff;display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#e74c3c;display:inline-block;"></span>Sponsor</div>
+    <div style="background:rgba(15,15,26,0.85);border-radius:20px;padding:3px 8px;font-size:0.58rem;color:#fff;display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#2ecc71;display:inline-block;"></span>Sponsee / Sister / Brother</div>
+    <div style="background:rgba(15,15,26,0.85);border-radius:20px;padding:3px 8px;font-size:0.58rem;color:#fff;display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#f1c40f;display:inline-block;"></span>Friend</div>
+  </div>
+</div>
+
+<div id="net-list"></div>
+<div id="net-empty" style="display:none;text-align:center;padding:40px 0 20px;">
+  <div style="font-size:2rem;margin-bottom:10px;">🤝</div>
+  <div style="font-size:0.84rem;color:var(--tm);">No contacts yet</div>
+  <div style="font-size:0.72rem;color:var(--tm);margin-top:4px;">Tap + to add someone from your network</div>
+</div>
+```
+
+  </div>
+
+  <!-- ADD CONTACT MODAL -->
+
+  <div class="modal-overlay" id="contact-modal" onclick="closeContactModal(event)">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div class="modal-title" id="contact-modal-title">Add Contact</div>
+
+```
+  <div class="modal-label">Name</div>
+  <input id="cn-name" class="input" type="text" placeholder="Their name">
+
+  <div class="modal-label">Relationship</div>
+  <div class="role-grid">
+    <div class="role-btn" onclick="selectRole(this,'Sponsor')">💛 Sponsor</div>
+    <div class="role-btn" onclick="selectRole(this,'Sponsee')">🌱 Sponsee</div>
+    <div class="role-btn" onclick="selectRole(this,'Sponsor Sister')">💜 Sponsor Sister</div>
+    <div class="role-btn" onclick="selectRole(this,'Sponsor Brother')">💙 Sponsor Brother</div>
+    <div class="role-btn" onclick="selectRole(this,'Friend in Recovery')" style="grid-column:span 2;">🤝 Friend in Recovery</div>
+  </div>
+
+  <div class="modal-label">Phone Number</div>
+  <input id="cn-phone" class="input" type="tel" placeholder="+44 7700 000000">
+
+  <div class="modal-label">WhatsApp Number <span style="color:var(--tm);font-weight:400;">(if different)</span></div>
+  <input id="cn-whatsapp" class="input" type="tel" placeholder="Same as phone if blank">
+
+  <div class="modal-label">Town / City</div>
+  <input id="cn-location" class="input" type="text" placeholder="e.g. Manchester">
+
+  <div class="modal-label">Clean Date</div>
+  <input id="cn-cleandate" class="input" type="date">
+
+  <div style="display:flex;gap:8px;margin-top:18px;">
+    <button onclick="closeContactModalDirect()" style="flex:1;padding:13px;border:1px solid var(--bd);border-radius:var(--r);background:transparent;color:var(--tm);cursor:pointer;">Cancel</button>
+    <button onclick="saveContact()" class="btn" style="flex:2;margin-top:0;">Save</button>
+  </div>
+  <div id="cn-delete-wrap" style="display:none;margin-top:10px;">
+    <button onclick="deleteContact()" style="width:100%;padding:12px;border:1px solid rgba(180,60,60,0.4);border-radius:var(--r);background:transparent;color:#ff6b6b;font-size:0.8rem;cursor:pointer;">Remove Contact</button>
+  </div>
+</div>
+```
+
+  </div>
+
+  <!-- EXPORT MODAL -->
+
+  <div class="export-overlay" id="export-modal" onclick="closeExportModalDirect()">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div id="export-picker-view">
+        <div class="modal-title">Export Which Journal?</div>
+        <div id="export-type-list"></div>
+        <button onclick="closeExportModalDirect()" style="width:100%;margin-top:6px;padding:12px;border:1px solid var(--bd);border-radius:var(--r);background:transparent;color:var(--tm);cursor:pointer;">Cancel</button>
+      </div>
+      <div id="export-send-view" style="display:none;">
+        <div class="modal-title" id="export-send-title"></div>
+        <div id="export-preview" style="background:var(--sf2);border:1px solid var(--bd);border-radius:12px;padding:12px;font-size:0.72rem;color:var(--tm);line-height:1.6;max-height:200px;overflow-y:auto;margin-bottom:16px;white-space:pre-wrap;"></div>
+        <div style="display:flex;gap:8px;">
+          <button onclick="exportEmail()" class="btn" style="flex:1;margin-top:0;">✉️ Email</button>
+          <button onclick="exportCopy()" class="btn" style="flex:1;margin-top:0;background:var(--sf2);color:var(--tx);border:1px solid var(--bd);">📋 Copy</button>
+        </div>
+        <button onclick="showExportPicker()" style="width:100%;margin-top:10px;padding:12px;border:1px solid var(--bd);border-radius:var(--r);background:transparent;color:var(--tm);cursor:pointer;">← Back</button>
+      </div>
+    </div>
+  </div>
+
   <!-- NAV -->
 
   <nav>
@@ -1000,6 +1466,10 @@ z-index: 999;
     <div class="nav-item" id="nav-meetings" onclick="showScreen('meetings')">
       <div class="nav-icon">&#x1F5D3;</div>
       <div>Meetings</div>
+    </div>
+    <div class="nav-item" id="nav-network" onclick="showScreen('network')">
+      <div class="nav-icon">🤝</div>
+      <div>Network</div>
     </div>
     <div class="nav-item" id="nav-resources" onclick="showScreen('resources')">
       <div class="nav-icon">🏃</div>
@@ -1034,6 +1504,18 @@ function showScreen(name) {
   document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
   document.getElementById('screen-' + name).classList.add('active');
   document.getElementById('nav-' + name).classList.add('active');
+  if (name === 'network') {
+    setTimeout(function(){
+      if (typeof L === 'undefined') return;
+      if (!netMap) {
+        initNetMap();
+        setTimeout(function(){ geocodeAndPlot(); }, 200);
+      } else {
+        netMap.invalidateSize();
+        geocodeAndPlot();
+      }
+    }, 100);
+  }
 }
 
 // --- CLEAN DATE ---
@@ -1140,41 +1622,41 @@ var SPOTCHECK_PROMPTS = [
 ];
 
 var STEP10_QUESTIONS = [
-  "Have I reaffirmed my faith in a loving, caring God today?",
-  "Have I sought out the guidance of my Higher Power today? How?",
-  "What have I done to be of service to God and the people around me?",
-  "Has God given me anything to be grateful for today?",
-  "Do I believe that my Higher Power can show me how to live and better align myself with the will of that power?",
-  "Do I see any 'old patterns' in my life today? If so, which ones?",
-  "Have I been resentful, selfish, dishonest, or afraid?",
-  "Have I set myself up for disappointment?",
-  "Have I been kind and loving toward all?",
-  "Have I been worrying about yesterday or tomorrow?",
-  "Did I allow myself to become obsessed about anything?",
-  "Have I allowed myself to become too hungry, angry, lonely, or tired?",
-  "Am I taking myself too seriously in any area of my life?",
-  "Do I suffer from any physical, mental, or spiritual problems?",
-  "Have I kept something to myself that I should have discussed with my sponsor?",
-  "Did I have any extreme feelings today? What were they and why did I have them?",
-  "What are the problem areas in my life today?",
-  "Which defects played a part in my life today? How?",
-  "Was there fear in my life today?",
-  "What did I do today that I wish I hadn't done?",
-  "What didn't I do today that I wish I had done?",
-  "Am I willing to change?",
-  "Has there been conflict in any of my relationships today? What?",
-  "Am I maintaining personal integrity in my relations with others?",
-  "Have I harmed myself or others, either directly or indirectly, today? How?",
-  "Do I owe any apologies or amends?",
-  "Where was I wrong? If I could do it over again, what would I do differently? How might I do better next time?",
+  "Have I taken time today to reconnect with my Higher Power?",
+  "Did I seek spiritual guidance today, and if so, how?",
+  "How have I been of service to others today?",
+  "What am I grateful for that my Higher Power has given me today?",
+  "Do I trust that my Higher Power can guide me toward a better way of living?",
+  "Have any old patterns or behaviours shown up for me today?",
+  "Have I been resentful, selfish, dishonest, or afraid at any point today?",
+  "Did I set myself up for disappointment or unrealistic expectations?",
+  "Was I kind and loving in my interactions with others today?",
+  "Have I been living in the past or the future rather than the present?",
+  "Did I allow myself to become obsessed or fixated on anything today?",
+  "Have I let myself get too hungry, angry, lonely, or tired today?",
+  "Am I taking myself or any situation too seriously right now?",
+  "Are there any physical, mental, or spiritual struggles I need to address?",
+  "Is there anything I've been keeping from my sponsor that I should share?",
+  "Did I experience any intense or overwhelming feelings today — what caused them?",
+  "What areas of my life are causing me difficulty right now?",
+  "Which character defects showed up in my behaviour today, and how?",
+  "Did fear play a role in any of my actions or thoughts today?",
+  "Is there anything I did today that I regret or wish I had handled differently?",
+  "Is there anything I didn't do today that I know I should have?",
+  "Am I genuinely open and willing to change?",
+  "Was there conflict in any of my relationships today — what happened?",
+  "Am I living with integrity in how I treat the people around me?",
+  "Did I cause harm — directly or indirectly — to myself or anyone else today?",
+  "Do I owe an apology or amends to anyone?",
+  "Where did I go wrong today, and what would I do differently next time?",
   "Did I stay clean today?",
-  "Was I good to myself today?",
-  "What were the feelings I had today? How did I use them to choose principle-centered action?",
-  "What did I do to be of service to others today?",
-  "What have I done today about which I feel positive?",
-  "What has given me satisfaction today?",
-  "What did I do today that I want to be sure I repeat?",
-  "Did I go to a meeting or talk to another recovering addict today?",
+  "Was I compassionate and caring toward myself today?",
+  "What feelings did I experience today, and how did I let them guide my choices?",
+  "What did I do today to be of service to another person?",
+  "What am I feeling good or positive about from today?",
+  "What gave me a sense of meaning or satisfaction today?",
+  "What did I do today that I want to make sure I repeat?",
+  "Did I connect with the fellowship today — a meeting, a phone call, a message?",
   "What do I have to be grateful for today?"
 ];
 
@@ -1413,7 +1895,238 @@ function renderJournalEntries() {
   });
 }
 
-// --- INIT ---
+
+// =====================
+// NETWORK
+// =====================
+var networkContacts = JSON.parse(localStorage.getItem('na_network') || '[]');
+var editingContactId = null;
+var selectedRole = '';
+
+var ROLE_EMOJIS = {
+  'Sponsor': '💛',
+  'Sponsee': '🌱',
+  'Sponsor Sister': '💜',
+  'Sponsor Brother': '💙',
+  'Friend in Recovery': '🤝'
+};
+
+function openAddContact() {
+  editingContactId = null;
+  selectedRole = '';
+  document.getElementById('contact-modal-title').textContent = 'Add Contact';
+  document.getElementById('cn-name').value = '';
+  document.getElementById('cn-phone').value = '';
+  document.getElementById('cn-whatsapp').value = '';
+  document.getElementById('cn-location').value = '';
+  document.getElementById('cn-cleandate').value = '';
+  document.querySelectorAll('.role-btn').forEach(function(b){ b.classList.remove('selected'); });
+  document.getElementById('cn-delete-wrap').style.display = 'none';
+  document.getElementById('contact-modal').classList.add('open');
+}
+
+function openEditContact(id) {
+  var c = networkContacts.find(function(x){ return x.id === id; });
+  if (!c) return;
+  editingContactId = id;
+  selectedRole = c.role || '';
+  document.getElementById('contact-modal-title').textContent = 'Edit Contact';
+  document.getElementById('cn-name').value = c.name || '';
+  document.getElementById('cn-phone').value = c.phone || '';
+  document.getElementById('cn-whatsapp').value = c.whatsapp || '';
+  document.getElementById('cn-location').value = c.location || '';
+  document.getElementById('cn-cleandate').value = c.cleandate || '';
+  document.querySelectorAll('.role-btn').forEach(function(b){
+    b.classList.remove('selected');
+    if (b.textContent.trim().includes(selectedRole)) b.classList.add('selected');
+  });
+  document.getElementById('cn-delete-wrap').style.display = 'block';
+  document.getElementById('contact-modal').classList.add('open');
+}
+
+function selectRole(btn, role) {
+  selectedRole = role;
+  document.querySelectorAll('.role-btn').forEach(function(b){ b.classList.remove('selected'); });
+  btn.classList.add('selected');
+}
+
+function saveContact() {
+  var name = document.getElementById('cn-name').value.trim();
+  if (!name) { alert('Please enter a name.'); return; }
+  var contact = {
+    id: editingContactId || Date.now().toString(),
+    name: name,
+    role: selectedRole,
+    phone: document.getElementById('cn-phone').value.trim(),
+    whatsapp: document.getElementById('cn-whatsapp').value.trim(),
+    location: document.getElementById('cn-location').value.trim(),
+    cleandate: document.getElementById('cn-cleandate').value
+  };
+  if (editingContactId) {
+    var idx = networkContacts.findIndex(function(x){ return x.id === editingContactId; });
+    if (idx > -1) networkContacts[idx] = contact;
+  } else {
+    networkContacts.push(contact);
+  }
+  localStorage.setItem('na_network', JSON.stringify(networkContacts));
+  closeContactModalDirect();
+  renderNetwork();
+  toast('Contact saved ✓');
+}
+
+function deleteContact() {
+  if (!editingContactId) return;
+  networkContacts = networkContacts.filter(function(x){ return x.id !== editingContactId; });
+  localStorage.setItem('na_network', JSON.stringify(networkContacts));
+  closeContactModalDirect();
+  renderNetwork();
+  toast('Contact removed');
+}
+
+function closeContactModal(event) {
+  document.getElementById('contact-modal').classList.remove('open');
+}
+function closeContactModalDirect() {
+  document.getElementById('contact-modal').classList.remove('open');
+}
+
+function calcCleanTime(dateStr) {
+  if (!dateStr) return null;
+  var start = new Date(dateStr);
+  var now = new Date();
+  var days = Math.floor((now - start) / 86400000);
+  if (days < 0) return null;
+  if (days < 30) return days + (days === 1 ? ' day' : ' days') + ' clean';
+  var months = Math.floor(days / 30.4375);
+  if (months < 12) return months + (months === 1 ? ' month' : ' months') + ' clean';
+  var years = Math.floor(days / 365.25);
+  var remMonths = Math.floor((days % 365.25) / 30.4375);
+  var str = years + (years === 1 ? ' year' : ' years');
+  if (remMonths > 0) str += ' ' + remMonths + (remMonths === 1 ? ' month' : ' months');
+  return str + ' clean';
+}
+
+function openMaps(location) {
+  var encoded = encodeURIComponent(location);
+  // Try Apple Maps first on iOS, fallback to Google Maps
+  var ua = navigator.userAgent;
+  if (/iPhone|iPad|iPod/.test(ua)) {
+    window.open('https://maps.apple.com/?q=' + encoded, '_blank');
+  } else {
+    window.open('https://www.google.com/maps/search/' + encoded, '_blank');
+  }
+}
+
+function renderNetwork() {
+  var list = document.getElementById('net-list');
+  var empty = document.getElementById('net-empty');
+  if (!networkContacts.length) {
+    list.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  list.innerHTML = '';
+  networkContacts.forEach(function(c) {
+    var emoji = ROLE_EMOJIS[c.role] || '👤';
+    var cleanTime = c.cleandate ? calcCleanTime(c.cleandate) : null;
+    var phoneNum = c.whatsapp || c.phone;
+    var waNum = (c.whatsapp || c.phone).replace(/\D/g, '');
+
+    var div = document.createElement('div');
+    div.className = 'net-card';
+    div.innerHTML =
+      '<div class="net-card-header">' +
+        '<div class="net-avatar">' + emoji + '</div>' +
+        '<div class="net-info">' +
+          '<div class="net-name">' + c.name + '</div>' +
+          (c.role ? '<div class="net-role">' + c.role + '</div>' : '') +
+          (cleanTime ? '<div class="net-clean">⏳ ' + cleanTime + '</div>' : '') +
+          (c.location ? '<div class="net-location">📍 ' + c.location + '</div>' : '') +
+        '</div>' +
+        '<button onclick="openEditContact(\'' + c.id + '\')" style="background:transparent;border:none;color:var(--tm);font-size:1rem;cursor:pointer;padding:4px;">✏️</button>' +
+      '</div>' +
+      '<div class="net-actions">' +
+        (c.phone ? '<a href="tel:' + c.phone.replace(/\s/g,'') + '" class="net-action-btn"><span class="net-action-icon">📞</span>Call</a>' : '') +
+        (waNum ? '<a href="https://wa.me/' + waNum + '" target="_blank" class="net-action-btn"><span class="net-action-icon">💬</span>WhatsApp</a>' : '') +
+        (c.location ? '<div class="net-action-btn" onclick="openMaps(\'' + c.location.replace(/'/g,"\\'") + '\')"><span class="net-action-icon">🗺️</span>Map</div>' : '') +
+      '</div>';
+    list.appendChild(div);
+  });
+  geocodeAndPlot();
+}
+
+// =====================
+// JOURNAL EXPORT
+// =====================
+var exportType = null;
+var exportText = '';
+
+function showExportPicker() {
+  var types = ['gratitude','spotcheck','step10','daily'];
+  var names = { gratitude:'Gratitude List', spotcheck:'Spot Check', step10:'Full Step 10', daily:'Daily Journal' };
+  var html = '';
+  types.forEach(function(t) {
+    var count = journalEntries.filter(function(e){ return e.type === t; }).length;
+    html += '<div onclick="doExport(\'' + t + '\')" style="display:flex;align-items:center;justify-content:space-between;background:var(--sf2);border:1px solid var(--bd);border-radius:12px;padding:13px 16px;margin-bottom:8px;cursor:pointer;">' +
+      '<span style="font-size:0.86rem;">' + names[t] + '</span>' +
+      '<span style="font-size:0.72rem;color:var(--tm);">' + count + ' ' + (count === 1 ? 'entry' : 'entries') + ' ›</span>' +
+    '</div>';
+  });
+  document.getElementById('export-type-list').innerHTML = html;
+  document.getElementById('export-picker-view').style.display = 'block';
+  document.getElementById('export-send-view').style.display = 'none';
+  document.getElementById('export-modal').classList.add('open');
+}
+
+function doExport(type) {
+  var names = { gratitude:'Gratitude List', spotcheck:'Spot Check Inventory', step10:'Full Step 10 Inventory', daily:'Daily Journal' };
+  var entries = journalEntries.filter(function(e){ return e.type === type; });
+  if (!entries.length) { toast('No entries for this journal'); return; }
+  exportType = type;
+  var lines = 'NA Recovery App — ' + names[type] + '\n';
+  lines += 'Exported: ' + new Date().toLocaleDateString('en-GB', {weekday:'long',day:'numeric',month:'long',year:'numeric'}) + '\n';
+  lines += '─────────────────────────────\n\n';
+  entries.slice().reverse().forEach(function(e, i) {
+    var dt = new Date(e.date);
+    var dateStr = dt.toLocaleDateString('en-GB', {weekday:'long',day:'numeric',month:'long',year:'numeric'});
+    var timeStr = dt.toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'});
+    lines += '📝 Entry ' + (i+1) + ' — ' + dateStr + ' at ' + timeStr + '\n';
+    lines += e.text + '\n\n';
+  });
+  exportText = lines;
+  document.getElementById('export-send-title').textContent = names[type] + ' — ' + entries.length + (entries.length === 1 ? ' entry' : ' entries');
+  document.getElementById('export-preview').textContent = lines;
+  document.getElementById('export-picker-view').style.display = 'none';
+  document.getElementById('export-send-view').style.display = 'block';
+}
+
+function exportEmail() {
+  var names = { gratitude:'Gratitude List', spotcheck:'Spot Check', step10:'Step 10 Inventory', daily:'Daily Journal' };
+  var subject = 'NA Recovery — ' + (names[exportType] || 'Journal') + ' Export';
+  window.location.href = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(exportText);
+}
+
+function exportCopy() {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(exportText).then(function(){ toast('Copied to clipboard ✓'); closeExportModalDirect(); });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = exportText;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    toast('Copied to clipboard ✓');
+    closeExportModalDirect();
+  }
+}
+
+function closeExportModalDirect() {
+  document.getElementById('export-modal').classList.remove('open');
+}
+
+// Update init to include network
 function init() {
   if (cleanDate) {
     document.getElementById('clean-date-input').value = cleanDate;
@@ -1423,15 +2136,195 @@ function init() {
   renderMoodHistory();
   showDailyQuote();
   renderJournalEntries();
+  renderNetwork();
 }
 
 init();
+
+
 
 function toggleBook(header) {
   const card = header.parentElement;
   card.classList.toggle('open');
 }
 
+// =====================
+// SPLASH SCREEN
+// =====================
+(function() {
+  var splash = document.getElementById('splash');
+  var dismissed = false;
+
+  function calcSplashTime() {
+    var cd = localStorage.getItem('na_clean_date');
+    if (!cd) return { years:0, months:0, weeks:0 };
+    var start = new Date(cd);
+    var now = new Date();
+    var totalDays = Math.floor((now - start) / 86400000);
+    if (totalDays < 0) return { years:0, months:0, weeks:0 };
+    var years = Math.floor(totalDays / 365.25);
+    var remDays = totalDays - Math.floor(years * 365.25);
+    var months = Math.floor(remDays / 30.4375);
+    remDays = remDays - Math.floor(months * 30.4375);
+    var weeks = Math.floor(remDays / 7);
+    return { years:years, months:months, weeks:weeks };
+  }
+
+  function dismissSplash() {
+    if (dismissed) return;
+    dismissed = true;
+    splash.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    splash.style.opacity = '0';
+    splash.style.transform = 'translateY(-30px)';
+    setTimeout(function(){ splash.style.display = 'none'; }, 500);
+  }
+
+  // Swipe up gesture
+  var touchStartY = 0;
+  splash.addEventListener('touchstart', function(e){ touchStartY = e.touches[0].clientY; }, {passive:true});
+  splash.addEventListener('touchend', function(e){
+    var dy = touchStartY - e.changedTouches[0].clientY;
+    if (dy > 40) dismissSplash();
+  }, {passive:true});
+
+  // Also tap to dismiss
+  splash.addEventListener('click', dismissSplash);
+
+  // Fade in background
+  setTimeout(function(){
+    document.getElementById('splash-bg').style.opacity = '1';
+  }, 100);
+
+  // Set counter
+  var t = calcSplashTime();
+  document.getElementById('splash-years').textContent = t.years;
+  document.getElementById('splash-months').textContent = t.months;
+  document.getElementById('splash-weeks').textContent = t.weeks;
+
+  // Set quote
+  var splashQuotes = [
+    '"Just for today, I will try to live through this day only."',
+    '"We do not have to be alone anymore."',
+    '"Recovery is a process, not an event."',
+    '"Keep coming back — it works if you work it."',
+    '"One day at a time."'
+  ];
+  document.getElementById('splash-quote').textContent = splashQuotes[new Date().getDate() % splashQuotes.length];
+
+  // Auto-dismiss after 6 seconds
+  setTimeout(dismissSplash, 6000);
+})();
+
+// =====================
+// NETWORK MAP
+// =====================
+var netMap = null;
+var netMapMarkers = [];
+var geocodeCache = {};
+
+function pinColour(role) {
+  if (role === 'Sponsor') return '#e74c3c';
+  if (role === 'Sponsee' || role === 'Sponsor Sister' || role === 'Sponsor Brother') return '#2ecc71';
+  return '#f1c40f';
+}
+
+function makeIcon(colour) {
+  var svg = encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="36" viewBox="0 0 24 36"><path d="M12 0C5.37 0 0 5.37 0 12c0 9 12 24 12 24s12-15 12-24C24 5.37 18.63 0 12 0z" fill="' + colour + '"/><circle cx="12" cy="12" r="5" fill="white" opacity="0.9"/></svg>');
+  return L.divIcon({
+    html: '<img src="data:image/svg+xml,' + svg + '" width="24" height="36">',
+    className: '',
+    iconSize: [24, 36],
+    iconAnchor: [12, 36],
+    popupAnchor: [0, -38]
+  });
+}
+
+function initNetMap() {
+  if (netMap) return;
+  if (typeof L === 'undefined') return;
+  var el = document.getElementById('net-map');
+  if (!el) return;
+  netMap = L.map('net-map', { zoomControl: true, attributionControl: false });
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    maxZoom: 19,
+    crossOrigin: true
+  }).addTo(netMap);
+  netMap.setView([54.5, -2], 5);
+}
+
+function geocodeAndPlot() {
+  if (typeof L === 'undefined') return;
+  initNetMap();
+  if (!netMap) return;
+  netMap.invalidateSize();
+
+  // Clear old markers
+  netMapMarkers.forEach(function(m){ netMap.removeLayer(m); });
+  netMapMarkers = [];
+
+  var contactsWithLocation = networkContacts.filter(function(c){ return c.location; });
+  if (!contactsWithLocation.length) {
+    // Show a default view centred on UK
+    netMap.setView([54.5, -2], 5);
+    return;
+  }
+
+  var bounds = [];
+  var pending = contactsWithLocation.length;
+
+  contactsWithLocation.forEach(function(c) {
+    var loc = c.location.trim();
+    var cleanTime = c.cleandate ? calcCleanTime(c.cleandate) : null;
+    var popupHtml = '<div style="font-family:sans-serif;min-width:120px;"><div style="font-weight:700;font-size:0.9rem;margin-bottom:2px;">' + c.name + '</div><div style="font-size:0.72rem;color:#888;">' + c.role + '</div>' + (cleanTime ? '<div style="font-size:0.72rem;color:#aaa;margin-top:3px;">⏳ ' + cleanTime + '</div>' : '') + '</div>';
+
+    function placeMarker(lat, lng) {
+      var marker = L.marker([lat, lng], { icon: makeIcon(pinColour(c.role)) })
+        .addTo(netMap)
+        .bindPopup(popupHtml, { closeButton: false, className: 'net-popup' });
+      netMapMarkers.push(marker);
+      bounds.push([lat, lng]);
+      pending--;
+      if (pending === 0 && bounds.length) {
+        if (bounds.length === 1) { netMap.setView(bounds[0], 9); }
+        else { netMap.fitBounds(bounds, { padding: [30, 30] }); }
+        netMap.invalidateSize();
+      }
+    }
+
+    if (geocodeCache[loc]) {
+      placeMarker(geocodeCache[loc].lat, geocodeCache[loc].lng);
+    } else {
+      fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' + encodeURIComponent(loc))
+        .then(function(r){ return r.json(); })
+        .then(function(data) {
+          if (data && data.length) {
+            var lat = parseFloat(data[0].lat), lng = parseFloat(data[0].lon);
+            geocodeCache[loc] = { lat: lat, lng: lng };
+            placeMarker(lat, lng);
+          } else { pending--; }
+        })
+        .catch(function(){ pending--; });
+    }
+  });
+}
+
+</script>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+<script>
+// Init map as soon as Leaflet is ready - but only if network screen is active
+window.addEventListener('load', function() {
+  if (typeof L !== 'undefined') {
+    setTimeout(function() {
+      initNetMap();
+      if (netMap) {
+        netMap.invalidateSize();
+        netMap.setView([54.5, -2], 5);
+      }
+    }, 300);
+  }
+});
 </script>
 
 </body>
