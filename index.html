@@ -226,7 +226,7 @@ color: var(–tx);
 .book-card:active { background: var(–sf2); }
 .book-icon { font-size: 1.2rem; flex-shrink: 0; }
 .book-body { flex: 1; min-width: 0; }
-.book-title { font-size: 0.84rem; font-weight: 600; }
+.book-title { font-size: 0.84rem; font-weight: 600; color: var(–tx) !important; -webkit-text-fill-color: var(–tx) !important; }
 .book-arr { color: var(–tm); font-size: 0.9rem; flex-shrink: 0; }
 
 .book-expand-card {
@@ -364,16 +364,16 @@ align-items: center;
 gap: 12px;
 }
 .meeting-flag { font-size: 1.4rem; flex-shrink: 0; }
-.meeting-title { font-size: 0.84rem; font-weight: 600; }
+.meeting-title { font-size: 0.84rem; font-weight: 600; color: var(–tx) !important; -webkit-text-fill-color: var(–tx) !important; }
 .meeting-arr { color: var(–tm); font-size: 1rem; flex-shrink: 0; margin-left: 8px; }
 
 /* NETWORK */
 .net-card {
 background: var(–sf);
-border: 1px solid var(–bd);
+border: 1px solid rgba(232,201,122,0.3);
 border-radius: var(–r);
 padding: 14px 16px;
-margin-bottom: 10px;
+margin-bottom: 12px;
 }
 .net-card-header {
 display: flex;
@@ -394,7 +394,7 @@ flex-shrink: 0;
 }
 .net-info { flex: 1; min-width: 0; }
 .net-name { font-size: 0.9rem; font-weight: 700; color: var(–tx); }
-.net-role { font-size: 0.68rem; color: var(–ac); margin-top: 2px; }
+.net-role { display: inline-block; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; color: var(–ac); background: rgba(232,201,122,0.12); border: 1px solid rgba(232,201,122,0.3); border-radius: 20px; padding: 2px 8px; margin-top: 4px; text-transform: uppercase; }
 .net-clean { font-size: 0.66rem; color: var(–tm); margin-top: 2px; }
 .net-location { font-size: 0.66rem; color: var(–tm); margin-top: 1px; }
 .net-actions {
@@ -417,6 +417,7 @@ border-radius: 10px;
 cursor: pointer;
 text-decoration: none;
 color: var(–tx);
+-webkit-text-fill-color: var(–tx);
 font-size: 0.6rem;
 text-align: center;
 }
