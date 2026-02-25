@@ -661,6 +661,16 @@ z-index: 999;
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script>
+// Fallback if Supabase fails to load
+window.addEventListener('error', function(e) {
+  if (e.filename && e.filename.includes('supabase')) {
+    console.log('Supabase failed to load, running in offline mode');
+    window.supabase = { createClient: function() { return { auth: { getSession: async function() { return {data:{session:null}}; }, onAuthStateChange: function() {}, signInWithPassword: async function() { return {error:{message:'Offline mode'}}; }, signUp: async function() { return {error:{message:'Offline mode'}}; }, signInWithOAuth: async function() {}, signOut: async function() {}, resetPasswordForEmail: async function() { return {}; } }, from: function() { return { select: function() { return { eq: function() { return { single: async function() { return {data:null,error:'offline'}; } } } } }, upsert: async function() { return {}; } }; } }; } };
+  }
+}, true);
+</script>
+
 </head>
 <body>
 
@@ -2406,7 +2416,13 @@ window.addEventListener('load', function() {
 
 const SUPA_URL = 'https://gencdhyxlyekpjvuwvpu.supabase.co';
 const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlbmNkaHl4bHlla3BqdnV3dnB1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5NzEyNDEsImV4cCI6MjA4NzU0NzI0MX0.BR9biMN2K8Vj6SBbfBrEChppsuIMp2lSL3WOW7Z-1Ss';
-const supa = supabase.createClient(SUPA_URL, SUPA_KEY);
+var supa;
+try {
+  supa = supabase.createClient(SUPA_URL, SUPA_KEY);
+} catch(e) {
+  console.log('Supabase init failed, offline mode');
+  supa = { auth: { getSession: async function() { return {data:{session:null}}; }, onAuthStateChange: function() {}, signInWithPassword: async function() { return {error:{message:'Service unavailable'}}; }, signUp: async function() { return {error:{message:'Service unavailable'}}; }, signInWithOAuth: async function() {}, signOut: async function() {}, resetPasswordForEmail: async function() { return {}; } }, from: function() { return { select: function() { return { eq: function() { return { single: async function() { return {data:null,error:'offline'}; } } } } }, upsert: async function() { return {}; } }; } };
+}
 
 var currentUser = null;
 var authMode = 'login'; // 'login' or 'signup'
