@@ -3361,26 +3361,24 @@ async function pullFromCloud() {
   } catch(e) {}
 }
 
-// On load - check for existing session, else show welcome screen
-if (supa) {
-  supa.auth.getSession().then(function(r) {
-    if (r.data && r.data.session) {
-      currentUser = r.data.session.user;
-      pullFromCloud();
-      updateSigninBtn();
-      showAdminBtnIfNeeded();
-      // Already signed in - go straight to app
-    } else {
-      // No session - show welcome screen
+// On load - wrapped in DOMContentLoaded so all functions exist first
+document.addEventListener('DOMContentLoaded', function() {
+  if (supa) {
+    supa.auth.getSession().then(function(r) {
+      if (r && r.data && r.data.session && r.data.session.user && r.data.session.user.email) {
+        currentUser = r.data.session.user;
+        pullFromCloud();
+        updateSigninBtn();
+      } else {
+        showWelcomeScreen();
+      }
+    }).catch(function(){
       showWelcomeScreen();
-    }
-  }).catch(function(){
-    // Can't reach Supabase - show welcome screen
+    });
+  } else {
     showWelcomeScreen();
-  });
-} else {
-  showWelcomeScreen();
-}
+  }
+});
 
 var _origSaveCleanDate = saveCleanDate; saveCleanDate = function() { _origSaveCleanDate.apply(this,arguments); pushToCloud(); };
 var _origSaveJournal = saveJournal; saveJournal = function() { _origSaveJournal.apply(this,arguments); pushToCloud(); };
