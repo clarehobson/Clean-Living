@@ -850,7 +850,7 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
 
 <!-- FORGOT PASSWORD SCREEN -->
 
-<div id="app">
+<div id="app" style="display:none;">
 
   <!-- HOME SCREEN -->
 
@@ -3363,20 +3363,21 @@ async function pullFromCloud() {
 
 // On load - wrapped in DOMContentLoaded so all functions exist first
 document.addEventListener('DOMContentLoaded', function() {
+  // Always show welcome screen first
+  showWelcomeScreen();
+  // Then check if already signed in
   if (supa) {
     supa.auth.getSession().then(function(r) {
       if (r && r.data && r.data.session && r.data.session.user && r.data.session.user.email) {
         currentUser = r.data.session.user;
         pullFromCloud();
         updateSigninBtn();
-      } else {
-        showWelcomeScreen();
+        hideWelcomeScreen();
       }
+      // else stay on welcome screen
     }).catch(function(){
-      showWelcomeScreen();
+      // stay on welcome screen
     });
-  } else {
-    showWelcomeScreen();
   }
 });
 
@@ -3390,7 +3391,7 @@ var _origSetMood = setMood; setMood = function(m) { _origSetMood(m); pushToCloud
 
   <!-- WELCOME / AUTH SCREEN -->
 
-  <div id="welcome-screen">
+  <div id="welcome-screen" style="display:none;">
     <!-- Hero -->
     <div id="welcome-hero">
       <div style="font-size:3.5rem;margin-bottom:16px;">🌿</div>
