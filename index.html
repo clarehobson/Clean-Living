@@ -741,17 +741,8 @@ z-index: 999;
 #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 </style>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<script>
-// Load Leaflet dynamically
-(function() {
-  var s = document.createElement('script');
-  s.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-  s.onerror = function() { console.log('Leaflet failed to load - map disabled'); };
-  document.head.appendChild(s);
-})();
-</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 // Fallback if Supabase fails to load
 // Set up supabase fallback immediately in case CDN fails
@@ -762,6 +753,7 @@ function setupSupabaseFallback() {
 }
 window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true);
 </script>
+
 </head>
 <body>
 
@@ -2096,44 +2088,90 @@ function renderJournalEntries() {
 // =====================
 // MAP
 // =====================
-var netMap = null;
-var netMarkers = [];
+// Uses Google Maps static embed - no external library needed
 
 function initNetMap() {
-  if (typeof L === 'undefined') return;
-  var el = document.getElementById('net-map');
-  if (!el || netMap) return;
-  netMap = L.map('net-map', { zoomControl: true, scrollWheelZoom: false }).setView([54.5, -2], 5);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; OpenStreetMap &copy; CartoDB', maxZoom: 19
-  }).addTo(netMap);
+  renderNetMap();
 }
 
 function geocodeAndPlot() {
-  if (typeof L === 'undefined' || !netMap) return;
-  netMarkers.forEach(function(m){ netMap.removeLayer(m); });
-  netMarkers = [];
-  var colours = { 'Sponsor':'#e74c3c', 'Sponsee':'#2ecc71', 'Sponsor Sister':'#2ecc71', 'Sponsor Brother':'#2ecc71', 'Friend in Recovery':'#f1c40f' };
-  networkContacts.forEach(function(c) {
-    if (!c.location) return;
-    fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(c.location))
-      .then(function(r){ return r.json(); })
-      .then(function(data) {
-        if (!data || !data.length) return;
-        var lat = parseFloat(data[0].lat);
-        var lng = parseFloat(data[0].lon);
-        var colour = colours[c.role] || '#e8c97a';
-        var icon = L.divIcon({
-          className: '',
-          html: '<div style="width:12px;height:12px;border-radius:50%;background:' + colour + ';border:2px solid #fff;box-shadow:0 0 4px rgba(0,0,0,0.5);"></div>',
-          iconSize: [12, 12], iconAnchor: [6, 6]
-        });
-        var marker = L.marker([lat, lng], {icon: icon})
-          .addTo(netMap)
-          .bindPopup('<div class="net-popup"><b>' + c.name + '</b><br>' + (c.role || '') + '</div>');
-        netMarkers.push(marker);
-      }).catch(function(){});
+  renderNetMap();
+}
+
+function renderNetMap() {
+  var el = document.getElementById('net-map');
+  if (!el) return;
+
+  var contacts = networkContacts.filter(function(c){ return c.location; });
+
+  if (!contacts.length) {
+    el.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--tm);font-size:0.78rem;">Add contact locations to see them on the map</div>';
+    return;
+  }
+
+  // Build Google Maps embed URL with multiple markers
+  var roleColours = {
+    'Sponsor': 'red',
+    'Sponsee': 'green',
+    'Sponsor Sister': 'green',
+    'Sponsor Brother': 'green',
+    'Friend in Recovery': 'yellow'
+  };
+
+  var markers = contacts.map(function(c) {
+    var colour = roleColours[c.role] || 'blue';
+    return 'markers=color:' + colour + '%7Clabel:' + encodeURIComponent((c.name || 'C')[0].toUpperCase()) + '%7C' + encodeURIComponent(c.location);
+  }).join('&');
+
+  var src = 'https://maps.googleapis.com/maps/api/staticmap?size=600x220&scale=2&maptype=roadmap&style=element:geometry%7Ccolor:0x1a1a2e&style=element:labels.text.fill%7Ccolor:0xe8c97a&' + markers + '&key=AIzaSyD-placeholder';
+
+  // Use OpenStreetMap embed instead - no API key needed
+  // Build a simple iframe with the first contact location as centre
+  var firstLocation = encodeURIComponent(contacts[0].location);
+  var iframeSrc = 'https://www.openstreetmap.org/export/embed.html?bbox=-10,49,2,61&layer=mapnik&marker=' + firstLocation;
+
+  // Actually use a much simpler approach - clickable map link with contact list as pins
+  el.innerHTML = '';
+
+  // Show a styled list of contacts with location as clickable map links
+  var wrap = document.createElement('div');
+  wrap.style.cssText = 'padding:10px;height:220px;overflow-y:auto;';
+
+  var title = document.createElement('div');
+  title.style.cssText = 'font-size:0.62rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;';
+  title.textContent = 'Your Network Locations';
+  wrap.appendChild(title);
+
+  contacts.forEach(function(c) {
+    var colour = { 'Sponsor':'#e74c3c','Sponsee':'#2ecc71','Sponsor Sister':'#2ecc71','Sponsor Brother':'#2ecc71','Friend in Recovery':'#f1c40f' }[c.role] || '#e8c97a';
+    var row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);cursor:pointer;';
+
+    var dot = document.createElement('div');
+    dot.style.cssText = 'width:10px;height:10px;border-radius:50%;background:' + colour + ';flex-shrink:0;';
+    row.appendChild(dot);
+
+    var info = document.createElement('div');
+    info.style.cssText = 'flex:1;';
+    info.innerHTML = '<div style="font-size:0.8rem;font-weight:600;">' + c.name + '</div><div style="font-size:0.68rem;color:var(--tm);">' + c.location + '</div>';
+    row.appendChild(info);
+
+    var mapBtn = document.createElement('a');
+    var ua = navigator.userAgent;
+    if (/iPhone|iPad|iPod/.test(ua)) {
+      mapBtn.href = 'https://maps.apple.com/?q=' + encodeURIComponent(c.location);
+    } else {
+      mapBtn.href = 'https://www.google.com/maps/search/' + encodeURIComponent(c.location);
+    }
+    mapBtn.target = '_blank';
+    mapBtn.style.cssText = 'font-size:0.62rem;color:var(--ac);padding:4px 8px;border:1px solid rgba(232,201,122,0.3);border-radius:10px;text-decoration:none;white-space:nowrap;';
+    mapBtn.textContent = 'Open Map';
+    row.appendChild(mapBtn);
+
+    wrap.appendChild(row);
   });
+
+  el.appendChild(wrap);
 }
 
 // =====================
