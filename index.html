@@ -159,13 +159,15 @@ border-bottom: 1px solid var(–bd);
 .j-type-card {
 display: flex;
 align-items: center;
-gap: 13px;
+gap: 14px;
 background: var(–sf);
 border: 1px solid var(–bd);
 border-radius: var(–r);
-padding: 14px 16px;
-margin-bottom: 8px;
+padding: 16px 18px;
+margin-bottom: 10px;
 cursor: pointer;
+box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+transition: background 0.15s;
 }
 .j-type-card:active { background: var(–sf2); }
 .j-entry-card {
@@ -820,48 +822,48 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
   <div class="label">Choose a journal type</div>
 
   <div onclick="openJournal('gratitude')" class="j-type-card">
-    <div style="font-size:1.4rem;">&#x1F64F;</div>
+    <div style="font-size:1.8rem;width:42px;text-align:center;">&#x1F64F;</div>
     <div style="flex:1;">
-      <div style="font-weight:600; font-size:0.88rem;">Gratitude List</div>
-      <div style="font-size:0.72rem; color:var(--tm); margin-top:2px;">Count your blessings with guided prompts</div>
+      <div style="font-weight:700; font-size:0.92rem;">Gratitude List</div>
+      <div style="font-size:0.74rem; color:var(--tm); margin-top:3px;">Count your blessings with guided prompts</div>
     </div>
-    <div style="color:var(--tm);">&#8250;</div>
+    <div style="color:var(--tm);font-size:1.1rem;">&#8250;</div>
   </div>
 
   <div onclick="openJournal('spotcheck')" class="j-type-card">
-    <div style="font-size:1.4rem;">&#x26A1;</div>
+    <div style="font-size:1.8rem;width:42px;text-align:center;">&#x26A1;</div>
     <div style="flex:1;">
-      <div style="font-weight:600; font-size:0.88rem;">Spot Check Inventory</div>
-      <div style="font-size:0.72rem; color:var(--tm); margin-top:2px;">Quick nightly check-in based on Step 10</div>
+      <div style="font-weight:700; font-size:0.92rem;">Spot Check Inventory</div>
+      <div style="font-size:0.74rem; color:var(--tm); margin-top:3px;">Quick nightly check-in based on Step 10</div>
     </div>
-    <div style="color:var(--tm);">&#8250;</div>
+    <div style="color:var(--tm);font-size:1.1rem;">&#8250;</div>
   </div>
 
   <div onclick="openJournal('step10')" class="j-type-card">
-    <div style="font-size:1.4rem;">&#x1F4CB;</div>
+    <div style="font-size:1.8rem;width:42px;text-align:center;">&#x1F4CB;</div>
     <div style="flex:1;">
-      <div style="font-weight:600; font-size:0.88rem;">Full Step 10 Inventory</div>
-      <div style="font-size:0.72rem; color:var(--tm); margin-top:2px;">Complete daily inventory questions</div>
+      <div style="font-weight:700; font-size:0.92rem;">Full Step 10 Inventory</div>
+      <div style="font-size:0.74rem; color:var(--tm); margin-top:3px;">Complete daily inventory questions</div>
     </div>
-    <div style="color:var(--tm);">&#8250;</div>
+    <div style="color:var(--tm);font-size:1.1rem;">&#8250;</div>
   </div>
 
   <div id="j-type-guiding" onclick="openJournal('guiding')" class="j-type-card">
-    <div style="font-size:1.4rem;">&#x1F4D6;</div>
+    <div style="font-size:1.8rem;width:42px;text-align:center;">&#x1F4D6;</div>
     <div style="flex:1;">
-      <div style="font-weight:600; font-size:0.88rem;">Guiding Principles</div>
-      <div style="font-size:0.72rem; color:var(--tm); margin-top:2px;">Work through your Traditions questions</div>
+      <div style="font-weight:700; font-size:0.92rem;">Guiding Principles</div>
+      <div style="font-size:0.74rem; color:var(--tm); margin-top:3px;">Work through your Traditions questions</div>
     </div>
-    <div style="color:var(--tm);">&#8250;</div>
+    <div style="color:var(--tm);font-size:1.1rem;">&#8250;</div>
   </div>
 
   <div onclick="openJournal('daily')" class="j-type-card">
-    <div style="font-size:1.4rem;">&#x270D;</div>
+    <div style="font-size:1.8rem;width:42px;text-align:center;">&#x270D;</div>
     <div style="flex:1;">
-      <div style="font-weight:600; font-size:0.88rem;">Daily Journal</div>
-      <div style="font-size:0.72rem; color:var(--tm); margin-top:2px;">Free writing with gentle prompts</div>
+      <div style="font-weight:700; font-size:0.92rem;">Daily Journal</div>
+      <div style="font-size:0.74rem; color:var(--tm); margin-top:3px;">Free writing with gentle prompts</div>
     </div>
-    <div style="color:var(--tm);">&#8250;</div>
+    <div style="color:var(--tm);font-size:1.1rem;">&#8250;</div>
   </div>
 
   <!-- Past entries -->
