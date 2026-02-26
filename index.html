@@ -776,6 +776,7 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
     <div style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:300; color:var(--ac);">Just For Today</div>
     <div style="font-size:0.62rem; color:var(--tm); letter-spacing:0.08em; text-transform:uppercase;">Clean Living</div>
   </div>
+  <button id="home-signin-btn" onclick="openSigninModal()" style="font-size:0.65rem;color:var(--tm);background:transparent;border:1px solid rgba(232,201,122,0.25);border-radius:12px;padding:5px 11px;cursor:pointer;">Sign In</button>
 </div>
 
 <!-- Clean Date Counter -->
@@ -2921,6 +2922,132 @@ async function rejectEvent(id) {
 }
 
 
+
+// =====================
+// SIGN IN / AUTH
+// =====================
+function openSigninModal() {
+  var isSignedIn = currentUser !== null;
+  document.getElementById('signin-password-wrap').style.display = isSignedIn ? 'none' : 'block';
+  document.getElementById('signin-email').style.display = isSignedIn ? 'none' : 'block';
+  document.querySelector('#signin-modal .modal-title').textContent = isSignedIn ? 'Account' : 'Sign In';
+  document.getElementById('signin-msg').style.display = 'none';
+
+  var btns = document.querySelectorAll('#signin-modal button:not(#home-signin-btn)');
+  if (isSignedIn) {
+    document.getElementById('signin-user-wrap').style.display = 'block';
+    document.getElementById('signin-user-email').textContent = currentUser.email;
+    // Hide sign in / create / forgot buttons
+    document.querySelectorAll('#signin-modal .btn, #signin-modal button').forEach(function(b){
+      if (b.textContent === 'Sign In' || b.textContent === 'Create Account' || b.textContent === 'Forgot password?') {
+        b.style.display = 'none';
+      }
+    });
+  } else {
+    document.getElementById('signin-user-wrap').style.display = 'none';
+    document.querySelectorAll('#signin-modal .btn, #signin-modal button').forEach(function(b){
+      b.style.display = '';
+    });
+  }
+  document.getElementById('signin-modal').classList.add('open');
+}
+
+function closeSigninModal(event) {
+  document.getElementById('signin-modal').classList.remove('open');
+}
+
+function showSigninMsg(msg, colour) {
+  var el = document.getElementById('signin-msg');
+  el.textContent = msg;
+  el.style.color = colour || 'var(--tm)';
+  el.style.display = 'block';
+}
+
+async function doSignIn() {
+  if (!supa) { showSigninMsg('No connection - try again'); return; }
+  var email = document.getElementById('signin-email').value.trim();
+  var password = document.getElementById('signin-password').value;
+  if (!email || !password) { showSigninMsg('Please enter email and password'); return; }
+  showSigninMsg('Signing in...');
+  try {
+    var result = await supa.auth.signInWithPassword({ email: email, password: password });
+    if (result.error) { showSigninMsg(result.error.message, '#e74c3c'); return; }
+    currentUser = result.data.user;
+    pullFromCloud();
+    updateSigninBtn();
+    showAdminBtnIfNeeded();
+    document.getElementById('signin-modal').classList.remove('open');
+    toast('Signed in');
+    // Reload events with auth
+    eventsLoaded = false;
+  } catch(e) { showSigninMsg('Sign in failed - try again', '#e74c3c'); }
+}
+
+async function doSignUp() {
+  if (!supa) { showSigninMsg('No connection - try again'); return; }
+  var email = document.getElementById('signin-email').value.trim();
+  var password = document.getElementById('signin-password').value;
+  if (!email || !password) { showSigninMsg('Please enter email and password'); return; }
+  if (password.length < 6) { showSigninMsg('Password must be at least 6 characters'); return; }
+  showSigninMsg('Creating account...');
+  try {
+    var result = await supa.auth.signUp({ email: email, password: password });
+    if (result.error) { showSigninMsg(result.error.message, '#e74c3c'); return; }
+    showSigninMsg('Account created! Check your email to confirm, then sign in.', '#5fcf80');
+  } catch(e) { showSigninMsg('Sign up failed - try again', '#e74c3c'); }
+}
+
+async function doResetPassword() {
+  if (!supa) return;
+  var email = document.getElementById('signin-email').value.trim();
+  if (!email) { showSigninMsg('Enter your email address first'); return; }
+  try {
+    await supa.auth.resetPasswordForEmail(email);
+    showSigninMsg('Password reset email sent!', '#5fcf80');
+  } catch(e) { showSigninMsg('Could not send reset email', '#e74c3c'); }
+}
+
+async function doSignOut() {
+  if (!supa) return;
+  try {
+    await supa.auth.signOut();
+    currentUser = null;
+    updateSigninBtn();
+    var adminBtn = document.getElementById('admin-float-btn');
+    if (adminBtn) adminBtn.remove();
+    document.getElementById('signin-modal').classList.remove('open');
+    toast('Signed out');
+  } catch(e) {}
+}
+
+function updateSigninBtn() {
+  var btn = document.getElementById('home-signin-btn');
+  if (!btn) return;
+  if (currentUser) {
+    btn.textContent = currentUser.email.split('@')[0];
+    btn.style.color = 'var(--ac)';
+    btn.style.borderColor = 'rgba(232,201,122,0.5)';
+  } else {
+    btn.textContent = 'Sign In';
+    btn.style.color = 'var(--tm)';
+    btn.style.borderColor = 'rgba(232,201,122,0.25)';
+  }
+}
+
+function showAdminBtnIfNeeded() {
+  if (isAdmin()) {
+    var existing = document.getElementById('admin-float-btn');
+    if (!existing) {
+      var adminBtn = document.createElement('button');
+      adminBtn.id = 'admin-float-btn';
+      adminBtn.textContent = 'Admin';
+      adminBtn.style.cssText = 'position:fixed;bottom:80px;right:16px;z-index:500;background:#e74c3c;color:#fff;border:none;border-radius:20px;padding:8px 14px;font-size:0.75rem;font-weight:700;cursor:pointer;';
+      adminBtn.onclick = openAdminPanel;
+      document.body.appendChild(adminBtn);
+    }
+  }
+}
+
 // =====================
 // SUPABASE SILENT SYNC
 // =====================
@@ -2963,18 +3090,8 @@ if (supa) {
     if (r.data && r.data.session) {
       currentUser = r.data.session.user;
       pullFromCloud();
-      // Show admin button if already on events tab
-      if (isAdmin()) {
-        var existing = document.getElementById('admin-float-btn');
-        if (!existing) {
-          var adminBtn = document.createElement('button');
-          adminBtn.id = 'admin-float-btn';
-          adminBtn.textContent = 'Admin';
-          adminBtn.style.cssText = 'position:fixed;bottom:80px;right:16px;z-index:500;background:#e74c3c;color:#fff;border:none;border-radius:20px;padding:8px 14px;font-size:0.75rem;font-weight:700;cursor:pointer;';
-          adminBtn.onclick = openAdminPanel;
-          document.body.appendChild(adminBtn);
-        }
-      }
+      updateSigninBtn();
+      showAdminBtnIfNeeded();
     }
   }).catch(function(){});
 }
@@ -2986,6 +3103,39 @@ var _origDeleteContact = deleteContact; deleteContact = function(id) { _origDele
 var _origDeleteJournal = deleteJournal; deleteJournal = function(id) { _origDeleteJournal(id); pushToCloud(); };
 var _origSetMood = setMood; setMood = function(m) { _origSetMood(m); pushToCloud(); };
 </script>
+
+  <!-- SIGN IN MODAL -->
+
+  <div class="modal-overlay" id="signin-modal" onclick="closeSigninModal(event)">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div class="modal-title" id="signin-modal-title">Sign In</div>
+      <div style="font-size:0.75rem;color:var(--tm);margin-bottom:16px;">Sync your data across devices and access member features</div>
+
+```
+  <div class="modal-label">Email</div>
+  <input id="signin-email" class="input" type="email" placeholder="your@email.com" autocomplete="email">
+
+  <div id="signin-password-wrap">
+    <div class="modal-label">Password</div>
+    <input id="signin-password" class="input" type="password" placeholder="Password" autocomplete="current-password">
+  </div>
+
+  <div id="signin-msg" style="display:none;font-size:0.75rem;margin-bottom:12px;text-align:center;"></div>
+
+  <button onclick="doSignIn()" class="btn" style="width:100%;margin-bottom:10px;">Sign In</button>
+  <button onclick="doSignUp()" style="width:100%;padding:12px;border:1px solid var(--bd);border-radius:var(--r);background:transparent;color:var(--tm);cursor:pointer;font-size:0.82rem;">Create Account</button>
+  <button onclick="doResetPassword()" style="width:100%;padding:8px;border:none;background:transparent;color:var(--tm);cursor:pointer;font-size:0.72rem;margin-top:4px;">Forgot password?</button>
+
+  <div id="signin-user-wrap" style="display:none;">
+    <div style="text-align:center;padding:10px 0;">
+      <div id="signin-user-email" style="font-size:0.82rem;color:var(--ac);margin-bottom:12px;"></div>
+      <button onclick="doSignOut()" style="padding:10px 24px;border:1px solid rgba(192,57,43,0.4);border-radius:var(--r);background:transparent;color:#e74c3c;cursor:pointer;font-size:0.8rem;">Sign Out</button>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
 
 </body>
 </html>
