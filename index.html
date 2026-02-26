@@ -3419,7 +3419,7 @@ function renderMeetingCard(m, type) {
   var editBtn = document.createElement('button');
   editBtn.textContent = '✏️';
   editBtn.style.cssText = 'background:transparent;border:none;font-size:0.9rem;cursor:pointer;padding:0 0 0 8px;flex-shrink:0;';
-  editBtn.onclick = function() { openEditMeeting(m.id, type); };
+  editBtn.onclick = function() { openEditMeeting(m.id, type, m); };
   top.appendChild(editBtn);
   card.appendChild(top);
 
@@ -3569,12 +3569,14 @@ function openAddMeeting(type) {
   document.getElementById('add-meeting-modal').classList.add('open');
 }
 
-function openEditMeeting(id, type) {
+function openEditMeeting(id, type, sharedData) {
   editingMeetingType = type;
   editingMeetingId = id;
   var m;
   if (type === 'personal') {
     m = personalMeetings.find(function(x){ return x.id === id; });
+  } else if (type === 'shared' && sharedData) {
+    m = sharedData;
   }
   if (!m) return;
   document.getElementById('zm-name').value = m.name || '';
@@ -3584,12 +3586,12 @@ function openEditMeeting(id, type) {
   var timeOnly = timeParts.length > 1 ? timeParts[1] : m.time || '';
   document.getElementById('zm-time').value = timeOnly;
   setMeetingDays(daysStr);
-  document.getElementById('zm-id').value = m.meetingId || '';
+  document.getElementById('zm-id').value = m.meetingId || m.meeting_id || '';
   document.getElementById('zm-password').value = m.password || '';
   document.getElementById('zm-url').value = m.url || '';
   document.getElementById('zm-delete-wrap').style.display = 'block';
   document.getElementById('zm-modal-title').textContent = 'Edit Meeting';
-  document.getElementById('zm-modal-subtitle').textContent = type === 'shared' ? 'Shared with everyone' : 'Your personal favourite';
+  document.getElementById('zm-modal-subtitle').textContent = type === 'shared' ? 'Shared with everyone — changes visible to all' : 'Your personal favourite';
   document.getElementById('add-meeting-modal').classList.add('open');
 }
 
