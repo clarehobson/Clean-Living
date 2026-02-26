@@ -2203,9 +2203,11 @@ function hideAuthScreen() {
 }
 
 function enterApp() {
-  hideAuthScreen();
-  var splash = document.getElementById('splash');
-  if (splash) splash.style.display = 'none';
+  var auth = document.getElementById('auth-screen');
+  auth.style.display = 'none';
+  auth.style.pointerEvents = 'none';
+  var forgot = document.getElementById('forgot-screen');
+  if (forgot) { forgot.style.display = 'none'; forgot.style.pointerEvents = 'none'; }
 }
 
 function switchAuthTab(mode) {
