@@ -750,7 +750,7 @@ window.addEventListener('error', function(e) {
   </div>
 </div>
 
-<div id="splash" style="
+<div id="splash" onclick="dismissSplash()" style="
   position:fixed; inset:0; z-index:9999;
   display:none; flex-direction:column;
   align-items:center; justify-content:center;
@@ -794,12 +794,12 @@ window.addEventListener('error', function(e) {
 
   </div>
 
-  <!-- Swipe indicator -->
+  <!-- Tap to enter button -->
 
   <div style="position:absolute;bottom:calc(env(safe-area-inset-bottom,0px) + 28px);left:0;right:0;text-align:center;z-index:2;">
-    <div id="splash-swipe-hint" style="display:inline-flex;flex-direction:column;align-items:center;gap:6px;opacity:0.7;">
+    <div onclick="dismissSplash()" style="display:inline-flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;padding:20px 40px;">
       <div style="width:1px;height:32px;background:rgba(255,255,255,0.5);margin:0 auto;"></div>
-      <div style="font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.6);">Swipe up</div>
+      <div style="font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.6);">Tap to enter</div>
     </div>
   </div>
 </div>
