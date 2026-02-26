@@ -750,7 +750,7 @@ window.addEventListener('error', function(e) {
   </div>
 </div>
 
-<div id="splash" onclick="dismissSplash()" style="
+<div id="splash" onclick="dismissSplash()"  style="
   position:fixed; inset:0; z-index:9999;
   display:none; flex-direction:column;
   align-items:center; justify-content:center;
@@ -2481,14 +2481,15 @@ function showAuthScreen() {
 
 function hideAuthScreen() {
   document.getElementById('auth-screen').style.display = 'none';
-  showSplash();
+  // Go straight to app, skip splash
+  var splash = document.getElementById('splash');
+  if (splash) splash.style.display = 'none';
 }
 
 function showSplash() {
+  // Splash disabled - go straight to app
   var splash = document.getElementById('splash');
-  if (splash) {
-    splash.style.display = 'flex';
-  }
+  if (splash) splash.style.display = 'none';
 }
 
 function switchAuthTab(mode) {
@@ -2567,8 +2568,9 @@ async function doGoogleAuth() {
 
 function skipAuth() {
   localStorage.setItem('na_skip_auth', 'true');
-  hideAuthScreen();
-  showSplash();
+  document.getElementById('auth-screen').style.display = 'none';
+  var splash = document.getElementById('splash');
+  if (splash) splash.style.display = 'none';
 }
 
 function showForgotPassword() {
