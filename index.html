@@ -1695,7 +1695,7 @@ function showScreen(name) {
       }
     }, 100);
   }
-  if (name === 'events' && !eventsLoaded) {
+  if (name === 'events') {
     loadEvents();
   }
 }
@@ -2963,6 +2963,18 @@ if (supa) {
     if (r.data && r.data.session) {
       currentUser = r.data.session.user;
       pullFromCloud();
+      // Show admin button if already on events tab
+      if (isAdmin()) {
+        var existing = document.getElementById('admin-float-btn');
+        if (!existing) {
+          var adminBtn = document.createElement('button');
+          adminBtn.id = 'admin-float-btn';
+          adminBtn.textContent = 'Admin';
+          adminBtn.style.cssText = 'position:fixed;bottom:80px;right:16px;z-index:500;background:#e74c3c;color:#fff;border:none;border-radius:20px;padding:8px 14px;font-size:0.75rem;font-weight:700;cursor:pointer;';
+          adminBtn.onclick = openAdminPanel;
+          document.body.appendChild(adminBtn);
+        }
+      }
     }
   }).catch(function(){});
 }
