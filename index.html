@@ -1104,7 +1104,10 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
   </div>
   <div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">One question per line — adds a Guiding Principles journal type once saved.</div>
   <textarea id="custom-guiding" style="width:100%;min-height:110px;background:var(--sf2);border:1px solid var(--bd);border-radius:10px;padding:10px;color:var(--tx);font-size:0.8rem;line-height:1.6;resize:vertical;box-sizing:border-box;" placeholder="Paste your questions here, one per line..."></textarea>
-  <button onclick="saveCustomGuiding()" class="btn" style="margin-top:10px;width:100%;">Save</button>
+  <div style="display:flex;gap:8px;margin-top:10px;">
+    <button onclick="saveCustomGuiding()" class="btn" style="flex:2;margin-top:0;padding:11px;">Save</button>
+    <button onclick="clearCustomGuiding()" style="flex:1;padding:11px;background:transparent;border:1px solid var(--bd);border-radius:var(--r);color:var(--tm);font-size:0.75rem;cursor:pointer;">Reset</button>
+  </div>
   <div id="guiding-saved-msg" style="display:none;margin-top:8px;font-size:0.72rem;color:#5fcf80;text-align:center;">&#x2713; Saved — Guiding Principles now appears in your journal</div>
 </div>
 ```
@@ -1182,8 +1185,17 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
 
 
 
+<!-- SAVED ZOOM MEETINGS -->
+<div class="label" style="margin-top:20px;">⭐ My Saved Meetings</div>
+<div style="font-size:0.72rem;color:var(--tm);margin-bottom:12px;line-height:1.5;">Save your regular Zoom or online meeting links here for quick access.</div>
+
+<div id="saved-meetings-list"></div>
+<div id="saved-meetings-empty" style="font-size:0.76rem;color:var(--tm);text-align:center;padding:12px 0 16px;">No saved meetings yet — add one below</div>
+
+<button onclick="openAddMeeting()" style="width:100%;padding:13px;background:var(--sf);border:1px solid rgba(232,201,122,0.35);border-radius:var(--r);color:var(--ac);font-size:0.82rem;cursor:pointer;margin-bottom:20px;">+ Add a Meeting</button>
+
 <!-- HELPLINE REMINDER -->
-<div style="background:var(--sf); border:1px solid var(--bd); border-radius:var(--r); padding:14px; margin-top:20px;">
+<div style="background:var(--sf); border:1px solid var(--bd); border-radius:var(--r); padding:14px; margin-top:0;">
   <div style="font-size:0.68rem; color:var(--tm); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:12px;">📞 Helplines</div>
   <a href="tel:03009991212" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0; border-bottom:1px solid var(--bd);">
     <div>
@@ -1780,6 +1792,7 @@ function showScreen(name) {
   document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
   document.getElementById('screen-' + name).classList.add('active');
   document.getElementById('nav-' + name).classList.add('active');
+  if (name === 'meetings') { renderSavedMeetings(); }
   if (name === 'network') {
     setTimeout(function(){
       if (typeof L === 'undefined') return;
@@ -2438,8 +2451,8 @@ var exportType = null;
 var exportText = '';
 
 function showExportPicker() {
-  var types = ['gratitude','spotcheck','step10','daily'];
-  var names = { gratitude:'Gratitude List', spotcheck:'Spot Check', step10:'Full Step 10', daily:'Daily Journal' };
+  var types = ['gratitude','spotcheck','step10','daily','guiding'];
+  var names = { gratitude:'Gratitude List', spotcheck:'Spot Check', step10:'Full Step 10', daily:'Daily Journal', guiding:'Guiding Principles' };
   var html = '';
   types.forEach(function(t) {
     var count = journalEntries.filter(function(e){ return e.type === t; }).length;
@@ -2455,7 +2468,7 @@ function showExportPicker() {
 }
 
 function doExport(type) {
-  var names = { gratitude:'Gratitude List', spotcheck:'Spot Check Inventory', step10:'Full Step 10 Inventory', daily:'Daily Journal' };
+  var names = { gratitude:'Gratitude List', spotcheck:'Spot Check Inventory', step10:'Full Step 10 Inventory', daily:'Daily Journal', guiding:'Guiding Principles' };
   var entries = journalEntries.filter(function(e){ return e.type === type; });
   if (!entries.length) { toast('No entries for this journal'); return; }
   exportType = type;
@@ -2601,6 +2614,16 @@ function clearCustomStep10() {
   document.getElementById('step10-saved-msg').style.display = 'none';
   STEP10_QUESTIONS = DEFAULT_STEP10_QUESTIONS.slice();
   toast('Reset to default questions');
+}
+
+function clearCustomGuiding() {
+  localStorage.removeItem('na_custom_guiding');
+  document.getElementById('custom-guiding').value = '';
+  document.getElementById('guiding-saved-msg').style.display = 'none';
+  // Hide guiding from journal
+  var card = document.getElementById('j-type-guiding');
+  if (card) card.style.display = 'none';
+  toast('Guiding Principles questions cleared');
 }
 
 function saveCustomGuiding() {
@@ -3331,6 +3354,131 @@ async function doSignOut() {
   } catch(e) {}
 }
 
+
+// =====================
+// SAVED MEETINGS
+// =====================
+var savedMeetings = JSON.parse(localStorage.getItem('na_saved_meetings') || '[]');
+var editingMeetingId = null;
+
+function renderSavedMeetings() {
+  var list = document.getElementById('saved-meetings-list');
+  var empty = document.getElementById('saved-meetings-empty');
+  if (!list) return;
+  list.innerHTML = '';
+  if (!savedMeetings.length) {
+    if (empty) empty.style.display = 'block';
+    return;
+  }
+  if (empty) empty.style.display = 'none';
+  savedMeetings.forEach(function(m) {
+    var card = document.createElement('div');
+    card.style.cssText = 'background:var(--sf);border:1px solid rgba(232,201,122,0.35);border-radius:var(--r);padding:14px 16px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,0.25);';
+
+    var top = document.createElement('div');
+    top.style.cssText = 'display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;';
+
+    var nameEl = document.createElement('div');
+    nameEl.style.cssText = 'font-weight:700;font-size:0.88rem;';
+    nameEl.textContent = m.name;
+    top.appendChild(nameEl);
+
+    var editBtn = document.createElement('button');
+    editBtn.textContent = '✏️';
+    editBtn.style.cssText = 'background:transparent;border:none;font-size:0.9rem;cursor:pointer;padding:2px 6px;';
+    editBtn.onclick = function() { openEditMeeting(m.id); };
+    top.appendChild(editBtn);
+    card.appendChild(top);
+
+    if (m.time) {
+      var timeEl = document.createElement('div');
+      timeEl.style.cssText = 'font-size:0.72rem;color:var(--tm);margin-bottom:4px;';
+      timeEl.textContent = '🕐 ' + m.time;
+      card.appendChild(timeEl);
+    }
+    if (m.notes) {
+      var notesEl = document.createElement('div');
+      notesEl.style.cssText = 'font-size:0.72rem;color:var(--tm);margin-bottom:8px;';
+      notesEl.textContent = '📝 ' + m.notes;
+      card.appendChild(notesEl);
+    }
+
+    var joinBtn = document.createElement('a');
+    joinBtn.href = m.url;
+    joinBtn.target = '_blank';
+    joinBtn.style.cssText = 'display:block;text-align:center;padding:11px;background:var(--ac);color:#1a1208;border-radius:10px;font-size:0.82rem;font-weight:700;text-decoration:none;';
+    joinBtn.textContent = '▶ Join Meeting';
+    card.appendChild(joinBtn);
+
+    list.appendChild(card);
+  });
+}
+
+function openAddMeeting() {
+  editingMeetingId = null;
+  document.getElementById('zm-name').value = '';
+  document.getElementById('zm-url').value = '';
+  document.getElementById('zm-time').value = '';
+  document.getElementById('zm-notes').value = '';
+  document.getElementById('zm-delete-wrap').style.display = 'none';
+  document.querySelector('#add-meeting-modal .modal-title').textContent = 'Add a Meeting';
+  document.getElementById('add-meeting-modal').classList.add('open');
+}
+
+function openEditMeeting(id) {
+  var m = savedMeetings.find(function(x){ return x.id === id; });
+  if (!m) return;
+  editingMeetingId = id;
+  document.getElementById('zm-name').value = m.name || '';
+  document.getElementById('zm-url').value = m.url || '';
+  document.getElementById('zm-time').value = m.time || '';
+  document.getElementById('zm-notes').value = m.notes || '';
+  document.getElementById('zm-delete-wrap').style.display = 'block';
+  document.querySelector('#add-meeting-modal .modal-title').textContent = 'Edit Meeting';
+  document.getElementById('add-meeting-modal').classList.add('open');
+}
+
+function saveMeeting() {
+  var name = document.getElementById('zm-name').value.trim();
+  var url = document.getElementById('zm-url').value.trim();
+  if (!name) { toast('Please enter a meeting name'); return; }
+  if (!url) { toast('Please enter a meeting link'); return; }
+  if (editingMeetingId) {
+    var m = savedMeetings.find(function(x){ return x.id === editingMeetingId; });
+    if (m) {
+      m.name = name; m.url = url;
+      m.time = document.getElementById('zm-time').value.trim();
+      m.notes = document.getElementById('zm-notes').value.trim();
+    }
+  } else {
+    savedMeetings.push({
+      id: Date.now().toString(),
+      name: name, url: url,
+      time: document.getElementById('zm-time').value.trim(),
+      notes: document.getElementById('zm-notes').value.trim()
+    });
+  }
+  localStorage.setItem('na_saved_meetings', JSON.stringify(savedMeetings));
+  renderSavedMeetings();
+  closeAddMeetingDirect();
+  toast(editingMeetingId ? 'Meeting updated' : 'Meeting saved');
+}
+
+function deleteMeeting() {
+  savedMeetings = savedMeetings.filter(function(x){ return x.id !== editingMeetingId; });
+  localStorage.setItem('na_saved_meetings', JSON.stringify(savedMeetings));
+  renderSavedMeetings();
+  closeAddMeetingDirect();
+  toast('Meeting removed');
+}
+
+function closeAddMeeting(event) {
+  document.getElementById('add-meeting-modal').classList.remove('open');
+}
+function closeAddMeetingDirect() {
+  document.getElementById('add-meeting-modal').classList.remove('open');
+}
+
 // =====================
 // SUPABASE SILENT SYNC
 // =====================
@@ -3432,6 +3580,37 @@ var _origSetMood = setMood; setMood = function(m) { _origSetMood(m); pushToCloud
   <div style="text-align:center;margin-top:16px;">
     <span id="auth-switch-text" style="font-size:0.75rem;color:var(--tm);">Don't have an account?</span>
     <button id="auth-switch-btn" onclick="switchAuthMode()" style="background:transparent;border:none;color:var(--ac);font-size:0.75rem;cursor:pointer;padding:0 0 0 4px;">Sign up</button>
+  </div>
+</div>
+```
+
+  </div>
+
+  <!-- ADD MEETING MODAL -->
+
+  <div class="modal-overlay" id="add-meeting-modal" onclick="closeAddMeeting(event)">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div class="modal-title">Add a Meeting</div>
+
+```
+  <div class="modal-label">Meeting Name</div>
+  <input id="zm-name" class="input" type="text" placeholder="e.g. Monday Night Step Study">
+
+  <div class="modal-label">Meeting Link</div>
+  <input id="zm-url" class="input" type="url" placeholder="https://zoom.us/j/... or any meeting link">
+
+  <div class="modal-label">Day / Time <span style="color:var(--tm);font-weight:400;">(optional)</span></div>
+  <input id="zm-time" class="input" type="text" placeholder="e.g. Mondays 7pm">
+
+  <div class="modal-label">Notes <span style="color:var(--tm);font-weight:400;">(optional)</span></div>
+  <input id="zm-notes" class="input" type="text" placeholder="e.g. Password: recovery">
+
+  <div style="display:flex;gap:8px;margin-top:16px;">
+    <button onclick="closeAddMeetingDirect()" style="flex:1;padding:13px;border:1px solid var(--bd);border-radius:var(--r);background:transparent;color:var(--tm);cursor:pointer;">Cancel</button>
+    <button onclick="saveMeeting()" class="btn" style="flex:2;margin-top:0;">Save Meeting</button>
+  </div>
+  <div id="zm-delete-wrap" style="display:none;margin-top:10px;">
+    <button onclick="deleteMeeting()" style="width:100%;padding:12px;border:1px solid rgba(180,60,60,0.4);border-radius:var(--r);background:transparent;color:#ff6b6b;font-size:0.8rem;cursor:pointer;">Remove Meeting</button>
   </div>
 </div>
 ```
