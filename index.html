@@ -2655,17 +2655,7 @@ async function loadEvents() {
     renderEvents();
     eventsLoaded = true;
 
-    if (isAdmin()) {
-      var adminBtn = document.getElementById('admin-float-btn');
-      if (!adminBtn) {
-        adminBtn = document.createElement('button');
-        adminBtn.id = 'admin-float-btn';
-        adminBtn.textContent = 'Admin';
-        adminBtn.style.cssText = 'position:fixed;bottom:80px;right:16px;z-index:500;background:#e74c3c;color:#fff;border:none;border-radius:20px;padding:8px 14px;font-size:0.75rem;font-weight:700;cursor:pointer;';
-        adminBtn.onclick = openAdminPanel;
-        document.body.appendChild(adminBtn);
-      }
-    }
+
   } catch(e) {
     document.getElementById('events-loading').style.display = 'none';
     showEventsEmpty();
@@ -3106,9 +3096,7 @@ async function doSignOut() {
     await supa.auth.signOut();
     currentUser = null;
     updateSigninBtn();
-    var adminBtn = document.getElementById('admin-float-btn');
-    if (adminBtn) adminBtn.remove();
-    document.getElementById('signin-modal').classList.remove('open');
+    document.getElementById('account-sheet').classList.remove('open');
     toast('Signed out');
   } catch(e) {}
 }
@@ -3128,17 +3116,7 @@ function updateSigninBtn() {
 }
 
 function showAdminBtnIfNeeded() {
-  if (isAdmin()) {
-    var existing = document.getElementById('admin-float-btn');
-    if (!existing) {
-      var adminBtn = document.createElement('button');
-      adminBtn.id = 'admin-float-btn';
-      adminBtn.textContent = 'Admin';
-      adminBtn.style.cssText = 'position:fixed;bottom:80px;right:16px;z-index:500;background:#e74c3c;color:#fff;border:none;border-radius:20px;padding:8px 14px;font-size:0.75rem;font-weight:700;cursor:pointer;';
-      adminBtn.onclick = openAdminPanel;
-      document.body.appendChild(adminBtn);
-    }
-  }
+  // Admin access is inside the account sheet - no floating button needed
 }
 
 // =====================
@@ -3434,7 +3412,7 @@ var _origSetMood = setMood; setMood = function(m) { _origSetMood(m); pushToCloud
       <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--ac),#b8965a);display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:700;color:#1a1208;" id="account-avatar">C</div>
       <div>
         <div style="font-weight:700;font-size:0.95rem;" id="account-name">Clare</div>
-        <div style="font-size:0.72rem;color:var(--tm);" id="account-email">clarehobson@icloud.com</div>
+        <div style="font-size:0.72rem;color:var(--tm);" id="account-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bcdfd0ddced9d4d3decfd3d2fcd5dfd0d3c9d892dfd3d1">[email&#160;protected]</a></div>
       </div>
       <div id="account-tier-badge" style="margin-left:auto;padding:4px 10px;border-radius:20px;font-size:0.62rem;font-weight:800;text-transform:uppercase;"></div>
     </div>
@@ -3452,13 +3430,5 @@ var _origSetMood = setMood; setMood = function(m) { _origSetMood(m); pushToCloud
     </div>
 
     <!-- Sign Out -->
-    <button onclick="doSignOut()" style="width:100%;padding:13px;border:1px solid rgba(192,57,43,0.3);border-radius:var(--r);background:transparent;color:#e74c3c;cursor:pointer;font-size:0.82rem;">Sign Out</button>
-  </div>
-
-</div>
+    <button onclick="doSignOut()" style="width:100%;padding:13px;border:1px solid rgba(192,57,43,0.3);border-radius:var(--r);background:trans
 ```
-
-  </div>
-
-</body>
-</html>
