@@ -662,8 +662,17 @@ z-index: 999;
 #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 </style>
 
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script>
+// Load Leaflet dynamically
+(function() {
+  var s = document.createElement('script');
+  s.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+  s.onerror = function() { console.log('Leaflet failed to load - map disabled'); };
+  document.head.appendChild(s);
+})();
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
 // Fallback if Supabase fails to load
 // Set up supabase fallback immediately in case CDN fails
@@ -674,7 +683,6 @@ function setupSupabaseFallback() {
 }
 window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true);
 </script>
-
 </head>
 <body>
 
@@ -1886,6 +1894,49 @@ function renderJournalEntries() {
   });
 }
 
+
+// =====================
+// MAP
+// =====================
+var netMap = null;
+var netMarkers = [];
+
+function initNetMap() {
+  if (typeof L === 'undefined') return;
+  var el = document.getElementById('net-map');
+  if (!el || netMap) return;
+  netMap = L.map('net-map', { zoomControl: true, scrollWheelZoom: false }).setView([54.5, -2], 5);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap &copy; CartoDB', maxZoom: 19
+  }).addTo(netMap);
+}
+
+function geocodeAndPlot() {
+  if (typeof L === 'undefined' || !netMap) return;
+  netMarkers.forEach(function(m){ netMap.removeLayer(m); });
+  netMarkers = [];
+  var colours = { 'Sponsor':'#e74c3c', 'Sponsee':'#2ecc71', 'Sponsor Sister':'#2ecc71', 'Sponsor Brother':'#2ecc71', 'Friend in Recovery':'#f1c40f' };
+  networkContacts.forEach(function(c) {
+    if (!c.location) return;
+    fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(c.location))
+      .then(function(r){ return r.json(); })
+      .then(function(data) {
+        if (!data || !data.length) return;
+        var lat = parseFloat(data[0].lat);
+        var lng = parseFloat(data[0].lon);
+        var colour = colours[c.role] || '#e8c97a';
+        var icon = L.divIcon({
+          className: '',
+          html: '<div style="width:12px;height:12px;border-radius:50%;background:' + colour + ';border:2px solid #fff;box-shadow:0 0 4px rgba(0,0,0,0.5);"></div>',
+          iconSize: [12, 12], iconAnchor: [6, 6]
+        });
+        var marker = L.marker([lat, lng], {icon: icon})
+          .addTo(netMap)
+          .bindPopup('<div class="net-popup"><b>' + c.name + '</b><br>' + (c.role || '') + '</div>');
+        netMarkers.push(marker);
+      }).catch(function(){});
+  });
+}
 
 // =====================
 // NETWORK
