@@ -9,6 +9,7 @@
 <meta name="apple-mobile-web-app-title" content="Clean Living">
 <meta name="theme-color" content="#0f0f1a">
 <title>Clean Living</title>
+<meta name="app-version" content="2.1.0">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -3872,5 +3873,35 @@ var _origSetMood = setMood; setMood = function(m) { _origSetMood(m); pushToCloud
     </div>
 
     <!-- Sign Out -->
-    <button onclick="doSignOut()" style="width:100%;padding:13px;border:1px solid rgba(192,57,43,0.3);border-radius:var(--r);background:trans
+    <button onclick="doSignOut()" style="width:100%;padding:13px;border:1px solid rgba(192,57,43,0.3);border-radius:var(--r);background:transparent;color:#e74c3c;cursor:pointer;">Sign Out</button>
+  </div>
+
+</div>
 ```
+
+  </div>
+
+  <script>
+    // Register service worker for auto-updates
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js').then(function(reg) {
+          reg.addEventListener('updatefound', function() {
+            var newWorker = reg.installing;
+            newWorker.addEventListener('statechange', function() {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                newWorker.postMessage({ action: 'skipWaiting' });
+              }
+            });
+          });
+        }).catch(function(err) {});
+        var refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', function() {
+          if (!refreshing) { refreshing = true; window.location.reload(); }
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>
