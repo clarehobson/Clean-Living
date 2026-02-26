@@ -3090,35 +3090,6 @@ async function doResetPassword() {
   } catch(e) { showSigninMsg('Could not send reset email', '#e74c3c'); }
 }
 
-async function doSignOut() {
-  if (!supa) return;
-  try {
-    await supa.auth.signOut();
-    currentUser = null;
-    updateSigninBtn();
-    document.getElementById('account-sheet').classList.remove('open');
-    toast('Signed out');
-  } catch(e) {}
-}
-
-function updateSigninBtn() {
-  var btn = document.getElementById('home-signin-btn');
-  if (!btn) return;
-  if (currentUser) {
-    btn.textContent = currentUser.email.split('@')[0];
-    btn.style.color = 'var(--ac)';
-    btn.style.borderColor = 'rgba(232,201,122,0.5)';
-  } else {
-    btn.textContent = 'Sign In';
-    btn.style.color = 'var(--tm)';
-    btn.style.borderColor = 'rgba(232,201,122,0.25)';
-  }
-}
-
-function showAdminBtnIfNeeded() {
-  // Admin access is inside the account sheet - no floating button needed
-}
-
 // =====================
 // AUTH & MEMBERSHIP
 // =====================
@@ -3266,6 +3237,93 @@ function closePaywall(e) {
   document.getElementById('paywall-modal').classList.remove('open');
 }
 
+
+
+// =====================
+// ACCOUNT SHEET
+// =====================
+function openAccountSheet() {
+  var sheet = document.getElementById('account-sheet');
+  if (!sheet) return;
+
+  if (!currentUser) {
+    document.getElementById('account-signedout').style.display = 'block';
+    document.getElementById('account-signedin').style.display = 'none';
+  } else {
+    document.getElementById('account-signedout').style.display = 'none';
+    document.getElementById('account-signedin').style.display = 'block';
+
+    var email = currentUser.email || '';
+    var name = email.split('@')[0];
+    var tier = getUserTier();
+
+    document.getElementById('account-avatar').textContent = name[0].toUpperCase();
+    document.getElementById('account-name').textContent = name;
+    document.getElementById('account-email').textContent = email;
+
+    var badge = document.getElementById('account-tier-badge');
+    if (tier === 'member') {
+      badge.textContent = 'Member';
+      badge.style.cssText = 'margin-left:auto;padding:4px 10px;border-radius:20px;font-size:0.62rem;font-weight:800;text-transform:uppercase;background:rgba(232,201,122,0.2);color:var(--ac);border:1px solid rgba(232,201,122,0.4);';
+    } else if (tier === 'basic') {
+      badge.textContent = 'Basic';
+      badge.style.cssText = 'margin-left:auto;padding:4px 10px;border-radius:20px;font-size:0.62rem;font-weight:800;text-transform:uppercase;background:rgba(94,164,207,0.2);color:#5ea4cf;border:1px solid rgba(94,164,207,0.4);';
+    } else {
+      badge.textContent = 'Free';
+      badge.style.cssText = 'margin-left:auto;padding:4px 10px;border-radius:20px;font-size:0.62rem;font-weight:800;text-transform:uppercase;background:rgba(255,255,255,0.08);color:var(--tm);border:1px solid var(--bd);';
+    }
+
+    var detail = document.getElementById('account-membership-detail');
+    if (tier === 'member') {
+      detail.textContent = 'Full access — Journal, Events, Movement, Network, Community';
+    } else if (tier === 'basic') {
+      detail.textContent = 'Basic access — Network and Worksheets included';
+    } else {
+      detail.textContent = 'Free plan — meetings, books and daily readings';
+    }
+
+    document.getElementById('account-admin-section').style.display = isAdmin() ? 'block' : 'none';
+  }
+
+  sheet.classList.add('open');
+}
+
+function closeAccountSheet(event) {
+  document.getElementById('account-sheet').classList.remove('open');
+}
+
+function updateSigninBtn() {
+  var btn = document.getElementById('home-signin-btn');
+  if (!btn) return;
+  if (currentUser) {
+    var initial = (currentUser.email.split('@')[0][0] || 'A').toUpperCase();
+    btn.textContent = initial;
+    btn.style.background = 'linear-gradient(135deg,var(--ac),#b8965a)';
+    btn.style.color = '#1a1208';
+    btn.style.fontWeight = '700';
+  } else {
+    btn.textContent = '\uD83D\uDC64';
+    btn.style.background = 'var(--sf)';
+    btn.style.color = 'var(--ac)';
+    btn.style.fontWeight = 'normal';
+  }
+}
+
+function showAdminBtnIfNeeded() {
+  // Admin access is inside the account sheet - no floating button needed
+}
+
+async function doSignOut() {
+  if (!supa) return;
+  try {
+    await supa.auth.signOut();
+    currentUser = null;
+    updateSigninBtn();
+    document.getElementById('account-sheet').classList.remove('open');
+    showWelcomeScreen();
+    toast('Signed out');
+  } catch(e) {}
+}
 
 // =====================
 // SUPABASE SILENT SYNC
