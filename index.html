@@ -10,7 +10,6 @@
 <meta name="theme-color" content="#0f0f1a">
 <title>NA Recovery</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
 <style>
 :root {
   --bg: #0f0f1a;
@@ -871,7 +870,7 @@ window.addEventListener('error', function(e) {
 
 <!-- Daily Readings -->
 <div class="label" style="margin-top:4px;">Today's Readings</div>
-<a href="https://www.jftna.org/jft/" target="_blank" style="display:flex;align-items:center;gap:13px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:13px 15px;margin-bottom:8px;text-decoration:none;color:var(--tx);">
+<a href="https://www.jftna.org/jft/" target="_blank" onclick="window.open('https://www.jftna.org/jft/','_blank','noopener');return false;" style="display:flex;align-items:center;gap:13px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:13px 15px;margin-bottom:8px;text-decoration:none;color:var(--tx);">
   <div style="font-size:1.4rem;">&#x1F4D4;</div>
   <div style="flex:1;">
     <div style="font-weight:600;font-size:0.86rem;">Just For Today</div>
@@ -879,7 +878,7 @@ window.addEventListener('error', function(e) {
   </div>
   <div style="color:var(--tm);">&#8250;</div>
 </a>
-<a href="https://spadna.org" target="_blank" style="display:flex;align-items:center;gap:13px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:13px 15px;margin-bottom:8px;text-decoration:none;color:var(--tx);">
+<a href="https://spadna.org" target="_blank" onclick="window.open('https://spadna.org','_blank','noopener');return false;" style="display:flex;align-items:center;gap:13px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:13px 15px;margin-bottom:8px;text-decoration:none;color:var(--tx);">
   <div style="font-size:1.4rem;">&#x2728;</div>
   <div style="flex:1;">
     <div style="font-weight:600;font-size:0.86rem;">Spiritual Principle a Day</div>
@@ -920,7 +919,7 @@ window.addEventListener('error', function(e) {
     </div>
     <div style="font-size:0.7rem; color:var(--tm);">Tap to call ›</div>
   </a>
-  <a href="https://www.na.org/meetingsearch" target="_blank" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0;">
+  <a href="https://www.na.org/meetingsearch" target="_blank" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0;" onclick="window.open('https://www.na.org/meetingsearch','_blank','noopener');return false;">
     <div>
       <div style="font-size:0.76rem; font-weight:700; color:#ff6b6b;">🔍 Find Your Local Helpline</div>
       <div style="font-size:0.63rem; color:var(--tm);">na.org · Search by country or region</div>
@@ -1020,7 +1019,7 @@ window.addEventListener('error', function(e) {
     <div class="label"><span style="margin-right:5px;">&#x1F4CB;</span>Worksheets</div>
 
 ```
-<a href="https://www.nwnjna.org/wp-content/uploads/2020/03/NARCOTICS-ANONYMOUS-STEP-WRITING-GUIDE.pdf" target="_blank" style="display:flex;align-items:center;gap:14px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px;margin-bottom:8px;text-decoration:none;color:var(--tx);">
+<a href="https://www.nwnjna.org/wp-content/uploads/2020/03/NARCOTICS-ANONYMOUS-STEP-WRITING-GUIDE.pdf" target="_blank" style="display:flex;align-items:center;gap:14px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px;margin-bottom:8px;text-decoration:none;color:var(--tx);" onclick="window.open('https://www.nwnjna.org/wp-content/uploads/2020/03/NARCOTICS-ANONYMOUS-STEP-WRITING-GUIDE.pdf','_blank','noopener');return false;">
   <div style="font-size:1.5rem;">&#x1F4C4;</div>
   <div style="flex:1;">
     <div style="font-weight:600;font-size:0.88rem;">The 12 Steps</div>
@@ -1029,7 +1028,7 @@ window.addEventListener('error', function(e) {
   <div style="color:var(--tm);">&#8250;</div>
 </a>
 
-<a href="https://nameetingmakers.com/literature/NA-GUIDING-PRINCIPLES-TRADITIONS.pdf" target="_blank" style="display:flex;align-items:center;gap:14px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px;margin-bottom:8px;text-decoration:none;color:var(--tx);">
+<a href="https://nameetingmakers.com/literature/NA-GUIDING-PRINCIPLES-TRADITIONS.pdf" target="_blank" style="display:flex;align-items:center;gap:14px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px;margin-bottom:8px;text-decoration:none;color:var(--tx);" onclick="window.open('https://nameetingmakers.com/literature/NA-GUIDING-PRINCIPLES-TRADITIONS.pdf','_blank','noopener');return false;">
   <div style="font-size:1.5rem;">&#x1F4D6;</div>
   <div style="flex:1;">
     <div style="font-weight:600;font-size:0.88rem;">Guiding Principles</div>
@@ -1049,7 +1048,7 @@ window.addEventListener('error', function(e) {
 <!-- IN-PERSON FINDERS -->
 <div class="label">📍 Find an In-Person Meeting</div>
 
-<a href="https://na.org/meetingsearch/" target="_blank" class="meeting-card">
+<a href="https://na.org/meetingsearch/" target="_blank" class="meeting-card" onclick="window.open('https://na.org/meetingsearch/','_blank','noopener');return false;">
   <div class="meeting-left">
     <div class="meeting-flag">🌍</div>
     <div>
@@ -1060,7 +1059,7 @@ window.addEventListener('error', function(e) {
   <div class="meeting-arr">›</div>
 </a>
 
-<a href="https://meetings.ukna.org/meeting/search" target="_blank" class="meeting-card">
+<a href="https://meetings.ukna.org/meeting/search" target="_blank" class="meeting-card" onclick="window.open('https://meetings.ukna.org/meeting/search','_blank','noopener');return false;">
   <div class="meeting-left">
     <div class="meeting-flag">🇬🇧</div>
     <div>
@@ -1071,7 +1070,7 @@ window.addEventListener('error', function(e) {
   <div class="meeting-arr">›</div>
 </a>
 
-<a href="https://edmna.org/regions-and-events/" target="_blank" class="meeting-card">
+<a href="https://edmna.org/regions-and-events/" target="_blank" class="meeting-card" onclick="window.open('https://edmna.org/regions-and-events/','_blank','noopener');return false;">
   <div class="meeting-left">
     <div class="meeting-flag">🇪🇺</div>
     <div>
@@ -1086,7 +1085,7 @@ window.addEventListener('error', function(e) {
 <div class="label" style="margin-top:20px;">💻 Online & Virtual Meetings</div>
 <div style="font-size:0.72rem; color:var(--tm); margin-bottom:12px; line-height:1.5;">Can't get to a meeting? Online meetings are available 24/7 from anywhere in the world.</div>
 
-<a href="https://virtual-na.org/meetings/" target="_blank" class="meeting-card">
+<a href="https://virtual-na.org/meetings/" target="_blank" class="meeting-card" onclick="window.open('https://virtual-na.org/meetings/','_blank','noopener');return false;">
   <div class="meeting-left">
     <div class="meeting-flag">🌐</div>
     <div>
@@ -1097,7 +1096,7 @@ window.addEventListener('error', function(e) {
   <div class="meeting-arr">›</div>
 </a>
 
-<a href="https://meetings.ukna.org/meeting/search/online" target="_blank" class="meeting-card">
+<a href="https://meetings.ukna.org/meeting/search/online" target="_blank" class="meeting-card" onclick="window.open('https://meetings.ukna.org/meeting/search/online','_blank','noopener');return false;">
   <div class="meeting-left">
     <div class="meeting-flag">🇬🇧</div>
     <div>
@@ -1129,7 +1128,7 @@ window.addEventListener('error', function(e) {
     </div>
     <div style="font-size:0.7rem; color:var(--tm);">Tap to call ›</div>
   </a>
-  <a href="https://www.na.org/meetingsearch" target="_blank" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0;">
+  <a href="https://www.na.org/meetingsearch" target="_blank" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0;" onclick="window.open('https://www.na.org/meetingsearch','_blank','noopener');return false;">
     <div>
       <div style="font-size:0.82rem; font-weight:700; color:var(--ac);">🔍 Find Your Local Helpline</div>
       <div style="font-size:0.68rem; color:var(--tm); margin-top:2px;">na.org · Search by country or region</div>
@@ -1159,13 +1158,13 @@ window.addEventListener('error', function(e) {
   <div class="book-card-body">
     <div class="book-section-label">📱 Digital Edition</div>
     <div class="book-btn-row">
-      <a href="https://books.apple.com/us/book/narcotics-anonymous/id560639864" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
-      <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_Narcotics_Anonymo?id=560639864" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
+      <a href="https://books.apple.com/us/book/narcotics-anonymous/id560639864" target="_blank" class="buy-btn apple-btn" onclick="window.open('https://books.apple.com/us/book/narcotics-anonymous/id560639864','_blank','noopener');return false;">🍎 Apple Books</a>
+      <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_Narcotics_Anonymo?id=560639864" target="_blank" class="buy-btn google-btn" onclick="window.open('https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_Narcotics_Anonymo?id=560639864','_blank','noopener');return false;">▶ Google Play</a>
     </div>
     <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
-    <a href="https://cart-us.na.org/recovery-products/books/basic-text-hardcover-1101" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
-    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
-    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
+    <a href="https://cart-us.na.org/recovery-products/books/basic-text-hardcover-1101" target="_blank" class="buy-btn world-btn" onclick="window.open('https://cart-us.na.org/recovery-products/books/basic-text-hardcover-1101','_blank','noopener');return false;">🌍 NA World Store</a>
+    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn" onclick="window.open('https://ukso.biz','_blank','noopener');return false;">🇬🇧 UK Service Office</a>
+    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn" onclick="window.open('https://cart-eu.na.org','_blank','noopener');return false;">🇪🇺 NA Europe Store</a>
   </div>
 </div>
 <div class="book-expand-card">
@@ -1177,13 +1176,13 @@ window.addEventListener('error', function(e) {
   <div class="book-card-body">
     <div class="book-section-label">📱 Digital Edition</div>
     <div class="book-btn-row">
-      <a href="https://books.apple.com/us/book/just-for-today/id1608426774" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
-      <a href="https://play.google.com/store/books/details?id=just-for-today-na" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
+      <a href="https://books.apple.com/us/book/just-for-today/id1608426774" target="_blank" class="buy-btn apple-btn" onclick="window.open('https://books.apple.com/us/book/just-for-today/id1608426774','_blank','noopener');return false;">🍎 Apple Books</a>
+      <a href="https://play.google.com/store/books/details?id=just-for-today-na" target="_blank" class="buy-btn google-btn" onclick="window.open('https://play.google.com/store/books/details?id=just-for-today-na','_blank','noopener');return false;">▶ Google Play</a>
     </div>
     <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
-    <a href="https://cart-us.na.org/recovery-products/books/just-for-today-daily-meditation-book-1112" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
-    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
-    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
+    <a href="https://cart-us.na.org/recovery-products/books/just-for-today-daily-meditation-book-1112" target="_blank" class="buy-btn world-btn" onclick="window.open('https://cart-us.na.org/recovery-products/books/just-for-today-daily-meditation-book-1112','_blank','noopener');return false;">🌍 NA World Store</a>
+    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn" onclick="window.open('https://ukso.biz','_blank','noopener');return false;">🇬🇧 UK Service Office</a>
+    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn" onclick="window.open('https://cart-eu.na.org','_blank','noopener');return false;">🇪🇺 NA Europe Store</a>
   </div>
 </div>
 <div class="book-expand-card">
@@ -1195,13 +1194,13 @@ window.addEventListener('error', function(e) {
   <div class="book-card-body">
     <div class="book-section-label">📱 Digital Edition</div>
     <div class="book-btn-row">
-      <a href="https://books.apple.com/us/book/it-works-how-and-why/id564200715" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
-      <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_It_Works_How_and?id=564200715" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
+      <a href="https://books.apple.com/us/book/it-works-how-and-why/id564200715" target="_blank" class="buy-btn apple-btn" onclick="window.open('https://books.apple.com/us/book/it-works-how-and-why/id564200715','_blank','noopener');return false;">🍎 Apple Books</a>
+      <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_It_Works_How_and?id=564200715" target="_blank" class="buy-btn google-btn" onclick="window.open('https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_It_Works_How_and?id=564200715','_blank','noopener');return false;">▶ Google Play</a>
     </div>
     <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
-    <a href="https://cart-us.na.org/recovery-products/books/it-works-5-how-and-why-hardcover-1140" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
-    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
-    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
+    <a href="https://cart-us.na.org/recovery-products/books/it-works-5-how-and-why-hardcover-1140" target="_blank" class="buy-btn world-btn" onclick="window.open('https://cart-us.na.org/recovery-products/books/it-works-5-how-and-why-hardcover-1140','_blank','noopener');return false;">🌍 NA World Store</a>
+    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn" onclick="window.open('https://ukso.biz','_blank','noopener');return false;">🇬🇧 UK Service Office</a>
+    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn" onclick="window.open('https://cart-eu.na.org','_blank','noopener');return false;">🇪🇺 NA Europe Store</a>
   </div>
 </div>
 <div class="book-expand-card">
@@ -1213,13 +1212,13 @@ window.addEventListener('error', function(e) {
   <div class="book-card-body">
     <div class="book-section-label">📱 Digital Edition</div>
     <div class="book-btn-row">
-      <a href="https://books.apple.com/us/book/guiding-principles-the-spirit-of-our-traditions/id1478457214" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
-      <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_Guiding_Principle?id=1478457214" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
+      <a href="https://books.apple.com/us/book/guiding-principles-the-spirit-of-our-traditions/id1478457214" target="_blank" class="buy-btn apple-btn" onclick="window.open('https://books.apple.com/us/book/guiding-principles-the-spirit-of-our-traditions/id1478457214','_blank','noopener');return false;">🍎 Apple Books</a>
+      <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_Guiding_Principle?id=1478457214" target="_blank" class="buy-btn google-btn" onclick="window.open('https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_Guiding_Principle?id=1478457214','_blank','noopener');return false;">▶ Google Play</a>
     </div>
     <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
-    <a href="https://cart-us.na.org/recovery-products/books" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
-    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
-    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
+    <a href="https://cart-us.na.org/recovery-products/books" target="_blank" class="buy-btn world-btn" onclick="window.open('https://cart-us.na.org/recovery-products/books','_blank','noopener');return false;">🌍 NA World Store</a>
+    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn" onclick="window.open('https://ukso.biz','_blank','noopener');return false;">🇬🇧 UK Service Office</a>
+    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn" onclick="window.open('https://cart-eu.na.org','_blank','noopener');return false;">🇪🇺 NA Europe Store</a>
   </div>
 </div>
 <div class="book-expand-card">
@@ -1231,13 +1230,13 @@ window.addEventListener('error', function(e) {
   <div class="book-card-body">
     <div class="book-section-label">📱 Digital Edition</div>
     <div class="book-btn-row">
-      <a href="https://books.apple.com/us/book/living-clean-the-journey-continues/id733950643" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
-      <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_Living_Clean_The?id=733950643" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
+      <a href="https://books.apple.com/us/book/living-clean-the-journey-continues/id733950643" target="_blank" class="buy-btn apple-btn" onclick="window.open('https://books.apple.com/us/book/living-clean-the-journey-continues/id733950643','_blank','noopener');return false;">🍎 Apple Books</a>
+      <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_Living_Clean_The?id=733950643" target="_blank" class="buy-btn google-btn" onclick="window.open('https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_Living_Clean_The?id=733950643','_blank','noopener');return false;">▶ Google Play</a>
     </div>
     <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
-    <a href="https://cart-us.na.org/recovery-products/books/living-clean-1160" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
-    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
-    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
+    <a href="https://cart-us.na.org/recovery-products/books/living-clean-1160" target="_blank" class="buy-btn world-btn" onclick="window.open('https://cart-us.na.org/recovery-products/books/living-clean-1160','_blank','noopener');return false;">🌍 NA World Store</a>
+    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn" onclick="window.open('https://ukso.biz','_blank','noopener');return false;">🇬🇧 UK Service Office</a>
+    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn" onclick="window.open('https://cart-eu.na.org','_blank','noopener');return false;">🇪🇺 NA Europe Store</a>
   </div>
 </div>
 <div class="book-expand-card">
@@ -1249,13 +1248,13 @@ window.addEventListener('error', function(e) {
   <div class="book-card-body">
     <div class="book-section-label">📱 Digital Edition</div>
     <div class="book-btn-row">
-      <a href="https://books.apple.com/us/book/the-na-step-working-guides/id1036368127" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
-      <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_The_NA_Step_Worki?id=1036368127" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
+      <a href="https://books.apple.com/us/book/the-na-step-working-guides/id1036368127" target="_blank" class="buy-btn apple-btn" onclick="window.open('https://books.apple.com/us/book/the-na-step-working-guides/id1036368127','_blank','noopener');return false;">🍎 Apple Books</a>
+      <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_The_NA_Step_Worki?id=1036368127" target="_blank" class="buy-btn google-btn" onclick="window.open('https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_The_NA_Step_Worki?id=1036368127','_blank','noopener');return false;">▶ Google Play</a>
     </div>
     <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
-    <a href="https://cart-us.na.org/recovery-products/books/the-na-step-working-guides-1400" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
-    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
-    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
+    <a href="https://cart-us.na.org/recovery-products/books/the-na-step-working-guides-1400" target="_blank" class="buy-btn world-btn" onclick="window.open('https://cart-us.na.org/recovery-products/books/the-na-step-working-guides-1400','_blank','noopener');return false;">🌍 NA World Store</a>
+    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn" onclick="window.open('https://ukso.biz','_blank','noopener');return false;">🇬🇧 UK Service Office</a>
+    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn" onclick="window.open('https://cart-eu.na.org','_blank','noopener');return false;">🇪🇺 NA Europe Store</a>
   </div>
 </div>
 <div class="book-expand-card">
@@ -1267,42 +1266,42 @@ window.addEventListener('error', function(e) {
   <div class="book-card-body">
     <div class="book-section-label">📱 Digital Edition</div>
     <div class="book-btn-row">
-      <a href="https://books.apple.com/us/book/a-spiritual-principle-a-day/id1590889673" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
-      <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_A_Spiritual_Princ?id=1590889673" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
+      <a href="https://books.apple.com/us/book/a-spiritual-principle-a-day/id1590889673" target="_blank" class="buy-btn apple-btn" onclick="window.open('https://books.apple.com/us/book/a-spiritual-principle-a-day/id1590889673','_blank','noopener');return false;">🍎 Apple Books</a>
+      <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_A_Spiritual_Princ?id=1590889673" target="_blank" class="buy-btn google-btn" onclick="window.open('https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_A_Spiritual_Princ?id=1590889673','_blank','noopener');return false;">▶ Google Play</a>
     </div>
     <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
-    <a href="https://cart-us.na.org/recovery-products/books/a-spiritual-principle-a-day-1170" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
-    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
-    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
+    <a href="https://cart-us.na.org/recovery-products/books/a-spiritual-principle-a-day-1170" target="_blank" class="buy-btn world-btn" onclick="window.open('https://cart-us.na.org/recovery-products/books/a-spiritual-principle-a-day-1170','_blank','noopener');return false;">🌍 NA World Store</a>
+    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn" onclick="window.open('https://ukso.biz','_blank','noopener');return false;">🇬🇧 UK Service Office</a>
+    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn" onclick="window.open('https://cart-eu.na.org','_blank','noopener');return false;">🇪🇺 NA Europe Store</a>
   </div>
 </div>
 
 <!-- BOOKLETS -->
 <div class="label" style="margin-top:20px;">📄 Booklets</div>
-<a href="https://na.org/wp-content/uploads/2024/05/AN1500_LWB-Little-White-Book-English-Anglicized.pdf" target="_blank" class="book-card">
+<a href="https://na.org/wp-content/uploads/2024/05/AN1500_LWB-Little-White-Book-English-Anglicized.pdf" target="_blank" class="book-card" onclick="window.open('https://na.org/wp-content/uploads/2024/05/AN1500_LWB-Little-White-Book-English-Anglicized.pdf','_blank','noopener');return false;">
   <div class="book-icon">📄</div><div class="book-body"><div class="book-title">The White Booklet</div><div class="book-sub">Free PDF — official na.org</div></div><div class="book-arr">›</div>
 </a>
 
 <!-- INFORMATIONAL PAMPHLETS -->
 <div class="label" style="margin-top:16px;">📃 Informational Pamphlets</div>
 <div style="font-size:0.7rem; color:var(--tm); margin-bottom:10px;">All free official PDFs from na.org</div>
-<a href="https://na.org/wp-content/uploads/2024/05/AN3101_6-22-IP-1-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #1: Who, What, How, and Why</div></div><div class="book-arr">›</div></a>
-<a href="https://na.org/wp-content/uploads/2024/05/AN3105-IP-5-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #5: Another Look</div></div><div class="book-arr">›</div></a>
-<a href="https://na.org/wp-content/uploads/2024/05/AN3106-IP-6-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #6: Recovery &amp; Relapse</div></div><div class="book-arr">›</div></a>
-<a href="https://na.org/wp-content/uploads/2024/05/AN3107-IP-7-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #7: Am I an Addict?</div></div><div class="book-arr">›</div></a>
-<a href="https://na.org/wp-content/uploads/2024/05/AN3108-IP-8-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #8: Just for Today</div></div><div class="book-arr">›</div></a>
-<a href="https://na.org/wp-content/uploads/2024/05/AN3109_10-22-IP-9-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #9: Living the Programme</div></div><div class="book-arr">›</div></a>
-<a href="https://na.org/wp-content/uploads/2024/05/AN3111-IP-11-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #11: Sponsorship</div></div><div class="book-arr">›</div></a>
-<a href="https://na.org/wp-content/uploads/2024/05/AN3112-IP-12-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #12: The Triangle of Self-Obsession</div></div><div class="book-arr">›</div></a>
-<a href="https://na.org/wp-content/uploads/2024/05/AN3113-IP-13-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #13: Youth and Recovery</div></div><div class="book-arr">›</div></a>
-<a href="https://na.org/wp-content/uploads/2024/05/AN3114-IP-14-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #14: One Addict's Experience</div></div><div class="book-arr">›</div></a>
-<a href="https://na.org/wp-content/uploads/2024/05/AN3115_7-22-IP-15-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #15: PI and the NA Member</div></div><div class="book-arr">›</div></a>
-<a href="https://na.org/wp-content/uploads/2024/05/AN3116-IP-16-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #16: For the Newcomer</div></div><div class="book-arr">›</div></a>
-<a href="https://na.org/wp-content/uploads/2024/05/AN3119-IP-19-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #19: Self-Acceptance</div></div><div class="book-arr">›</div></a>
-<a href="https://na.org/wp-content/uploads/2024/05/AN3120_7-22-IP-20-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #20: H&amp;I Service and the NA Member</div></div><div class="book-arr">›</div></a>
-<a href="https://na.org/wp-content/uploads/2024/05/AN3122-IP-22-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #22: Welcome to Narcotics Anonymous</div></div><div class="book-arr">›</div></a>
-<a href="https://na.org/wp-content/uploads/2024/05/AN3123-IP-23-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #23: Staying Clean on the Inside</div></div><div class="book-arr">›</div></a>
-<a href="https://na.org/wp-content/uploads/2024/05/AN3124-IP-24-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #24: Why Are We Self-Supporting?</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3101_6-22-IP-1-English-Anglicized.pdf" target="_blank" class="book-card" onclick="window.open('https://na.org/wp-content/uploads/2024/05/AN3101_6-22-IP-1-English-Anglicized.pdf','_blank','noopener');return false;"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #1: Who, What, How, and Why</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3105-IP-5-English-Anglicized.pdf" target="_blank" class="book-card" onclick="window.open('https://na.org/wp-content/uploads/2024/05/AN3105-IP-5-English-Anglicized.pdf','_blank','noopener');return false;"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #5: Another Look</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3106-IP-6-English-Anglicized.pdf" target="_blank" class="book-card" onclick="window.open('https://na.org/wp-content/uploads/2024/05/AN3106-IP-6-English-Anglicized.pdf','_blank','noopener');return false;"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #6: Recovery &amp; Relapse</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3107-IP-7-English-Anglicized.pdf" target="_blank" class="book-card" onclick="window.open('https://na.org/wp-content/uploads/2024/05/AN3107-IP-7-English-Anglicized.pdf','_blank','noopener');return false;"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #7: Am I an Addict?</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3108-IP-8-English-Anglicized.pdf" target="_blank" class="book-card" onclick="window.open('https://na.org/wp-content/uploads/2024/05/AN3108-IP-8-English-Anglicized.pdf','_blank','noopener');return false;"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #8: Just for Today</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3109_10-22-IP-9-English-Anglicized.pdf" target="_blank" class="book-card" onclick="window.open('https://na.org/wp-content/uploads/2024/05/AN3109_10-22-IP-9-English-Anglicized.pdf','_blank','noopener');return false;"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #9: Living the Programme</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3111-IP-11-English-Anglicized.pdf" target="_blank" class="book-card" onclick="window.open('https://na.org/wp-content/uploads/2024/05/AN3111-IP-11-English-Anglicized.pdf','_blank','noopener');return false;"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #11: Sponsorship</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3112-IP-12-English-Anglicized.pdf" target="_blank" class="book-card" onclick="window.open('https://na.org/wp-content/uploads/2024/05/AN3112-IP-12-English-Anglicized.pdf','_blank','noopener');return false;"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #12: The Triangle of Self-Obsession</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3113-IP-13-English-Anglicized.pdf" target="_blank" class="book-card" onclick="window.open('https://na.org/wp-content/uploads/2024/05/AN3113-IP-13-English-Anglicized.pdf','_blank','noopener');return false;"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #13: Youth and Recovery</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3114-IP-14-English-Anglicized.pdf" target="_blank" class="book-card" onclick="window.open('https://na.org/wp-content/uploads/2024/05/AN3114-IP-14-English-Anglicized.pdf','_blank','noopener');return false;"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #14: One Addict's Experience</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3115_7-22-IP-15-English-Anglicized.pdf" target="_blank" class="book-card" onclick="window.open('https://na.org/wp-content/uploads/2024/05/AN3115_7-22-IP-15-English-Anglicized.pdf','_blank','noopener');return false;"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #15: PI and the NA Member</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3116-IP-16-English-Anglicized.pdf" target="_blank" class="book-card" onclick="window.open('https://na.org/wp-content/uploads/2024/05/AN3116-IP-16-English-Anglicized.pdf','_blank','noopener');return false;"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #16: For the Newcomer</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3119-IP-19-English-Anglicized.pdf" target="_blank" class="book-card" onclick="window.open('https://na.org/wp-content/uploads/2024/05/AN3119-IP-19-English-Anglicized.pdf','_blank','noopener');return false;"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #19: Self-Acceptance</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3120_7-22-IP-20-English-Anglicized.pdf" target="_blank" class="book-card" onclick="window.open('https://na.org/wp-content/uploads/2024/05/AN3120_7-22-IP-20-English-Anglicized.pdf','_blank','noopener');return false;"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #20: H&amp;I Service and the NA Member</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3122-IP-22-English-Anglicized.pdf" target="_blank" class="book-card" onclick="window.open('https://na.org/wp-content/uploads/2024/05/AN3122-IP-22-English-Anglicized.pdf','_blank','noopener');return false;"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #22: Welcome to Narcotics Anonymous</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3123-IP-23-English-Anglicized.pdf" target="_blank" class="book-card" onclick="window.open('https://na.org/wp-content/uploads/2024/05/AN3123-IP-23-English-Anglicized.pdf','_blank','noopener');return false;"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #23: Staying Clean on the Inside</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3124-IP-24-English-Anglicized.pdf" target="_blank" class="book-card" onclick="window.open('https://na.org/wp-content/uploads/2024/05/AN3124-IP-24-English-Anglicized.pdf','_blank','noopener');return false;"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #24: Why Are We Self-Supporting?</div></div><div class="book-arr">›</div></a>
 ```
 
   </div><!-- end screen-books -->
@@ -1315,7 +1314,7 @@ window.addEventListener('error', function(e) {
 <!-- YOGA -->
 <div style="color:var(--ac); font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:10px;">🧘 Yoga</div>
 
-<a href="https://crpf.gov.in/writereaddata/images/pdf/Yoga_Beginner.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;">
+<a href="https://crpf.gov.in/writereaddata/images/pdf/Yoga_Beginner.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;" onclick="window.open('https://crpf.gov.in/writereaddata/images/pdf/Yoga_Beginner.pdf','_blank','noopener');return false;">
   <div class="meeting-left">
     <div style="font-size:1.5rem;">📄</div>
   </div>
@@ -1326,7 +1325,7 @@ window.addEventListener('error', function(e) {
   <div class="meeting-arr">›</div>
 </a>
 
-<a href="https://darebee.com/pdf/programs/30-days-of-yoga.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;">
+<a href="https://darebee.com/pdf/programs/30-days-of-yoga.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;" onclick="window.open('https://darebee.com/pdf/programs/30-days-of-yoga.pdf','_blank','noopener');return false;">
   <div class="meeting-left">
     <div style="font-size:1.5rem;">📄</div>
   </div>
@@ -1337,7 +1336,7 @@ window.addEventListener('error', function(e) {
   <div class="meeting-arr">›</div>
 </a>
 
-<a href="https://tintyoga.com/wp-content/uploads/2019/11/Yoga-Class-Plans.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:18px;">
+<a href="https://tintyoga.com/wp-content/uploads/2019/11/Yoga-Class-Plans.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:18px;" onclick="window.open('https://tintyoga.com/wp-content/uploads/2019/11/Yoga-Class-Plans.pdf','_blank','noopener');return false;">
   <div class="meeting-left">
     <div style="font-size:1.5rem;">📄</div>
   </div>
@@ -1351,7 +1350,7 @@ window.addEventListener('error', function(e) {
 <!-- BREATHWORK -->
 <div style="color:var(--ac); font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:10px;">🌬️ Breathwork</div>
 
-<a href="https://uhs.berkeley.edu/sites/default/files/breathing_exercises_0.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;">
+<a href="https://uhs.berkeley.edu/sites/default/files/breathing_exercises_0.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;" onclick="window.open('https://uhs.berkeley.edu/sites/default/files/breathing_exercises_0.pdf','_blank','noopener');return false;">
   <div class="meeting-left">
     <div style="font-size:1.5rem;">📄</div>
   </div>
@@ -1362,7 +1361,7 @@ window.addEventListener('error', function(e) {
   <div class="meeting-arr">›</div>
 </a>
 
-<a href="https://umsonline.org/printerfriendly/pranayama.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;">
+<a href="https://umsonline.org/printerfriendly/pranayama.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;" onclick="window.open('https://umsonline.org/printerfriendly/pranayama.pdf','_blank','noopener');return false;">
   <div class="meeting-left">
     <div style="font-size:1.5rem;">📄</div>
   </div>
@@ -1373,7 +1372,7 @@ window.addEventListener('error', function(e) {
   <div class="meeting-arr">›</div>
 </a>
 
-<a href="https://www.artofliving.org/us-en/breathwork/pranayama/breathing-exercises" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:18px;">
+<a href="https://www.artofliving.org/us-en/breathwork/pranayama/breathing-exercises" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:18px;" onclick="window.open('https://www.artofliving.org/us-en/breathwork/pranayama/breathing-exercises','_blank','noopener');return false;">
   <div class="meeting-left">
     <div style="font-size:1.5rem;">🌐</div>
   </div>
@@ -1387,7 +1386,7 @@ window.addEventListener('error', function(e) {
 <!-- MEDITATION -->
 <div style="color:var(--ac); font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:10px;">🪷 Meditation</div>
 
-<a href="https://share.upmc.com/wp-content/uploads/2021/10/HBEAT521847_Mindfulness_MeditationPDF_FNL-1.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;">
+<a href="https://share.upmc.com/wp-content/uploads/2021/10/HBEAT521847_Mindfulness_MeditationPDF_FNL-1.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;" onclick="window.open('https://share.upmc.com/wp-content/uploads/2021/10/HBEAT521847_Mindfulness_MeditationPDF_FNL-1.pdf','_blank','noopener');return false;">
   <div class="meeting-left">
     <div style="font-size:1.5rem;">📄</div>
   </div>
@@ -1398,7 +1397,7 @@ window.addEventListener('error', function(e) {
   <div class="meeting-arr">›</div>
 </a>
 
-<a href="https://chloeyturner.com/wp-content/uploads/2023/04/eBook-Mindfulness-Meditation-for-Beginners-3.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;">
+<a href="https://chloeyturner.com/wp-content/uploads/2023/04/eBook-Mindfulness-Meditation-for-Beginners-3.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;" onclick="window.open('https://chloeyturner.com/wp-content/uploads/2023/04/eBook-Mindfulness-Meditation-for-Beginners-3.pdf','_blank','noopener');return false;">
   <div class="meeting-left">
     <div style="font-size:1.5rem;">📄</div>
   </div>
@@ -1409,7 +1408,7 @@ window.addEventListener('error', function(e) {
   <div class="meeting-arr">›</div>
 </a>
 
-<a href="https://zenfulspirit.com/wp-content/uploads/2017/07/Meditation-for-Beginners-Book-1.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;">
+<a href="https://zenfulspirit.com/wp-content/uploads/2017/07/Meditation-for-Beginners-Book-1.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;" onclick="window.open('https://zenfulspirit.com/wp-content/uploads/2017/07/Meditation-for-Beginners-Book-1.pdf','_blank','noopener');return false;">
   <div class="meeting-left">
     <div style="font-size:1.5rem;">📄</div>
   </div>
@@ -1420,7 +1419,7 @@ window.addEventListener('error', function(e) {
   <div class="meeting-arr">›</div>
 </a>
 
-<a href="https://www.nhs.uk/mental-health/self-help/tips-and-support/mindfulness/" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;">
+<a href="https://www.nhs.uk/mental-health/self-help/tips-and-support/mindfulness/" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;" onclick="window.open('https://www.nhs.uk/mental-health/self-help/tips-and-support/mindfulness/','_blank','noopener');return false;">
   <div class="meeting-left">
     <div style="font-size:1.5rem;">🌐</div>
   </div>
@@ -2132,7 +2131,7 @@ function renderNetwork() {
       '</div>' +
       '<div class="net-actions">' +
         (c.phone ? '<a href="tel:' + c.phone.replace(/\s/g,'') + '" class="net-action-btn"><span class="net-action-icon">📞</span>Call</a>' : '') +
-        (waNum ? '<a href="https://wa.me/' + waNum + '" target="_blank" class="net-action-btn"><span class="net-action-icon">💬</span>WhatsApp</a>' : '') +
+        (waNum ? '<a href="https://wa.me/' + waNum + '" target="_blank" class="net-action-btn" onclick="window.open('https://wa.me/' + waNum + '','_blank','noopener');return false;"><span class="net-action-icon">💬</span>WhatsApp</a>' : '') +
         (c.location ? '<div class="net-action-btn" onclick="openMaps(\'' + c.location.replace(/'/g,"\\'") + '\')"><span class="net-action-icon">🗺️</span>Map</div>' : '') +
       '</div>';
     list.appendChild(div);
@@ -2394,7 +2393,19 @@ function geocodeAndPlot() {
 
 </script>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script>
+// Load Leaflet safely
+(function() {
+  var s = document.createElement('script');
+  s.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+  s.onerror = function() { console.log('Leaflet failed to load - map disabled'); };
+  document.head.appendChild(s);
+  var l = document.createElement('link');
+  l.rel = 'stylesheet';
+  l.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+  document.head.appendChild(l);
+})();
+</script>
 
 <script>
 // Init map as soon as Leaflet is ready - but only if network screen is active
