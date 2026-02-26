@@ -1186,13 +1186,24 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
 
 
 <!-- SAVED ZOOM MEETINGS -->
-<div class="label" style="margin-top:20px;">⭐ My Saved Meetings</div>
-<div style="font-size:0.72rem;color:var(--tm);margin-bottom:12px;line-height:1.5;">Save your regular Zoom or online meeting links here for quick access.</div>
+<!-- SHARED MEETINGS -->
+<div style="display:flex;align-items:center;justify-content:space-between;margin-top:20px;margin-bottom:4px;">
+  <div class="label" style="margin:0;">🌐 Community Meetings</div>
+  <button onclick="openAddMeeting('shared')" style="background:var(--ac);border:none;border-radius:20px;padding:5px 12px;font-size:0.68rem;font-weight:700;color:#1a1208;cursor:pointer;">+ Add</button>
+</div>
+<div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">Shared with everyone — add your regular meetings here</div>
+<div id="shared-meetings-list"></div>
+<div id="shared-meetings-empty" style="font-size:0.76rem;color:var(--tm);text-align:center;padding:10px 0 14px;">No shared meetings yet — be the first to add one</div>
 
-<div id="saved-meetings-list"></div>
-<div id="saved-meetings-empty" style="font-size:0.76rem;color:var(--tm);text-align:center;padding:12px 0 16px;">No saved meetings yet — add one below</div>
-
-<button onclick="openAddMeeting()" style="width:100%;padding:13px;background:var(--sf);border:1px solid rgba(232,201,122,0.35);border-radius:var(--r);color:var(--ac);font-size:0.82rem;cursor:pointer;margin-bottom:20px;">+ Add a Meeting</button>
+<!-- PERSONAL FAVOURITES -->
+<div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;margin-bottom:4px;">
+  <div class="label" style="margin:0;">⭐ My Favourites</div>
+  <button onclick="openAddMeeting('personal')" style="background:var(--sf);border:1px solid rgba(232,201,122,0.35);border-radius:20px;padding:5px 12px;font-size:0.68rem;font-weight:700;color:var(--ac);cursor:pointer;">+ Add</button>
+</div>
+<div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">Just for you — private, only you can see these</div>
+<div id="personal-meetings-list"></div>
+<div id="personal-meetings-empty" style="font-size:0.76rem;color:var(--tm);text-align:center;padding:10px 0 14px;">No favourites yet</div>
+<div style="margin-bottom:20px;"></div>
 
 <!-- HELPLINE REMINDER -->
 <div style="background:var(--sf); border:1px solid var(--bd); border-radius:var(--r); padding:14px; margin-top:0;">
@@ -1553,9 +1564,29 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
   <div class="modal-overlay" id="submit-event-modal" onclick="closeSubmitEvent(event)">
     <div class="modal-sheet" onclick="event.stopPropagation()" style="max-height:92vh;">
       <div class="modal-title">Submit an Event</div>
-      <div style="font-size:0.72rem;color:var(--tm);margin-bottom:16px;">All submissions are reviewed before going live.</div>
+      <div style="font-size:0.72rem;color:var(--tm);margin-bottom:14px;">All submissions are reviewed before going live.</div>
 
 ```
+  <!-- AI AUTOFILL -->
+  <div style="background:rgba(232,201,122,0.08);border:1px solid rgba(232,201,122,0.3);border-radius:12px;padding:14px;margin-bottom:16px;">
+    <div style="font-size:0.72rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">✨ Auto-fill from URL or Flyer</div>
+    <div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">Paste a website link or upload a flyer image — we'll fill in the details for you</div>
+    <input id="ev-autofill-url" class="input" type="url" placeholder="https://event-website.com..." style="margin-bottom:8px;">
+    <div style="display:flex;gap:8px;margin-bottom:8px;">
+      <button onclick="autofillFromUrl()" style="flex:1;padding:10px;background:var(--ac);border:none;border-radius:10px;color:#1a1208;font-size:0.78rem;font-weight:700;cursor:pointer;">Fill from URL</button>
+      <label style="flex:1;padding:10px;background:var(--sf);border:1px solid var(--bd);border-radius:10px;color:var(--ac);font-size:0.78rem;font-weight:700;cursor:pointer;text-align:center;">
+        📷 Upload Flyer
+        <input type="file" id="ev-flyer-upload" accept="image/*" style="display:none;" onchange="autofillFromImage(this)">
+      </label>
+    </div>
+    <div id="ev-autofill-status" style="display:none;font-size:0.72rem;text-align:center;padding:6px;border-radius:8px;"></div>
+  </div>
+
+  <!-- FLYER PREVIEW -->
+  <div id="ev-flyer-preview-wrap" style="display:none;margin-bottom:14px;">
+    <img id="ev-flyer-preview" style="width:100%;border-radius:10px;max-height:200px;object-fit:cover;">
+  </div>
+
   <div class="modal-label">Event Name *</div>
   <input id="ev-name" class="input" type="text" placeholder="e.g. European Convention 2025">
 
@@ -2950,7 +2981,7 @@ async function submitEvent() {
       location: location,
       country: country,
       url: document.getElementById('ev-url').value.trim() || null,
-      flyer_url: document.getElementById('ev-flyer').value.trim() || null,
+      flyer_url: document.getElementById('ev-flyer').value.trim() || (document.getElementById('ev-flyer-preview').src && document.getElementById('ev-flyer-preview').src.startsWith('data:') ? document.getElementById('ev-flyer-preview').src : null),
       description: document.getElementById('ev-desc').value.trim() || null,
       approved: false,
       submitted_by: currentUser ? currentUser.email : 'anonymous',
@@ -3358,118 +3389,202 @@ async function doSignOut() {
 // =====================
 // SAVED MEETINGS
 // =====================
-var savedMeetings = JSON.parse(localStorage.getItem('na_saved_meetings') || '[]');
+var personalMeetings = JSON.parse(localStorage.getItem('na_personal_meetings') || '[]');
 var editingMeetingId = null;
+var editingMeetingType = null;
+
+function buildZoomLink(meetingId, password) {
+  // Clean the meeting ID - remove spaces and dashes
+  var id = (meetingId || '').replace(/[\s\-]/g, '');
+  if (!id) return null;
+  // Use zoommtg:// deep link to open Zoom app directly
+  var link = 'zoommtg://zoom.us/join?confno=' + id;
+  if (password) link += '&pwd=' + encodeURIComponent(password);
+  return link;
+}
+
+function renderMeetingCard(m, type) {
+  var card = document.createElement('div');
+  card.style.cssText = 'background:var(--sf);border:1px solid rgba(232,201,122,0.35);border-radius:var(--r);padding:14px 16px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,0.25);';
+
+  var top = document.createElement('div');
+  top.style.cssText = 'display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px;';
+
+  var nameEl = document.createElement('div');
+  nameEl.style.cssText = 'font-weight:700;font-size:0.88rem;flex:1;';
+  nameEl.textContent = m.name;
+  top.appendChild(nameEl);
+
+  var editBtn = document.createElement('button');
+  editBtn.textContent = '✏️';
+  editBtn.style.cssText = 'background:transparent;border:none;font-size:0.9rem;cursor:pointer;padding:0 0 0 8px;flex-shrink:0;';
+  editBtn.onclick = function() { openEditMeeting(m.id, type); };
+  top.appendChild(editBtn);
+  card.appendChild(top);
+
+  if (m.time) {
+    var timeEl = document.createElement('div');
+    timeEl.style.cssText = 'font-size:0.72rem;color:var(--tm);margin-bottom:8px;';
+    timeEl.textContent = '🕐 ' + m.time;
+    card.appendChild(timeEl);
+  }
+
+  // Build join button
+  var joinBtn = document.createElement('a');
+  var zoomLink = m.meetingId ? buildZoomLink(m.meetingId, m.password) : null;
+  joinBtn.href = zoomLink || m.url || '#';
+  if (!zoomLink) joinBtn.target = '_blank';
+  joinBtn.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;background:var(--ac);color:#1a1208;border-radius:10px;font-size:0.82rem;font-weight:700;text-decoration:none;';
+  joinBtn.innerHTML = '<span>▶</span><span>Join on Zoom</span>';
+
+  // If using URL instead of ID, adjust label
+  if (!m.meetingId && m.url) {
+    joinBtn.innerHTML = '<span>▶</span><span>Join Meeting</span>';
+  }
+
+  // Show meeting ID and password info
+  if (m.meetingId) {
+    var idRow = document.createElement('div');
+    idRow.style.cssText = 'display:flex;gap:12px;margin-bottom:8px;font-size:0.7rem;color:var(--tm);';
+    idRow.innerHTML = '<span>ID: <b style="color:var(--tx);">' + m.meetingId + '</b></span>' +
+      (m.password ? '<span>Password: <b style="color:var(--tx);">' + m.password + '</b></span>' : '');
+    card.appendChild(idRow);
+  }
+
+  card.appendChild(joinBtn);
+  return card;
+}
 
 function renderSavedMeetings() {
-  var list = document.getElementById('saved-meetings-list');
-  var empty = document.getElementById('saved-meetings-empty');
-  if (!list) return;
-  list.innerHTML = '';
-  if (!savedMeetings.length) {
-    if (empty) empty.style.display = 'block';
-    return;
+  // Personal meetings (localStorage)
+  var pList = document.getElementById('personal-meetings-list');
+  var pEmpty = document.getElementById('personal-meetings-empty');
+  if (pList) {
+    pList.innerHTML = '';
+    if (!personalMeetings.length) {
+      if (pEmpty) pEmpty.style.display = 'block';
+    } else {
+      if (pEmpty) pEmpty.style.display = 'none';
+      personalMeetings.forEach(function(m) {
+        pList.appendChild(renderMeetingCard(m, 'personal'));
+      });
+    }
   }
-  if (empty) empty.style.display = 'none';
-  savedMeetings.forEach(function(m) {
-    var card = document.createElement('div');
-    card.style.cssText = 'background:var(--sf);border:1px solid rgba(232,201,122,0.35);border-radius:var(--r);padding:14px 16px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,0.25);';
 
-    var top = document.createElement('div');
-    top.style.cssText = 'display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;';
-
-    var nameEl = document.createElement('div');
-    nameEl.style.cssText = 'font-weight:700;font-size:0.88rem;';
-    nameEl.textContent = m.name;
-    top.appendChild(nameEl);
-
-    var editBtn = document.createElement('button');
-    editBtn.textContent = '✏️';
-    editBtn.style.cssText = 'background:transparent;border:none;font-size:0.9rem;cursor:pointer;padding:2px 6px;';
-    editBtn.onclick = function() { openEditMeeting(m.id); };
-    top.appendChild(editBtn);
-    card.appendChild(top);
-
-    if (m.time) {
-      var timeEl = document.createElement('div');
-      timeEl.style.cssText = 'font-size:0.72rem;color:var(--tm);margin-bottom:4px;';
-      timeEl.textContent = '🕐 ' + m.time;
-      card.appendChild(timeEl);
-    }
-    if (m.notes) {
-      var notesEl = document.createElement('div');
-      notesEl.style.cssText = 'font-size:0.72rem;color:var(--tm);margin-bottom:8px;';
-      notesEl.textContent = '📝 ' + m.notes;
-      card.appendChild(notesEl);
-    }
-
-    var joinBtn = document.createElement('a');
-    joinBtn.href = m.url;
-    joinBtn.target = '_blank';
-    joinBtn.style.cssText = 'display:block;text-align:center;padding:11px;background:var(--ac);color:#1a1208;border-radius:10px;font-size:0.82rem;font-weight:700;text-decoration:none;';
-    joinBtn.textContent = '▶ Join Meeting';
-    card.appendChild(joinBtn);
-
-    list.appendChild(card);
-  });
+  // Shared meetings (Supabase)
+  loadSharedMeetings();
 }
 
-function openAddMeeting() {
-  editingMeetingId = null;
-  document.getElementById('zm-name').value = '';
-  document.getElementById('zm-url').value = '';
-  document.getElementById('zm-time').value = '';
-  document.getElementById('zm-notes').value = '';
-  document.getElementById('zm-delete-wrap').style.display = 'none';
-  document.querySelector('#add-meeting-modal .modal-title').textContent = 'Add a Meeting';
-  document.getElementById('add-meeting-modal').classList.add('open');
-}
+async function loadSharedMeetings() {
+  var sList = document.getElementById('shared-meetings-list');
+  var sEmpty = document.getElementById('shared-meetings-empty');
+  if (!sList) return;
+  if (!supa) return;
 
-function openEditMeeting(id) {
-  var m = savedMeetings.find(function(x){ return x.id === id; });
-  if (!m) return;
-  editingMeetingId = id;
-  document.getElementById('zm-name').value = m.name || '';
-  document.getElementById('zm-url').value = m.url || '';
-  document.getElementById('zm-time').value = m.time || '';
-  document.getElementById('zm-notes').value = m.notes || '';
-  document.getElementById('zm-delete-wrap').style.display = 'block';
-  document.querySelector('#add-meeting-modal .modal-title').textContent = 'Edit Meeting';
-  document.getElementById('add-meeting-modal').classList.add('open');
-}
-
-function saveMeeting() {
-  var name = document.getElementById('zm-name').value.trim();
-  var url = document.getElementById('zm-url').value.trim();
-  if (!name) { toast('Please enter a meeting name'); return; }
-  if (!url) { toast('Please enter a meeting link'); return; }
-  if (editingMeetingId) {
-    var m = savedMeetings.find(function(x){ return x.id === editingMeetingId; });
-    if (m) {
-      m.name = name; m.url = url;
-      m.time = document.getElementById('zm-time').value.trim();
-      m.notes = document.getElementById('zm-notes').value.trim();
+  try {
+    var result = await supa.from('shared_meetings').select('*').order('created_at', { ascending: true });
+    if (result.error || !result.data || !result.data.length) {
+      if (sEmpty) sEmpty.style.display = 'block';
+      return;
     }
-  } else {
-    savedMeetings.push({
-      id: Date.now().toString(),
-      name: name, url: url,
-      time: document.getElementById('zm-time').value.trim(),
-      notes: document.getElementById('zm-notes').value.trim()
+    if (sEmpty) sEmpty.style.display = 'none';
+    sList.innerHTML = '';
+    result.data.forEach(function(m) {
+      sList.appendChild(renderMeetingCard(m, 'shared'));
     });
+  } catch(e) {
+    if (sEmpty) sEmpty.style.display = 'block';
   }
-  localStorage.setItem('na_saved_meetings', JSON.stringify(savedMeetings));
-  renderSavedMeetings();
-  closeAddMeetingDirect();
-  toast(editingMeetingId ? 'Meeting updated' : 'Meeting saved');
 }
 
-function deleteMeeting() {
-  savedMeetings = savedMeetings.filter(function(x){ return x.id !== editingMeetingId; });
-  localStorage.setItem('na_saved_meetings', JSON.stringify(savedMeetings));
-  renderSavedMeetings();
+function openAddMeeting(type) {
+  editingMeetingId = null;
+  editingMeetingType = type || 'personal';
+  document.getElementById('zm-name').value = '';
+  document.getElementById('zm-time').value = '';
+  document.getElementById('zm-id').value = '';
+  document.getElementById('zm-password').value = '';
+  document.getElementById('zm-url').value = '';
+  document.getElementById('zm-delete-wrap').style.display = 'none';
+  document.getElementById('zm-modal-title').textContent = editingMeetingType === 'shared' ? 'Add Community Meeting' : 'Add to My Favourites';
+  document.getElementById('zm-modal-subtitle').textContent = editingMeetingType === 'shared' ? 'Visible to everyone on the app' : 'Only visible to you';
+  document.getElementById('add-meeting-modal').classList.add('open');
+}
+
+function openEditMeeting(id, type) {
+  editingMeetingType = type;
+  editingMeetingId = id;
+  var m;
+  if (type === 'personal') {
+    m = personalMeetings.find(function(x){ return x.id === id; });
+  }
+  if (!m) return;
+  document.getElementById('zm-name').value = m.name || '';
+  document.getElementById('zm-time').value = m.time || '';
+  document.getElementById('zm-id').value = m.meetingId || '';
+  document.getElementById('zm-password').value = m.password || '';
+  document.getElementById('zm-url').value = m.url || '';
+  document.getElementById('zm-delete-wrap').style.display = 'block';
+  document.getElementById('zm-modal-title').textContent = 'Edit Meeting';
+  document.getElementById('zm-modal-subtitle').textContent = type === 'shared' ? 'Shared with everyone' : 'Your personal favourite';
+  document.getElementById('add-meeting-modal').classList.add('open');
+}
+
+async function saveMeeting() {
+  var name = document.getElementById('zm-name').value.trim();
+  var meetingId = document.getElementById('zm-id').value.trim();
+  var password = document.getElementById('zm-password').value.trim();
+  var url = document.getElementById('zm-url').value.trim();
+  var time = document.getElementById('zm-time').value.trim();
+
+  if (!name) { toast('Please enter a meeting name'); return; }
+  if (!meetingId && !url) { toast('Please enter a Zoom ID or meeting link'); return; }
+
+  var meetingData = { name: name, time: time, meetingId: meetingId, password: password, url: url };
+
+  if (editingMeetingType === 'shared') {
+    // Save to Supabase
+    if (!supa || !currentUser) { toast('Sign in to add shared meetings'); return; }
+    try {
+      if (editingMeetingId) {
+        await supa.from('shared_meetings').update(meetingData).eq('id', editingMeetingId);
+      } else {
+        meetingData.created_by = currentUser.email;
+        await supa.from('shared_meetings').insert(meetingData);
+      }
+      toast(editingMeetingId ? 'Meeting updated' : 'Meeting added for everyone');
+    } catch(e) { toast('Could not save — check your connection'); return; }
+  } else {
+    // Save to localStorage
+    if (editingMeetingId) {
+      var m = personalMeetings.find(function(x){ return x.id === editingMeetingId; });
+      if (m) { Object.assign(m, meetingData); }
+    } else {
+      meetingData.id = Date.now().toString();
+      personalMeetings.push(meetingData);
+    }
+    localStorage.setItem('na_personal_meetings', JSON.stringify(personalMeetings));
+    toast(editingMeetingId ? 'Favourite updated' : 'Added to favourites');
+  }
+
   closeAddMeetingDirect();
-  toast('Meeting removed');
+  renderSavedMeetings();
+}
+
+async function deleteMeeting() {
+  if (editingMeetingType === 'shared') {
+    if (!supa) return;
+    try {
+      await supa.from('shared_meetings').delete().eq('id', editingMeetingId);
+      toast('Meeting removed');
+    } catch(e) { toast('Could not delete'); return; }
+  } else {
+    personalMeetings = personalMeetings.filter(function(x){ return x.id !== editingMeetingId; });
+    localStorage.setItem('na_personal_meetings', JSON.stringify(personalMeetings));
+    toast('Removed from favourites');
+  }
+  closeAddMeetingDirect();
+  renderSavedMeetings();
 }
 
 function closeAddMeeting(event) {
@@ -3478,6 +3593,7 @@ function closeAddMeeting(event) {
 function closeAddMeetingDirect() {
   document.getElementById('add-meeting-modal').classList.remove('open');
 }
+
 
 // =====================
 // SUPABASE SILENT SYNC
@@ -3590,20 +3706,26 @@ var _origSetMood = setMood; setMood = function(m) { _origSetMood(m); pushToCloud
 
   <div class="modal-overlay" id="add-meeting-modal" onclick="closeAddMeeting(event)">
     <div class="modal-sheet" onclick="event.stopPropagation()">
-      <div class="modal-title">Add a Meeting</div>
+      <div class="modal-title" id="zm-modal-title">Add a Meeting</div>
+      <div id="zm-modal-subtitle" style="font-size:0.72rem;color:var(--tm);margin-bottom:16px;"></div>
 
 ```
   <div class="modal-label">Meeting Name</div>
   <input id="zm-name" class="input" type="text" placeholder="e.g. Monday Night Step Study">
 
-  <div class="modal-label">Meeting Link</div>
-  <input id="zm-url" class="input" type="url" placeholder="https://zoom.us/j/... or any meeting link">
+  <div class="modal-label">Day / Time</div>
+  <input id="zm-time" class="input" type="text" placeholder="e.g. Mondays 7pm GMT">
 
-  <div class="modal-label">Day / Time <span style="color:var(--tm);font-weight:400;">(optional)</span></div>
-  <input id="zm-time" class="input" type="text" placeholder="e.g. Mondays 7pm">
+  <div class="modal-label">Zoom Meeting ID</div>
+  <input id="zm-id" class="input" type="text" placeholder="e.g. 123 456 7890" inputmode="numeric">
 
-  <div class="modal-label">Notes <span style="color:var(--tm);font-weight:400;">(optional)</span></div>
-  <input id="zm-notes" class="input" type="text" placeholder="e.g. Password: recovery">
+  <div class="modal-label">Zoom Password <span style="color:var(--tm);font-weight:400;">(if required)</span></div>
+  <input id="zm-password" class="input" type="text" placeholder="e.g. recovery">
+
+  <div class="modal-label" style="margin-top:4px;">
+    <span style="font-size:0.68rem;color:var(--tm);">— or paste a full link instead —</span>
+  </div>
+  <input id="zm-url" class="input" type="url" placeholder="https://zoom.us/j/... or Teams/Google Meet link">
 
   <div style="display:flex;gap:8px;margin-top:16px;">
     <button onclick="closeAddMeetingDirect()" style="flex:1;padding:13px;border:1px solid var(--bd);border-radius:var(--r);background:transparent;color:var(--tm);cursor:pointer;">Cancel</button>
