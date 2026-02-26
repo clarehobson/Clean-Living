@@ -216,12 +216,13 @@ display: flex;
 align-items: center;
 gap: 12px;
 background: var(–sf);
-border: 1px solid var(–bd);
+border: 1px solid rgba(232,201,122,0.35);
 border-radius: var(–r);
 padding: 12px 14px;
 margin-bottom: 6px;
 text-decoration: none;
 color: var(–tx);
+box-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
 .book-card * { color: inherit; text-decoration: none; }
 .book-sub { font-size: 0.68rem; color: var(–tm) !important; margin-top: 2px; }
@@ -631,6 +632,84 @@ text-align: left;
 color: var(–tx);
 }
 .export-btn:active { opacity: 0.75; }
+
+/* EVENTS */
+.ef-btn {
+padding: 7px 14px;
+border: 1px solid rgba(232,201,122,0.35);
+border-radius: 20px;
+background: var(–sf);
+color: var(–tm);
+font-size: 0.72rem;
+cursor: pointer;
+white-space: nowrap;
+flex-shrink: 0;
+}
+.ef-btn.ef-active {
+background: var(–ac);
+color: #1a1208;
+font-weight: 700;
+border-color: var(–ac);
+}
+.event-card {
+background: var(–sf);
+border: 1px solid rgba(232,201,122,0.35);
+border-radius: var(–r);
+margin-bottom: 12px;
+overflow: hidden;
+box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+cursor: pointer;
+}
+.event-flyer {
+width: 100%;
+height: 160px;
+object-fit: cover;
+display: block;
+}
+.event-flyer-placeholder {
+width: 100%;
+height: 100px;
+background: linear-gradient(135deg, #1a1a2e, #16213e);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 2.5rem;
+}
+.event-body { padding: 14px 16px; }
+.event-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
+.event-meta { font-size: 0.72rem; color: var(–tm); margin-bottom: 10px; line-height: 1.6; }
+.event-type-tag {
+display: inline-block;
+background: rgba(232,201,122,0.12);
+border: 1px solid rgba(232,201,122,0.25);
+border-radius: 20px;
+padding: 2px 10px;
+font-size: 0.65rem;
+color: var(–ac);
+margin-bottom: 8px;
+}
+.event-going-bar {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding-top: 10px;
+border-top: 1px solid var(–bd);
+margin-top: 8px;
+}
+.going-btn {
+padding: 7px 16px;
+border-radius: 20px;
+border: none;
+font-size: 0.75rem;
+font-weight: 700;
+cursor: pointer;
+background: var(–ac);
+color: #1a1208;
+}
+.going-btn.going-active {
+background: #5fcf80;
+color: #0f1a10;
+}
 
 /* LEAFLET POPUP DARK THEME */
 .net-popup .leaflet-popup-content-wrapper {
@@ -1342,6 +1421,118 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
 
   </div>
 
+  <!-- EVENTS SCREEN -->
+
+  <div class="screen" id="screen-events">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:var(--ac);">Events</div>
+      <button onclick="openSubmitEvent()" style="background:var(--ac);border:none;border-radius:20px;padding:7px 14px;font-size:0.75rem;font-weight:700;color:#1a1208;cursor:pointer;">+ Submit Event</button>
+    </div>
+    <div style="font-size:0.62rem;color:var(--tm);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px;">Global recovery events</div>
+
+```
+<!-- FILTERS -->
+<div style="display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px;">
+  <button onclick="filterEvents('all')" id="ef-all" class="ef-btn ef-active">All</button>
+  <button onclick="filterEvents('UK')" id="ef-UK" class="ef-btn">🇬🇧 UK</button>
+  <button onclick="filterEvents('USA')" id="ef-USA" class="ef-btn">🇺🇸 USA</button>
+  <button onclick="filterEvents('Europe')" id="ef-Europe" class="ef-btn">🇪🇺 Europe</button>
+  <button onclick="filterEvents('Australia')" id="ef-Australia" class="ef-btn">🇦🇺 Australia</button>
+  <button onclick="filterEvents('worldwide')" id="ef-worldwide" class="ef-btn">🌍 Worldwide</button>
+</div>
+
+<!-- EVENTS LIST -->
+<div id="events-list"></div>
+<div id="events-empty" style="display:none;text-align:center;padding:40px 0;">
+  <div style="font-size:2rem;margin-bottom:10px;">🌍</div>
+  <div style="font-size:0.84rem;color:var(--tm);">No events yet</div>
+  <div style="font-size:0.72rem;color:var(--tm);margin-top:4px;">Be the first to submit one</div>
+</div>
+<div id="events-loading" style="text-align:center;padding:30px 0;color:var(--tm);font-size:0.8rem;">Loading events...</div>
+```
+
+  </div>
+
+  <!-- SUBMIT EVENT MODAL -->
+
+  <div class="modal-overlay" id="submit-event-modal" onclick="closeSubmitEvent(event)">
+    <div class="modal-sheet" onclick="event.stopPropagation()" style="max-height:92vh;">
+      <div class="modal-title">Submit an Event</div>
+      <div style="font-size:0.72rem;color:var(--tm);margin-bottom:16px;">All submissions are reviewed before going live.</div>
+
+```
+  <div class="modal-label">Event Name *</div>
+  <input id="ev-name" class="input" type="text" placeholder="e.g. European Convention 2025">
+
+  <div class="modal-label">Type</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+    <div class="role-btn" onclick="selectEvType(this,'Convention')">🏛️ Convention</div>
+    <div class="role-btn" onclick="selectEvType(this,'Marathon')">⏱️ Marathon</div>
+    <div class="role-btn" onclick="selectEvType(this,'Speaker Meeting')">🎤 Speaker</div>
+    <div class="role-btn" onclick="selectEvType(this,'Workshop')">📚 Workshop</div>
+    <div class="role-btn" onclick="selectEvType(this,'Other')">✨ Other</div>
+  </div>
+
+  <div class="modal-label">Date *</div>
+  <input id="ev-date" class="input" type="date">
+
+  <div class="modal-label">End Date (if multi-day)</div>
+  <input id="ev-enddate" class="input" type="date">
+
+  <div class="modal-label">Location / Venue *</div>
+  <input id="ev-location" class="input" type="text" placeholder="e.g. Birmingham, UK">
+
+  <div class="modal-label">Country *</div>
+  <select id="ev-country" class="input" style="appearance:none;">
+    <option value="">Select country...</option>
+    <option>UK</option><option>USA</option><option>Canada</option>
+    <option>Australia</option><option>Ireland</option>
+    <option>Germany</option><option>France</option><option>Netherlands</option>
+    <option>Spain</option><option>Italy</option><option>Portugal</option>
+    <option>Sweden</option><option>Norway</option><option>Denmark</option>
+    <option>South Africa</option><option>New Zealand</option>
+    <option>worldwide</option><option>Other</option>
+  </select>
+
+  <div class="modal-label">Website / Booking Link</div>
+  <input id="ev-url" class="input" type="url" placeholder="https://...">
+
+  <div class="modal-label">Flyer Image URL</div>
+  <input id="ev-flyer" class="input" type="url" placeholder="Link to flyer image (optional)">
+  <div style="font-size:0.68rem;color:var(--tm);margin-top:-8px;margin-bottom:14px;">Upload your flyer to Imgur or Google Drive and paste the link here</div>
+
+  <div class="modal-label">Description</div>
+  <textarea id="ev-desc" class="input" style="min-height:80px;resize:vertical;" placeholder="Tell people about the event..."></textarea>
+
+  <div style="display:flex;gap:8px;margin-top:16px;">
+    <button onclick="closeSubmitEventDirect()" style="flex:1;padding:13px;border:1px solid var(--bd);border-radius:var(--r);background:transparent;color:var(--tm);cursor:pointer;">Cancel</button>
+    <button onclick="submitEvent()" class="btn" style="flex:2;margin-top:0;">Submit for Review</button>
+  </div>
+  <div id="ev-submit-msg" style="display:none;margin-top:12px;font-size:0.78rem;text-align:center;color:#5fcf80;">✓ Submitted! We'll review it shortly.</div>
+</div>
+```
+
+  </div>
+
+  <!-- EVENT DETAIL MODAL -->
+
+  <div class="modal-overlay" id="event-detail-modal" onclick="closeEventDetail(event)">
+    <div class="modal-sheet" onclick="event.stopPropagation()" style="max-height:92vh;">
+      <div id="event-detail-content"></div>
+      <button onclick="closeEventDetailDirect()" style="width:100%;margin-top:12px;padding:13px;border:1px solid var(--bd);border-radius:var(--r);background:transparent;color:var(--tm);cursor:pointer;">Close</button>
+    </div>
+  </div>
+
+  <!-- ADMIN PANEL MODAL -->
+
+  <div class="modal-overlay" id="admin-modal" onclick="closeAdminModal(event)">
+    <div class="modal-sheet" onclick="event.stopPropagation()" style="max-height:92vh;">
+      <div class="modal-title">&#x1F6E1; Admin Panel</div>
+      <div id="admin-pending-list"></div>
+      <button onclick="closeAdminModalDirect()" style="width:100%;margin-top:12px;padding:13px;border:1px solid var(--bd);border-radius:var(--r);background:transparent;color:var(--tm);cursor:pointer;">Close</button>
+    </div>
+  </div>
+
   <!-- NETWORK SCREEN -->
 
   <div class="screen" id="screen-network">
@@ -1463,6 +1654,10 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
       <div class="nav-icon">🤝</div>
       <div>Network</div>
     </div>
+    <div class="nav-item" id="nav-events" onclick="showScreen('events')">
+      <div class="nav-icon">&#x1F30D;</div>
+      <div>Events</div>
+    </div>
     <div class="nav-item" id="nav-resources" onclick="showScreen('resources')">
       <div class="nav-icon">🏃</div>
       <div>Movement</div>
@@ -1507,6 +1702,9 @@ function showScreen(name) {
         geocodeAndPlot();
       }
     }, 100);
+  }
+  if (name === 'events' && !eventsLoaded) {
+    loadEvents();
   }
 }
 
@@ -2278,6 +2476,300 @@ var DEFAULT_STEP10_QUESTIONS = STEP10_QUESTIONS.slice();
 loadCustomQuestions();
 
 
+
+
+// =====================
+// EVENTS
+// =====================
+var allEvents = [];
+var currentFilter = 'all';
+var selectedEvType = '';
+var eventsLoaded = false;
+var ADMIN_EMAIL = 'clarehobson@icloud.com'; // Change to your email
+
+function isAdmin() {
+  return currentUser && currentUser.email === ADMIN_EMAIL;
+}
+
+async function loadEvents() {
+  if (!supa) { showEventsEmpty(); return; }
+  try {
+    document.getElementById('events-loading').style.display = 'block';
+    document.getElementById('events-list').innerHTML = '';
+    document.getElementById('events-empty').style.display = 'none';
+
+    var result = await supa
+      .from('events')
+      .select('*')
+      .eq('approved', true)
+      .order('date', { ascending: true });
+
+    document.getElementById('events-loading').style.display = 'none';
+
+    if (result.error || !result.data) { showEventsEmpty(); return; }
+    allEvents = result.data;
+    renderEvents();
+    eventsLoaded = true;
+
+    // Show admin button if admin
+    if (isAdmin()) {
+      var adminBtn = document.createElement('button');
+      adminBtn.textContent = '🛡️ Admin';
+      adminBtn.style.cssText = 'position:fixed;bottom:80px;right:16px;z-index:500;background:#e74c3c;color:#fff;border:none;border-radius:20px;padding:8px 14px;font-size:0.75rem;font-weight:700;cursor:pointer;';
+      adminBtn.onclick = openAdminPanel;
+      document.body.appendChild(adminBtn);
+    }
+  } catch(e) { 
+    document.getElementById('events-loading').style.display = 'none';
+    showEventsEmpty(); 
+  }
+}
+
+function showEventsEmpty() {
+  document.getElementById('events-empty').style.display = 'block';
+  document.getElementById('events-loading').style.display = 'none';
+}
+
+function filterEvents(filter) {
+  currentFilter = filter;
+  document.querySelectorAll('.ef-btn').forEach(function(b){ b.classList.remove('ef-active'); });
+  document.getElementById('ef-' + filter).classList.add('ef-active');
+  renderEvents();
+}
+
+function renderEvents() {
+  var list = document.getElementById('events-list');
+  var filtered = allEvents.filter(function(e) {
+    if (currentFilter === 'all') return true;
+    return e.country === currentFilter;
+  });
+
+  if (!filtered.length) {
+    list.innerHTML = '<div style="text-align:center;padding:30px 0;color:var(--tm);font-size:0.8rem;">No events found for this filter</div>';
+    return;
+  }
+
+  list.innerHTML = '';
+
+  // Group by month
+  var grouped = {};
+  filtered.forEach(function(ev) {
+    var d = new Date(ev.date);
+    var key = d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+    if (!grouped[key]) grouped[key] = [];
+    grouped[key].push(ev);
+  });
+
+  Object.keys(grouped).forEach(function(month) {
+    var header = document.createElement('div');
+    header.style.cssText = 'font-size:0.65rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:0.1em;margin:16px 0 8px;';
+    header.textContent = month;
+    list.appendChild(header);
+
+    grouped[month].forEach(function(ev) {
+      var card = buildEventCard(ev);
+      list.appendChild(card);
+    });
+  });
+}
+
+function buildEventCard(ev) {
+  var card = document.createElement('div');
+  card.className = 'event-card';
+
+  var dateStr = new Date(ev.date).toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short', year:'numeric' });
+  if (ev.end_date) {
+    dateStr += ' — ' + new Date(ev.end_date).toLocaleDateString('en-GB', { day:'numeric', month:'short' });
+  }
+
+  var goingCount = ev.going_users ? ev.going_users.length : 0;
+  var userGoing = currentUser && ev.going_users && ev.going_users.includes(currentUser.id);
+  var goingNames = ev.going_names ? ev.going_names.slice(0,3).join(', ') : '';
+  if (ev.going_names && ev.going_names.length > 3) goingNames += ' +' + (ev.going_names.length - 3) + ' more';
+
+  card.innerHTML =
+    (ev.flyer_url ? '<img class="event-flyer" src="' + ev.flyer_url + '" onerror="this.style.display='none'">' :
+    '<div class="event-flyer-placeholder">🌍</div>') +
+    '<div class="event-body">' +
+      '<div class="event-type-tag">' + (ev.type || 'Event') + '</div>' +
+      '<div class="event-title">' + ev.name + '</div>' +
+      '<div class="event-meta">' +
+        '📅 ' + dateStr + '<br>' +
+        '📍 ' + ev.location + (ev.country ? ', ' + ev.country : '') +
+        (ev.url ? '<br>🔗 <a href="' + ev.url + '" target="_blank" style="color:var(--ac);">Book / Info</a>' : '') +
+      '</div>' +
+      '<div class="event-going-bar">' +
+        '<div style="font-size:0.72rem;color:var(--tm);">' +
+          (goingCount > 0 ? '✈️ ' + goingCount + ' going' + (goingNames ? ' · ' + goingNames : '') : 'Be the first to say you're going') +
+        '</div>' +
+        '<button class="going-btn ' + (userGoing ? 'going-active' : '') + '" onclick="toggleGoing(event,'' + ev.id + '')">' +
+          (userGoing ? '✓ Going' : '+ Going') +
+        '</button>' +
+      '</div>' +
+    '</div>';
+
+  card.querySelector('.event-body').addEventListener('click', function(e) {
+    if (e.target.tagName !== 'A' && e.target.tagName !== 'BUTTON') openEventDetail(ev);
+  });
+
+  return card;
+}
+
+function openEventDetail(ev) {
+  var dateStr = new Date(ev.date).toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+  if (ev.end_date) dateStr += ' — ' + new Date(ev.end_date).toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long' });
+
+  var goingCount = ev.going_users ? ev.going_users.length : 0;
+  var userGoing = currentUser && ev.going_users && ev.going_users.includes(currentUser.id);
+  var goingNames = ev.going_names ? ev.going_names.join(', ') : '';
+
+  document.getElementById('event-detail-content').innerHTML =
+    (ev.flyer_url ? '<img src="' + ev.flyer_url + '" style="width:100%;border-radius:12px;margin-bottom:16px;" onerror="this.style.display='none'">' : '') +
+    '<div class="event-type-tag">' + (ev.type || 'Event') + '</div>' +
+    '<div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--ac);margin-bottom:8px;">' + ev.name + '</div>' +
+    '<div style="font-size:0.8rem;color:var(--tm);line-height:1.8;margin-bottom:12px;">' +
+      '📅 ' + dateStr + '<br>' +
+      '📍 ' + ev.location + (ev.country ? ', ' + ev.country : '') +
+    '</div>' +
+    (ev.description ? '<div style="font-size:0.82rem;color:var(--tx);line-height:1.7;margin-bottom:14px;">' + ev.description + '</div>' : '') +
+    (ev.url ? '<a href="' + ev.url + '" target="_blank" class="btn" style="display:block;text-align:center;margin-bottom:14px;text-decoration:none;">🔗 Book / More Info</a>' : '') +
+    '<div style="background:var(--sf2);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:12px;">' +
+      '<div style="font-size:0.68rem;font-weight:800;color:var(--ac);text-transform:uppercase;margin-bottom:6px;">✈️ Who's Going (' + goingCount + ')</div>' +
+      (goingNames ? '<div style="font-size:0.78rem;color:var(--tx);">' + goingNames + '</div>' : '<div style="font-size:0.75rem;color:var(--tm);">Nobody yet — be the first!</div>') +
+    '</div>' +
+    '<button class="going-btn ' + (userGoing ? 'going-active' : '') + '" onclick="toggleGoing(event,'' + ev.id + '')" style="width:100%;padding:13px;">' +
+      (userGoing ? '✓ You're Going' : '+ I'm Going') +
+    '</button>';
+
+  document.getElementById('event-detail-modal').classList.add('open');
+}
+
+async function toggleGoing(e, eventId) {
+  e.stopPropagation();
+  if (!currentUser) { toast('Sign in to mark yourself as going'); return; }
+  if (!supa) return;
+
+  try {
+    var ev = allEvents.find(function(x){ return x.id === eventId; });
+    if (!ev) return;
+
+    var going = ev.going_users ? ev.going_users.slice() : [];
+    var names = ev.going_names ? ev.going_names.slice() : [];
+    var username = currentUser.email.split('@')[0];
+    var idx = going.indexOf(currentUser.id);
+
+    if (idx > -1) {
+      going.splice(idx, 1);
+      names.splice(idx, 1);
+    } else {
+      going.push(currentUser.id);
+      names.push(username);
+    }
+
+    await supa.from('events').update({ going_users: going, going_names: names }).eq('id', eventId);
+    ev.going_users = going;
+    ev.going_names = names;
+    renderEvents();
+    toast(idx > -1 ? 'Removed from going' : '✓ Marked as going!');
+  } catch(e2) { toast('Could not update — try again'); }
+}
+
+// Submit event
+function selectEvType(btn, type) {
+  selectedEvType = type;
+  document.querySelectorAll('#submit-event-modal .role-btn').forEach(function(b){ b.classList.remove('selected'); });
+  btn.classList.add('selected');
+}
+
+function openSubmitEvent() {
+  document.getElementById('ev-name').value = '';
+  document.getElementById('ev-date').value = '';
+  document.getElementById('ev-enddate').value = '';
+  document.getElementById('ev-location').value = '';
+  document.getElementById('ev-country').value = '';
+  document.getElementById('ev-url').value = '';
+  document.getElementById('ev-flyer').value = '';
+  document.getElementById('ev-desc').value = '';
+  document.getElementById('ev-submit-msg').style.display = 'none';
+  selectedEvType = '';
+  document.querySelectorAll('#submit-event-modal .role-btn').forEach(function(b){ b.classList.remove('selected'); });
+  document.getElementById('submit-event-modal').classList.add('open');
+}
+
+async function submitEvent() {
+  var name = document.getElementById('ev-name').value.trim();
+  var date = document.getElementById('ev-date').value;
+  var location = document.getElementById('ev-location').value.trim();
+  var country = document.getElementById('ev-country').value;
+
+  if (!name || !date || !location || !country) {
+    toast('Please fill in all required fields');
+    return;
+  }
+  if (!supa) { toast('No connection — try again'); return; }
+
+  try {
+    await supa.from('events').insert({
+      name: name,
+      type: selectedEvType || 'Other',
+      date: date,
+      end_date: document.getElementById('ev-enddate').value || null,
+      location: location,
+      country: country,
+      url: document.getElementById('ev-url').value.trim() || null,
+      flyer_url: document.getElementById('ev-flyer').value.trim() || null,
+      description: document.getElementById('ev-desc').value.trim() || null,
+      approved: false,
+      submitted_by: currentUser ? currentUser.email : 'anonymous',
+      going_users: [],
+      going_names: []
+    });
+    document.getElementById('ev-submit-msg').style.display = 'block';
+    setTimeout(closeSubmitEventDirect, 2500);
+  } catch(e) { toast('Submission failed — try again'); }
+}
+
+function closeSubmitEvent(event) { document.getElementById('submit-event-modal').classList.remove('open'); }
+function closeSubmitEventDirect() { document.getElementById('submit-event-modal').classList.remove('open'); }
+function closeEventDetail(event) { document.getElementById('event-detail-modal').classList.remove('open'); }
+function closeEventDetailDirect() { document.getElementById('event-detail-modal').classList.remove('open'); }
+function closeAdminModal(event) { document.getElementById('admin-modal').classList.remove('open'); }
+function closeAdminModalDirect() { document.getElementById('admin-modal').classList.remove('open'); }
+
+// Admin panel
+async function openAdminPanel() {
+  if (!isAdmin() || !supa) return;
+  try {
+    var result = await supa.from('events').select('*').eq('approved', false).order('created_at', { ascending: false });
+    var pending = result.data || [];
+    var html = pending.length ? '' : '<div style="text-align:center;padding:20px;color:var(--tm);">No pending events</div>';
+    pending.forEach(function(ev) {
+      html += '<div style="background:var(--sf2);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:10px;">' +
+        '<div style="font-weight:700;font-size:0.88rem;margin-bottom:4px;">' + ev.name + '</div>' +
+        '<div style="font-size:0.72rem;color:var(--tm);margin-bottom:8px;">' + ev.date + ' · ' + ev.location + ' · ' + (ev.submitted_by || '') + '</div>' +
+        '<div style="display:flex;gap:8px;">' +
+          '<button onclick="approveEvent('' + ev.id + '')" style="flex:1;padding:9px;background:#5fcf80;color:#0f1a10;border:none;border-radius:10px;font-weight:700;cursor:pointer;">✓ Approve</button>' +
+          '<button onclick="rejectEvent('' + ev.id + '')" style="flex:1;padding:9px;background:rgba(192,57,43,0.3);color:#e74c3c;border:1px solid rgba(192,57,43,0.4);border-radius:10px;cursor:pointer;">✗ Reject</button>' +
+        '</div>' +
+      '</div>';
+    });
+    document.getElementById('admin-pending-list').innerHTML = html;
+    document.getElementById('admin-modal').classList.add('open');
+  } catch(e) { toast('Could not load admin panel'); }
+}
+
+async function approveEvent(id) {
+  await supa.from('events').update({ approved: true }).eq('id', id);
+  toast('Event approved ✓');
+  openAdminPanel();
+  loadEvents();
+}
+
+async function rejectEvent(id) {
+  await supa.from('events').delete().eq('id', id);
+  toast('Event rejected and removed');
+  openAdminPanel();
+}
 
 // =====================
 // SUPABASE SILENT SYNC
