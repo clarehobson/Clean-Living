@@ -3388,6 +3388,119 @@ async function doSignOut() {
 }
 
 
+
+// =====================
+// EVENTS AI AUTOFILL
+// =====================
+function showAutofillStatus(msg, type) {
+  var el = document.getElementById('ev-autofill-status');
+  if (!el) return;
+  el.textContent = msg;
+  el.style.display = 'block';
+  el.style.background = type === 'error' ? 'rgba(231,76,60,0.15)' : 'rgba(95,207,128,0.15)';
+  el.style.color = type === 'error' ? '#e74c3c' : '#5fcf80';
+}
+
+function fillEventForm(data) {
+  if (data.name) document.getElementById('ev-name').value = data.name;
+  if (data.date) document.getElementById('ev-date').value = data.date;
+  if (data.end_date) document.getElementById('ev-enddate').value = data.end_date;
+  if (data.location) document.getElementById('ev-location').value = data.location;
+  if (data.url) document.getElementById('ev-url').value = data.url;
+  if (data.description) document.getElementById('ev-desc').value = data.description;
+  if (data.country) {
+    var sel = document.getElementById('ev-country');
+    for (var i = 0; i < sel.options.length; i++) {
+      if (sel.options[i].value.toLowerCase() === (data.country || '').toLowerCase()) {
+        sel.selectedIndex = i; break;
+      }
+    }
+  }
+  if (data.type) {
+    var typeMap = { 'convention':'Convention','marathon':'Marathon','speaker':'Speaker Meeting','workshop':'Workshop','other':'Other' };
+    var t = (data.type || '').toLowerCase();
+    for (var key in typeMap) {
+      if (t.indexOf(key) > -1) { selectEvType(null, typeMap[key]); break; }
+    }
+  }
+}
+
+async function autofillFromUrl() {
+  var url = document.getElementById('ev-autofill-url').value.trim();
+  if (!url) { showAutofillStatus('Please paste a website URL first', 'error'); return; }
+  showAutofillStatus('Reading page... this may take a moment', 'ok');
+  try {
+    var response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 800,
+        system: 'Extract event details from URLs or web content. Respond ONLY with valid JSON. Fields: name (string), date (YYYY-MM-DD), end_date (YYYY-MM-DD or null), location (string), country (UK/USA/Canada/Australia/Ireland/Germany/France/Netherlands/Spain/Italy/Portugal/Sweden/worldwide/Other), url (string), description (max 150 chars), type (Convention/Marathon/Speaker Meeting/Workshop/Other). Use null for unknown fields.',
+        messages: [{ role: 'user', content: 'Extract event details from: ' + url }]
+      })
+    });
+    var data = await response.json();
+    if (data.error) { showAutofillStatus('Could not read URL — please fill in manually', 'error'); return; }
+    var text = (data.content && data.content[0]) ? data.content[0].text : '';
+    var clean = text.replace(/```json|```/g, '').trim();
+    var event = JSON.parse(clean);
+    fillEventForm(event);
+    showAutofillStatus('✓ Details filled in — please check and edit as needed', 'ok');
+  } catch(e) {
+    showAutofillStatus('Could not read URL — please fill in the details manually', 'error');
+  }
+}
+
+async function autofillFromImage(input) {
+  var file = input.files[0];
+  if (!file) return;
+  // Show preview
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var preview = document.getElementById('ev-flyer-preview');
+    var wrap = document.getElementById('ev-flyer-preview-wrap');
+    if (preview) { preview.src = e.target.result; }
+    if (wrap) wrap.style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+  showAutofillStatus('Reading flyer image...', 'ok');
+  // Read as base64 for API
+  var b64reader = new FileReader();
+  b64reader.onload = async function(e) {
+    var base64 = e.target.result.split(',')[1];
+    var mediaType = file.type || 'image/jpeg';
+    try {
+      var response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 800,
+          system: 'Extract event details from flyer images. Respond ONLY with valid JSON. Fields: name, date (YYYY-MM-DD), end_date (YYYY-MM-DD or null), location, country (UK/USA/Canada/Australia/Ireland/Germany/France/Netherlands/Spain/Italy/Portugal/Sweden/worldwide/Other), url, description (max 150 chars), type (Convention/Marathon/Speaker Meeting/Workshop/Other). Use null for unknown fields.',
+          messages: [{
+            role: 'user',
+            content: [
+              { type: 'image', source: { type: 'base64', media_type: mediaType, data: base64 }},
+              { type: 'text', text: 'Extract all event details from this flyer. Return JSON only.' }
+            ]
+          }]
+        })
+      });
+      var data = await response.json();
+      if (data.error) { showAutofillStatus('Could not read flyer — please fill in manually', 'error'); return; }
+      var text = (data.content && data.content[0]) ? data.content[0].text : '';
+      var clean = text.replace(/```json|```/g, '').trim();
+      var event = JSON.parse(clean);
+      fillEventForm(event);
+      showAutofillStatus('✓ Flyer read — please check and complete the details', 'ok');
+    } catch(e) {
+      showAutofillStatus('Could not read flyer — please fill in manually', 'error');
+    }
+  };
+  b64reader.readAsDataURL(file);
+}
+
 // =====================
 // SAVED MEETINGS
 // =====================
