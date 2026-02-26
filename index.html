@@ -3481,20 +3481,31 @@ async function loadSharedMeetings() {
   var sList = document.getElementById('shared-meetings-list');
   var sEmpty = document.getElementById('shared-meetings-empty');
   if (!sList) return;
-  if (!supa) return;
+  if (!supa) { if (sEmpty) sEmpty.style.display = 'block'; return; }
+
+  // Show loading state
+  sList.innerHTML = '<div style="font-size:0.76rem;color:var(--tm);text-align:center;padding:10px;">Loading...</div>';
+  if (sEmpty) sEmpty.style.display = 'none';
 
   try {
     var result = await supa.from('shared_meetings').select('*').order('created_at', { ascending: true });
-    if (result.error || !result.data || !result.data.length) {
+    sList.innerHTML = '';
+    if (result.error) {
+      console.log('Shared meetings error:', result.error);
+      if (sEmpty) sEmpty.style.display = 'block';
+      return;
+    }
+    if (!result.data || !result.data.length) {
       if (sEmpty) sEmpty.style.display = 'block';
       return;
     }
     if (sEmpty) sEmpty.style.display = 'none';
-    sList.innerHTML = '';
     result.data.forEach(function(m) {
       sList.appendChild(renderMeetingCard(m, 'shared'));
     });
   } catch(e) {
+    console.log('Shared meetings catch:', e);
+    sList.innerHTML = '';
     if (sEmpty) sEmpty.style.display = 'block';
   }
 }
