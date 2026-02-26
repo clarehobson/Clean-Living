@@ -2261,6 +2261,8 @@ function toggleBook(header) {
     splash.style.transform = 'translateY(-30px)';
     setTimeout(function(){ splash.style.display = 'none'; }, 500);
   }
+  // Make globally accessible
+  window.dismissSplash = dismissSplash;
 
   // Swipe up gesture
   var touchStartY = 0;
