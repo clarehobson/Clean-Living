@@ -3426,6 +3426,8 @@ function fillEventForm(data) {
 }
 
 async function autofillFromUrl() {
+  showAutofillStatus('Smart fill coming soon — please fill in the details manually for now', 'error');
+  return;
   var url = document.getElementById('ev-autofill-url').value.trim();
   if (!url) { showAutofillStatus('Please paste a website URL first', 'error'); return; }
   showAutofillStatus('Reading page... this may take a moment', 'ok');
@@ -3455,7 +3457,7 @@ async function autofillFromUrl() {
 async function autofillFromImage(input) {
   var file = input.files[0];
   if (!file) return;
-  // Show preview
+  // Always show preview
   var reader = new FileReader();
   reader.onload = function(e) {
     var preview = document.getElementById('ev-flyer-preview');
@@ -3464,6 +3466,8 @@ async function autofillFromImage(input) {
     if (wrap) wrap.style.display = 'block';
   };
   reader.readAsDataURL(file);
+  showAutofillStatus('Flyer saved — please fill in the event details below', 'ok');
+  return;
   showAutofillStatus('Reading flyer image...', 'ok');
   // Read as base64 for API
   var b64reader = new FileReader();
@@ -3473,7 +3477,7 @@ async function autofillFromImage(input) {
     try {
       var response = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'x-api-key': 'REMOVED', 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
         body: JSON.stringify({
           model: 'claude-sonnet-4-20250514',
           max_tokens: 800,
