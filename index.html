@@ -6,9 +6,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="NA Recovery">
+<meta name="apple-mobile-web-app-title" content="Clean Living">
 <meta name="theme-color" content="#0f0f1a">
-<title>NA Recovery</title>
+<title>Clean Living</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -662,12 +662,13 @@ z-index: 999;
 
 <script>
 // Fallback if Supabase fails to load
-window.addEventListener('error', function(e) {
-  if (e.filename && e.filename.includes('supabase')) {
-    console.log('Supabase failed to load, running in offline mode');
+// Set up supabase fallback immediately in case CDN fails
+function setupSupabaseFallback() {
+  if (!window.supabase) {
     window.supabase = { createClient: function() { return { auth: { getSession: async function() { return {data:{session:null}}; }, onAuthStateChange: function() {}, signInWithPassword: async function() { return {error:{message:'Offline mode'}}; }, signUp: async function() { return {error:{message:'Offline mode'}}; }, signInWithOAuth: async function() {}, signOut: async function() {}, resetPasswordForEmail: async function() { return {}; } }, from: function() { return { select: function() { return { eq: function() { return { single: async function() { return {data:null,error:'offline'}; } } } } }, upsert: async function() { return {}; } }; } }; } };
   }
-}, true);
+}
+window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true);
 </script>
 
 </head>
@@ -690,7 +691,7 @@ window.addEventListener('error', function(e) {
 <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
   <div>
     <div style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:300; color:var(--ac);">Just For Today</div>
-    <div style="font-size:0.62rem; color:var(--tm); letter-spacing:0.08em; text-transform:uppercase;">NA Recovery</div>
+    <div style="font-size:0.62rem; color:var(--tm); letter-spacing:0.08em; text-transform:uppercase;">Clean Living</div>
   </div>
 </div>
 
@@ -840,7 +841,16 @@ window.addEventListener('error', function(e) {
     <div style="font-size:1.4rem;">&#x1F4CB;</div>
     <div style="flex:1;">
       <div style="font-weight:600; font-size:0.88rem;">Full Step 10 Inventory</div>
-      <div style="font-size:0.72rem; color:var(--tm); margin-top:2px;">Complete NA daily inventory questions</div>
+      <div style="font-size:0.72rem; color:var(--tm); margin-top:2px;">Complete daily inventory questions</div>
+    </div>
+    <div style="color:var(--tm);">&#8250;</div>
+  </div>
+
+  <div id="j-type-guiding" onclick="openJournal('guiding')" class="j-type-card">
+    <div style="font-size:1.4rem;">&#x1F4D6;</div>
+    <div style="flex:1;">
+      <div style="font-weight:600; font-size:0.88rem;">Guiding Principles</div>
+      <div style="font-size:0.72rem; color:var(--tm); margin-top:2px;">Work through your Traditions questions</div>
     </div>
     <div style="color:var(--tm);">&#8250;</div>
   </div>
@@ -891,26 +901,38 @@ window.addEventListener('error', function(e) {
     <div style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:300; color:var(--ac); margin-bottom:2px;">Worksheets</div>
     <div style="font-size:0.62rem; color:var(--tm); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:18px;">Step work &amp; recovery worksheets</div>
         <!-- WORKSHEETS -->
-    <div class="label"><span style="margin-right:5px;">&#x1F4CB;</span>Worksheets</div>
 
 ```
-<a href="https://www.nwnjna.org/wp-content/uploads/2020/03/NARCOTICS-ANONYMOUS-STEP-WRITING-GUIDE.pdf" target="_blank" style="display:flex;align-items:center;gap:14px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px;margin-bottom:8px;text-decoration:none;color:var(--tx);">
-  <div style="font-size:1.5rem;">&#x1F4C4;</div>
-  <div style="flex:1;">
-    <div style="font-weight:600;font-size:0.88rem;">The 12 Steps</div>
-    <div style="font-size:0.72rem;color:var(--tm);margin-top:2px;">NA Step Writing Guide — full workbook PDF</div>
-  </div>
-  <div style="color:var(--tm);">&#8250;</div>
-</a>
+<!-- CUSTOM QUESTIONS -->
+<div class="label" style="margin-top:20px;"><span style="margin-right:5px;">&#x270F;</span>My Own Questions</div>
+<div style="font-size:0.72rem;color:var(--tm);margin-bottom:12px;line-height:1.5;">Add your own questions from your workbook or sponsor. Once saved they'll appear in your journal automatically.</div>
 
-<a href="https://nameetingmakers.com/literature/NA-GUIDING-PRINCIPLES-TRADITIONS.pdf" target="_blank" style="display:flex;align-items:center;gap:14px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px;margin-bottom:8px;text-decoration:none;color:var(--tx);">
-  <div style="font-size:1.5rem;">&#x1F4D6;</div>
-  <div style="flex:1;">
-    <div style="font-weight:600;font-size:0.88rem;">Guiding Principles</div>
-    <div style="font-size:0.72rem;color:var(--tm);margin-top:2px;">The Spirit of Our Traditions — full workbook PDF</div>
+<!-- Step 10 custom questions -->
+<div style="background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:16px;margin-bottom:10px;">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+    <div style="font-size:0.82rem;font-weight:700;color:var(--ac);">&#x1F4CB; Step 10 Questions</div>
+    <a href="https://cart-us.na.org/recovery-products/books/the-na-step-working-guides-1400" target="_blank" style="font-size:0.65rem;color:var(--tm);text-decoration:underline;">Buy the workbook ›</a>
   </div>
-  <div style="color:var(--tm);">&#8250;</div>
-</a>
+  <div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">One question per line — replaces the default questions in your Step 10 journal.</div>
+  <textarea id="custom-step10" style="width:100%;min-height:110px;background:var(--sf2);border:1px solid var(--bd);border-radius:10px;padding:10px;color:var(--tx);font-size:0.8rem;line-height:1.6;resize:vertical;box-sizing:border-box;" placeholder="Paste your questions here, one per line..."></textarea>
+  <div style="display:flex;gap:8px;margin-top:10px;">
+    <button onclick="saveCustomStep10()" class="btn" style="flex:2;margin-top:0;padding:11px;">Save</button>
+    <button onclick="clearCustomStep10()" style="flex:1;padding:11px;background:transparent;border:1px solid var(--bd);border-radius:var(--r);color:var(--tm);font-size:0.75rem;cursor:pointer;">Reset</button>
+  </div>
+  <div id="step10-saved-msg" style="display:none;margin-top:8px;font-size:0.72rem;color:#5fcf80;text-align:center;">&#x2713; Saved — your questions will appear in the Step 10 journal</div>
+</div>
+
+<!-- Guiding Principles custom questions -->
+<div style="background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:16px;margin-bottom:8px;">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+    <div style="font-size:0.82rem;font-weight:700;color:var(--ac);">&#x1F4D6; Guiding Principles Questions</div>
+    <a href="https://books.apple.com/us/book/guiding-principles-the-spirit-of-our-traditions/id1478457214" target="_blank" style="font-size:0.65rem;color:var(--tm);text-decoration:underline;">Buy the book ›</a>
+  </div>
+  <div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">One question per line — adds a Guiding Principles journal type once saved.</div>
+  <textarea id="custom-guiding" style="width:100%;min-height:110px;background:var(--sf2);border:1px solid var(--bd);border-radius:10px;padding:10px;color:var(--tx);font-size:0.8rem;line-height:1.6;resize:vertical;box-sizing:border-box;" placeholder="Paste your questions here, one per line..."></textarea>
+  <button onclick="saveCustomGuiding()" class="btn" style="margin-top:10px;width:100%;">Save</button>
+  <div id="guiding-saved-msg" style="display:none;margin-top:8px;font-size:0.72rem;color:#5fcf80;text-align:center;">&#x2713; Saved — Guiding Principles now appears in your journal</div>
+</div>
 ```
 
   </div><!-- end screen-steps -->
@@ -1442,13 +1464,13 @@ window.addEventListener('error', function(e) {
 var QUOTES = [
   {text: "Just for today, I will try to live through this day only.", source: "Just for Today"},
   {text: "We admitted we were powerless over our addiction.", source: "Step One"},
-  {text: "The foundation of recovery is honesty.", source: "NA Basic Text"},
-  {text: "Recovery is a process, not an event.", source: "NA Fellowship"},
-  {text: "Keep coming back - it works if you work it.", source: "NA Fellowship"},
-  {text: "One day at a time.", source: "NA Fellowship"},
-  {text: "We do not have to be alone anymore.", source: "NA Basic Text"},
-  {text: "Pain is inevitable; suffering is optional.", source: "NA Fellowship"},
-  {text: "We will love and support you no matter what.", source: "NA Fellowship"},
+  {text: "The foundation of recovery is honesty.", source: "Basic Text"},
+  {text: "Recovery is a process, not an event.", source: "Fellowship"},
+  {text: "Keep coming back - it works if you work it.", source: "Fellowship"},
+  {text: "One day at a time.", source: "Fellowship"},
+  {text: "We do not have to be alone anymore.", source: "Basic Text"},
+  {text: "Pain is inevitable; suffering is optional.", source: "Fellowship"},
+  {text: "We will love and support you no matter what.", source: "Fellowship"},
   {text: "God, grant me the serenity to accept the things I cannot change.", source: "Serenity Prayer"}
 ];
 
@@ -1552,6 +1574,7 @@ var JOURNAL_TYPES = {
   gratitude: { title: 'Gratitude List', emoji: '&#x1F64F;' },
   spotcheck: { title: 'Spot Check Inventory', emoji: '&#x26A1;' },
   step10:    { title: 'Full Step 10 Inventory', emoji: '&#x1F4CB;' },
+  guiding:   { title: 'Guiding Principles', emoji: '&#x1F4D6;' },
   daily:     { title: 'Daily Journal', emoji: '&#x270D;' }
 };
 
@@ -1669,6 +1692,12 @@ function renderJournalPrompts(type) {
     html += '<div style="font-size:0.68rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">&#x1F4CB; Full Step 10 — work through each question</div>';
     STEP10_QUESTIONS.forEach(function(p, i) {
       html += '<div style="padding:7px 0;' + (i < STEP10_QUESTIONS.length-1 ? 'border-bottom:1px solid var(--bd);' : '') + 'font-size:0.8rem;color:var(--tx);"><span style="color:var(--ac);font-weight:700;">' + (i+1) + '.</span> ' + p + '</div>';
+    });
+
+  } else if (type === 'guiding') {
+    html += '<div style="font-size:0.68rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">&#x1F4D6; Guiding Principles — work through each question</div>';
+    CUSTOM_GUIDING_QUESTIONS.forEach(function(p, i) {
+      html += '<div style="padding:7px 0;' + (i < CUSTOM_GUIDING_QUESTIONS.length-1 ? 'border-bottom:1px solid var(--bd);' : '') + 'font-size:0.8rem;color:var(--tx);"><span style="color:var(--ac);font-weight:700;">' + (i+1) + '.</span> ' + p + '</div>';
     });
 
   } else if (type === 'daily') {
@@ -2042,7 +2071,7 @@ function doExport(type) {
   var entries = journalEntries.filter(function(e){ return e.type === type; });
   if (!entries.length) { toast('No entries for this journal'); return; }
   exportType = type;
-  var lines = 'NA Recovery App — ' + names[type] + '\n';
+  var lines = 'Clean Living App — ' + names[type] + '\n';
   lines += 'Exported: ' + new Date().toLocaleDateString('en-GB', {weekday:'long',day:'numeric',month:'long',year:'numeric'}) + '\n';
   lines += '─────────────────────────────\n\n';
   entries.slice().reverse().forEach(function(e, i) {
@@ -2061,7 +2090,7 @@ function doExport(type) {
 
 function exportEmail() {
   var names = { gratitude:'Gratitude List', spotcheck:'Spot Check', step10:'Step 10 Inventory', daily:'Daily Journal' };
-  var subject = 'NA Recovery — ' + (names[exportType] || 'Journal') + ' Export';
+  var subject = 'Clean Living — ' + (names[exportType] || 'Journal') + ' Export';
   window.location.href = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(exportText);
 }
 
@@ -2105,6 +2134,95 @@ function toggleBook(header) {
   const card = header.parentElement;
   card.classList.toggle('open');
 }
+
+// =====================
+// CUSTOM QUESTIONS
+// =====================
+
+function renderGuidingJournalBtn() {
+  var btn = document.getElementById('j-type-guiding');
+  if (btn) btn.style.display = 'flex';
+}
+
+// Smart geo buy link
+function buyBook(book) {
+  var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+  var lang = navigator.language || '';
+  var isUK = tz.indexOf('London') > -1 || tz.indexOf('Dublin') > -1 || lang.indexOf('en-GB') > -1;
+  var isEU = tz.indexOf('Europe') > -1 && !isUK;
+
+  var urls = {
+    'step-working': {
+      uk: 'https://ukso.biz',
+      eu: 'https://cart-eu.na.org',
+      world: 'https://cart-us.na.org/recovery-products/books/the-na-step-working-guides-1400'
+    },
+    'guiding-principles': {
+      uk: 'https://ukso.biz',
+      eu: 'https://cart-eu.na.org',
+      world: 'https://cart-us.na.org/recovery-products/books'
+    }
+  };
+
+  var set = urls[book];
+  var url = isUK ? set.uk : isEU ? set.eu : set.world;
+  window.open(url, '_blank', 'noopener');
+}
+
+function loadCustomQuestions() {
+  var step10 = localStorage.getItem('na_custom_step10');
+  if (step10) {
+    STEP10_QUESTIONS = step10.split('\n').map(function(q){ return q.trim(); }).filter(function(q){ return q.length > 0; });
+    var s10ta = document.getElementById('custom-step10');
+    if (s10ta) { s10ta.value = step10; document.getElementById('step10-saved-msg').style.display = 'block'; }
+  }
+  var guiding = localStorage.getItem('na_custom_guiding');
+  if (guiding) {
+    CUSTOM_GUIDING_QUESTIONS = guiding.split('\n').map(function(q){ return q.trim(); }).filter(function(q){ return q.length > 0; });
+    JOURNAL_TYPES.guiding = { title: 'Guiding Principles', emoji: '&#x1F4D6;' };
+    var gta = document.getElementById('custom-guiding');
+    if (gta) { gta.value = guiding; document.getElementById('guiding-saved-msg').style.display = 'block'; }
+    renderGuidingJournalBtn();
+  }
+}
+
+function saveCustomStep10() {
+  var val = document.getElementById('custom-step10').value.trim();
+  if (!val) { toast('Please enter some questions first'); return; }
+  localStorage.setItem('na_custom_step10', val);
+  STEP10_QUESTIONS = val.split('\n').map(function(q){ return q.trim(); }).filter(function(q){ return q.length > 0; });
+  document.getElementById('step10-saved-msg').style.display = 'block';
+  toast('Step 10 questions saved \u2713');
+}
+
+function clearCustomStep10() {
+  localStorage.removeItem('na_custom_step10');
+  document.getElementById('custom-step10').value = '';
+  document.getElementById('step10-saved-msg').style.display = 'none';
+  STEP10_QUESTIONS = DEFAULT_STEP10_QUESTIONS.slice();
+  toast('Reset to default questions');
+}
+
+function saveCustomGuiding() {
+  var val = document.getElementById('custom-guiding').value.trim();
+  if (!val) { toast('Please enter some questions first'); return; }
+  localStorage.setItem('na_custom_guiding', val);
+  CUSTOM_GUIDING_QUESTIONS = val.split('\n').map(function(q){ return q.trim(); }).filter(function(q){ return q.length > 0; });
+  if (!JOURNAL_TYPES.guiding) {
+    JOURNAL_TYPES.guiding = { title: 'Guiding Principles', emoji: '&#x1F4D6;' };
+  }
+  document.getElementById('guiding-saved-msg').style.display = 'block';
+  renderGuidingJournalBtn();
+  toast('Guiding Principles questions saved \u2713');
+}
+
+var CUSTOM_GUIDING_QUESTIONS = [];
+var DEFAULT_STEP10_QUESTIONS = STEP10_QUESTIONS.slice();
+
+// Load on startup
+loadCustomQuestions();
+
+
 
 // =====================
 // SUPABASE SILENT SYNC
