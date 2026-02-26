@@ -3155,6 +3155,10 @@ var TIER_FEATURES = {
 
 function getUserTier() {
   if (!currentUser) return null;
+  // Admin / founder account always gets full member access
+  if (currentUser.email === 'clarehobson@icloud.com' || currentUser.email === 'monahan.c78@gmail.com') {
+    return 'member';
+  }
   // Check Supabase user metadata for tier
   var meta = currentUser.user_metadata || {};
   return meta.tier || 'free';
