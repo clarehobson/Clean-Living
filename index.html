@@ -633,6 +633,93 @@ color: var(–tx);
 }
 .export-btn:active { opacity: 0.75; }
 
+/* WELCOME SCREEN */
+#welcome-screen {
+display: none;
+position: fixed;
+inset: 0;
+z-index: 10000;
+background: var(–bg);
+flex-direction: column;
+align-items: center;
+justify-content: flex-end;
+padding: 0 24px 48px;
+}
+#welcome-hero {
+flex: 1;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-align: center;
+width: 100%;
+}
+.welcome-logo {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 2.8rem;
+font-weight: 300;
+color: var(–ac);
+margin-bottom: 6px;
+}
+.welcome-sub {
+font-size: 0.65rem;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: var(–tm);
+margin-bottom: 40px;
+}
+.welcome-tagline {
+font-size: 0.9rem;
+color: var(–tx);
+line-height: 1.7;
+max-width: 280px;
+margin-bottom: 40px;
+}
+.welcome-btn-primary {
+width: 100%;
+padding: 16px;
+background: var(–ac);
+color: #1a1208;
+border: none;
+border-radius: var(–r);
+font-size: 0.92rem;
+font-weight: 700;
+cursor: pointer;
+margin-bottom: 12px;
+}
+.welcome-btn-secondary {
+width: 100%;
+padding: 15px;
+background: transparent;
+color: var(–tx);
+border: 1px solid rgba(232,201,122,0.35);
+border-radius: var(–r);
+font-size: 0.88rem;
+cursor: pointer;
+margin-bottom: 12px;
+}
+.welcome-btn-ghost {
+background: transparent;
+border: none;
+color: var(–tm);
+font-size: 0.75rem;
+cursor: pointer;
+padding: 8px;
+}
+#auth-form { display: none; width: 100%; }
+.auth-back {
+background: transparent;
+border: none;
+color: var(–tm);
+font-size: 0.8rem;
+cursor: pointer;
+padding: 0;
+margin-bottom: 20px;
+display: flex;
+align-items: center;
+gap: 4px;
+}
+
 /* EVENTS */
 .ef-btn {
 padding: 7px 14px;
@@ -1680,6 +1767,12 @@ var moodLog   = JSON.parse(localStorage.getItem('na_mood_log')  || '[]');
 
 // --- NAVIGATION ---
 function showScreen(name) {
+  // Membership gate
+  if (!canAccess(name)) {
+    if (!currentUser) { showWelcomeScreen(); return; }
+    showPaywall(name);
+    return;
+  }
   document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
   document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
   document.getElementById('screen-' + name).classList.add('active');
@@ -3049,6 +3142,150 @@ function showAdminBtnIfNeeded() {
 }
 
 // =====================
+// AUTH & MEMBERSHIP
+// =====================
+var membershipTier = null; // null = not checked, 'free', 'basic', 'member'
+
+// Tier definitions
+var TIER_FEATURES = {
+  free:   ['home','meetings','books'],
+  basic:  ['home','meetings','books','steps','network'],
+  member: ['home','meetings','books','steps','network','journal','events','resources']
+};
+
+function getUserTier() {
+  if (!currentUser) return null;
+  // Check Supabase user metadata for tier
+  var meta = currentUser.user_metadata || {};
+  return meta.tier || 'free';
+}
+
+function canAccess(screen) {
+  var tier = getUserTier();
+  if (!tier) return ['home','meetings','books'].indexOf(screen) > -1;
+  var allowed = TIER_FEATURES[tier] || TIER_FEATURES['free'];
+  return allowed.indexOf(screen) > -1;
+}
+
+// ---- WELCOME / AUTH SCREEN ----
+function showWelcomeScreen() {
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('welcome-screen').style.display = 'flex';
+}
+
+function hideWelcomeScreen() {
+  document.getElementById('welcome-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'flex';
+}
+
+function showAuthForm(mode) {
+  document.getElementById('welcome-hero').style.display = 'none';
+  document.getElementById('auth-form').style.display = 'block';
+  document.getElementById('auth-mode').dataset.mode = mode;
+  document.getElementById('auth-title').textContent = mode === 'signin' ? 'Welcome back' : 'Create account';
+  document.getElementById('auth-submit-btn').textContent = mode === 'signin' ? 'Sign In' : 'Create Account';
+  document.getElementById('auth-switch-text').textContent = mode === 'signin' ? "Don't have an account?" : 'Already have an account?';
+  document.getElementById('auth-switch-btn').textContent = mode === 'signin' ? 'Sign up' : 'Sign in';
+  document.getElementById('auth-msg').style.display = 'none';
+  document.getElementById('auth-forgot').style.display = mode === 'signin' ? 'block' : 'none';
+}
+
+function switchAuthMode() {
+  var current = document.getElementById('auth-mode').dataset.mode;
+  showAuthForm(current === 'signin' ? 'signup' : 'signin');
+}
+
+function showAuthMsg(msg, colour) {
+  var el = document.getElementById('auth-msg');
+  el.textContent = msg;
+  el.style.color = colour || 'var(--tm)';
+  el.style.display = 'block';
+}
+
+async function doAuth() {
+  if (!supa) { showAuthMsg('No connection — please check your internet'); return; }
+  var mode = document.getElementById('auth-mode').dataset.mode;
+  var email = document.getElementById('auth-email').value.trim();
+  var password = document.getElementById('auth-password').value;
+  if (!email || !password) { showAuthMsg('Please enter your email and password'); return; }
+  if (mode === 'signup' && password.length < 6) { showAuthMsg('Password must be at least 6 characters'); return; }
+
+  document.getElementById('auth-submit-btn').textContent = 'Please wait...';
+  document.getElementById('auth-submit-btn').disabled = true;
+
+  try {
+    var result;
+    if (mode === 'signin') {
+      result = await supa.auth.signInWithPassword({ email: email, password: password });
+    } else {
+      result = await supa.auth.signUp({ email: email, password: password });
+    }
+
+    document.getElementById('auth-submit-btn').disabled = false;
+    document.getElementById('auth-submit-btn').textContent = mode === 'signin' ? 'Sign In' : 'Create Account';
+
+    if (result.error) { showAuthMsg(result.error.message, '#e74c3c'); return; }
+
+    if (mode === 'signup') {
+      showAuthMsg('Account created! Check your email to confirm, then sign in.', '#5fcf80');
+      return;
+    }
+
+    currentUser = result.data.user;
+    pullFromCloud();
+    updateSigninBtn();
+    showAdminBtnIfNeeded();
+    hideWelcomeScreen();
+    eventsLoaded = false;
+  } catch(e) {
+    document.getElementById('auth-submit-btn').disabled = false;
+    showAuthMsg('Something went wrong — try again', '#e74c3c');
+  }
+}
+
+async function doAuthReset() {
+  if (!supa) return;
+  var email = document.getElementById('auth-email').value.trim();
+  if (!email) { showAuthMsg('Enter your email address first'); return; }
+  try {
+    await supa.auth.resetPasswordForEmail(email, { redirectTo: 'https://cleanliving.app' });
+    showAuthMsg('Password reset email sent!', '#5fcf80');
+  } catch(e) { showAuthMsg('Could not send reset email', '#e74c3c'); }
+}
+
+function continueAsGuest() {
+  hideWelcomeScreen();
+}
+
+// ---- PAYWALL ----
+function showPaywall(screen) {
+  var tierNeeded = 'basic';
+  if (['journal','events','resources'].indexOf(screen) > -1) tierNeeded = 'member';
+
+  var el = document.getElementById('paywall-modal');
+  var title = document.getElementById('paywall-title');
+  var desc = document.getElementById('paywall-desc');
+  var price = document.getElementById('paywall-price');
+
+  if (tierNeeded === 'member') {
+    title.textContent = 'Member Feature';
+    desc.textContent = 'Journal, Events and Movement are included in the Member plan — everything you need for your recovery in one place.';
+    price.textContent = '£4.99 / month';
+  } else {
+    title.textContent = 'Basic Feature';
+    desc.textContent = 'Worksheets and your Network are included in the Basic plan.';
+    price.textContent = '£1.99 / month';
+  }
+
+  el.classList.add('open');
+}
+
+function closePaywall(e) {
+  document.getElementById('paywall-modal').classList.remove('open');
+}
+
+
+// =====================
 // SUPABASE SILENT SYNC
 // =====================
 const SUPA_URL = 'https://gencdhyxlyekpjvuwvpu.supabase.co';
@@ -3084,7 +3321,7 @@ async function pullFromCloud() {
   } catch(e) {}
 }
 
-// Silent sign in on load
+// On load - check for existing session, else show welcome screen
 if (supa) {
   supa.auth.getSession().then(function(r) {
     if (r.data && r.data.session) {
@@ -3092,8 +3329,17 @@ if (supa) {
       pullFromCloud();
       updateSigninBtn();
       showAdminBtnIfNeeded();
+      // Already signed in - go straight to app
+    } else {
+      // No session - show welcome screen
+      showWelcomeScreen();
     }
-  }).catch(function(){});
+  }).catch(function(){
+    // Can't reach Supabase - show welcome screen
+    showWelcomeScreen();
+  });
+} else {
+  showWelcomeScreen();
 }
 
 var _origSaveCleanDate = saveCleanDate; saveCleanDate = function() { _origSaveCleanDate.apply(this,arguments); pushToCloud(); };
@@ -3103,6 +3349,62 @@ var _origDeleteContact = deleteContact; deleteContact = function(id) { _origDele
 var _origDeleteJournal = deleteJournal; deleteJournal = function(id) { _origDeleteJournal(id); pushToCloud(); };
 var _origSetMood = setMood; setMood = function(m) { _origSetMood(m); pushToCloud(); };
 </script>
+
+  <!-- WELCOME / AUTH SCREEN -->
+
+  <div id="welcome-screen">
+    <!-- Hero -->
+    <div id="welcome-hero">
+      <div style="font-size:3.5rem;margin-bottom:16px;">🌿</div>
+      <div class="welcome-logo">Clean Living</div>
+      <div class="welcome-sub">Recovery · Community · Growth</div>
+      <div class="welcome-tagline">"We do not have to be alone anymore."<br><span style="font-size:0.75rem;color:var(--tm);">— Basic Text</span></div>
+      <button class="welcome-btn-primary" onclick="showAuthForm('signin')">Sign In</button>
+      <button class="welcome-btn-secondary" onclick="showAuthForm('signup')">Create Account</button>
+      <button class="welcome-btn-ghost" onclick="continueAsGuest()">Browse as guest</button>
+    </div>
+
+```
+<!-- Auth Form -->
+<div id="auth-form">
+  <button class="auth-back" onclick="document.getElementById('welcome-hero').style.display='flex';document.getElementById('auth-form').style.display='none';">&#8592; Back</button>
+  <div id="auth-mode" data-mode="signin"></div>
+  <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--ac);margin-bottom:6px;" id="auth-title">Welcome back</div>
+  <div style="font-size:0.72rem;color:var(--tm);margin-bottom:24px;">Sign in to access your recovery tools</div>
+
+  <div class="modal-label">Email</div>
+  <input id="auth-email" class="input" type="email" placeholder="your@email.com" autocomplete="email" style="margin-bottom:14px;">
+
+  <div class="modal-label">Password</div>
+  <input id="auth-password" class="input" type="password" placeholder="Password" autocomplete="current-password" style="margin-bottom:6px;">
+
+  <div id="auth-msg" style="display:none;font-size:0.75rem;margin-bottom:12px;text-align:center;padding:8px;border-radius:8px;background:rgba(0,0,0,0.2);"></div>
+
+  <button id="auth-submit-btn" class="btn" style="width:100%;margin-bottom:12px;" onclick="doAuth()">Sign In</button>
+
+  <button id="auth-forgot" onclick="doAuthReset()" style="width:100%;padding:8px;border:none;background:transparent;color:var(--tm);cursor:pointer;font-size:0.72rem;display:block;">Forgot password?</button>
+
+  <div style="text-align:center;margin-top:16px;">
+    <span id="auth-switch-text" style="font-size:0.75rem;color:var(--tm);">Don't have an account?</span>
+    <button id="auth-switch-btn" onclick="switchAuthMode()" style="background:transparent;border:none;color:var(--ac);font-size:0.75rem;cursor:pointer;padding:0 0 0 4px;">Sign up</button>
+  </div>
+</div>
+```
+
+  </div>
+
+  <!-- PAYWALL MODAL -->
+
+  <div class="modal-overlay" id="paywall-modal" onclick="closePaywall(event)">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div style="text-align:center;font-size:2.5rem;margin-bottom:12px;">🔐</div>
+      <div class="modal-title" id="paywall-title">Member Feature</div>
+      <div id="paywall-desc" style="font-size:0.8rem;color:var(--tm);text-align:center;margin-bottom:20px;line-height:1.6;"></div>
+      <div id="paywall-price" style="font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--ac);text-align:center;margin-bottom:20px;"></div>
+      <button class="btn" style="width:100%;margin-bottom:10px;" onclick="closePaywall(event); openSigninModal();">Upgrade Now</button>
+      <button onclick="closePaywall(event)" style="width:100%;padding:13px;border:1px solid var(--bd);border-radius:var(--r);background:transparent;color:var(--tm);cursor:pointer;">Maybe Later</button>
+    </div>
+  </div>
 
   <!-- SIGN IN MODAL -->
 
