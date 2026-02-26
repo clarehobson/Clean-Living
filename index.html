@@ -1017,7 +1017,7 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
 <div style="background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:16px;margin-bottom:8px;">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
     <div style="font-size:0.82rem;font-weight:700;color:var(--ac);">&#x1F4D6; Guiding Principles Questions</div>
-    <a href="https://books.apple.com/us/book/guiding-principles-the-spirit-of-our-traditions/id1478457214" target="_blank" style="font-size:0.65rem;color:var(--tm);text-decoration:underline;">Buy the book ›</a>
+    <a href="javascript:buyBook('guiding-principles')" style="font-size:0.65rem;color:var(--tm);text-decoration:underline;">Buy the workbook ›</a>
   </div>
   <div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">One question per line — adds a Guiding Principles journal type once saved.</div>
   <textarea id="custom-guiding" style="width:100%;min-height:110px;background:var(--sf2);border:1px solid var(--bd);border-radius:10px;padding:10px;color:var(--tx);font-size:0.8rem;line-height:1.6;resize:vertical;box-sizing:border-box;" placeholder="Paste your questions here, one per line..."></textarea>
@@ -2401,24 +2401,36 @@ function renderGuidingJournalBtn() {
 function buyBook(book) {
   var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
   var lang = navigator.language || '';
-  var isUK = tz.indexOf('London') > -1 || tz.indexOf('Dublin') > -1 || lang.indexOf('en-GB') > -1;
-  var isEU = tz.indexOf('Europe') > -1 && !isUK;
+
+  // UK: London or Dublin timezone, or en-GB language
+  var isUK = tz.indexOf('London') > -1 || tz.indexOf('Dublin') > -1 || lang === 'en-GB' || lang.indexOf('en-GB') > -1;
+  // EU: any European timezone except UK
+  var isEU = tz.indexOf('Europe/') > -1 && !isUK;
+  // US: American timezones
+  var isUS = tz.indexOf('America/') > -1 || tz.indexOf('US/') > -1;
 
   var urls = {
     'step-working': {
-      uk: 'https://ukso.biz',
-      eu: 'https://cart-eu.na.org',
-      world: 'https://cart-us.na.org/recovery-products/books/the-na-step-working-guides-1400'
+      uk:    'https://ukso.biz/product-category/step-working-guides/',
+      eu:    'https://cart-eu.na.org/en/recovery-literature/step-working-guides',
+      us:    'https://cart-us.na.org/recovery-products/books/the-na-step-working-guides-1400',
+      world: 'https://www.na.org/recovery-literature/'
     },
     'guiding-principles': {
-      uk: 'https://ukso.biz',
-      eu: 'https://cart-eu.na.org',
-      world: 'https://cart-us.na.org/recovery-products/books'
+      uk:    'https://ukso.biz/product-category/guiding-principles/',
+      eu:    'https://cart-eu.na.org/en/recovery-literature/guiding-principles',
+      us:    'https://cart-us.na.org/recovery-products/books/guiding-principles-1500',
+      world: 'https://www.na.org/recovery-literature/'
     }
   };
 
-  var set = urls[book];
-  var url = isUK ? set.uk : isEU ? set.eu : set.world;
+  var set = urls[book] || urls['step-working'];
+  var url;
+  if (isUK) url = set.uk;
+  else if (isEU) url = set.eu;
+  else if (isUS) url = set.us;
+  else url = set.world;
+
   window.open(url, '_blank', 'noopener');
 }
 
