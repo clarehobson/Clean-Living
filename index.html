@@ -3881,27 +3881,5 @@ var _origSetMood = setMood; setMood = function(m) { _origSetMood(m); pushToCloud
 
   </div>
 
-  <script>
-    // Register service worker for auto-updates
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js').then(function(reg) {
-          reg.addEventListener('updatefound', function() {
-            var newWorker = reg.installing;
-            newWorker.addEventListener('statechange', function() {
-              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                newWorker.postMessage({ action: 'skipWaiting' });
-              }
-            });
-          });
-        }).catch(function(err) {});
-        var refreshing = false;
-        navigator.serviceWorker.addEventListener('controllerchange', function() {
-          if (!refreshing) { refreshing = true; window.location.reload(); }
-        });
-      });
-    }
-  </script>
-
 </body>
 </html>
