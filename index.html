@@ -2432,48 +2432,16 @@ window.addEventListener('load', function() {
 
 const SUPA_URL = 'https://gencdhyxlyekpjvuwvpu.supabase.co';
 const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlbmNkaHl4bHlla3BqdnV3dnB1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5NzEyNDEsImV4cCI6MjA4NzU0NzI0MX0.BR9biMN2K8Vj6SBbfBrEChppsuIMp2lSL3WOW7Z-1Ss';
+
 var supa;
 try {
   supa = supabase.createClient(SUPA_URL, SUPA_KEY);
 } catch(e) {
-  console.log('Supabase init failed, offline mode');
-  supa = { auth: { getSession: async function() { return {data:{session:null}}; }, onAuthStateChange: function() {}, signInWithPassword: async function() { return {error:{message:'Service unavailable'}}; }, signUp: async function() { return {error:{message:'Service unavailable'}}; }, signInWithOAuth: async function() {}, signOut: async function() {}, resetPasswordForEmail: async function() { return {}; } }, from: function() { return { select: function() { return { eq: function() { return { single: async function() { return {data:null,error:'offline'}; } } } } }, upsert: async function() { return {}; } }; } };
+  supa = null;
 }
 
 var currentUser = null;
-var authMode = 'login'; // 'login' or 'signup'
-
-// --- Check session on load ---
-(async function checkSession() {
-  try {
-    const { data: { session } } = await supa.auth.getSession();
-    if (session) {
-      currentUser = session.user;
-      hideAuthScreen();
-      pullFromCloud(); // don't await — let it sync in background
-    } else {
-      if (localStorage.getItem('na_skip_auth') === 'true') {
-        hideAuthScreen();
-      } else {
-        showAuthScreen();
-      }
-    }
-  } catch(e) {
-    // If Supabase fails, just show the app
-    hideAuthScreen();
-  }
-
-  // Listen for auth changes
-  supa.auth.onAuthStateChange(async (event, session) => {
-    if (event === 'SIGNED_IN' && session) {
-      currentUser = session.user;
-      hideAuthScreen();
-      pullFromCloud(); // background sync
-    } else if (event === 'SIGNED_OUT') {
-      currentUser = null;
-    }
-  });
-})();
+var authMode = 'login';
 
 function showAuthScreen() {
   document.getElementById('auth-screen').style.display = 'flex';
@@ -2481,13 +2449,10 @@ function showAuthScreen() {
 
 function hideAuthScreen() {
   document.getElementById('auth-screen').style.display = 'none';
-  // Go straight to app, skip splash
-  var splash = document.getElementById('splash');
-  if (splash) splash.style.display = 'none';
 }
 
-function showSplash() {
-  // Splash disabled - go straight to app
+function enterApp() {
+  hideAuthScreen();
   var splash = document.getElementById('splash');
   if (splash) splash.style.display = 'none';
 }
@@ -2504,79 +2469,14 @@ function switchAuthTab(mode) {
   document.getElementById('auth-error').style.display = 'none';
 }
 
-async function doEmailAuth() {
-  var email = document.getElementById('auth-email').value.trim();
-  var password = document.getElementById('auth-password').value;
-  var errEl = document.getElementById('auth-error');
-  errEl.style.display = 'none';
-
-  if (!email || !password) {
-    errEl.textContent = 'Please enter your email and password.';
-    errEl.style.display = 'block';
-    return;
-  }
-
-  var btn = document.getElementById('auth-btn');
-  btn.textContent = authMode === 'login' ? 'Signing in...' : 'Creating account...';
-  btn.disabled = true;
-
-  var result;
-  if (authMode === 'login') {
-    result = await supa.auth.signInWithPassword({ email, password });
-  } else {
-    result = await supa.auth.signUp({ email, password });
-    if (!result.error && result.data.user && !result.data.session) {
-      errEl.style.background = 'rgba(95,207,128,0.1)';
-      errEl.style.borderColor = 'rgba(95,207,128,0.3)';
-      errEl.style.color = '#5fcf80';
-      errEl.textContent = 'Check your email to confirm your account, then sign in.';
-      errEl.style.display = 'block';
-      btn.textContent = 'Create Account';
-      btn.disabled = false;
-      return;
-    }
-  }
-
-  if (result.error) {
-    errEl.style.background = 'rgba(192,57,43,0.15)';
-    errEl.style.borderColor = 'rgba(192,57,43,0.3)';
-    errEl.style.color = '#e74c3c';
-    errEl.textContent = result.error.message;
-    errEl.style.display = 'block';
-    btn.textContent = authMode === 'login' ? 'Sign In' : 'Create Account';
-    btn.disabled = false;
-  } else {
-    // Success — onAuthStateChange will handle the transition
-    btn.textContent = authMode === 'login' ? 'Sign In' : 'Create Account';
-    btn.disabled = false;
-  }
-}
-
-async function doAppleAuth() {
-  await supa.auth.signInWithOAuth({
-    provider: 'apple',
-    options: { redirectTo: window.location.href }
-  });
-}
-
-async function doGoogleAuth() {
-  await supa.auth.signInWithOAuth({
-    provider: 'google',
-    options: { redirectTo: window.location.href }
-  });
-}
-
 function skipAuth() {
   localStorage.setItem('na_skip_auth', 'true');
-  document.getElementById('auth-screen').style.display = 'none';
-  var splash = document.getElementById('splash');
-  if (splash) splash.style.display = 'none';
+  enterApp();
 }
 
 function showForgotPassword() {
   document.getElementById('auth-screen').style.display = 'none';
-  var fs = document.getElementById('forgot-screen');
-  fs.style.display = 'flex';
+  document.getElementById('forgot-screen').style.display = 'flex';
 }
 
 function hideForgotPassword() {
@@ -2585,59 +2485,129 @@ function hideForgotPassword() {
 }
 
 async function doForgotPassword() {
+  if (!supa) return;
   var email = document.getElementById('forgot-email').value.trim();
   var msg = document.getElementById('forgot-msg');
   if (!email) return;
-  var { error } = await supa.auth.resetPasswordForEmail(email, {
-    redirectTo: window.location.href
-  });
+  var result = await supa.auth.resetPasswordForEmail(email, { redirectTo: window.location.href });
   msg.style.display = 'block';
-  if (error) {
-    msg.style.background = 'rgba(192,57,43,0.15)';
+  if (result.error) {
     msg.style.color = '#e74c3c';
-    msg.textContent = error.message;
+    msg.textContent = result.error.message;
   } else {
-    msg.style.background = 'rgba(95,207,128,0.1)';
     msg.style.color = '#5fcf80';
     msg.textContent = 'Reset link sent! Check your email.';
   }
 }
 
-// --- Sign Out (add to settings if needed) ---
+async function doEmailAuth() {
+  if (!supa) { enterApp(); return; }
+  var email = document.getElementById('auth-email').value.trim();
+  var password = document.getElementById('auth-password').value;
+  var errEl = document.getElementById('auth-error');
+  errEl.style.display = 'none';
+  if (!email || !password) {
+    errEl.textContent = 'Please enter your email and password.';
+    errEl.style.display = 'block';
+    return;
+  }
+  var btn = document.getElementById('auth-btn');
+  btn.textContent = authMode === 'login' ? 'Signing in...' : 'Creating account...';
+  btn.disabled = true;
+  var result = authMode === 'login'
+    ? await supa.auth.signInWithPassword({ email, password })
+    : await supa.auth.signUp({ email, password });
+  if (result.error) {
+    errEl.textContent = result.error.message;
+    errEl.style.display = 'block';
+    btn.textContent = authMode === 'login' ? 'Sign In' : 'Create Account';
+    btn.disabled = false;
+  } else {
+    enterApp();
+    if (result.data && result.data.user) {
+      currentUser = result.data.user;
+      pullFromCloud();
+    }
+  }
+}
+
+async function doAppleAuth() {
+  if (!supa) return;
+  await supa.auth.signInWithOAuth({ provider: 'apple', options: { redirectTo: window.location.href } });
+}
+
+async function doGoogleAuth() {
+  if (!supa) return;
+  await supa.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.href } });
+}
+
 async function signOut() {
-  await supa.auth.signOut();
+  if (supa) await supa.auth.signOut();
   currentUser = null;
   localStorage.removeItem('na_skip_auth');
   showAuthScreen();
-  toast('Signed out');
 }
+
+// Check session on load
+(async function() {
+  if (!supa) {
+    if (localStorage.getItem('na_skip_auth') === 'true') {
+      enterApp();
+    } else {
+      showAuthScreen();
+    }
+    return;
+  }
+  try {
+    var result = await supa.auth.getSession();
+    var session = result.data && result.data.session;
+    if (session) {
+      currentUser = session.user;
+      enterApp();
+      pullFromCloud();
+    } else if (localStorage.getItem('na_skip_auth') === 'true') {
+      enterApp();
+    } else {
+      showAuthScreen();
+    }
+    supa.auth.onAuthStateChange(function(event, session) {
+      if (event === 'SIGNED_IN' && session) {
+        currentUser = session.user;
+        enterApp();
+        pullFromCloud();
+      } else if (event === 'SIGNED_OUT') {
+        currentUser = null;
+      }
+    });
+  } catch(e) {
+    enterApp();
+  }
+})();
 
 // =====================
 // CLOUD SYNC
 // =====================
 
 async function pushToCloud() {
-  if (!currentUser) return;
-  var uid = currentUser.id;
-  await supa.from('user_data').upsert({
-    user_id: uid,
-    clean_date: cleanDate,
-    mood_log: moodLog,
-    journal: journalEntries,
-    network: networkContacts,
-    updated_at: new Date().toISOString()
-  }, { onConflict: 'user_id' });
+  if (!supa || !currentUser) return;
+  try {
+    await supa.from('user_data').upsert({
+      user_id: currentUser.id,
+      clean_date: cleanDate,
+      mood_log: moodLog,
+      journal: journalEntries,
+      network: networkContacts,
+      updated_at: new Date().toISOString()
+    }, { onConflict: 'user_id' });
+  } catch(e) {}
 }
 
 async function pullFromCloud() {
-  if (!currentUser) return;
+  if (!supa || !currentUser) return;
   try {
-    var uid = currentUser.id;
-    var { data, error } = await supa.from('user_data').select('*').eq('user_id', uid).single();
-    if (error || !data) {
-      await pushToCloud();
-      return;
-    }
+    var result = await supa.from('user_data').select('*').eq('user_id', currentUser.id).single();
+    var data = result.data;
+    if (!data) { pushToCloud(); return; }
     if (data.clean_date) {
       cleanDate = data.clean_date;
       localStorage.setItem('na_clean_date', cleanDate);
@@ -2661,79 +2631,23 @@ async function pullFromCloud() {
       localStorage.setItem('na_network', JSON.stringify(networkContacts));
       renderNetwork();
     }
-    toast('✓ Data synced');
-  } catch(e) {
-    console.log('Sync error:', e);
-  }
+    toast('✓ Synced');
+  } catch(e) {}
 }
 
-// Patch save functions to also push to cloud
+// Patch save functions
 var _origSaveCleanDate = saveCleanDate;
-saveCleanDate = async function() {
-  _origSaveCleanDate();
-  await pushToCloud();
-};
-
+saveCleanDate = async function() { _origSaveCleanDate.apply(this, arguments); pushToCloud(); };
 var _origSaveJournal = saveJournal;
-saveJournal = async function() {
-  _origSaveJournal();
-  await pushToCloud();
-};
-
+saveJournal = async function() { _origSaveJournal.apply(this, arguments); pushToCloud(); };
 var _origSaveContact = saveContact;
-saveContact = async function() {
-  _origSaveContact();
-  await pushToCloud();
-};
-
+saveContact = async function() { _origSaveContact.apply(this, arguments); pushToCloud(); };
 var _origDeleteContact = deleteContact;
-deleteContact = async function(id) {
-  _origDeleteContact(id);
-  await pushToCloud();
-};
-
+deleteContact = async function(id) { _origDeleteContact(id); pushToCloud(); };
 var _origDeleteJournal = deleteJournal;
-deleteJournal = async function(id) {
-  _origDeleteJournal(id);
-  await pushToCloud();
-};
-
+deleteJournal = async function(id) { _origDeleteJournal(id); pushToCloud(); };
 var _origSetMood = setMood;
-setMood = async function(m) {
-  _origSetMood(m);
-  await pushToCloud();
-};
-// Force all external links to open in new tab (fixes iOS Safari PWA issue)
-document.addEventListener('click', function(e) {
-  var target = e.target.closest('a');
-  if (target && target.href && target.href.startsWith('http') && !target.href.includes(window.location.hostname)) {
-    e.preventDefault();
-    window.open(target.href, '_blank', 'noopener,noreferrer');
-  }
-});
-
-// Re-initialise when user returns to the app
-document.addEventListener('visibilitychange', function() {
-  if (document.visibilityState === 'visible') {
-    try {
-      renderJournalEntries();
-      renderNetwork();
-      markTodayMood();
-      renderMoodHistory();
-      updateDaysCount();
-    } catch(e) {}
-  }
-});
-
-window.addEventListener('focus', function() {
-  try {
-    renderJournalEntries();
-    renderNetwork();
-    markTodayMood();
-    renderMoodHistory();
-    updateDaysCount();
-  } catch(e) {}
-});
+setMood = async function(m) { _origSetMood(m); pushToCloud(); };
 </script>
 
 </body>
