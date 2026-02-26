@@ -2684,6 +2684,37 @@ setMood = async function(m) {
   _origSetMood(m);
   await pushToCloud();
 };
+// Force all external links to open in new tab (fixes iOS Safari PWA issue)
+document.addEventListener('click', function(e) {
+  var target = e.target.closest('a');
+  if (target && target.href && target.href.startsWith('http') && !target.href.includes(window.location.hostname)) {
+    e.preventDefault();
+    window.open(target.href, '_blank', 'noopener,noreferrer');
+  }
+});
+
+// Re-initialise when user returns to the app
+document.addEventListener('visibilitychange', function() {
+  if (document.visibilityState === 'visible') {
+    try {
+      renderJournalEntries();
+      renderNetwork();
+      markTodayMood();
+      renderMoodHistory();
+      updateDaysCount();
+    } catch(e) {}
+  }
+});
+
+window.addEventListener('focus', function() {
+  try {
+    renderJournalEntries();
+    renderNetwork();
+    markTodayMood();
+    renderMoodHistory();
+    updateDaysCount();
+  } catch(e) {}
+});
 </script>
 
 </body>
