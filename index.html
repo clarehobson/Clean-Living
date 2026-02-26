@@ -863,7 +863,10 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
     <div style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:300; color:var(--ac);">Just For Today</div>
     <div style="font-size:0.62rem; color:var(--tm); letter-spacing:0.08em; text-transform:uppercase;">Clean Living</div>
   </div>
-  <button id="home-signin-btn" onclick="openAccountSheet()" style="width:34px;height:34px;border-radius:50%;background:var(--sf);border:1px solid rgba(232,201,122,0.35);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:var(--ac);">👤</button>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <button id="home-signout-btn" onclick="doSignOut()" style="display:none;font-size:0.65rem;color:#e74c3c;background:transparent;border:1px solid rgba(231,76,60,0.3);border-radius:12px;padding:5px 11px;cursor:pointer;">Sign Out</button>
+    <button id="home-signin-btn" onclick="openAccountSheet()" style="width:34px;height:34px;border-radius:50%;background:var(--sf);border:1px solid rgba(232,201,122,0.35);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:var(--ac);">👤</button>
+  </div>
 </div>
 
 <!-- Clean Date Counter -->
@@ -3294,6 +3297,7 @@ function closeAccountSheet(event) {
 
 function updateSigninBtn() {
   var btn = document.getElementById('home-signin-btn');
+  var outBtn = document.getElementById('home-signout-btn');
   if (!btn) return;
   if (currentUser) {
     var initial = (currentUser.email.split('@')[0][0] || 'A').toUpperCase();
@@ -3301,11 +3305,13 @@ function updateSigninBtn() {
     btn.style.background = 'linear-gradient(135deg,var(--ac),#b8965a)';
     btn.style.color = '#1a1208';
     btn.style.fontWeight = '700';
+    if (outBtn) outBtn.style.display = 'block';
   } else {
-    btn.textContent = '\uD83D\uDC64';
+    btn.textContent = '👤';
     btn.style.background = 'var(--sf)';
     btn.style.color = 'var(--ac)';
     btn.style.fontWeight = 'normal';
+    if (outBtn) outBtn.style.display = 'none';
   }
 }
 
