@@ -3377,12 +3377,13 @@ async function doSignOut() {
   if (!supa) return;
   try {
     await supa.auth.signOut();
-    currentUser = null;
-    updateSigninBtn();
-    document.getElementById('account-sheet').classList.remove('open');
-    showWelcomeScreen();
-    toast('Signed out');
   } catch(e) {}
+  currentUser = null;
+  updateSigninBtn();
+  var sheet = document.getElementById('account-sheet');
+  if (sheet) sheet.classList.remove('open');
+  showWelcomeScreen();
+  toast('Signed out');
 }
 
 
@@ -3431,22 +3432,23 @@ function renderMeetingCard(m, type) {
 
   // Build join button
   var joinBtn = document.createElement('a');
-  var zoomLink = m.meetingId ? buildZoomLink(m.meetingId, m.password) : null;
+  var zid = m.meetingId || m.meeting_id;
+  var zoomLink = zid ? buildZoomLink(zid, m.password) : null;
   joinBtn.href = zoomLink || m.url || '#';
   if (!zoomLink) joinBtn.target = '_blank';
   joinBtn.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;background:var(--ac);color:#1a1208;border-radius:10px;font-size:0.82rem;font-weight:700;text-decoration:none;';
   joinBtn.innerHTML = '<span>▶</span><span>Join on Zoom</span>';
 
   // If using URL instead of ID, adjust label
-  if (!m.meetingId && m.url) {
+  if (!zid && m.url) {
     joinBtn.innerHTML = '<span>▶</span><span>Join Meeting</span>';
   }
 
   // Show meeting ID and password info
-  if (m.meetingId) {
+  if (zid) {
     var idRow = document.createElement('div');
     idRow.style.cssText = 'display:flex;gap:12px;margin-bottom:8px;font-size:0.7rem;color:var(--tm);';
-    idRow.innerHTML = '<span>ID: <b style="color:var(--tx);">' + m.meetingId + '</b></span>' +
+    idRow.innerHTML = '<span>ID: <b style="color:var(--tx);">' + zid + '</b></span>' +
       (m.password ? '<span>Password: <b style="color:var(--tx);">' + m.password + '</b></span>' : '');
     card.appendChild(idRow);
   }
@@ -3497,6 +3499,50 @@ async function loadSharedMeetings() {
   }
 }
 
+var selectedMeetingDays = [];
+
+function toggleMeetingDay(btn, day) {
+  if (day === 'Daily') {
+    // Clear all others and select only Daily
+    selectedMeetingDays = ['Daily'];
+    document.querySelectorAll('#add-meeting-modal .role-btn').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    return;
+  }
+  // Remove Daily if selecting individual days
+  selectedMeetingDays = selectedMeetingDays.filter(function(d){ return d !== 'Daily'; });
+  document.querySelectorAll('#add-meeting-modal .role-btn').forEach(function(b){
+    if (b.textContent === 'Every Day') b.classList.remove('active');
+  });
+  var idx = selectedMeetingDays.indexOf(day);
+  if (idx > -1) {
+    selectedMeetingDays.splice(idx, 1);
+    btn.classList.remove('active');
+  } else {
+    selectedMeetingDays.push(day);
+    btn.classList.add('active');
+  }
+}
+
+function clearMeetingDays() {
+  selectedMeetingDays = [];
+  document.querySelectorAll('#add-meeting-modal .role-btn').forEach(function(b){ b.classList.remove('active'); });
+}
+
+function setMeetingDays(daysStr) {
+  clearMeetingDays();
+  if (!daysStr) return;
+  var days = daysStr.split(',').map(function(d){ return d.trim(); });
+  days.forEach(function(day) {
+    selectedMeetingDays.push(day);
+    document.querySelectorAll('#add-meeting-modal .role-btn').forEach(function(b){
+      if (b.textContent === day || (day === 'Daily' && b.textContent === 'Every Day')) {
+        b.classList.add('active');
+      }
+    });
+  });
+}
+
 function openAddMeeting(type) {
   editingMeetingId = null;
   editingMeetingType = type || 'personal';
@@ -3506,6 +3552,7 @@ function openAddMeeting(type) {
   document.getElementById('zm-password').value = '';
   document.getElementById('zm-url').value = '';
   document.getElementById('zm-delete-wrap').style.display = 'none';
+  clearMeetingDays();
   document.getElementById('zm-modal-title').textContent = editingMeetingType === 'shared' ? 'Add Community Meeting' : 'Add to My Favourites';
   document.getElementById('zm-modal-subtitle').textContent = editingMeetingType === 'shared' ? 'Visible to everyone on the app' : 'Only visible to you';
   document.getElementById('add-meeting-modal').classList.add('open');
@@ -3520,7 +3567,12 @@ function openEditMeeting(id, type) {
   }
   if (!m) return;
   document.getElementById('zm-name').value = m.name || '';
-  document.getElementById('zm-time').value = m.time || '';
+  // Parse days from time string
+  var timeParts = (m.time || '').split(' · ');
+  var daysStr = timeParts.length > 1 ? timeParts[0] : '';
+  var timeOnly = timeParts.length > 1 ? timeParts[1] : m.time || '';
+  document.getElementById('zm-time').value = timeOnly;
+  setMeetingDays(daysStr);
   document.getElementById('zm-id').value = m.meetingId || '';
   document.getElementById('zm-password').value = m.password || '';
   document.getElementById('zm-url').value = m.url || '';
@@ -3535,12 +3587,15 @@ async function saveMeeting() {
   var meetingId = document.getElementById('zm-id').value.trim();
   var password = document.getElementById('zm-password').value.trim();
   var url = document.getElementById('zm-url').value.trim();
-  var time = document.getElementById('zm-time').value.trim();
+  var timeInput = document.getElementById('zm-time').value.trim();
+  var time = selectedMeetingDays.length ? selectedMeetingDays.join(', ') + (timeInput ? ' · ' + timeInput : '') : timeInput;
 
   if (!name) { toast('Please enter a meeting name'); return; }
   if (!meetingId && !url) { toast('Please enter a Zoom ID or meeting link'); return; }
 
-  var meetingData = { name: name, time: time, meetingId: meetingId, password: password, url: url };
+  // meetingData uses snake_case for Supabase, camelCase for localStorage
+  var meetingData = { name: name, time: time, meeting_id: meetingId, password: password, url: url };
+  var personalMeetingData = { name: name, time: time, meetingId: meetingId, password: password, url: url };
 
   if (editingMeetingType === 'shared') {
     // Save to Supabase
@@ -3558,10 +3613,10 @@ async function saveMeeting() {
     // Save to localStorage
     if (editingMeetingId) {
       var m = personalMeetings.find(function(x){ return x.id === editingMeetingId; });
-      if (m) { Object.assign(m, meetingData); }
+      if (m) { Object.assign(m, personalMeetingData); }
     } else {
-      meetingData.id = Date.now().toString();
-      personalMeetings.push(meetingData);
+      personalMeetingData.id = Date.now().toString();
+      personalMeetings.push(personalMeetingData);
     }
     localStorage.setItem('na_personal_meetings', JSON.stringify(personalMeetings));
     toast(editingMeetingId ? 'Favourite updated' : 'Added to favourites');
@@ -3714,7 +3769,17 @@ var _origSetMood = setMood; setMood = function(m) { _origSetMood(m); pushToCloud
   <input id="zm-name" class="input" type="text" placeholder="e.g. Monday Night Step Study">
 
   <div class="modal-label">Day / Time</div>
-  <input id="zm-time" class="input" type="text" placeholder="e.g. Mondays 7pm GMT">
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+    <div class="role-btn" onclick="toggleMeetingDay(this,'Mon')">Mon</div>
+    <div class="role-btn" onclick="toggleMeetingDay(this,'Tue')">Tue</div>
+    <div class="role-btn" onclick="toggleMeetingDay(this,'Wed')">Wed</div>
+    <div class="role-btn" onclick="toggleMeetingDay(this,'Thu')">Thu</div>
+    <div class="role-btn" onclick="toggleMeetingDay(this,'Fri')">Fri</div>
+    <div class="role-btn" onclick="toggleMeetingDay(this,'Sat')">Sat</div>
+    <div class="role-btn" onclick="toggleMeetingDay(this,'Sun')">Sun</div>
+    <div class="role-btn" onclick="toggleMeetingDay(this,'Daily')" style="grid-column:span 2;">Every Day</div>
+  </div>
+  <input id="zm-time" class="input" type="text" placeholder="Time e.g. 7pm GMT">
 
   <div class="modal-label">Zoom Meeting ID</div>
   <input id="zm-id" class="input" type="text" placeholder="e.g. 123 456 7890" inputmode="numeric">
