@@ -1534,10 +1534,11 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
   <!-- EVENTS SCREEN -->
 
   <div class="screen" id="screen-events">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;">
+    <div style="margin-bottom:2px;">
       <div style="font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:var(--ac);">Events</div>
-      <span id="admin-events-btn" style="display:none;"><button onclick="openAdminPanel()" style="font-size:0.65rem;color:#e74c3c;background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:12px;padding:5px 10px;cursor:pointer;">⚙️ Review</button></span>
     </div>
+    <!-- Floating admin review button - bottom left, above nav -->
+    <button id="admin-events-btn" onclick="openAdminPanel()" style="display:none;position:fixed;bottom:80px;left:16px;z-index:500;padding:10px 16px;background:rgba(231,76,60,0.9);border:none;border-radius:24px;color:#fff;font-size:0.75rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(231,76,60,0.4);">⚙️ Review Pending</button>
     <!-- Floating add button -->
     <button onclick="openSubmitEvent()" style="position:fixed;bottom:80px;right:16px;z-index:500;width:52px;height:52px;border-radius:50%;background:var(--ac);border:none;font-size:1.5rem;color:#1a1208;cursor:pointer;box-shadow:0 4px 16px rgba(232,201,122,0.4);display:flex;align-items:center;justify-content:center;">+</button>
     <div style="font-size:0.62rem;color:var(--tm);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px;">Global recovery events</div>
@@ -3357,14 +3358,21 @@ function checkPendingBadge() {
 function renderAccountScreen() {
   var el = document.getElementById('account-screen-content');
   if (!el) return;
-  el.innerHTML = '';
+  while (el.firstChild) el.removeChild(el.firstChild);
 
   if (!currentUser) {
-    el.innerHTML = '<div style="text-align:center;padding:40px 0;">' +
-      '<div style="font-size:3rem;margin-bottom:16px;">👤</div>' +
-      '<div style="font-size:0.9rem;margin-bottom:8px;">Not signed in</div>' +
-      '<button onclick="showWelcomeScreen()" style="padding:13px 24px;background:var(--ac);border:none;border-radius:var(--r);color:#1a1208;font-weight:700;cursor:pointer;">Sign In</button>' +
-      '</div>';
+    var signInWrap = document.createElement('div');
+    signInWrap.style.cssText = 'text-align:center;padding:40px 0;';
+    var icon = document.createElement('div');
+    icon.style.cssText = 'font-size:3rem;margin-bottom:16px;';
+    icon.textContent = 'Sign in to your account';
+    var signInBtn = document.createElement('button');
+    signInBtn.style.cssText = 'padding:13px 24px;background:var(--ac);border:none;border-radius:var(--r);color:#1a1208;font-weight:700;cursor:pointer;font-size:0.9rem;';
+    signInBtn.textContent = 'Sign In';
+    signInBtn.onclick = function() { showWelcomeScreen(); };
+    signInWrap.appendChild(icon);
+    signInWrap.appendChild(signInBtn);
+    el.appendChild(signInWrap);
     return;
   }
 
@@ -3373,25 +3381,55 @@ function renderAccountScreen() {
   var tier = getUserTier();
 
   // Profile card
-  var html = '<div class="card" style="text-align:center;margin-bottom:16px;">' +
-    '<div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--ac),#b8965a);display:flex;align-items:center;justify-content:center;font-size:1.8rem;font-weight:700;color:#1a1208;margin:0 auto 12px;">' + name[0].toUpperCase() + '</div>' +
-    '<div style="font-weight:700;font-size:1rem;">' + name + '</div>' +
-    '<div style="font-size:0.72rem;color:var(--tm);margin-top:4px;">' + email + '</div>' +
-    '<div style="margin-top:10px;"><span style="padding:4px 12px;border-radius:20px;font-size:0.65rem;font-weight:800;text-transform:uppercase;' + (tier==='member' ? 'background:rgba(232,201,122,0.2);color:var(--ac);border:1px solid rgba(232,201,122,0.4);' : 'background:rgba(255,255,255,0.08);color:var(--tm);border:1px solid var(--bd);') + '">' + tier.charAt(0).toUpperCase()+tier.slice(1) + '</span></div>' +
-    '</div>';
+  var card = document.createElement('div');
+  card.className = 'card';
+  card.style.cssText = 'text-align:center;margin-bottom:16px;padding:20px;';
+
+  var avatar = document.createElement('div');
+  avatar.style.cssText = 'width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--ac),#b8965a);display:flex;align-items:center;justify-content:center;font-size:1.8rem;font-weight:700;color:#1a1208;margin:0 auto 12px;';
+  avatar.textContent = name[0].toUpperCase();
+  card.appendChild(avatar);
+
+  var nameEl = document.createElement('div');
+  nameEl.style.cssText = 'font-weight:700;font-size:1rem;margin-bottom:4px;';
+  nameEl.textContent = name;
+  card.appendChild(nameEl);
+
+  var emailEl = document.createElement('div');
+  emailEl.style.cssText = 'font-size:0.72rem;color:var(--tm);margin-bottom:10px;';
+  emailEl.textContent = email;
+  card.appendChild(emailEl);
+
+  var badge = document.createElement('span');
+  badge.style.cssText = 'padding:4px 12px;border-radius:20px;font-size:0.65rem;font-weight:800;text-transform:uppercase;' + (tier==='member' ? 'background:rgba(232,201,122,0.2);color:var(--ac);border:1px solid rgba(232,201,122,0.4);' : 'background:rgba(255,255,255,0.08);color:var(--tm);border:1px solid var(--bd);');
+  badge.textContent = tier.charAt(0).toUpperCase() + tier.slice(1);
+  card.appendChild(badge);
+  el.appendChild(card);
 
   // Admin section
   if (isAdmin()) {
-    html += '<div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:var(--r);padding:16px;margin-bottom:16px;">' +
-      '<div style="font-size:0.72rem;font-weight:800;color:#e74c3c;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">🛡️ Admin</div>' +
-      '<button onclick="openAdminPanel()" style="width:100%;padding:12px;background:rgba(231,76,60,0.2);border:1px solid rgba(231,76,60,0.4);border-radius:10px;color:#e74c3c;font-size:0.82rem;font-weight:600;cursor:pointer;">⚙️ Review Pending Events</button>' +
-      '</div>';
+    var adminCard = document.createElement('div');
+    adminCard.style.cssText = 'background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:var(--r);padding:16px;margin-bottom:16px;';
+
+    var adminTitle = document.createElement('div');
+    adminTitle.style.cssText = 'font-size:0.72rem;font-weight:800;color:#e74c3c;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;';
+    adminTitle.textContent = 'Admin';
+    adminCard.appendChild(adminTitle);
+
+    var reviewBtn = document.createElement('button');
+    reviewBtn.style.cssText = 'width:100%;padding:12px;background:rgba(231,76,60,0.2);border:1px solid rgba(231,76,60,0.4);border-radius:10px;color:#e74c3c;font-size:0.82rem;font-weight:600;cursor:pointer;';
+    reviewBtn.textContent = 'Review Pending Events';
+    reviewBtn.onclick = function() { openAdminPanel(); };
+    adminCard.appendChild(reviewBtn);
+    el.appendChild(adminCard);
   }
 
-  // Sign out
-  html += '<button onclick="doSignOut()" style="width:100%;padding:13px;border:1px solid rgba(192,57,43,0.3);border-radius:var(--r);background:transparent;color:#e74c3c;cursor:pointer;font-size:0.85rem;">Sign Out</button>';
-
-  el.innerHTML = html;
+  // Sign out button
+  var signOutBtn = document.createElement('button');
+  signOutBtn.style.cssText = 'width:100%;padding:13px;border:1px solid rgba(192,57,43,0.3);border-radius:var(--r);background:transparent;color:#e74c3c;cursor:pointer;font-size:0.85rem;margin-top:8px;';
+  signOutBtn.textContent = 'Sign Out';
+  signOutBtn.onclick = function() { doSignOut(); };
+  el.appendChild(signOutBtn);
 }
 
 // =====================
