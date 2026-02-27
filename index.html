@@ -3329,10 +3329,8 @@ function getUserTier() {
 }
 
 function canAccess(screen) {
-  var tier = getUserTier();
-  if (!tier) return ['home','meetings','books'].indexOf(screen) > -1;
-  var allowed = TIER_FEATURES[tier] || TIER_FEATURES['free'];
-  return allowed.indexOf(screen) > -1;
+  // TESTING MODE - all screens accessible
+  return true;
 }
 
 // ---- WELCOME / AUTH SCREEN ----
