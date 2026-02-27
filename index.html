@@ -3236,7 +3236,8 @@ async function openAdminPanel() {
       });
     }
     document.getElementById('admin-modal').classList.add('open');
-  } catch(e) { toast('Could not load admin panel'); }
+    loadEventSources();
+  } catch(e) { toast('Could not load admin panel: ' + e.message); }
 }
 
 async function approveEvent(id) {
@@ -4289,6 +4290,96 @@ function renderMyEvents() {
 }
 
 
+
+// =====================
+// EVENT SOURCES
+// =====================
+async function loadEventSources() {
+  if (!supa || !isAdmin()) return;
+  var list = document.getElementById('sources-list');
+  if (!list) return;
+  while (list.firstChild) list.removeChild(list.firstChild);
+
+  var res = await supa.from('event_sources').select('*').order('created_at', { ascending: true });
+  var sources = res.data || [];
+
+  if (!sources.length) {
+    var empty = document.createElement('div');
+    empty.style.cssText = 'font-size:0.72rem;color:var(--tm);margin-bottom:6px;';
+    empty.textContent = 'No saved sources yet — add one below';
+    list.appendChild(empty);
+    return;
+  }
+
+  sources.forEach(function(src) {
+    var row = document.createElement('div');
+    row.style.cssText = 'background:var(--sf2);border:1px solid var(--bd);border-radius:10px;padding:10px 12px;margin-bottom:8px;';
+
+    var top = document.createElement('div');
+    top.style.cssText = 'display:flex;align-items:center;gap:8px;margin-bottom:6px;';
+
+    var label = document.createElement('div');
+    label.style.cssText = 'flex:1;font-size:0.82rem;font-weight:700;';
+    label.textContent = src.label || src.url;
+    top.appendChild(label);
+
+    var deleteBtn = document.createElement('button');
+    deleteBtn.style.cssText = 'font-size:0.65rem;color:#e74c3c;background:transparent;border:1px solid rgba(231,76,60,0.3);border-radius:20px;padding:3px 8px;cursor:pointer;';
+    deleteBtn.textContent = '✕';
+    deleteBtn.onclick = async function() {
+      if (confirm('Remove this source?')) {
+        await supa.from('event_sources').delete().eq('id', src.id);
+        loadEventSources();
+      }
+    };
+    top.appendChild(deleteBtn);
+    row.appendChild(top);
+
+    var urlEl = document.createElement('div');
+    urlEl.style.cssText = 'font-size:0.65rem;color:var(--tm);margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
+    urlEl.textContent = src.url;
+    row.appendChild(urlEl);
+
+    var lastSync = document.createElement('div');
+    lastSync.style.cssText = 'font-size:0.65rem;color:var(--tm);margin-bottom:8px;';
+    lastSync.textContent = src.last_synced
+      ? 'Last synced: ' + new Date(src.last_synced).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' })
+      : 'Never synced';
+    row.appendChild(lastSync);
+
+    var syncBtn = document.createElement('button');
+    syncBtn.style.cssText = 'width:100%;padding:8px;background:var(--ac);border:none;border-radius:8px;color:#1a1208;font-weight:700;font-size:0.75rem;cursor:pointer;';
+    syncBtn.textContent = '🔄 Sync Now';
+    syncBtn.onclick = function() {
+      document.getElementById('bulk-import-url').value = src.url;
+      bulkImportEvents(src.id);
+    };
+    row.appendChild(syncBtn);
+
+    list.appendChild(row);
+  });
+}
+
+async function addEventSource() {
+  var url = (document.getElementById('bulk-import-url').value || '').trim();
+  var label = (document.getElementById('bulk-import-label').value || '').trim();
+  if (!url) { toast('Please enter a URL first'); return; }
+  if (!url.startsWith('http')) url = 'https://' + url;
+
+  var res = await supa.from('event_sources').insert({ url: url, label: label || null });
+  if (res.error) {
+    if (res.error.code === '23505') {
+      toast('This URL is already saved');
+    } else {
+      toast('Could not save: ' + res.error.message);
+    }
+    return;
+  }
+  document.getElementById('bulk-import-label').value = '';
+  toast('Source saved! ✓');
+  loadEventSources();
+}
+
 // =====================
 // BULK EVENT IMPORT
 // =====================
@@ -4372,8 +4463,16 @@ async function bulkImportEvents() {
       };
     });
 
-    var res = await supa.from('events').insert(rows);
-    if (res.error) throw new Error('Save failed: ' + res.error.message);
+    // Insert in batches of 10
+    var batchSize = 10;
+    var saved = 0;
+    for (var i = 0; i < rows.length; i += batchSize) {
+      var batch = rows.slice(i, i + batchSize);
+      status.textContent = '⏳ Saving ' + Math.min(i + batchSize, rows.length) + ' of ' + rows.length + '...';
+      var bRes = await supa.from('events').insert(batch);
+      if (bRes.error) throw new Error('Save failed: ' + bRes.error.message);
+      saved += batch.length;
+    }
 
     status.textContent = '✅ ' + valid.length + ' events imported! Review them below.';
     btn.textContent = '🤖 Import Events with AI';
