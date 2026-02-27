@@ -866,7 +866,7 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
   </div>
   <div style="display:flex;align-items:center;gap:8px;">
     <button id="home-signout-btn" onclick="doSignOut()" style="display:none;font-size:0.65rem;color:#e74c3c;background:transparent;border:1px solid rgba(231,76,60,0.3);border-radius:12px;padding:5px 11px;cursor:pointer;">Sign Out</button>
-    <button id="home-signin-btn" onclick="document.getElementById('account-sheet').classList.add('open');openAccountSheet();" style="width:34px;height:34px;border-radius:50%;background:var(--sf);border:1px solid rgba(232,201,122,0.35);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:var(--ac);">👤</button>
+    <button id="home-signin-btn" onclick="showScreen('account')" style="width:34px;height:34px;border-radius:50%;background:var(--sf);border:1px solid rgba(232,201,122,0.35);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:var(--ac);">👤</button>
   </div>
 </div>
 
@@ -1756,6 +1756,18 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
     </div>
   </div>
 
+  <!-- ACCOUNT SCREEN -->
+
+  <div class="screen" id="screen-account">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:var(--ac);margin-bottom:4px;">My Account</div>
+    <div style="font-size:0.62rem;color:var(--tm);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:24px;">Profile & Settings</div>
+
+```
+<div id="account-screen-content"></div>
+```
+
+  </div>
+
   <!-- NAV -->
 
   <nav>
@@ -1829,6 +1841,7 @@ function showScreen(name) {
   document.getElementById('screen-' + name).classList.add('active');
   document.getElementById('nav-' + name).classList.add('active');
   if (name === 'meetings') { renderSavedMeetings(); }
+  if (name === 'account') { renderAccountScreen(); }
   if (name === 'network') {
     setTimeout(function(){
       if (typeof L === 'undefined') return;
@@ -3314,6 +3327,50 @@ function closePaywall(e) {
 }
 
 
+
+
+// =====================
+// ACCOUNT SCREEN
+// =====================
+function renderAccountScreen() {
+  var el = document.getElementById('account-screen-content');
+  if (!el) return;
+  el.innerHTML = '';
+
+  if (!currentUser) {
+    el.innerHTML = '<div style="text-align:center;padding:40px 0;">' +
+      '<div style="font-size:3rem;margin-bottom:16px;">👤</div>' +
+      '<div style="font-size:0.9rem;margin-bottom:8px;">Not signed in</div>' +
+      '<button onclick="showWelcomeScreen()" style="padding:13px 24px;background:var(--ac);border:none;border-radius:var(--r);color:#1a1208;font-weight:700;cursor:pointer;">Sign In</button>' +
+      '</div>';
+    return;
+  }
+
+  var email = currentUser.email || '';
+  var name = email.split('@')[0];
+  var tier = getUserTier();
+
+  // Profile card
+  var html = '<div class="card" style="text-align:center;margin-bottom:16px;">' +
+    '<div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--ac),#b8965a);display:flex;align-items:center;justify-content:center;font-size:1.8rem;font-weight:700;color:#1a1208;margin:0 auto 12px;">' + name[0].toUpperCase() + '</div>' +
+    '<div style="font-weight:700;font-size:1rem;">' + name + '</div>' +
+    '<div style="font-size:0.72rem;color:var(--tm);margin-top:4px;">' + email + '</div>' +
+    '<div style="margin-top:10px;"><span style="padding:4px 12px;border-radius:20px;font-size:0.65rem;font-weight:800;text-transform:uppercase;' + (tier==='member' ? 'background:rgba(232,201,122,0.2);color:var(--ac);border:1px solid rgba(232,201,122,0.4);' : 'background:rgba(255,255,255,0.08);color:var(--tm);border:1px solid var(--bd);') + '">' + tier.charAt(0).toUpperCase()+tier.slice(1) + '</span></div>' +
+    '</div>';
+
+  // Admin section
+  if (isAdmin()) {
+    html += '<div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:var(--r);padding:16px;margin-bottom:16px;">' +
+      '<div style="font-size:0.72rem;font-weight:800;color:#e74c3c;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">🛡️ Admin</div>' +
+      '<button onclick="openAdminPanel()" style="width:100%;padding:12px;background:rgba(231,76,60,0.2);border:1px solid rgba(231,76,60,0.4);border-radius:10px;color:#e74c3c;font-size:0.82rem;font-weight:600;cursor:pointer;">⚙️ Review Pending Events</button>' +
+      '</div>';
+  }
+
+  // Sign out
+  html += '<button onclick="doSignOut()" style="width:100%;padding:13px;border:1px solid rgba(192,57,43,0.3);border-radius:var(--r);background:transparent;color:#e74c3c;cursor:pointer;font-size:0.85rem;">Sign Out</button>';
+
+  el.innerHTML = html;
+}
 
 // =====================
 // ACCOUNT SHEET
