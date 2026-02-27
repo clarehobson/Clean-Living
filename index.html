@@ -866,7 +866,7 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
   </div>
   <div style="display:flex;align-items:center;gap:8px;">
     <button id="home-signout-btn" onclick="doSignOut()" style="display:none;font-size:0.65rem;color:#e74c3c;background:transparent;border:1px solid rgba(231,76,60,0.3);border-radius:12px;padding:5px 11px;cursor:pointer;">Sign Out</button>
-    <button id="home-signin-btn" onclick="openAccountSheet()" style="width:34px;height:34px;border-radius:50%;background:var(--sf);border:1px solid rgba(232,201,122,0.35);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:var(--ac);">👤</button>
+    <button id="home-signin-btn" onclick="document.getElementById('account-sheet').classList.add('open');openAccountSheet();" style="width:34px;height:34px;border-radius:50%;background:var(--sf);border:1px solid rgba(232,201,122,0.35);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:var(--ac);">👤</button>
   </div>
 </div>
 
@@ -1531,8 +1531,9 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
   <!-- EVENTS SCREEN -->
 
   <div class="screen" id="screen-events">
-    <div style="margin-bottom:2px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;">
       <div style="font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:var(--ac);">Events</div>
+      <span id="admin-events-btn" style="display:none;"><button onclick="openAdminPanel()" style="font-size:0.65rem;color:#e74c3c;background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:12px;padding:5px 10px;cursor:pointer;">⚙️ Review</button></span>
     </div>
     <!-- Floating add button -->
     <button onclick="openSubmitEvent()" style="position:fixed;bottom:80px;right:16px;z-index:500;width:52px;height:52px;border-radius:50%;background:var(--ac);border:none;font-size:1.5rem;color:#1a1208;cursor:pointer;box-shadow:0 4px 16px rgba(232,201,122,0.4);display:flex;align-items:center;justify-content:center;">+</button>
@@ -2714,6 +2715,9 @@ async function loadEvents() {
     allEvents = result.data;
     renderEvents();
     eventsLoaded = true;
+    // Show admin review button if admin
+    var adminEvBtn = document.getElementById('admin-events-btn');
+    if (adminEvBtn) adminEvBtn.style.display = isAdmin() ? 'inline' : 'none';
 
 
   } catch(e) {
@@ -4000,7 +4004,7 @@ var _origSetMood = setMood; setMood = function(m) { _origSetMood(m); pushToCloud
     </div>
 
     <!-- Sign Out -->
-    <button onclick="doSignOut()" style="width:100%;padding:13px;border:1px solid rgba(192,57,43,0.3);border-radius:var(--r);background:transparent;color:#e74c3c;cursor:pointer;">Sign Out</button>
+    <button onclick="doSignOut();" style="width:100%;padding:13px;border:1px solid rgba(192,57,43,0.3);border-radius:var(--r);background:transparent;color:#e74c3c;cursor:pointer;">Sign Out</button>
   </div>
 
 </div>
