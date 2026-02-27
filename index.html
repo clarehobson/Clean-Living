@@ -1797,6 +1797,8 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
 <div id="toast"></div>
 
 <script>
+var AI_PROXY = "https://clarelivingapp.Clare-Monahan.workers.dev";
+
 var QUOTES = [
   {text: "Just for today, I will try to live through this day only.", source: "Just for Today"},
   {text: "We admitted we were powerless over our addiction.", source: "Step One"},
@@ -3436,13 +3438,11 @@ function fillEventForm(data) {
 }
 
 async function autofillFromUrl() {
-  showAutofillStatus('Smart fill coming soon — please fill in the details manually for now', 'error');
-  return;
   var url = document.getElementById('ev-autofill-url').value.trim();
   if (!url) { showAutofillStatus('Please paste a website URL first', 'error'); return; }
   showAutofillStatus('Reading page... this may take a moment', 'ok');
   try {
-    var response = await fetch('https://api.anthropic.com/v1/messages', {
+    var response = await fetch(AI_PROXY, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -3476,9 +3476,7 @@ async function autofillFromImage(input) {
     if (wrap) wrap.style.display = 'block';
   };
   reader.readAsDataURL(file);
-  showAutofillStatus('Flyer saved — please fill in the event details below', 'ok');
-  return;
-  showAutofillStatus('Reading flyer image...', 'ok');
+  showAutofillStatus('Reading flyer... ✨', 'ok');
   // Read as base64 for API
   var b64reader = new FileReader();
   b64reader.onload = async function(e) {
@@ -3487,7 +3485,7 @@ async function autofillFromImage(input) {
     try {
       var response = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-api-key': 'REMOVED', 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           model: 'claude-sonnet-4-20250514',
           max_tokens: 800,
