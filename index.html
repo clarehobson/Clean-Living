@@ -3245,7 +3245,7 @@ async function pullFromCloud() {
     if (data.clean_date) { cleanDate = data.clean_date; localStorage.setItem('na_clean_date', cleanDate); updateDaysCount(); }
     if (data.mood_log && data.mood_log.length) { moodLog = data.mood_log; localStorage.setItem('na_mood_log', JSON.stringify(moodLog)); markTodayMood(); renderMoodHistory(); }
     if (data.journal && data.journal.length) { journalEntries = data.journal; localStorage.setItem('na_journal', JSON.stringify(journalEntries)); renderJournalEntries(); }
-    if (data.network && data.network.length) { networkContacts = data.network; localStorage.setItem('na_network', JSON.stringify(networkContacts)); renderNetwork(); }
+    // network contacts deprecated - now using Supabase profiles/connections
   } catch(e) {}
 }
 // On load - wrapped in DOMContentLoaded so all functions exist first
