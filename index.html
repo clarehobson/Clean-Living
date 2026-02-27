@@ -3483,7 +3483,7 @@ async function autofillFromImage(input) {
     var base64 = e.target.result.split(',')[1];
     var mediaType = file.type || 'image/jpeg';
     try {
-      var response = await fetch('https://api.anthropic.com/v1/messages', {
+      var response = await fetch(AI_PROXY, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
