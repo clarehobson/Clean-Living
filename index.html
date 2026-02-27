@@ -947,7 +947,7 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
     <div style="font-size:1.8rem;">&#x270D;</div>
     <div style="font-size:0.76rem; font-weight:600; color:var(--tx); margin-top:6px;">Journal</div>
   </div>
-  <div class="card" onclick="showScreen('events')" style="text-align:center; cursor:pointer; margin-bottom:0; padding:18px 16px; position:relative;">
+  <div class="card" onclick="showScreen('my-events')" style="text-align:center; cursor:pointer; margin-bottom:0; padding:18px 16px; position:relative;">
     <div style="font-size:1.8rem;">📅</div>
     <div style="font-size:0.76rem; font-weight:600; color:var(--tx); margin-top:6px;">My Events</div>
     <div id="home-events-badge" style="display:none;position:absolute;top:8px;right:8px;background:var(--ac);color:#1a1208;font-size:0.55rem;font-weight:800;border-radius:20px;padding:2px 6px;"></div>
@@ -1824,6 +1824,16 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
     </div>
   </div>
 
+  <!-- MY EVENTS SCREEN -->
+
+  <div class="screen" id="screen-my-events">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+      <button onclick="showScreen('home')" style="background:transparent;border:none;color:var(--ac);font-size:1.8rem;cursor:pointer;padding:0;line-height:1;">‹</button>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:var(--ac);">My Events</div>
+    </div>
+    <div id="my-events-list"></div>
+  </div>
+
   <!-- ACCOUNT SCREEN -->
 
   <div class="screen" id="screen-account">
@@ -1912,6 +1922,7 @@ function showScreen(name) {
   if (name === 'meetings') { renderSavedMeetings(); }
   if (name === 'home') { loadHomeCalendar(); }
   if (name === 'account') { renderAccountScreen(); }
+  if (name === 'my-events') { renderMyEvents(); }
   if (name === 'network') {
     setTimeout(function(){
       if (typeof L === 'undefined') return;
@@ -4160,6 +4171,134 @@ var _origSaveContact = saveContact; saveContact = function() { _origSaveContact.
 var _origDeleteContact = deleteContact; deleteContact = function(id) { _origDeleteContact(id); pushToCloud(); };
 var _origDeleteJournal = deleteJournal; deleteJournal = function(id) { _origDeleteJournal(id); pushToCloud(); };
 var _origSetMood = setMood; setMood = function(m) { _origSetMood(m); pushToCloud(); };
+
+// =====================
+// MY EVENTS SCREEN
+// =====================
+function renderMyEvents() {
+  var list = document.getElementById('my-events-list');
+  if (!list) return;
+  while (list.firstChild) list.removeChild(list.firstChild);
+
+  if (!currentUser) {
+    list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--tm);">Sign in to see your events</div>';
+    return;
+  }
+
+  function doRender(events) {
+    var userId = currentUser.id;
+    var today = new Date(); today.setHours(0,0,0,0);
+
+    var myEvents = events.filter(function(ev) {
+      return ev.going_users && ev.going_users.indexOf(userId) > -1;
+    });
+
+    while (list.firstChild) list.removeChild(list.firstChild);
+
+    if (!myEvents.length) {
+      var emptyDiv = document.createElement('div');
+      emptyDiv.style.cssText = 'text-align:center;padding:50px 20px;';
+      var icon = document.createElement('div');
+      icon.style.cssText = 'font-size:3rem;margin-bottom:12px;';
+      icon.textContent = '📅';
+      var msg = document.createElement('div');
+      msg.style.cssText = 'font-size:0.88rem;color:var(--tm);margin-bottom:16px;';
+      msg.textContent = "You haven't marked any events as going yet";
+      var btn = document.createElement('button');
+      btn.style.cssText = 'padding:11px 22px;background:var(--ac);border:none;border-radius:var(--r);color:#1a1208;font-weight:700;cursor:pointer;';
+      btn.textContent = 'Browse Events';
+      btn.onclick = function(){ showScreen('events'); };
+      emptyDiv.appendChild(icon);
+      emptyDiv.appendChild(msg);
+      emptyDiv.appendChild(btn);
+      list.appendChild(emptyDiv);
+      return;
+    }
+
+    var upcoming = myEvents.filter(function(ev){ return new Date(ev.date) >= today; });
+    var past = myEvents.filter(function(ev){ return new Date(ev.date) < today; });
+
+    function buildCard(ev) {
+      var d = new Date(ev.date);
+      var isPast = d < today;
+      var card = document.createElement('div');
+      card.style.cssText = 'background:var(--sf);border:1px solid ' + (isPast ? 'var(--bd)' : 'rgba(232,201,122,0.35)') + ';border-radius:var(--r);padding:14px;margin-bottom:10px;display:flex;gap:12px;opacity:' + (isPast ? '0.55' : '1') + ';';
+
+      var dateBadge = document.createElement('div');
+      dateBadge.style.cssText = 'flex-shrink:0;width:46px;text-align:center;background:rgba(232,201,122,0.1);border:1px solid rgba(232,201,122,0.25);border-radius:10px;padding:8px 4px;';
+      var dayEl = document.createElement('div');
+      dayEl.style.cssText = 'font-size:1.2rem;font-weight:800;color:var(--ac);line-height:1;';
+      dayEl.textContent = d.getDate();
+      var monEl = document.createElement('div');
+      monEl.style.cssText = 'font-size:0.58rem;text-transform:uppercase;color:var(--tm);margin-top:2px;';
+      monEl.textContent = d.toLocaleDateString('en-GB',{month:'short'});
+      var yrEl = document.createElement('div');
+      yrEl.style.cssText = 'font-size:0.58rem;color:var(--tm);';
+      yrEl.textContent = d.getFullYear();
+      dateBadge.appendChild(dayEl);
+      dateBadge.appendChild(monEl);
+      dateBadge.appendChild(yrEl);
+      card.appendChild(dateBadge);
+
+      var info = document.createElement('div');
+      info.style.cssText = 'flex:1;min-width:0;';
+      var nameEl = document.createElement('div');
+      nameEl.style.cssText = 'font-weight:700;font-size:0.88rem;margin-bottom:3px;';
+      nameEl.textContent = ev.name;
+      var locEl = document.createElement('div');
+      locEl.style.cssText = 'font-size:0.72rem;color:var(--tm);margin-bottom:8px;';
+      locEl.textContent = '📍 ' + (ev.location || '') + (ev.country ? ', ' + ev.country : '');
+      var removeBtn = document.createElement('button');
+      removeBtn.style.cssText = 'font-size:0.68rem;color:var(--tm);background:transparent;border:1px solid var(--bd);border-radius:20px;padding:3px 10px;cursor:pointer;';
+      removeBtn.textContent = '✕ Remove';
+      removeBtn.onclick = function(e) {
+        e.stopPropagation();
+        toggleGoing(e, ev.id);
+        setTimeout(function(){ renderMyEvents(); loadHomeCalendar(); }, 600);
+      };
+      info.appendChild(nameEl);
+      info.appendChild(locEl);
+      info.appendChild(removeBtn);
+      card.appendChild(info);
+      return card;
+    }
+
+    function addSection(title, evList) {
+      var hdr = document.createElement('div');
+      hdr.style.cssText = 'font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--ac);margin:16px 0 10px;';
+      hdr.textContent = title;
+      list.appendChild(hdr);
+
+      var grouped = {};
+      evList.forEach(function(ev) {
+        var key = new Date(ev.date).toLocaleDateString('en-GB',{month:'long',year:'numeric'});
+        if (!grouped[key]) grouped[key] = [];
+        grouped[key].push(ev);
+      });
+      Object.keys(grouped).forEach(function(month) {
+        var mh = document.createElement('div');
+        mh.style.cssText = 'font-size:0.72rem;color:var(--tm);margin:10px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--bd);';
+        mh.textContent = month;
+        list.appendChild(mh);
+        grouped[month].forEach(function(ev){ list.appendChild(buildCard(ev)); });
+      });
+    }
+
+    if (upcoming.length) addSection('Upcoming · ' + upcoming.length + ' event' + (upcoming.length !== 1 ? 's' : ''), upcoming);
+    if (past.length) addSection('Past events', past);
+  }
+
+  if (allEvents && allEvents.length) {
+    doRender(allEvents);
+  } else if (supa) {
+    list.innerHTML = '<div style="text-align:center;padding:30px;color:var(--tm);">Loading...</div>';
+    supa.from('events').select('*').eq('approved',true).order('date',{ascending:true}).then(function(r){
+      if (r.data) { allEvents = r.data; }
+      doRender(allEvents || []);
+    });
+  }
+}
+
 </script>
 
   <!-- WELCOME / AUTH SCREEN -->
