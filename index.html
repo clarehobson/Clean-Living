@@ -1684,15 +1684,8 @@ function showScreen(name) {
   if (name === 'home') { loadHomeCalendar(); }
   if (name === 'account') { renderAccountScreen(); }
   if (name === 'my-events') { renderMyEvents(); }
-  if (name === 'network') {
-    loadNetwork();
-  }
-  if (name === 'events') {
-    loadEvents();
-  }
-  if (name === 'network') {
-    loadNetwork();
-  }
+  if (name === 'network') { loadNetwork(); }
+  if (name === 'events') { loadEvents(); }
 }
 // --- CLEAN DATE ---
 function saveCleanDate(val) {
@@ -3311,8 +3304,7 @@ showWelcomeScreen();
 });
 var _origSaveCleanDate = saveCleanDate; saveCleanDate = function() { _origSaveCleanDate.apply(this,arguments); pushToCloud(); };
 var _origSaveJournal = saveJournal; saveJournal = function() { _origSaveJournal.apply(this,arguments); pushToCloud(); };
-var _origSaveContact = saveContact; saveContact = function() { _origSaveContact.apply(this,arguments); pushToCloud(); };
-var _origDeleteContact = deleteContact; deleteContact = function(id) { _origDeleteContact(id); pushToCloud(); };
+// contact functions removed with old network tab
 var _origDeleteJournal = deleteJournal; deleteJournal = function(id) { _origDeleteJournal(id); pushToCloud(); };
 var _origSetMood = setMood; setMood = function(m) { _origSetMood(m); pushToCloud(); };
 // =====================
