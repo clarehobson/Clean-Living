@@ -2372,7 +2372,7 @@ function openEditContact(id) {
 function selectRole(btn, role) {
   selectedRole = role;
   document.querySelectorAll('.role-btn').forEach(function(b){ b.classList.remove('selected'); });
-  btn.classList.add('selected');
+  if (btn) btn.classList.add('selected');
 }
 
 function saveContact() {
@@ -2956,7 +2956,13 @@ async function toggleGoing(e, eventId) {
 function selectEvType(btn, type) {
   selectedEvType = type;
   document.querySelectorAll('#submit-event-modal .role-btn').forEach(function(b){ b.classList.remove('selected'); });
-  btn.classList.add('selected');
+  if (btn) btn.classList.add('selected');
+  // If called with null btn (e.g. from autofill), find and highlight the matching button
+  if (!btn) {
+    document.querySelectorAll('#submit-event-modal .role-btn').forEach(function(b){
+      if (b.textContent.toLowerCase().indexOf(type.toLowerCase()) > -1) b.classList.add('selected');
+    });
+  }
 }
 
 function openSubmitEvent() {
