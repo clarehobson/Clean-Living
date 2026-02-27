@@ -3500,14 +3500,14 @@ async function autofillFromImage(input) {
         })
       });
       var data = await response.json();
-      if (data.error) { showAutofillStatus('Could not read flyer — please fill in manually', 'error'); return; }
+      if (data.error) { showAutofillStatus('API error: ' + JSON.stringify(data.error), 'error'); return; }
       var text = (data.content && data.content[0]) ? data.content[0].text : '';
       var clean = text.replace(/```json|```/g, '').trim();
       var event = JSON.parse(clean);
       fillEventForm(event);
       showAutofillStatus('✓ Flyer read — please check and complete the details', 'ok');
     } catch(e) {
-      showAutofillStatus('Could not read flyer — please fill in manually', 'error');
+      showAutofillStatus('Error: ' + (e.message || JSON.stringify(e)), 'error');
     }
   };
   b64reader.readAsDataURL(file);
