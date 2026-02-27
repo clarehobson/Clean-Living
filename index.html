@@ -851,7 +851,7 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
 
 <!-- FORGOT PASSWORD SCREEN -->
 
-<div id="app" style="display:none;">
+<div id="app">
 
   <!-- HOME SCREEN -->
 
@@ -3186,7 +3186,7 @@ function showWelcomeScreen() {
 
 function hideWelcomeScreen() {
   document.getElementById('welcome-screen').style.display = 'none';
-  document.getElementById('app').style.display = 'flex';
+  document.getElementById('app').style.display = 'block';
 }
 
 function showAuthForm(mode) {
@@ -3819,21 +3819,25 @@ async function pullFromCloud() {
 
 // On load - wrapped in DOMContentLoaded so all functions exist first
 document.addEventListener('DOMContentLoaded', function() {
-  // Always show welcome screen first
-  showWelcomeScreen();
-  // Then check if already signed in
+  // Check session - show welcome if not signed in, go straight to app if signed in
   if (supa) {
     supa.auth.getSession().then(function(r) {
       if (r && r.data && r.data.session && r.data.session.user && r.data.session.user.email) {
+        // Already signed in - go straight to app
         currentUser = r.data.session.user;
         pullFromCloud();
         updateSigninBtn();
-        hideWelcomeScreen();
+        // app is already visible, welcome screen is hidden
+      } else {
+        // Not signed in - show welcome screen
+        showWelcomeScreen();
       }
-      // else stay on welcome screen
     }).catch(function(){
-      // stay on welcome screen
+      // Can't reach Supabase - show app anyway
+      console.log('Session check failed - showing app');
     });
+  } else {
+    showWelcomeScreen();
   }
 });
 
