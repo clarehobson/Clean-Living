@@ -3199,10 +3199,16 @@ var TIER_FEATURES = {
   member: ['home','meetings','books','steps','network','journal','events','resources','account']
 };
 
+var BETA_CODE = 'CLEANLIVING2025';
+
 function getUserTier() {
   if (!currentUser) return null;
   // Admin / founder account always gets full member access
   if (currentUser.email === 'clarehobson@icloud.com' || currentUser.email === 'monahan.c78@gmail.com' || currentUser.email === 'saundersdean386@yahoo.co.uk') {
+    return 'member';
+  }
+  // Beta code gives full member access
+  if (localStorage.getItem('cl_beta_code') === BETA_CODE) {
     return 'member';
   }
   // Check Supabase user metadata for tier
@@ -3423,6 +3429,40 @@ function renderAccountScreen() {
     reviewBtn.onclick = function() { openAdminPanel(); };
     adminCard.appendChild(reviewBtn);
     el.appendChild(adminCard);
+  }
+
+  // Beta code section (only show if not already member)
+  if (tier !== 'member') {
+    var betaWrap = document.createElement('div');
+    betaWrap.style.cssText = 'background:rgba(232,201,122,0.08);border:1px solid rgba(232,201,122,0.2);border-radius:var(--r);padding:14px;margin-bottom:12px;';
+    var betaTitle = document.createElement('div');
+    betaTitle.style.cssText = 'font-size:0.72rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;';
+    betaTitle.textContent = 'Have a Beta Code?';
+    betaWrap.appendChild(betaTitle);
+    var betaRow = document.createElement('div');
+    betaRow.style.cssText = 'display:flex;gap:8px;';
+    var betaInput = document.createElement('input');
+    betaInput.id = 'beta-code-input';
+    betaInput.className = 'input';
+    betaInput.placeholder = 'Enter code...';
+    betaInput.style.cssText = 'flex:1;margin:0;text-transform:uppercase;';
+    var betaBtn = document.createElement('button');
+    betaBtn.style.cssText = 'padding:10px 14px;background:var(--ac);border:none;border-radius:var(--r);color:#1a1208;font-weight:700;cursor:pointer;font-size:0.82rem;';
+    betaBtn.textContent = 'Apply';
+    betaBtn.onclick = function() {
+      var code = (document.getElementById('beta-code-input').value || '').trim().toUpperCase();
+      if (code === BETA_CODE) {
+        localStorage.setItem('cl_beta_code', code);
+        toast('Beta code applied — full access unlocked!');
+        renderAccountScreen();
+      } else {
+        toast('Invalid code — try again');
+      }
+    };
+    betaRow.appendChild(betaInput);
+    betaRow.appendChild(betaBtn);
+    betaWrap.appendChild(betaRow);
+    el.appendChild(betaWrap);
   }
 
   // Sign out button
