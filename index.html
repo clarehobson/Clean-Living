@@ -4181,6 +4181,18 @@ URL.revokeObjectURL(url);
 showToast(‘PDF saved — open file and print to PDF’);
 }
 
+function showToast(msg, duration) {
+var t = document.getElementById(‘toast’);
+if (!t) return;
+t.textContent = msg;
+t.style.display = ‘block’;
+t.style.opacity = ‘1’;
+setTimeout(function() {
+t.style.opacity = ‘0’;
+setTimeout(function() { t.style.display = ‘none’; }, 400);
+}, duration || 2500);
+}
+
 </script>
 </body>
 </html>
