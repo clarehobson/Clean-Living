@@ -947,6 +947,11 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
     <div style="font-size:1.8rem;">&#x270D;</div>
     <div style="font-size:0.76rem; font-weight:600; color:var(--tx); margin-top:6px;">Journal</div>
   </div>
+  <div class="card" onclick="showScreen('events')" style="text-align:center; cursor:pointer; margin-bottom:0; padding:18px 16px; position:relative;">
+    <div style="font-size:1.8rem;">📅</div>
+    <div style="font-size:0.76rem; font-weight:600; color:var(--tx); margin-top:6px;">My Events</div>
+    <div id="home-events-badge" style="display:none;position:absolute;top:8px;right:8px;background:var(--ac);color:#1a1208;font-size:0.55rem;font-weight:800;border-radius:20px;padding:2px 6px;"></div>
+  </div>
   <div class="card" onclick="showScreen('meetings')" style="text-align:center; cursor:pointer; margin-bottom:0; padding:18px 16px;">
     <div style="font-size:1.8rem;">&#x1F5D3;</div>
     <div style="font-size:0.76rem; font-weight:600; color:var(--tx); margin-top:6px;">Meetings</div>
@@ -1544,6 +1549,22 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
     <div style="font-size:0.62rem;color:var(--tm);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px;">Global recovery events</div>
 
 ```
+<!-- SEARCH + MONTH/YEAR -->
+<div style="display:flex;gap:8px;margin-bottom:10px;">
+  <input id="ev-search" class="input" type="text" placeholder="🔍 Search events..." style="flex:1;margin:0;" oninput="renderEvents()">
+  <select id="ev-month-filter" class="input" style="width:110px;margin:0;appearance:none;text-align:center;" onchange="renderEvents()">
+    <option value="">Any month</option>
+    <option>January</option><option>February</option><option>March</option>
+    <option>April</option><option>May</option><option>June</option>
+    <option>July</option><option>August</option><option>September</option>
+    <option>October</option><option>November</option><option>December</option>
+  </select>
+  <select id="ev-year-filter" class="input" style="width:80px;margin:0;appearance:none;text-align:center;" onchange="renderEvents()">
+    <option value="">Any year</option>
+    <option>2025</option><option>2026</option><option>2027</option><option>2028</option>
+  </select>
+</div>
+
 <!-- FILTERS -->
 <div style="display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px;">
   <button onclick="filterEvents('all')" id="ef-all" class="ef-btn ef-active">All</button>
@@ -2818,11 +2839,41 @@ function filterEvents(filter) {
 
 function renderEvents() {
   var list = document.getElementById('events-list');
+  var searchEl = document.getElementById('ev-search');
+  var monthEl = document.getElementById('ev-month-filter');
+  var yearEl = document.getElementById('ev-year-filter');
+  var searchTerm = searchEl ? searchEl.value.toLowerCase() : '';
+  var monthFilter = monthEl ? monthEl.value : '';
+  var yearFilter = yearEl ? yearEl.value : '';
+
+  var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
   var filtered = allEvents.filter(function(ev) {
-    if (currentFilter === 'all') return true;
-    var regionCountries = REGIONS[currentFilter];
-    if (regionCountries) return regionCountries.indexOf(ev.country) > -1;
-    return ev.country === currentFilter;
+    // Region filter
+    if (currentFilter !== 'all') {
+      var regionCountries = REGIONS[currentFilter];
+      if (regionCountries) {
+        if (regionCountries.indexOf(ev.country) === -1) return false;
+      } else {
+        if (ev.country !== currentFilter) return false;
+      }
+    }
+    // Search filter
+    if (searchTerm) {
+      var haystack = ((ev.name || '') + ' ' + (ev.location || '') + ' ' + (ev.country || '') + ' ' + (ev.description || '')).toLowerCase();
+      if (haystack.indexOf(searchTerm) === -1) return false;
+    }
+    // Month filter
+    if (monthFilter) {
+      var evDate = new Date(ev.date);
+      if (MONTHS[evDate.getMonth()] !== monthFilter) return false;
+    }
+    // Year filter
+    if (yearFilter) {
+      var evDate = new Date(ev.date);
+      if (evDate.getFullYear().toString() !== yearFilter) return false;
+    }
+    return true;
   });
 
   if (!filtered.length) {
@@ -3630,84 +3681,26 @@ async function doSignOut() {
 // =====================
 function loadHomeCalendar() {
   if (!currentUser || !supa) return;
-
   supa.from('events')
-    .select('*')
+    .select('id, going_users, date')
     .eq('approved', true)
-    .order('date', { ascending: true })
     .then(function(result) {
       if (!result.data) return;
       var userId = currentUser.id;
       var today = new Date();
       today.setHours(0,0,0,0);
-
-      // Filter to events user is going to, upcoming only
       var myEvents = result.data.filter(function(ev) {
         if (!ev.going_users) return false;
         if (ev.going_users.indexOf(userId) === -1) return false;
-        var evDate = new Date(ev.date);
-        return evDate >= today;
+        return new Date(ev.date) >= today;
       });
-
-      var cal = document.getElementById('home-events-calendar');
-      var list = document.getElementById('home-events-list');
-      if (!cal || !list) return;
-
-      if (!myEvents.length) {
-        cal.style.display = 'none';
-        return;
-      }
-
-      cal.style.display = 'block';
-      list.innerHTML = '';
-
-      myEvents.slice(0, 5).forEach(function(ev) {
-        var card = document.createElement('div');
-        card.style.cssText = 'background:var(--sf);border:1px solid rgba(232,201,122,0.35);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.2);';
-        card.onclick = function() { showScreen('events'); };
-
-        // Date badge
-        var d = new Date(ev.date);
-        var dateBadge = document.createElement('div');
-        dateBadge.style.cssText = 'flex-shrink:0;width:44px;height:44px;border-radius:10px;background:rgba(232,201,122,0.15);border:1px solid rgba(232,201,122,0.3);display:flex;flex-direction:column;align-items:center;justify-content:center;';
-        var dayEl = document.createElement('div');
-        dayEl.style.cssText = 'font-size:1.1rem;font-weight:800;color:var(--ac);line-height:1;';
-        dayEl.textContent = d.getDate();
-        var monthEl = document.createElement('div');
-        monthEl.style.cssText = 'font-size:0.55rem;color:var(--tm);text-transform:uppercase;letter-spacing:0.05em;';
-        monthEl.textContent = d.toLocaleDateString('en-GB', { month:'short' });
-        dateBadge.appendChild(dayEl);
-        dateBadge.appendChild(monthEl);
-        card.appendChild(dateBadge);
-
-        // Event info
-        var info = document.createElement('div');
-        info.style.cssText = 'flex:1;min-width:0;';
-        var nameEl = document.createElement('div');
-        nameEl.style.cssText = 'font-weight:700;font-size:0.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
-        nameEl.textContent = ev.name;
-        var locEl = document.createElement('div');
-        locEl.style.cssText = 'font-size:0.7rem;color:var(--tm);margin-top:2px;';
-        locEl.textContent = (ev.location || '') + (ev.country ? ', ' + ev.country : '');
-        info.appendChild(nameEl);
-        info.appendChild(locEl);
-        card.appendChild(info);
-
-        // Arrow
-        var arrow = document.createElement('div');
-        arrow.style.cssText = 'color:var(--tm);font-size:1rem;flex-shrink:0;';
-        arrow.textContent = '›';
-        card.appendChild(arrow);
-
-        list.appendChild(card);
-      });
-
-      if (myEvents.length > 5) {
-        var more = document.createElement('div');
-        more.style.cssText = 'text-align:center;font-size:0.72rem;color:var(--tm);padding:4px;cursor:pointer;';
-        more.textContent = '+ ' + (myEvents.length - 5) + ' more events';
-        more.onclick = function() { showScreen('events'); };
-        list.appendChild(more);
+      var badge = document.getElementById('home-events-badge');
+      if (!badge) return;
+      if (myEvents.length > 0) {
+        badge.textContent = myEvents.length;
+        badge.style.display = 'block';
+      } else {
+        badge.style.display = 'none';
       }
     });
 }
