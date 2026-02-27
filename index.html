@@ -3677,133 +3677,22 @@ btn.textContent = ‘🔍 Find & Remove Duplicates’;
 btn.disabled = false;
 }
 }
-</script>
 
-  <!-- WELCOME / AUTH SCREEN -->
-
-  <div id="welcome-screen" style="display:none;">
-    <!-- Hero -->
-    <div id="welcome-hero">
-      <div style="font-size:3.5rem;margin-bottom:16px;">🌿</div>
-      <div class="welcome-logo">Clean Living</div>
-      <div class="welcome-sub">Recovery · Community · Growth</div>
-      <div class="welcome-tagline">"We do not have to be alone anymore."<br><span style="font-size:0.75rem;color:var(--tm);">— Basic Text</span></div>
-      <button class="welcome-btn-primary" onclick="showAuthForm('signin')">Sign In</button>
-      <button class="welcome-btn-secondary" onclick="showAuthForm('signup')">Create Account</button>
-      <button class="welcome-btn-ghost" onclick="continueAsGuest()">Browse as guest</button>
-    </div>
-    <!-- Auth Form -->
-    <div id="auth-form">
-      <button class="auth-back" onclick="document.getElementById('welcome-hero').style.display='flex';document.getElementById('auth-form').style.display='none';">&#8592; Back</button>
-      <div id="auth-mode" data-mode="signin"></div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--ac);margin-bottom:6px;" id="auth-title">Welcome back</div>
-      <div style="font-size:0.72rem;color:var(--tm);margin-bottom:24px;">Sign in to access your recovery tools</div>
-      <div class="modal-label">Email</div>
-      <input id="auth-email" class="input" type="email" placeholder="your@email.com" autocomplete="email" style="margin-bottom:14px;">
-      <div class="modal-label">Password</div>
-      <input id="auth-password" class="input" type="password" placeholder="Password" autocomplete="current-password" style="margin-bottom:6px;">
-      <div id="auth-msg" style="display:none;font-size:0.75rem;margin-bottom:12px;text-align:center;padding:8px;border-radius:8px;background:rgba(0,0,0,0.2);"></div>
-      <button id="auth-submit-btn" class="btn" style="width:100%;margin-bottom:12px;" onclick="doAuth()">Sign In</button>
-      <button id="auth-forgot" onclick="doAuthReset()" style="width:100%;padding:8px;border:none;background:transparent;color:var(--tm);cursor:pointer;font-size:0.72rem;display:block;">Forgot password?</button>
-      <div style="text-align:center;margin-top:16px;">
-        <span id="auth-switch-text" style="font-size:0.75rem;color:var(--tm);">Don't have an account?</span>
-        <button id="auth-switch-btn" onclick="switchAuthMode()" style="background:transparent;border:none;color:var(--ac);font-size:0.75rem;cursor:pointer;padding:0 0 0 4px;">Sign up</button>
-      </div>
-    </div>
-  </div>
-  <!-- ADD MEETING MODAL -->
-  <div class="modal-overlay" id="add-meeting-modal" onclick="closeAddMeeting(event)">
-    <div class="modal-sheet" onclick="event.stopPropagation()">
-      <div class="modal-title" id="zm-modal-title">Add a Meeting</div>
-      <div id="zm-modal-subtitle" style="font-size:0.72rem;color:var(--tm);margin-bottom:16px;"></div>
-      <div class="modal-label">Meeting Name</div>
-      <input id="zm-name" class="input" type="text" placeholder="e.g. Monday Night Step Study">
-      <div class="modal-label">Day / Time</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
-        <div class="role-btn" onclick="toggleMeetingDay(this,'Mon')">Mon</div>
-        <div class="role-btn" onclick="toggleMeetingDay(this,'Tue')">Tue</div>
-        <div class="role-btn" onclick="toggleMeetingDay(this,'Wed')">Wed</div>
-        <div class="role-btn" onclick="toggleMeetingDay(this,'Thu')">Thu</div>
-        <div class="role-btn" onclick="toggleMeetingDay(this,'Fri')">Fri</div>
-        <div class="role-btn" onclick="toggleMeetingDay(this,'Sat')">Sat</div>
-        <div class="role-btn" onclick="toggleMeetingDay(this,'Sun')">Sun</div>
-        <div class="role-btn" onclick="toggleMeetingDay(this,'Daily')" style="grid-column:span 2;">Every Day</div>
-      </div>
-      <input id="zm-time" class="input" type="text" placeholder="Time e.g. 7pm GMT">
-      <div class="modal-label">Zoom Meeting ID</div>
-      <input id="zm-id" class="input" type="text" placeholder="e.g. 123 456 7890" inputmode="numeric">
-      <div class="modal-label">Zoom Password <span style="color:var(--tm);font-weight:400;">(if required)</span></div>
-      <input id="zm-password" class="input" type="text" placeholder="e.g. recovery">
-      <div class="modal-label" style="margin-top:4px;">
-        <span style="font-size:0.68rem;color:var(--tm);">— or paste a full link instead —</span>
-      </div>
-      <input id="zm-url" class="input" type="url" placeholder="https://zoom.us/j/... or Teams/Google Meet link">
-      <div style="display:flex;gap:8px;margin-top:16px;">
-        <button onclick="closeAddMeetingDirect()" style="flex:1;padding:13px;border:1px solid var(--bd);border-radius:var(--r);background:transparent;color:var(--tm);cursor:pointer;">Cancel</button>
-        <button onclick="saveMeeting()" class="btn" style="flex:2;margin-top:0;">Save Meeting</button>
-      </div>
-      <div id="zm-delete-wrap" style="display:none;margin-top:10px;">
-        <button onclick="deleteMeeting()" style="width:100%;padding:12px;border:1px solid rgba(180,60,60,0.4);border-radius:var(--r);background:transparent;color:#ff6b6b;font-size:0.8rem;cursor:pointer;">Remove Meeting</button>
-      </div>
-    </div>
-  </div>
-  <!-- PAYWALL MODAL -->
-  <!-- ACCOUNT SHEET -->
-  <div class="modal-overlay" id="account-sheet" onclick="closeAccountSheet(event)">
-    <div class="modal-sheet" onclick="event.stopPropagation()" style="max-height:90vh;">
-      <!-- Signed Out View -->
-      <div id="account-signedout">
-        <div style="text-align:center;margin-bottom:20px;">
-          <div style="font-size:2.5rem;margin-bottom:8px;">👤</div>
-          <div style="font-size:1.1rem;font-weight:600;color:var(--tx);">Sign in to Clean Living</div>
-          <div style="font-size:0.75rem;color:var(--tm);margin-top:4px;">Access your recovery tools across all devices</div>
-        </div>
-        <button class="btn" style="width:100%;margin-bottom:10px;" onclick="closeAccountSheet(event);showWelcomeScreen();">Sign In / Create Account</button>
-      </div>
-      <!-- Signed In View -->
-      <div id="account-signedin" style="display:none;">
-        <!-- Profile -->
-        <div style="display:flex;align-items:center;gap:14px;padding:4px 0 20px;border-bottom:1px solid var(--bd);margin-bottom:16px;">
-          <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--ac),#b8965a);display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:700;color:#1a1208;" id="account-avatar">C</div>
-          <div>
-            <div style="font-weight:700;font-size:0.95rem;" id="account-name">Clare</div>
-            <div style="font-size:0.72rem;color:var(--tm);" id="account-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bcdfd0ddced9d4d3decfd3d2fcd5dfd0d3c9d892dfd3d1">[email&#160;protected]</a></div>
-          </div>
-          <div id="account-tier-badge" style="margin-left:auto;padding:4px 10px;border-radius:20px;font-size:0.62rem;font-weight:800;text-transform:uppercase;"></div>
-        </div>
-        <!-- Membership -->
-        <div style="background:var(--sf2);border:1px solid rgba(232,201,122,0.35);border-radius:var(--r);padding:14px 16px;margin-bottom:12px;">
-          <div style="font-size:0.62rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Membership</div>
-          <div id="account-membership-detail" style="font-size:0.8rem;color:var(--tx);line-height:1.6;"></div>
-        </div>
-        <!-- Admin Section (iCloud only) -->
-        <div id="account-admin-section" style="display:none;background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:var(--r);padding:14px 16px;margin-bottom:12px;">
-          <div style="font-size:0.62rem;font-weight:800;color:#e74c3c;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;">Admin</div>
-          <button onclick="closeAccountSheet(event);openAdminPanel();" style="width:100%;padding:11px;background:rgba(231,76,60,0.2);border:1px solid rgba(231,76,60,0.4);border-radius:10px;color:#e74c3c;font-size:0.8rem;font-weight:600;cursor:pointer;">Review Pending Events</button>
-        </div>
-        <!-- Sign Out -->
-        <button onclick="doSignOut();" style="width:100%;padding:13px;border:1px solid rgba(192,57,43,0.3);border-radius:var(--r);background:transparent;color:#e74c3c;cursor:pointer;">Sign Out</button>
-      </div>
-    </div>
-  </div>
-</body>
-</html// NETWORK
-// =====================
-var currentNetTab = 'discover';
+var currentNetTab = ‘discover’;
 var netProfiles = [];
 var netConnections = [];
 var netPendingRequests = [];
 var myProfile = null;
 async function loadNetwork() {
-  if (!currentUser) return;
-  await loadMyProfile();
-  switchNetTab('discover');
-  checkConnectionRequests();
+if (!currentUser) return;
+await loadMyProfile();
+switchNetTab(‘discover’);
+checkConnectionRequests();
 }
 async function loadMyProfile() {
-  if (!supa || !currentUser) return;
-  var res = await supa.from('profiles').select('*').eq('id', currentUser.id).single();
-  myProfile = (res.data) ? res.data : null;
+if (!supa || !currentUser) return;
+var res = await supa.from(‘profiles’).select(’*’).eq(‘id’, currentUser.id).single();
+myProfile = (res.data) ? res.data : null;
 }
 
 function filterNetContent() {
@@ -4181,3 +4070,118 @@ overlay.appendChild(sheet);
 overlay.onclick = function(e){ if(e.target===overlay) document.body.removeChild(overlay); };
 document.body.appendChild(overlay);
 }
+
+</script>
+
+  <!-- WELCOME / AUTH SCREEN -->
+
+  <div id="welcome-screen" style="display:none;">
+    <!-- Hero -->
+    <div id="welcome-hero">
+      <div style="font-size:3.5rem;margin-bottom:16px;">🌿</div>
+      <div class="welcome-logo">Clean Living</div>
+      <div class="welcome-sub">Recovery · Community · Growth</div>
+      <div class="welcome-tagline">"We do not have to be alone anymore."<br><span style="font-size:0.75rem;color:var(--tm);">— Basic Text</span></div>
+      <button class="welcome-btn-primary" onclick="showAuthForm('signin')">Sign In</button>
+      <button class="welcome-btn-secondary" onclick="showAuthForm('signup')">Create Account</button>
+      <button class="welcome-btn-ghost" onclick="continueAsGuest()">Browse as guest</button>
+    </div>
+    <!-- Auth Form -->
+    <div id="auth-form">
+      <button class="auth-back" onclick="document.getElementById('welcome-hero').style.display='flex';document.getElementById('auth-form').style.display='none';">&#8592; Back</button>
+      <div id="auth-mode" data-mode="signin"></div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--ac);margin-bottom:6px;" id="auth-title">Welcome back</div>
+      <div style="font-size:0.72rem;color:var(--tm);margin-bottom:24px;">Sign in to access your recovery tools</div>
+      <div class="modal-label">Email</div>
+      <input id="auth-email" class="input" type="email" placeholder="your@email.com" autocomplete="email" style="margin-bottom:14px;">
+      <div class="modal-label">Password</div>
+      <input id="auth-password" class="input" type="password" placeholder="Password" autocomplete="current-password" style="margin-bottom:6px;">
+      <div id="auth-msg" style="display:none;font-size:0.75rem;margin-bottom:12px;text-align:center;padding:8px;border-radius:8px;background:rgba(0,0,0,0.2);"></div>
+      <button id="auth-submit-btn" class="btn" style="width:100%;margin-bottom:12px;" onclick="doAuth()">Sign In</button>
+      <button id="auth-forgot" onclick="doAuthReset()" style="width:100%;padding:8px;border:none;background:transparent;color:var(--tm);cursor:pointer;font-size:0.72rem;display:block;">Forgot password?</button>
+      <div style="text-align:center;margin-top:16px;">
+        <span id="auth-switch-text" style="font-size:0.75rem;color:var(--tm);">Don't have an account?</span>
+        <button id="auth-switch-btn" onclick="switchAuthMode()" style="background:transparent;border:none;color:var(--ac);font-size:0.75rem;cursor:pointer;padding:0 0 0 4px;">Sign up</button>
+      </div>
+    </div>
+  </div>
+  <!-- ADD MEETING MODAL -->
+  <div class="modal-overlay" id="add-meeting-modal" onclick="closeAddMeeting(event)">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div class="modal-title" id="zm-modal-title">Add a Meeting</div>
+      <div id="zm-modal-subtitle" style="font-size:0.72rem;color:var(--tm);margin-bottom:16px;"></div>
+      <div class="modal-label">Meeting Name</div>
+      <input id="zm-name" class="input" type="text" placeholder="e.g. Monday Night Step Study">
+      <div class="modal-label">Day / Time</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+        <div class="role-btn" onclick="toggleMeetingDay(this,'Mon')">Mon</div>
+        <div class="role-btn" onclick="toggleMeetingDay(this,'Tue')">Tue</div>
+        <div class="role-btn" onclick="toggleMeetingDay(this,'Wed')">Wed</div>
+        <div class="role-btn" onclick="toggleMeetingDay(this,'Thu')">Thu</div>
+        <div class="role-btn" onclick="toggleMeetingDay(this,'Fri')">Fri</div>
+        <div class="role-btn" onclick="toggleMeetingDay(this,'Sat')">Sat</div>
+        <div class="role-btn" onclick="toggleMeetingDay(this,'Sun')">Sun</div>
+        <div class="role-btn" onclick="toggleMeetingDay(this,'Daily')" style="grid-column:span 2;">Every Day</div>
+      </div>
+      <input id="zm-time" class="input" type="text" placeholder="Time e.g. 7pm GMT">
+      <div class="modal-label">Zoom Meeting ID</div>
+      <input id="zm-id" class="input" type="text" placeholder="e.g. 123 456 7890" inputmode="numeric">
+      <div class="modal-label">Zoom Password <span style="color:var(--tm);font-weight:400;">(if required)</span></div>
+      <input id="zm-password" class="input" type="text" placeholder="e.g. recovery">
+      <div class="modal-label" style="margin-top:4px;">
+        <span style="font-size:0.68rem;color:var(--tm);">— or paste a full link instead —</span>
+      </div>
+      <input id="zm-url" class="input" type="url" placeholder="https://zoom.us/j/... or Teams/Google Meet link">
+      <div style="display:flex;gap:8px;margin-top:16px;">
+        <button onclick="closeAddMeetingDirect()" style="flex:1;padding:13px;border:1px solid var(--bd);border-radius:var(--r);background:transparent;color:var(--tm);cursor:pointer;">Cancel</button>
+        <button onclick="saveMeeting()" class="btn" style="flex:2;margin-top:0;">Save Meeting</button>
+      </div>
+      <div id="zm-delete-wrap" style="display:none;margin-top:10px;">
+        <button onclick="deleteMeeting()" style="width:100%;padding:12px;border:1px solid rgba(180,60,60,0.4);border-radius:var(--r);background:transparent;color:#ff6b6b;font-size:0.8rem;cursor:pointer;">Remove Meeting</button>
+      </div>
+    </div>
+  </div>
+  <!-- PAYWALL MODAL -->
+  <!-- ACCOUNT SHEET -->
+  <div class="modal-overlay" id="account-sheet" onclick="closeAccountSheet(event)">
+    <div class="modal-sheet" onclick="event.stopPropagation()" style="max-height:90vh;">
+      <!-- Signed Out View -->
+      <div id="account-signedout">
+        <div style="text-align:center;margin-bottom:20px;">
+          <div style="font-size:2.5rem;margin-bottom:8px;">👤</div>
+          <div style="font-size:1.1rem;font-weight:600;color:var(--tx);">Sign in to Clean Living</div>
+          <div style="font-size:0.75rem;color:var(--tm);margin-top:4px;">Access your recovery tools across all devices</div>
+        </div>
+        <button class="btn" style="width:100%;margin-bottom:10px;" onclick="closeAccountSheet(event);showWelcomeScreen();">Sign In / Create Account</button>
+      </div>
+      <!-- Signed In View -->
+      <div id="account-signedin" style="display:none;">
+        <!-- Profile -->
+        <div style="display:flex;align-items:center;gap:14px;padding:4px 0 20px;border-bottom:1px solid var(--bd);margin-bottom:16px;">
+          <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--ac),#b8965a);display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:700;color:#1a1208;" id="account-avatar">C</div>
+          <div>
+            <div style="font-weight:700;font-size:0.95rem;" id="account-name">Clare</div>
+            <div style="font-size:0.72rem;color:var(--tm);" id="account-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bcdfd0ddced9d4d3decfd3d2fcd5dfd0d3c9d892dfd3d1">[email&#160;protected]</a></div>
+          </div>
+          <div id="account-tier-badge" style="margin-left:auto;padding:4px 10px;border-radius:20px;font-size:0.62rem;font-weight:800;text-transform:uppercase;"></div>
+        </div>
+        <!-- Membership -->
+        <div style="background:var(--sf2);border:1px solid rgba(232,201,122,0.35);border-radius:var(--r);padding:14px 16px;margin-bottom:12px;">
+          <div style="font-size:0.62rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Membership</div>
+          <div id="account-membership-detail" style="font-size:0.8rem;color:var(--tx);line-height:1.6;"></div>
+        </div>
+        <!-- Admin Section (iCloud only) -->
+        <div id="account-admin-section" style="display:none;background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:var(--r);padding:14px 16px;margin-bottom:12px;">
+          <div style="font-size:0.62rem;font-weight:800;color:#e74c3c;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;">Admin</div>
+          <button onclick="closeAccountSheet(event);openAdminPanel();" style="width:100%;padding:11px;background:rgba(231,76,60,0.2);border:1px solid rgba(231,76,60,0.4);border-radius:10px;color:#e74c3c;font-size:0.8rem;font-weight:600;cursor:pointer;">Review Pending Events</button>
+        </div>
+        <!-- Sign Out -->
+        <button onclick="doSignOut();" style="width:100%;padding:13px;border:1px solid rgba(192,57,43,0.3);border-radius:var(--r);background:transparent;color:#e74c3c;cursor:pointer;">Sign Out</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html// NETWORK
+// =====================
+</body>
+</html>
