@@ -1531,10 +1531,11 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
   <!-- EVENTS SCREEN -->
 
   <div class="screen" id="screen-events">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;">
+    <div style="margin-bottom:2px;">
       <div style="font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:var(--ac);">Events</div>
-      <button onclick="openSubmitEvent()" style="background:var(--ac);border:none;border-radius:20px;padding:7px 14px;font-size:0.75rem;font-weight:700;color:#1a1208;cursor:pointer;">+ Submit Event</button>
     </div>
+    <!-- Floating add button -->
+    <button onclick="openSubmitEvent()" style="position:fixed;bottom:80px;right:16px;z-index:500;width:52px;height:52px;border-radius:50%;background:var(--ac);border:none;font-size:1.5rem;color:#1a1208;cursor:pointer;box-shadow:0 4px 16px rgba(232,201,122,0.4);display:flex;align-items:center;justify-content:center;">+</button>
     <div style="font-size:0.62rem;color:var(--tm);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px;">Global recovery events</div>
 
 ```
@@ -2332,6 +2333,7 @@ var ROLE_EMOJIS = {
 };
 
 function openAddContact() {
+  if (!currentUser) { showWelcomeScreen(); return; }
   editingContactId = null;
   selectedRole = '';
   document.getElementById('contact-modal-title').textContent = 'Add Contact';
@@ -2952,6 +2954,7 @@ function selectEvType(btn, type) {
 }
 
 function openSubmitEvent() {
+  if (!currentUser) { showWelcomeScreen(); return; }
   document.getElementById('ev-name').value = '';
   document.getElementById('ev-date').value = '';
   document.getElementById('ev-enddate').value = '';
@@ -2961,6 +2964,9 @@ function openSubmitEvent() {
   document.getElementById('ev-flyer').value = '';
   document.getElementById('ev-desc').value = '';
   document.getElementById('ev-submit-msg').style.display = 'none';
+  document.getElementById('ev-autofill-status').style.display = 'none';
+  document.getElementById('ev-autofill-url').value = '';
+  document.getElementById('ev-flyer-preview-wrap').style.display = 'none';
   selectedEvType = '';
   document.querySelectorAll('#submit-event-modal .role-btn').forEach(function(b){ b.classList.remove('selected'); });
   document.getElementById('submit-event-modal').classList.add('open');
