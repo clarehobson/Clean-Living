@@ -3126,6 +3126,25 @@ async function submitEvent() {
   var country = document.getElementById('ev-country').value;
   if (!name || !date || !location || !country) { toast('Please fill in all required fields'); return; }
   if (!supa) { toast('No connection - try again'); return; }
+
+  // Check for duplicate events - same name and within 3 days of same date
+  try {
+    var existing = await supa.from('events').select('id, name, date, location').ilike('name', '%' + name.substring(0, 10) + '%');
+    if (existing.data && existing.data.length) {
+      var submittedDate = new Date(date);
+      var duplicates = existing.data.filter(function(ev) {
+        var evDate = new Date(ev.date);
+        var dayDiff = Math.abs((evDate - submittedDate) / (1000 * 60 * 60 * 24));
+        return dayDiff <= 3;
+      });
+      if (duplicates.length) {
+        var dup = duplicates[0];
+        var confirmed = confirm('⚠️ A similar event already exists:\n\n"' + dup.name + '"\n' + new Date(dup.date).toLocaleDateString('en-GB', {day:'numeric',month:'long',year:'numeric'}) + ' · ' + dup.location + '\n\nIs this a different event? Tap OK to submit anyway, or Cancel to go back.');
+        if (!confirmed) return;
+      }
+    }
+  } catch(e) { /* duplicate check failed silently, continue */ }
+
   try {
     await supa.from('events').insert({
       name: name,
