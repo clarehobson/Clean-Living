@@ -959,13 +959,13 @@ if (typeof window !== 'undefined' && !window.supabase) { console.log('Supabase l
         <div style="font-size:0.82rem;font-weight:700;color:var(--ac);">&#x1F4CB; Step 10 Questions</div>
         <a href="https://cart-us.na.org/recovery-products/books/the-na-step-working-guides-1400" target="_blank" style="font-size:0.65rem;color:var(--tm);text-decoration:underline;">Buy the workbook ›</a>
       </div>
-      <div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">One question per line — replaces the default questions in your Step 10 journal.</div>
+      <div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">One question per line - replaces the default questions in your Step 10 journal.</div>
       <textarea id="custom-step10" style="width:100%;min-height:110px;background:var(--sf2);border:1px solid var(--bd);border-radius:10px;padding:10px;color:var(--tx);font-size:0.8rem;line-height:1.6;resize:vertical;box-sizing:border-box;" placeholder="Paste your questions here, one per line..."></textarea>
       <div style="display:flex;gap:8px;margin-top:10px;">
         <button onclick="saveCustomStep10()" class="btn" style="flex:2;margin-top:0;padding:11px;">Save</button>
         <button onclick="clearCustomStep10()" style="flex:1;padding:11px;background:transparent;border:1px solid var(--bd);border-radius:var(--r);color:var(--tm);font-size:0.75rem;cursor:pointer;">Reset</button>
       </div>
-      <div id="step10-saved-msg" style="display:none;margin-top:8px;font-size:0.72rem;color:#5fcf80;text-align:center;">&#x2713; Saved — your questions will appear in the Step 10 journal</div>
+      <div id="step10-saved-msg" style="display:none;margin-top:8px;font-size:0.72rem;color:#5fcf80;text-align:center;">&#x2713; Saved - your questions will appear in the Step 10 journal</div>
     </div>
     <!-- Guiding Principles custom questions -->
     <div style="background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:16px;margin-bottom:8px;">
@@ -973,13 +973,13 @@ if (typeof window !== 'undefined' && !window.supabase) { console.log('Supabase l
         <div style="font-size:0.82rem;font-weight:700;color:var(--ac);">&#x1F4D6; Guiding Principles Questions</div>
         <a href="javascript:buyBook('guiding-principles')" style="font-size:0.65rem;color:var(--tm);text-decoration:underline;">Buy the workbook ›</a>
       </div>
-      <div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">One question per line — adds a Guiding Principles journal type once saved.</div>
+      <div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">One question per line - adds a Guiding Principles journal type once saved.</div>
       <textarea id="custom-guiding" style="width:100%;min-height:110px;background:var(--sf2);border:1px solid var(--bd);border-radius:10px;padding:10px;color:var(--tx);font-size:0.8rem;line-height:1.6;resize:vertical;box-sizing:border-box;" placeholder="Paste your questions here, one per line..."></textarea>
       <div style="display:flex;gap:8px;margin-top:10px;">
         <button onclick="saveCustomGuiding()" class="btn" style="flex:2;margin-top:0;padding:11px;">Save</button>
         <button onclick="clearCustomGuiding()" style="flex:1;padding:11px;background:transparent;border:1px solid var(--bd);border-radius:var(--r);color:var(--tm);font-size:0.75rem;cursor:pointer;">Reset</button>
       </div>
-      <div id="guiding-saved-msg" style="display:none;margin-top:8px;font-size:0.72rem;color:#5fcf80;text-align:center;">&#x2713; Saved — Guiding Principles now appears in your journal</div>
+      <div id="guiding-saved-msg" style="display:none;margin-top:8px;font-size:0.72rem;color:#5fcf80;text-align:center;">&#x2713; Saved - Guiding Principles now appears in your journal</div>
     </div>
   </div><!-- end screen-steps -->
 
@@ -1013,7 +1013,7 @@ if (typeof window !== 'undefined' && !window.supabase) { console.log('Supabase l
         <div class="meeting-flag">🇪🇺</div>
         <div>
           <div class="meeting-title">European Meeting Finder</div>
-          <div class="meeting-sub">NA European Delegates Meeting — all regions</div>
+          <div class="meeting-sub">NA European Delegates Meeting - all regions</div>
         </div>
       </div>
       <div class="meeting-arr">›</div>
@@ -1047,15 +1047,15 @@ if (typeof window !== 'undefined' && !window.supabase) { console.log('Supabase l
       <div class="label" style="margin:0;">🌐 Community Meetings</div>
       <button onclick="openAddMeeting('shared')" style="background:var(--ac);border:none;border-radius:20px;padding:5px 12px;font-size:0.68rem;font-weight:700;color:#1a1208;cursor:pointer;">+ Add</button>
     </div>
-    <div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">Shared with everyone — add your regular meetings here</div>
+    <div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">Shared with everyone - add your regular meetings here</div>
     <div id="shared-meetings-list"></div>
-    <div id="shared-meetings-empty" style="font-size:0.76rem;color:var(--tm);text-align:center;padding:10px 0 14px;">No shared meetings yet — be the first to add one</div>
+    <div id="shared-meetings-empty" style="font-size:0.76rem;color:var(--tm);text-align:center;padding:10px 0 14px;">No shared meetings yet - be the first to add one</div>
     <!-- PERSONAL FAVOURITES -->
     <div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;margin-bottom:4px;">
       <div class="label" style="margin:0;">⭐ My Favourites</div>
       <button onclick="openAddMeeting('personal')" style="background:var(--sf);border:1px solid rgba(232,201,122,0.35);border-radius:20px;padding:5px 12px;font-size:0.68rem;font-weight:700;color:var(--ac);cursor:pointer;">+ Add</button>
     </div>
-    <div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">Just for you — private, only you can see these</div>
+    <div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">Just for you - private, only you can see these</div>
     <div id="personal-meetings-list"></div>
     <div id="personal-meetings-empty" style="font-size:0.76rem;color:var(--tm);text-align:center;padding:10px 0 14px;">No favourites yet</div>
     <div style="margin-bottom:20px;"></div>
@@ -1074,7 +1074,7 @@ if (typeof window !== 'undefined' && !window.supabase) { console.log('Supabase l
     <div class="book-expand-card">
       <div class="book-card-header" onclick="toggleBook(this)">
         <div class="book-icon">📘</div>
-        <div class="book-body"><div class="book-title">Basic Text</div><div class="book-sub">Narcotics Anonymous — 6th Edition</div></div>
+        <div class="book-body"><div class="book-title">Basic Text</div><div class="book-sub">Narcotics Anonymous - 6th Edition</div></div>
         <div class="book-chevron">&#8250;</div>
       </div>
       <div class="book-card-body">
@@ -1200,7 +1200,7 @@ if (typeof window !== 'undefined' && !window.supabase) { console.log('Supabase l
     <!-- BOOKLETS -->
     <div class="label" style="margin-top:20px;">📄 Booklets</div>
     <a href="https://na.org/wp-content/uploads/2024/05/AN1500_LWB-Little-White-Book-English-Anglicized.pdf" target="_blank" class="book-card">
-      <div class="book-icon">📄</div><div class="book-body"><div class="book-title">The White Booklet</div><div class="book-sub">Free PDF — official na.org</div></div><div class="book-arr">›</div>
+      <div class="book-icon">📄</div><div class="book-body"><div class="book-title">The White Booklet</div><div class="book-sub">Free PDF - official na.org</div></div><div class="book-arr">›</div>
     </a>
     <!-- INFORMATIONAL PAMPHLETS -->
     <div class="label" style="margin-top:16px;">📃 Informational Pamphlets</div>
@@ -1277,7 +1277,7 @@ if (typeof window !== 'undefined' && !window.supabase) { console.log('Supabase l
       <!-- AI AUTOFILL -->
       <div style="background:rgba(232,201,122,0.08);border:1px solid rgba(232,201,122,0.3);border-radius:12px;padding:14px;margin-bottom:16px;">
         <div style="font-size:0.72rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">✨ Auto-fill from URL or Flyer</div>
-        <div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">Paste a website link or upload a flyer image — we'll fill in the details for you</div>
+        <div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">Paste a website link or upload a flyer image - we'll fill in the details for you</div>
         <input id="ev-autofill-url" class="input" type="url" placeholder="https://event-website.com..." style="margin-bottom:8px;">
         <div style="display:flex;gap:8px;margin-bottom:8px;">
           <button onclick="autofillFromUrl()" style="flex:1;padding:10px;background:var(--ac);border:none;border-radius:10px;color:#1a1208;font-size:0.78rem;font-weight:700;cursor:pointer;">Fill from URL</button>
@@ -1386,7 +1386,7 @@ if (typeof window !== 'undefined' && !window.supabase) { console.log('Supabase l
       <div class="modal-title">&#x1F6E1; Admin Panel</div>
       <div style="background:rgba(232,201,122,0.08);border:1px solid rgba(232,201,122,0.2);border-radius:var(--r);padding:14px;margin-bottom:16px;">
         <div style="font-size:0.65rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">🌐 Bulk Import from Website</div>
-        <div style="font-size:0.75rem;color:var(--tm);margin-bottom:10px;">Paste a URL from an events calendar — AI will extract all events at once</div>
+        <div style="font-size:0.75rem;color:var(--tm);margin-bottom:10px;">Paste a URL from an events calendar - AI will extract all events at once</div>
         <input id="bulk-import-url" class="input" type="url" placeholder="https://ukna.org/events..." style="margin-bottom:8px;">
         <button onclick="bulkImportEvents()" id="bulk-import-btn" style="width:100%;padding:11px;background:var(--ac);border:none;border-radius:var(--r);color:#1a1208;font-weight:700;cursor:pointer;font-size:0.82rem;">🤖 Import Events with AI</button>
         <div id="bulk-import-status" style="display:none;font-size:0.82rem;font-weight:700;text-align:center;padding:14px;border-radius:10px;background:#2a2410;border:2px solid #e8c97a;color:#e8c97a;margin-top:8px;"></div>
@@ -1510,7 +1510,7 @@ if (typeof window !== 'undefined' && !window.supabase) { console.log('Supabase l
       <div style="font-size:3.5rem;margin-bottom:16px;">🌿</div>
       <div class="welcome-logo">Clean Living</div>
       <div class="welcome-sub">Recovery · Community · Growth</div>
-      <div class="welcome-tagline">"We do not have to be alone anymore."<br><span style="font-size:0.75rem;color:var(--tm);">— Basic Text</span></div>
+      <div class="welcome-tagline">"We do not have to be alone anymore."<br><span style="font-size:0.75rem;color:var(--tm);">- Basic Text</span></div>
       <button class="welcome-btn-primary" onclick="showAuthForm('signin')">Sign In</button>
       <button class="welcome-btn-secondary" onclick="showAuthForm('signup')">Create Account</button>
       <button class="welcome-btn-ghost" onclick="continueAsGuest()">Browse as guest</button>
@@ -1558,7 +1558,7 @@ if (typeof window !== 'undefined' && !window.supabase) { console.log('Supabase l
       <div class="modal-label">Zoom Password <span style="color:var(--tm);font-weight:400;">(if required)</span></div>
       <input id="zm-password" class="input" type="text" placeholder="e.g. recovery">
       <div class="modal-label" style="margin-top:4px;">
-        <span style="font-size:0.68rem;color:var(--tm);">— or paste a full link instead —</span>
+        <span style="font-size:0.68rem;color:var(--tm);">- or paste a full link instead -</span>
       </div>
       <input id="zm-url" class="input" type="url" placeholder="https://zoom.us/j/... or Teams/Google Meet link">
       <div style="display:flex;gap:8px;margin-top:16px;">
@@ -1660,7 +1660,7 @@ function updateDaysCount() {
   if (lbl) lbl.textContent = days === 1 ? '1 day clean' : days + ' days clean';
   // Update home screen counter
   var hd = document.getElementById('home-days');
-  if (hd) hd.textContent = cleanDate ? days : '–';
+  if (hd) hd.textContent = cleanDate ? days : '-';
   var hm = document.getElementById('home-date-msg');
   if (hm) hm.textContent = cleanDate ? 'Since ' + new Date(cleanDate).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}) : 'Set your clean date in Account';
 }
@@ -1703,7 +1703,7 @@ function showDailyQuote() {
   var hq = document.getElementById('home-quote');
   var hs = document.getElementById('home-quote-source');
   if (hq) hq.textContent = '"' + q.text + '"';
-  if (hs) hs.textContent = '— ' + q.source;
+  if (hs) hs.textContent = '- ' + q.source;
   var el = document.getElementById('daily-quote');
   if (!el) return;
   document.getElementById('daily-quote').innerHTML =
@@ -1744,7 +1744,7 @@ var SPOTCHECK_PROMPTS = [
   "Do I owe an apology to anyone?",
   "Have I kept something to myself that I should share with my sponsor?",
   "Was I kind and loving to those around me?",
-  "Am I HALT right now — Hungry, Angry, Lonely, or Tired?",
+  "Am I HALT right now - Hungry, Angry, Lonely, or Tired?",
   "Did I stay in the present, or was I in yesterday or tomorrow?",
   "What do I need to let go of before I sleep?",
   "Did I do anything today I'm proud of?"
@@ -1765,16 +1765,16 @@ var STEP10_QUESTIONS = [
   "Am I taking myself or any situation too seriously right now?",
   "Are there any physical, mental, or spiritual struggles I need to address?",
   "Is there anything I've been keeping from my sponsor that I should share?",
-  "Did I experience any intense or overwhelming feelings today — what caused them?",
+  "Did I experience any intense or overwhelming feelings today - what caused them?",
   "What areas of my life are causing me difficulty right now?",
   "Which character defects showed up in my behaviour today, and how?",
   "Did fear play a role in any of my actions or thoughts today?",
   "Is there anything I did today that I regret or wish I had handled differently?",
   "Is there anything I didn't do today that I know I should have?",
   "Am I genuinely open and willing to change?",
-  "Was there conflict in any of my relationships today — what happened?",
+  "Was there conflict in any of my relationships today - what happened?",
   "Am I living with integrity in how I treat the people around me?",
-  "Did I cause harm — directly or indirectly — to myself or anyone else today?",
+  "Did I cause harm - directly or indirectly - to myself or anyone else today?",
   "Do I owe an apology or amends to anyone?",
   "Where did I go wrong today, and what would I do differently next time?",
   "Did I stay clean today?",
@@ -1784,11 +1784,11 @@ var STEP10_QUESTIONS = [
   "What am I feeling good or positive about from today?",
   "What gave me a sense of meaning or satisfaction today?",
   "What did I do today that I want to make sure I repeat?",
-  "Did I connect with the fellowship today — a meeting, a phone call, a message?",
+  "Did I connect with the fellowship today - a meeting, a phone call, a message?",
   "What do I have to be grateful for today?"
 ];
 var DAILY_PROMPTS = [
-  "How am I feeling right now — honestly?",
+  "How am I feeling right now - honestly?",
   "What was the most important moment of my day?",
   "Did anything challenge me today? How did I respond?",
   "Was there a moment today I'm proud of?",
@@ -1818,31 +1818,31 @@ function renderJournalPrompts(type) {
   if (type === 'gratitude') {
     var prompts = GRATITUDE_PROMPTS.slice().sort(function(){return Math.random()-.5;}).slice(0,3);
     html += '<div style="font-size:0.68rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">&#x1F64F; Prompts to get you started</div>';
-    html += '<div style="font-size:0.74rem;color:var(--tm);margin-bottom:8px;font-style:italic;">Use one, some, or all — or just write freely.</div>';
+    html += '<div style="font-size:0.74rem;color:var(--tm);margin-bottom:8px;font-style:italic;">Use one, some, or all - or just write freely.</div>';
     prompts.forEach(function(p, i) {
       html += '<div style="padding:7px 0;' + (i < prompts.length-1 ? 'border-bottom:1px solid var(--bd);' : '') + 'font-size:0.8rem;color:var(--tx);">&#x2022; ' + p + '</div>';
     });
     html += '<button onclick="renderJournalPrompts(\'gratitude\')" style="margin-top:10px;background:none;border:1px solid var(--bd);border-radius:8px;padding:5px 12px;font-size:0.7rem;color:var(--tm);cursor:pointer;">&#8635; New prompts</button>';
   } else if (type === 'spotcheck') {
-    html += '<div style="font-size:0.68rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">&#x26A1; Spot Check — pause and be honest</div>';
+    html += '<div style="font-size:0.68rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">&#x26A1; Spot Check - pause and be honest</div>';
     html += '<div style="font-size:0.74rem;color:var(--tm);margin-bottom:10px;font-style:italic;">Sit with these questions, then write freely below.</div>';
     SPOTCHECK_PROMPTS.forEach(function(p, i) {
       html += '<div style="padding:6px 0;' + (i < SPOTCHECK_PROMPTS.length-1 ? 'border-bottom:1px solid var(--bd);' : '') + 'font-size:0.78rem;color:var(--tm);">&#x2022; ' + p + '</div>';
     });
   } else if (type === 'step10') {
-    html += '<div style="font-size:0.68rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">&#x1F4CB; Full Step 10 — work through each question</div>';
+    html += '<div style="font-size:0.68rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">&#x1F4CB; Full Step 10 - work through each question</div>';
     STEP10_QUESTIONS.forEach(function(p, i) {
       html += '<div style="padding:7px 0;' + (i < STEP10_QUESTIONS.length-1 ? 'border-bottom:1px solid var(--bd);' : '') + 'font-size:0.8rem;color:var(--tx);"><span style="color:var(--ac);font-weight:700;">' + (i+1) + '.</span> ' + p + '</div>';
     });
   } else if (type === 'guiding') {
-    html += '<div style="font-size:0.68rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">&#x1F4D6; Guiding Principles — work through each question</div>';
+    html += '<div style="font-size:0.68rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">&#x1F4D6; Guiding Principles - work through each question</div>';
     CUSTOM_GUIDING_QUESTIONS.forEach(function(p, i) {
       html += '<div style="padding:7px 0;' + (i < CUSTOM_GUIDING_QUESTIONS.length-1 ? 'border-bottom:1px solid var(--bd);' : '') + 'font-size:0.8rem;color:var(--tx);"><span style="color:var(--ac);font-weight:700;">' + (i+1) + '.</span> ' + p + '</div>';
     });
   } else if (type === 'daily') {
     var prompts = DAILY_PROMPTS.slice().sort(function(){return Math.random()-.5;}).slice(0,3);
     html += '<div style="font-size:0.68rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">&#x270D; Prompts for today</div>';
-    html += '<div style="font-size:0.74rem;color:var(--tm);margin-bottom:8px;font-style:italic;">Write freely — these are just here to help you start.</div>';
+    html += '<div style="font-size:0.74rem;color:var(--tm);margin-bottom:8px;font-style:italic;">Write freely - these are just here to help you start.</div>';
     prompts.forEach(function(p, i) {
       html += '<div style="padding:7px 0;' + (i < prompts.length-1 ? 'border-bottom:1px solid var(--bd);' : '') + 'font-size:0.8rem;color:var(--tx);">&#x2022; ' + p + '</div>';
     });
@@ -1902,7 +1902,7 @@ function openJournalEntry(id) {
 function renderJournalEntries() {
   var c = document.getElementById('j-entries');
   if (!journalEntries.length) {
-    c.innerHTML = '<div style="text-align:center;padding:20px 0;font-size:0.8rem;color:var(--tm);">No entries yet — choose a type above to begin.</div>';
+    c.innerHTML = '<div style="text-align:center;padding:20px 0;font-size:0.8rem;color:var(--tm);">No entries yet - choose a type above to begin.</div>';
     return;
   }
   var emojis = { gratitude:'&#x1F64F;', spotcheck:'&#x26A1;', step10:'&#x1F4CB;', daily:'&#x270D;' };
@@ -2590,7 +2590,7 @@ function showAuthMsg(msg, colour) {
   el.style.display = 'block';
 }
 async function doAuth() {
-  if (!supa) { showAuthMsg('No connection — please check your internet'); return; }
+  if (!supa) { showAuthMsg('No connection - please check your internet'); return; }
   var mode = document.getElementById('auth-mode').dataset.mode;
   var email = document.getElementById('auth-email').value.trim();
   var password = document.getElementById('auth-password').value;
@@ -2620,7 +2620,7 @@ async function doAuth() {
     eventsLoaded = false;
   } catch(e) {
     document.getElementById('auth-submit-btn').disabled = false;
-    showAuthMsg('Something went wrong — try again', '#e74c3c');
+    showAuthMsg('Something went wrong - try again', '#e74c3c');
   }
 }
 async function doAuthReset() {
@@ -2736,10 +2736,10 @@ function renderAccountScreen() {
       var code = (document.getElementById('beta-code-input').value || '').trim().toUpperCase();
       if (code === BETA_CODE) {
         localStorage.setItem('cl_beta_code', code);
-        toast('Beta code applied — full access unlocked!');
+        toast('Beta code applied - full access unlocked!');
         renderAccountScreen();
       } else {
-        toast('Invalid code — try again');
+        toast('Invalid code - try again');
       }
     };
     betaRow.appendChild(betaInput);
@@ -2785,11 +2785,11 @@ function openAccountSheet() {
     }
     var detail = document.getElementById('account-membership-detail');
     if (tier === 'member') {
-      detail.textContent = 'Full access — Journal, Events, Movement, Network, Community';
+      detail.textContent = 'Full access - Journal, Events, Movement, Network, Community';
     } else if (tier === 'basic') {
-      detail.textContent = 'Basic access — Network and Worksheets included';
+      detail.textContent = 'Basic access - Network and Worksheets included';
     } else {
-      detail.textContent = 'Free plan — meetings, books and daily readings';
+      detail.textContent = 'Free plan - meetings, books and daily readings';
     }
     document.getElementById('account-admin-section').style.display = isAdmin() ? 'block' : 'none';
   }
@@ -2911,14 +2911,14 @@ async function autofillFromUrl() {
       })
     });
     var data = await response.json();
-    if (data.error) { showAutofillStatus('Could not read URL — please fill in manually', 'error'); return; }
+    if (data.error) { showAutofillStatus('Could not read URL - please fill in manually', 'error'); return; }
     var text = (data.content && data.content[0]) ? data.content[0].text : '';
     var clean = text.replace(/```json|```/g, '').trim();
     var event = JSON.parse(clean);
     fillEventForm(event);
-    showAutofillStatus('✓ Details filled in — please check and edit as needed', 'ok');
+    showAutofillStatus('✓ Details filled in - please check and edit as needed', 'ok');
   } catch(e) {
-    showAutofillStatus('Could not read URL — please fill in the details manually', 'error');
+    showAutofillStatus('Could not read URL - please fill in the details manually', 'error');
   }
 }
 async function autofillFromImage(input) {
@@ -2962,7 +2962,7 @@ async function autofillFromImage(input) {
       var clean = text.replace(/```json|```/g, '').trim();
       var event = JSON.parse(clean);
       fillEventForm(event);
-      showAutofillStatus('✓ Flyer read — please check and complete the details', 'ok');
+      showAutofillStatus('✓ Flyer read - please check and complete the details', 'ok');
     } catch(e) {
       showAutofillStatus('Error: ' + (e.message || JSON.stringify(e)), 'error');
     }
@@ -3152,7 +3152,7 @@ function openEditMeeting(id, type, sharedData) {
   document.getElementById('zm-url').value = m.url || '';
   document.getElementById('zm-delete-wrap').style.display = 'block';
   document.getElementById('zm-modal-title').textContent = 'Edit Meeting';
-  document.getElementById('zm-modal-subtitle').textContent = type === 'shared' ? 'Shared with everyone — changes visible to all' : 'Your personal favourite';
+  document.getElementById('zm-modal-subtitle').textContent = type === 'shared' ? 'Shared with everyone - changes visible to all' : 'Your personal favourite';
   document.getElementById('add-meeting-modal').classList.add('open');
 }
 async function saveMeeting() {
@@ -3178,7 +3178,7 @@ async function saveMeeting() {
         await supa.from('shared_meetings').insert(meetingData);
       }
       toast(editingMeetingId ? 'Meeting updated' : 'Meeting added for everyone');
-    } catch(e) { toast('Could not save — check your connection'); return; }
+    } catch(e) { toast('Could not save - check your connection'); return; }
   } else {
     // Save to localStorage
     if (editingMeetingId) {
@@ -3414,7 +3414,7 @@ async function loadEventSources() {
   if (!sources.length) {
     var empty = document.createElement('div');
     empty.style.cssText = 'font-size:0.72rem;color:var(--tm);margin-bottom:6px;';
-    empty.textContent = 'No saved sources yet — add one below';
+    empty.textContent = 'No saved sources yet - add one below';
     list.appendChild(empty);
     return;
   }
@@ -3489,7 +3489,7 @@ async function bulkImportEvents() {
   if (!url.startsWith('http')) { toast('Please enter a full URL starting with https://'); return; }
   btn.textContent = 'Fetching page...';
   btn.disabled = true;
-  status.textContent = 'Step 1/3 — Fetching page content...';
+  status.textContent = 'Step 1/3 - Fetching page content...';
   try {
     // Fetch page via CORS proxy
     var proxyUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent(url);
@@ -3497,7 +3497,7 @@ async function bulkImportEvents() {
     if (!pageRes.ok) throw new Error('Could not reach the page');
     var pageData = await pageRes.json();
     var html = pageData.contents || '';
-    if (!html) throw new Error('Page returned no content — it may block external access');
+    if (!html) throw new Error('Page returned no content - it may block external access');
     // Strip HTML to plain text
     var plainText = html
       .replace(new RegExp('<sty'+'le[^>]*>[\s\S]*?<\/sty'+'le>', 'gi'), '')
@@ -3506,7 +3506,7 @@ async function bulkImportEvents() {
       .replace(/\s+/g, ' ')
       .trim()
       .substring(0, 12000);
-    status.textContent = 'Step 2/3 — AI is reading the page...';
+    status.textContent = 'Step 2/3 - AI is reading the page...';
     // Send to AI
     var aiRes = await fetch(AI_PROXY, {
       method: 'POST',
@@ -3526,11 +3526,11 @@ async function bulkImportEvents() {
     raw = raw.replace(/^```[a-z]*\n?/,'').replace(/\n?```$/,'').trim();
     var events;
     try { events = JSON.parse(raw); }
-    catch(e) { throw new Error('AI returned unexpected format — try a different page'); }
+    catch(e) { throw new Error('AI returned unexpected format - try a different page'); }
     if (!Array.isArray(events)) throw new Error('No event list returned');
     var valid = events.filter(function(ev){ return ev.name && ev.date; });
     if (!valid.length) throw new Error('No events with dates found on this page');
-    status.textContent = 'Step 3/3 — Saving ' + valid.length + ' events...';
+    status.textContent = 'Step 3/3 - Saving ' + valid.length + ' events...';
     var rows = valid.map(function(ev) {
       return {
         name: ev.name,
@@ -3594,7 +3594,7 @@ async function findAndRemoveDuplicates() {
     });
     var dupeGroups = Object.keys(groups).filter(function(k){ return groups[k].length > 1; });
     if (!dupeGroups.length) {
-      status.textContent = '✅ No duplicates found — all clean!';
+      status.textContent = '✅ No duplicates found - all clean!';
       btn.textContent = '🔍 Find & Remove Duplicates';
       btn.disabled = false;
       return;
@@ -3725,7 +3725,7 @@ async function renderDiscover(searchTerm) {
   // connections loaded above
   c.innerHTML = '';
   if (!profiles.length) {
-    c.innerHTML = '<div style="text-align:center;padding:40px;color:var(--tm);font-size:0.85rem;">No other members yet — invite your friends!</div>';
+    c.innerHTML = '<div style="text-align:center;padding:40px;color:var(--tm);font-size:0.85rem;">No other members yet - invite your friends!</div>';
     return;
   }
   profiles.forEach(function(p) {
@@ -3821,7 +3821,7 @@ async function renderConnections() {
   var conns = res.data || [];
   c.innerHTML = '';
   if (!conns.length) {
-    c.innerHTML = '<div style="text-align:center;padding:40px;color:var(--tm);font-size:0.85rem;">No connections yet — go to Discover to connect with members</div>';
+    c.innerHTML = '<div style="text-align:center;padding:40px;color:var(--tm);font-size:0.85rem;">No connections yet - go to Discover to connect with members</div>';
     return;
   }
   // Get profiles of connected users
@@ -4058,7 +4058,7 @@ function cycleQuote() {
   var el = document.getElementById('home-quote');
   var src = document.getElementById('home-quote-source');
   if (el) el.textContent = '"' + q.text + '"';
-  if (src) src.textContent = '— ' + q.source;
+  if (src) src.textContent = '- ' + q.source;
 }
 
 // toggleBook - expand/collapse book details
@@ -4169,7 +4169,7 @@ function exportPDF(entryId) {
   var entries = JSON.parse(localStorage.getItem('cl_journal') || '[]');
   var entry = entryId ? entries.find(function(e){ return e.id == entryId; }) : entries[entries.length-1];
   if (!entry) { showToast('No entry found'); return; }
-  var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Journal ' + entry.date + '</title><style>body{font-family:Georgia,serif;max-width:600px;margin:40px auto;padding:20px;line-height:1.8;color:#333;}h2{color:#8a6a1a;}p{white-space:pre-wrap;}</style></head><body><h2>Journal Entry — ' + entry.date + '</h2>' + (entry.mood ? '<p><strong>Mood:</strong> ' + entry.mood + '</p>' : '') + '<p>' + (entry.text||'').replace(/</g,'&lt;') + '</p></body></html>';
+  var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Journal ' + entry.date + '</title><style>body{font-family:Georgia,serif;max-width:600px;margin:40px auto;padding:20px;line-height:1.8;color:#333;}h2{color:#8a6a1a;}p{white-space:pre-wrap;}</style></head><body><h2>Journal Entry - ' + entry.date + '</h2>' + (entry.mood ? '<p><strong>Mood:</strong> ' + entry.mood + '</p>' : '') + '<p>' + (entry.text||'').replace(/</g,'&lt;') + '</p></body></html>';
 
 var blob = new Blob([html], {type:‘text/html’});
 var url = URL.createObjectURL(blob);
@@ -4178,7 +4178,7 @@ a.href = url;
 a.download = ‘journal-’ + (entry.date||‘entry’).replace(/[^a-z0-9]/gi,’-’) + ‘.html’;
 a.click();
 URL.revokeObjectURL(url);
-showToast(‘PDF saved — open file and print to PDF’);
+showToast(‘PDF saved - open file and print to PDF’);
 }
 
 function showToast(msg, duration) {
