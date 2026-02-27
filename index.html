@@ -1547,11 +1547,14 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
 <!-- FILTERS -->
 <div style="display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px;">
   <button onclick="filterEvents('all')" id="ef-all" class="ef-btn ef-active">All</button>
-  <button onclick="filterEvents('UK')" id="ef-UK" class="ef-btn">🇬🇧 UK</button>
-  <button onclick="filterEvents('USA')" id="ef-USA" class="ef-btn">🇺🇸 USA</button>
-  <button onclick="filterEvents('Europe')" id="ef-Europe" class="ef-btn">🇪🇺 Europe</button>
-  <button onclick="filterEvents('Australia')" id="ef-Australia" class="ef-btn">🇦🇺 Australia</button>
-  <button onclick="filterEvents('worldwide')" id="ef-worldwide" class="ef-btn">🌍 Worldwide</button>
+  <button onclick="filterEvents('british-isles')" id="ef-british-isles" class="ef-btn">🇬🇧 British Isles</button>
+  <button onclick="filterEvents('europe')" id="ef-europe" class="ef-btn">🇪🇺 Europe</button>
+  <button onclick="filterEvents('north-america')" id="ef-north-america" class="ef-btn">🌎 N. America</button>
+  <button onclick="filterEvents('latin-america')" id="ef-latin-america" class="ef-btn">🌎 Latin America</button>
+  <button onclick="filterEvents('asia')" id="ef-asia" class="ef-btn">🌏 Asia</button>
+  <button onclick="filterEvents('pacific')" id="ef-pacific" class="ef-btn">🌏 Pacific</button>
+  <button onclick="filterEvents('africa')" id="ef-africa" class="ef-btn">🌍 Africa</button>
+  <button onclick="filterEvents('worldwide')" id="ef-worldwide" class="ef-btn">🌐 Worldwide</button>
 </div>
 
 <!-- EVENTS LIST -->
@@ -1618,13 +1621,53 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
   <div class="modal-label">Country *</div>
   <select id="ev-country" class="input" style="appearance:none;">
     <option value="">Select country...</option>
-    <option>UK</option><option>USA</option><option>Canada</option>
-    <option>Australia</option><option>Ireland</option>
-    <option>Germany</option><option>France</option><option>Netherlands</option>
-    <option>Spain</option><option>Italy</option><option>Portugal</option>
-    <option>Sweden</option><option>Norway</option><option>Denmark</option>
-    <option>South Africa</option><option>New Zealand</option>
-    <option>worldwide</option><option>Other</option>
+    <optgroup label="🇬🇧 British Isles">
+      <option>UK</option><option>Ireland</option>
+    </optgroup>
+    <optgroup label="🌍 Europe">
+      <option>Austria</option><option>Belgium</option><option>Croatia</option>
+      <option>Czech Republic</option><option>Denmark</option><option>Finland</option>
+      <option>France</option><option>Germany</option><option>Greece</option>
+      <option>Hungary</option><option>Iceland</option><option>Italy</option>
+      <option>Luxembourg</option><option>Malta</option><option>Netherlands</option>
+      <option>Norway</option><option>Poland</option><option>Portugal</option>
+      <option>Romania</option><option>Russia</option><option>Serbia</option>
+      <option>Slovakia</option><option>Slovenia</option><option>Spain</option>
+      <option>Sweden</option><option>Switzerland</option><option>Turkey</option>
+      <option>Ukraine</option>
+    </optgroup>
+    <optgroup label="🌎 North America">
+      <option>USA</option><option>Canada</option><option>Mexico</option>
+    </optgroup>
+    <optgroup label="🌎 Latin America &amp; Caribbean">
+      <option>Argentina</option><option>Brazil</option><option>Chile</option>
+      <option>Colombia</option><option>Costa Rica</option><option>Cuba</option>
+      <option>Ecuador</option><option>Jamaica</option><option>Panama</option>
+      <option>Peru</option><option>Puerto Rico</option><option>Uruguay</option>
+      <option>Venezuela</option>
+    </optgroup>
+    <optgroup label="🌏 Asia">
+      <option>Bahrain</option><option>China</option><option>Hong Kong</option>
+      <option>India</option><option>Indonesia</option><option>Israel</option>
+      <option>Japan</option><option>Jordan</option><option>Kuwait</option>
+      <option>Lebanon</option><option>Malaysia</option><option>Nepal</option>
+      <option>Oman</option><option>Pakistan</option><option>Philippines</option>
+      <option>Qatar</option><option>Saudi Arabia</option><option>Singapore</option>
+      <option>South Korea</option><option>Sri Lanka</option><option>Taiwan</option>
+      <option>Thailand</option><option>UAE</option><option>Vietnam</option>
+    </optgroup>
+    <optgroup label="🌏 Pacific">
+      <option>Australia</option><option>Bali</option><option>Fiji</option>
+      <option>New Zealand</option><option>Papua New Guinea</option>
+    </optgroup>
+    <optgroup label="🌍 Africa">
+      <option>Egypt</option><option>Ghana</option><option>Kenya</option>
+      <option>Morocco</option><option>Nigeria</option><option>South Africa</option>
+      <option>Tanzania</option><option>Uganda</option><option>Zimbabwe</option>
+    </optgroup>
+    <optgroup label="🌐 Other">
+      <option>Worldwide</option><option>Other</option>
+    </optgroup>
   </select>
 
   <div class="modal-label">Website / Booking Link</div>
@@ -1846,6 +1889,7 @@ function showScreen(name) {
   var navItem = document.getElementById('nav-' + name);
   if (navItem) navItem.classList.add('active');
   if (name === 'meetings') { renderSavedMeetings(); }
+  if (name === 'home') { loadHomeCalendar(); }
   if (name === 'account') { renderAccountScreen(); }
   if (name === 'network') {
     setTimeout(function(){
@@ -2753,6 +2797,17 @@ function showEventsEmpty() {
   document.getElementById('events-loading').style.display = 'none';
 }
 
+var REGIONS = {
+  'british-isles': ['UK','Ireland'],
+  'europe': ['Austria','Belgium','Croatia','Czech Republic','Denmark','Finland','France','Germany','Greece','Hungary','Iceland','Italy','Luxembourg','Malta','Netherlands','Norway','Poland','Portugal','Romania','Russia','Serbia','Slovakia','Slovenia','Spain','Sweden','Switzerland','Turkey','Ukraine'],
+  'north-america': ['USA','Canada','Mexico'],
+  'latin-america': ['Argentina','Brazil','Chile','Colombia','Costa Rica','Cuba','Ecuador','Jamaica','Panama','Peru','Puerto Rico','Uruguay','Venezuela'],
+  'asia': ['Bahrain','China','Hong Kong','India','Indonesia','Israel','Japan','Jordan','Kuwait','Lebanon','Malaysia','Nepal','Oman','Pakistan','Philippines','Qatar','Saudi Arabia','Singapore','South Korea','Sri Lanka','Taiwan','Thailand','UAE','Vietnam'],
+  'pacific': ['Australia','Bali','Fiji','New Zealand','Papua New Guinea'],
+  'africa': ['Egypt','Ghana','Kenya','Morocco','Nigeria','South Africa','Tanzania','Uganda','Zimbabwe'],
+  'worldwide': ['Worldwide','worldwide','Other']
+};
+
 function filterEvents(filter) {
   currentFilter = filter;
   document.querySelectorAll('.ef-btn').forEach(function(b){ b.classList.remove('ef-active'); });
@@ -2765,6 +2820,8 @@ function renderEvents() {
   var list = document.getElementById('events-list');
   var filtered = allEvents.filter(function(ev) {
     if (currentFilter === 'all') return true;
+    var regionCountries = REGIONS[currentFilter];
+    if (regionCountries) return regionCountries.indexOf(ev.country) > -1;
     return ev.country === currentFilter;
   });
 
@@ -2969,7 +3026,8 @@ async function toggleGoing(e, eventId) {
     ev.going_names = names;
     renderEvents();
     closeEventDetailDirect();
-    toast(idx > -1 ? 'Removed from going' : 'Marked as going!');
+    toast(idx > -1 ? 'Removed from going' : 'Added to your calendar!');
+    loadHomeCalendar();
   } catch(e2) { toast('Could not update - try again'); }
 }
 
@@ -3157,6 +3215,7 @@ async function doSignIn() {
     hideWelcomeScreen();
     document.getElementById('signin-modal').classList.remove('open');
     toast('Welcome back ' + currentUser.email.split('@')[0]);
+    setTimeout(loadHomeCalendar, 500);
     eventsLoaded = false;
     // Check pending events for admins
     setTimeout(function() { checkPendingBadge(); }, 1000);
@@ -3565,6 +3624,94 @@ async function doSignOut() {
 
 
 
+
+// =====================
+// HOME EVENTS CALENDAR
+// =====================
+function loadHomeCalendar() {
+  if (!currentUser || !supa) return;
+
+  supa.from('events')
+    .select('*')
+    .eq('approved', true)
+    .order('date', { ascending: true })
+    .then(function(result) {
+      if (!result.data) return;
+      var userId = currentUser.id;
+      var today = new Date();
+      today.setHours(0,0,0,0);
+
+      // Filter to events user is going to, upcoming only
+      var myEvents = result.data.filter(function(ev) {
+        if (!ev.going_users) return false;
+        if (ev.going_users.indexOf(userId) === -1) return false;
+        var evDate = new Date(ev.date);
+        return evDate >= today;
+      });
+
+      var cal = document.getElementById('home-events-calendar');
+      var list = document.getElementById('home-events-list');
+      if (!cal || !list) return;
+
+      if (!myEvents.length) {
+        cal.style.display = 'none';
+        return;
+      }
+
+      cal.style.display = 'block';
+      list.innerHTML = '';
+
+      myEvents.slice(0, 5).forEach(function(ev) {
+        var card = document.createElement('div');
+        card.style.cssText = 'background:var(--sf);border:1px solid rgba(232,201,122,0.35);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.2);';
+        card.onclick = function() { showScreen('events'); };
+
+        // Date badge
+        var d = new Date(ev.date);
+        var dateBadge = document.createElement('div');
+        dateBadge.style.cssText = 'flex-shrink:0;width:44px;height:44px;border-radius:10px;background:rgba(232,201,122,0.15);border:1px solid rgba(232,201,122,0.3);display:flex;flex-direction:column;align-items:center;justify-content:center;';
+        var dayEl = document.createElement('div');
+        dayEl.style.cssText = 'font-size:1.1rem;font-weight:800;color:var(--ac);line-height:1;';
+        dayEl.textContent = d.getDate();
+        var monthEl = document.createElement('div');
+        monthEl.style.cssText = 'font-size:0.55rem;color:var(--tm);text-transform:uppercase;letter-spacing:0.05em;';
+        monthEl.textContent = d.toLocaleDateString('en-GB', { month:'short' });
+        dateBadge.appendChild(dayEl);
+        dateBadge.appendChild(monthEl);
+        card.appendChild(dateBadge);
+
+        // Event info
+        var info = document.createElement('div');
+        info.style.cssText = 'flex:1;min-width:0;';
+        var nameEl = document.createElement('div');
+        nameEl.style.cssText = 'font-weight:700;font-size:0.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
+        nameEl.textContent = ev.name;
+        var locEl = document.createElement('div');
+        locEl.style.cssText = 'font-size:0.7rem;color:var(--tm);margin-top:2px;';
+        locEl.textContent = (ev.location || '') + (ev.country ? ', ' + ev.country : '');
+        info.appendChild(nameEl);
+        info.appendChild(locEl);
+        card.appendChild(info);
+
+        // Arrow
+        var arrow = document.createElement('div');
+        arrow.style.cssText = 'color:var(--tm);font-size:1rem;flex-shrink:0;';
+        arrow.textContent = '›';
+        card.appendChild(arrow);
+
+        list.appendChild(card);
+      });
+
+      if (myEvents.length > 5) {
+        var more = document.createElement('div');
+        more.style.cssText = 'text-align:center;font-size:0.72rem;color:var(--tm);padding:4px;cursor:pointer;';
+        more.textContent = '+ ' + (myEvents.length - 5) + ' more events';
+        more.onclick = function() { showScreen('events'); };
+        list.appendChild(more);
+      }
+    });
+}
+
 // =====================
 // EVENTS AI AUTOFILL
 // =====================
@@ -3612,7 +3759,7 @@ async function autofillFromUrl() {
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
         max_tokens: 800,
-        system: 'Extract event details from URLs or web content. Respond ONLY with valid JSON. Fields: name (string), date (YYYY-MM-DD), end_date (YYYY-MM-DD or null), location (string), country (UK/USA/Canada/Australia/Ireland/Germany/France/Netherlands/Spain/Italy/Portugal/Sweden/worldwide/Other), url (string), description (max 150 chars), type (Convention/Marathon/Speaker Meeting/Workshop/Other). Use null for unknown fields.',
+        system: 'Extract event details from URLs or web content. Respond ONLY with valid JSON. Fields: name (string), date (YYYY-MM-DD), end_date (YYYY-MM-DD or null), location (string), country (use the exact country name from this list: UK, Ireland, Austria, Belgium, Croatia, Czech Republic, Denmark, Finland, France, Germany, Greece, Hungary, Iceland, Italy, Luxembourg, Malta, Netherlands, Norway, Poland, Portugal, Romania, Russia, Serbia, Slovakia, Slovenia, Spain, Sweden, Switzerland, Turkey, Ukraine, USA, Canada, Mexico, Argentina, Brazil, Chile, Colombia, Costa Rica, Cuba, Ecuador, Jamaica, Panama, Peru, Puerto Rico, Uruguay, Venezuela, Bahrain, China, Hong Kong, India, Indonesia, Israel, Japan, Jordan, Kuwait, Lebanon, Malaysia, Nepal, Oman, Pakistan, Philippines, Qatar, Saudi Arabia, Singapore, South Korea, Sri Lanka, Taiwan, Thailand, UAE, Vietnam, Australia, Bali, Fiji, New Zealand, Papua New Guinea, Egypt, Ghana, Kenya, Morocco, Nigeria, South Africa, Tanzania, Uganda, Zimbabwe, Worldwide, Other), url (string), description (max 150 chars), type (Convention/Marathon/Speaker Meeting/Workshop/Other). Use null for unknown fields.',
         messages: [{ role: 'user', content: 'Extract event details from: ' + url }]
       })
     });
@@ -3653,7 +3800,7 @@ async function autofillFromImage(input) {
         body: JSON.stringify({
           model: 'claude-sonnet-4-20250514',
           max_tokens: 800,
-          system: 'Extract event details from flyer images. Respond ONLY with valid JSON. Fields: name, date (YYYY-MM-DD), end_date (YYYY-MM-DD or null), location, country (UK/USA/Canada/Australia/Ireland/Germany/France/Netherlands/Spain/Italy/Portugal/Sweden/worldwide/Other), url, description (max 150 chars), type (Convention/Marathon/Speaker Meeting/Workshop/Other). Use null for unknown fields.',
+          system: 'Extract event details from flyer images. Respond ONLY with valid JSON. Fields: name, date (YYYY-MM-DD), end_date (YYYY-MM-DD or null), location, country (use the exact country name from this list: UK, Ireland, Austria, Belgium, Croatia, Czech Republic, Denmark, Finland, France, Germany, Greece, Hungary, Iceland, Italy, Luxembourg, Malta, Netherlands, Norway, Poland, Portugal, Romania, Russia, Serbia, Slovakia, Slovenia, Spain, Sweden, Switzerland, Turkey, Ukraine, USA, Canada, Mexico, Argentina, Brazil, Chile, Colombia, Costa Rica, Cuba, Ecuador, Jamaica, Panama, Peru, Puerto Rico, Uruguay, Venezuela, Bahrain, China, Hong Kong, India, Indonesia, Israel, Japan, Jordan, Kuwait, Lebanon, Malaysia, Nepal, Oman, Pakistan, Philippines, Qatar, Saudi Arabia, Singapore, South Korea, Sri Lanka, Taiwan, Thailand, UAE, Vietnam, Australia, Bali, Fiji, New Zealand, Papua New Guinea, Egypt, Ghana, Kenya, Morocco, Nigeria, South Africa, Tanzania, Uganda, Zimbabwe, Worldwide, Other), url, description (max 150 chars), type (Convention/Marathon/Speaker Meeting/Workshop/Other). Use null for unknown fields.',
           messages: [{
             role: 'user',
             content: [
