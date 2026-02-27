@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -34,807 +35,802 @@ body { font-family: "DM Sans", sans-serif; background: var(--bg); color: var(--t
 
 /* NAV */
 nav {
-  flex-shrink: 0;
-  display: flex;
-  background: rgba(15,15,26,0.97);
-  border-top: 1px solid var(--bd);
-  padding-bottom: env(safe-area-inset-bottom, 0);
+flex-shrink: 0;
+display: flex;
+background: rgba(15,15,26,0.97);
+border-top: 1px solid var(–bd);
+padding-bottom: env(safe-area-inset-bottom, 0);
 }
 .nav-item {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-  padding: 8px 1px 6px;
-  cursor: pointer;
-  color: var(--tm);
-  font-size: 0.38rem;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  -webkit-user-select: none;
-  user-select: none;
+flex: 1;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 2px;
+padding: 8px 1px 6px;
+cursor: pointer;
+color: var(–tm);
+font-size: 0.38rem;
+letter-spacing: 0.03em;
+text-transform: uppercase;
+-webkit-user-select: none;
+user-select: none;
 }
-.nav-item.active { color: var(--ac); }
+.nav-item.active { color: var(–ac); }
 .nav-icon { font-size: 1.1rem; line-height: 1; }
 
 /* CARDS */
 .card {
-  background: var(--sf);
-  border: 1px solid rgba(232,201,122,0.35);
-  border-radius: var(--r);
-  padding: 16px;
-  margin-bottom: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+background: var(–sf);
+border: 1px solid rgba(232,201,122,0.35);
+border-radius: var(–r);
+padding: 16px;
+margin-bottom: 10px;
+box-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
 .label {
-  font-size: 0.62rem;
-  font-weight: 800;
-  color: var(--ac);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 8px;
+font-size: 0.62rem;
+font-weight: 800;
+color: var(–ac);
+text-transform: uppercase;
+letter-spacing: 0.08em;
+margin-bottom: 8px;
 }
 .btn {
-  width: 100%;
-  padding: 13px;
-  border: none;
-  border-radius: var(--r);
-  background: var(--ac);
-  color: #1a1208;
-  font-size: 0.86rem;
-  font-weight: 700;
-  cursor: pointer;
-  margin-top: 8px;
+width: 100%;
+padding: 13px;
+border: none;
+border-radius: var(–r);
+background: var(–ac);
+color: #1a1208;
+font-size: 0.86rem;
+font-weight: 700;
+cursor: pointer;
+margin-top: 8px;
 }
 .input {
-  width: 100%;
-  background: var(--sf2);
-  border: 1px solid var(--bd);
-  border-radius: 10px;
-  color: var(--tx);
-  font-size: 0.84rem;
-  padding: 10px 12px;
-  outline: none;
+width: 100%;
+background: var(–sf2);
+border: 1px solid var(–bd);
+border-radius: 10px;
+color: var(–tx);
+font-size: 0.84rem;
+padding: 10px 12px;
+outline: none;
 }
-.input:focus { border-color: var(--ac); }
+.input:focus { border-color: var(–ac); }
 
 /* MOOD BUTTONS */
 .mood-row { display: flex; gap: 6px; }
 .mood-btn {
-  flex: 1;
-  background: var(--sf);
-  border: 1px solid var(--bd);
-  border-radius: 12px;
-  padding: 10px 4px;
-  cursor: pointer;
-  text-align: center;
+flex: 1;
+background: var(–sf);
+border: 1px solid var(–bd);
+border-radius: 12px;
+padding: 10px 4px;
+cursor: pointer;
+text-align: center;
 }
-.mood-btn.selected { border-color: var(--ac); background: rgba(232,201,122,0.1); }
+.mood-btn.selected { border-color: var(–ac); background: rgba(232,201,122,0.1); }
 .mood-emoji { font-size: 1.3rem; }
-.mood-label { font-size: 0.56rem; color: var(--tm); margin-top: 3px; }
-
+.mood-label { font-size: 0.56rem; color: var(–tm); margin-top: 3px; }
 
 .step-card {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  background: var(--sf);
-  border: 1px solid var(--bd);
-  border-radius: var(--r);
-  padding: 14px 16px;
-  margin-bottom: 8px;
-  text-decoration: none;
-  color: var(--tx);
+display: flex;
+align-items: center;
+gap: 14px;
+background: var(–sf);
+border: 1px solid var(–bd);
+border-radius: var(–r);
+padding: 14px 16px;
+margin-bottom: 8px;
+text-decoration: none;
+color: var(–tx);
 }
 .step-num {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 1px solid var(--ac);
-  background: rgba(232,201,122,0.08);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1rem;
-  font-weight: 400;
-  color: var(--ac);
-  flex-shrink: 0;
+width: 32px;
+height: 32px;
+border-radius: 50%;
+border: 1px solid var(–ac);
+background: rgba(232,201,122,0.08);
+display: flex;
+align-items: center;
+justify-content: center;
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1rem;
+font-weight: 400;
+color: var(–ac);
+flex-shrink: 0;
 }
 .step-body { flex: 1; min-width: 0; }
-.step-title { font-size: 0.86rem; font-weight: 600; color: var(--tx); }
-.step-sub { font-size: 0.7rem; color: var(--tm); margin-top: 2px; }
-.step-arrow { color: var(--tm); font-size: 0.9rem; }
+.step-title { font-size: 0.86rem; font-weight: 600; color: var(–tx); }
+.step-sub { font-size: 0.7rem; color: var(–tm); margin-top: 2px; }
+.step-arrow { color: var(–tm); font-size: 0.9rem; }
 .bt-ch {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  padding: 9px 0;
-  border-bottom: 1px solid var(--bd);
+display: flex;
+flex-direction: column;
+gap: 5px;
+padding: 9px 0;
+border-bottom: 1px solid var(–bd);
 }
 .bt-ch:last-child { border-bottom: none; }
-.bt-ch span { font-size: 0.78rem; font-weight: 600; color: var(--tx); }
+.bt-ch span { font-size: 0.78rem; font-weight: 600; color: var(–tx); }
 .bt-ch audio { width: 100%; height: 32px; }
 
-
 .j-type-card {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  background: var(--sf);
-  border: 1px solid rgba(232,201,122,0.35);
-  border-radius: var(--r);
-  padding: 16px 18px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-  transition: background 0.15s;
+display: flex;
+align-items: center;
+gap: 14px;
+background: var(–sf);
+border: 1px solid rgba(232,201,122,0.35);
+border-radius: var(–r);
+padding: 16px 18px;
+margin-bottom: 10px;
+cursor: pointer;
+box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+transition: background 0.15s;
 }
-.j-type-card:active { background: var(--sf2); }
+.j-type-card:active { background: var(–sf2); }
 .j-entry-card {
-  background: var(--sf);
-  border: 1px solid var(--bd);
-  border-radius: var(--r);
-  padding: 12px 14px;
-  margin-bottom: 8px;
-  cursor: pointer;
+background: var(–sf);
+border: 1px solid var(–bd);
+border-radius: var(–r);
+padding: 12px 14px;
+margin-bottom: 8px;
+cursor: pointer;
 }
-.j-entry-card:active { background: var(--sf2); }
-
+.j-entry-card:active { background: var(–sf2); }
 
 .j-entry-wrap {
-  position: relative;
-  margin-bottom: 8px;
-  overflow: hidden;
-  border-radius: var(--r);
+position: relative;
+margin-bottom: 8px;
+overflow: hidden;
+border-radius: var(–r);
 }
 .j-delete-reveal {
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 80px;
-  background: #c0392b;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  cursor: pointer;
+position: absolute;
+right: 0;
+top: 0;
+bottom: 0;
+width: 80px;
+background: #c0392b;
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+font-size: 0.75rem;
+font-weight: 700;
+letter-spacing: 0.05em;
+cursor: pointer;
 }
 .j-entry-card {
-  position: relative;
-  transform: translateX(0);
-  transition: transform 0.2s ease;
-  cursor: pointer;
-  touch-action: pan-y;
+position: relative;
+transform: translateX(0);
+transition: transform 0.2s ease;
+cursor: pointer;
+touch-action: pan-y;
 }
-
 
 .book-card {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: var(--sf);
-  border: 1px solid rgba(232,201,122,0.35);
-  border-radius: var(--r);
-  padding: 12px 14px;
-  margin-bottom: 6px;
-  text-decoration: none;
-  color: var(--tx);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+display: flex;
+align-items: center;
+gap: 12px;
+background: var(–sf);
+border: 1px solid rgba(232,201,122,0.35);
+border-radius: var(–r);
+padding: 12px 14px;
+margin-bottom: 6px;
+text-decoration: none;
+color: var(–tx);
+box-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
 .book-card * { color: inherit; text-decoration: none; }
-.book-sub { font-size: 0.68rem; color: var(--tm) !important; margin-top: 2px; }
-.book-card:active { background: var(--sf2); }
+.book-sub { font-size: 0.68rem; color: var(–tm) !important; margin-top: 2px; }
+.book-card:active { background: var(–sf2); }
 .book-icon { font-size: 1.2rem; flex-shrink: 0; }
 .book-body { flex: 1; min-width: 0; }
-.book-title { font-size: 0.84rem; font-weight: 600; color: var(--tx) !important; -webkit-text-fill-color: var(--tx) !important; }
-.book-arr { color: var(--tm); font-size: 0.9rem; flex-shrink: 0; }
+.book-title { font-size: 0.84rem; font-weight: 600; color: var(–tx) !important; -webkit-text-fill-color: var(–tx) !important; }
+.book-arr { color: var(–tm); font-size: 0.9rem; flex-shrink: 0; }
 
 .book-expand-card {
-  background: var(--sf);
-  border: 1px solid rgba(232,201,122,0.35);
-  border-radius: var(--r);
-  margin-bottom: 10px;
-  overflow: hidden;
+background: var(–sf);
+border: 1px solid rgba(232,201,122,0.35);
+border-radius: var(–r);
+margin-bottom: 10px;
+overflow: hidden;
 }
 .book-expand-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 13px 14px;
-  cursor: pointer;
+display: flex;
+align-items: center;
+gap: 12px;
+padding: 13px 14px;
+cursor: pointer;
 }
-.book-expand-header:active { background: var(--sf2); }
+.book-expand-header:active { background: var(–sf2); }
 .book-expand-chevron {
-  color: var(--tm);
-  font-size: 0.75rem;
-  margin-left: auto;
-  transition: transform 0.2s;
-  flex-shrink: 0;
+color: var(–tm);
+font-size: 0.75rem;
+margin-left: auto;
+transition: transform 0.2s;
+flex-shrink: 0;
 }
 .book-expand-card.open .book-expand-chevron { transform: rotate(90deg); }
 .book-expand-body {
-  display: none;
-  padding: 0 14px 14px 14px;
-  border-top: 1px solid var(--bd);
+display: none;
+padding: 0 14px 14px 14px;
+border-top: 1px solid var(–bd);
 }
 .book-expand-card.open .book-expand-body { display: block; }
 .book-expand-section {
-  font-size: 0.6rem;
-  color: var(--tm);
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  margin: 12px 0 6px 0;
+font-size: 0.6rem;
+color: var(–tm);
+letter-spacing: 0.09em;
+text-transform: uppercase;
+margin: 12px 0 6px 0;
 }
 .book-buy-row {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-bottom: 4px;
+display: flex;
+gap: 6px;
+flex-wrap: wrap;
+margin-bottom: 4px;
 }
 .book-buy-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 7px 11px;
-  border-radius: 8px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-decoration: none;
-  white-space: nowrap;
+display: inline-flex;
+align-items: center;
+gap: 5px;
+padding: 7px 11px;
+border-radius: 8px;
+font-size: 0.7rem;
+font-weight: 600;
+text-decoration: none;
+white-space: nowrap;
 }
 .book-buy-btn.apple { background: #1c1c1e; color: #fff; border: 1px solid #3a3a3c; }
 .book-buy-btn.android { background: #1a3c27; color: #5fcf80; border: 1px solid #2d6b45; }
-.book-buy-btn.hardcopy { background: #2a2418; color: var(--ac); border: 1px solid #4a3f28; }
+.book-buy-btn.hardcopy { background: #2a2418; color: var(–ac); border: 1px solid #4a3f28; }
 .book-buy-btn:active { opacity: 0.75; }
 
-
-
 .book-expand-card {
-  background: var(--sf);
-  border: 1px solid rgba(232,201,122,0.35);
-  border-radius: var(--r);
-  margin-bottom: 8px;
-  overflow: hidden;
+background: var(–sf);
+border: 1px solid rgba(232,201,122,0.35);
+border-radius: var(–r);
+margin-bottom: 8px;
+overflow: hidden;
 }
 .book-card-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 13px 14px;
-  cursor: pointer;
+display: flex;
+align-items: center;
+gap: 12px;
+padding: 13px 14px;
+cursor: pointer;
 }
-.book-card-header:active { background: var(--sf2); }
+.book-card-header:active { background: var(–sf2); }
 .book-chevron {
-  color: var(--tm);
-  font-size: 1.2rem;
-  transition: transform 0.25s;
-  flex-shrink: 0;
+color: var(–tm);
+font-size: 1.2rem;
+transition: transform 0.25s;
+flex-shrink: 0;
 }
 .book-expand-card.open .book-chevron { transform: rotate(90deg); }
 .book-card-body {
-  display: none;
-  padding: 0 14px 14px 14px;
-  border-top: 1px solid var(--bd);
+display: none;
+padding: 0 14px 14px 14px;
+border-top: 1px solid var(–bd);
 }
 .book-expand-card.open .book-card-body { display: block; }
 .book-section-label {
-  font-size: 0.68rem;
-  color: var(--tm);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin: 12px 0 7px;
+font-size: 0.68rem;
+color: var(–tm);
+letter-spacing: 0.06em;
+text-transform: uppercase;
+margin: 12px 0 7px;
 }
 .book-btn-row {
-  display: flex;
-  gap: 8px;
+display: flex;
+gap: 8px;
 }
 .buy-btn {
-  display: block;
-  text-align: center;
-  padding: 9px 10px;
-  border-radius: 8px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-decoration: none;
-  margin-bottom: 6px;
+display: block;
+text-align: center;
+padding: 9px 10px;
+border-radius: 8px;
+font-size: 0.75rem;
+font-weight: 600;
+text-decoration: none;
+margin-bottom: 6px;
 }
 .book-btn-row .buy-btn { flex: 1; margin-bottom: 0; }
 .apple-btn  { background: #1c1c1e; color: #fff; border: 1px solid #3a3a3c; }
 .google-btn { background: #1a73e8; color: #fff; }
-.world-btn  { background: var(--sf2); color: var(--tx); border: 1px solid var(--bd); }
+.world-btn  { background: var(–sf2); color: var(–tx); border: 1px solid var(–bd); }
 .uk-btn     { background: #012169; color: #fff; }
 .eu-btn     { background: #003399; color: #ffd700; }
 
-
 .meeting-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--sf);
-  border: 1px solid rgba(232,201,122,0.35);
-  border-radius: var(--r);
-  padding: 13px 14px;
-  margin-bottom: 8px;
-  text-decoration: none;
-  color: var(--tx);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+display: flex;
+align-items: center;
+justify-content: space-between;
+background: var(–sf);
+border: 1px solid rgba(232,201,122,0.35);
+border-radius: var(–r);
+padding: 13px 14px;
+margin-bottom: 8px;
+text-decoration: none;
+color: var(–tx);
+box-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
 .meeting-card * { color: inherit; text-decoration: none; }
-.meeting-sub { font-size: 0.68rem; color: var(--tm) !important; margin-top: 2px; line-height: 1.4; }
-.meeting-card:active { background: var(--sf2); }
+.meeting-sub { font-size: 0.68rem; color: var(–tm) !important; margin-top: 2px; line-height: 1.4; }
+.meeting-card:active { background: var(–sf2); }
 .meeting-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+display: flex;
+align-items: center;
+gap: 12px;
 }
 .meeting-flag { font-size: 1.4rem; flex-shrink: 0; }
-.meeting-title { font-size: 0.84rem; font-weight: 600; color: var(--tx) !important; -webkit-text-fill-color: var(--tx) !important; }
-.meeting-arr { color: var(--tm); font-size: 1rem; flex-shrink: 0; margin-left: 8px; }
+.meeting-title { font-size: 0.84rem; font-weight: 600; color: var(–tx) !important; -webkit-text-fill-color: var(–tx) !important; }
+.meeting-arr { color: var(–tm); font-size: 1rem; flex-shrink: 0; margin-left: 8px; }
 
 /* NETWORK */
 .net-card {
-  background: var(--sf);
-  border: 1px solid rgba(232,201,122,0.3);
-  border-radius: var(--r);
-  padding: 14px 16px;
-  margin-bottom: 12px;
+background: var(–sf);
+border: 1px solid rgba(232,201,122,0.3);
+border-radius: var(–r);
+padding: 14px 16px;
+margin-bottom: 12px;
 }
 .net-card-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+display: flex;
+align-items: center;
+gap: 12px;
 }
 .net-avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: rgba(232,201,122,0.12);
-  border: 1px solid var(--bd);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  flex-shrink: 0;
+width: 44px;
+height: 44px;
+border-radius: 50%;
+background: rgba(232,201,122,0.12);
+border: 1px solid var(–bd);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.2rem;
+flex-shrink: 0;
 }
 .net-info { flex: 1; min-width: 0; }
-.net-name { font-size: 0.9rem; font-weight: 700; color: var(--tx); }
-.net-role { display: inline-block; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; color: var(--ac); background: rgba(232,201,122,0.12); border: 1px solid rgba(232,201,122,0.3); border-radius: 20px; padding: 2px 8px; margin-top: 4px; text-transform: uppercase; }
-.net-clean { font-size: 0.66rem; color: var(--tm); margin-top: 2px; }
-.net-location { font-size: 0.66rem; color: var(--tm); margin-top: 1px; }
+.net-name { font-size: 0.9rem; font-weight: 700; color: var(–tx); }
+.net-role { display: inline-block; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; color: var(–ac); background: rgba(232,201,122,0.12); border: 1px solid rgba(232,201,122,0.3); border-radius: 20px; padding: 2px 8px; margin-top: 4px; text-transform: uppercase; }
+.net-clean { font-size: 0.66rem; color: var(–tm); margin-top: 2px; }
+.net-location { font-size: 0.66rem; color: var(–tm); margin-top: 1px; }
 .net-actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 12px;
-  padding-top: 10px;
-  border-top: 1px solid var(--bd);
+display: flex;
+gap: 8px;
+margin-top: 12px;
+padding-top: 10px;
+border-top: 1px solid var(–bd);
 }
 .net-action-btn {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  padding: 8px 4px;
-  background: var(--sf2);
-  border: 1px solid var(--bd);
-  border-radius: 10px;
-  cursor: pointer;
-  text-decoration: none;
-  color: var(--tx);
-  -webkit-text-fill-color: var(--tx);
-  font-size: 0.6rem;
-  text-align: center;
+flex: 1;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 4px;
+padding: 8px 4px;
+background: var(–sf2);
+border: 1px solid var(–bd);
+border-radius: 10px;
+cursor: pointer;
+text-decoration: none;
+color: var(–tx);
+-webkit-text-fill-color: var(–tx);
+font-size: 0.6rem;
+text-align: center;
 }
 .net-action-btn:active { background: rgba(232,201,122,0.1); }
 .net-action-icon { font-size: 1.1rem; }
 
 /* MODAL */
 .modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  z-index: 9000;
-  align-items: flex-end;
+display: none;
+position: fixed;
+inset: 0;
+background: rgba(0,0,0,0.7);
+z-index: 9000;
+align-items: flex-end;
 }
 .modal-overlay.open { display: flex; }
 .modal-sheet {
-  background: var(--sf);
-  border-radius: 20px 20px 0 0;
-  padding: 20px 16px 40px;
-  width: 100%;
-  max-height: 85vh;
-  overflow-y: auto;
+background: var(–sf);
+border-radius: 20px 20px 0 0;
+padding: 20px 16px 40px;
+width: 100%;
+max-height: 85vh;
+overflow-y: auto;
 }
 .modal-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.4rem;
-  font-weight: 300;
-  color: var(--ac);
-  margin-bottom: 16px;
-  text-align: center;
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.4rem;
+font-weight: 300;
+color: var(–ac);
+margin-bottom: 16px;
+text-align: center;
 }
 .modal-label {
-  font-size: 0.62rem;
-  font-weight: 800;
-  color: var(--ac);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 6px;
-  margin-top: 14px;
+font-size: 0.62rem;
+font-weight: 800;
+color: var(–ac);
+text-transform: uppercase;
+letter-spacing: 0.08em;
+margin-bottom: 6px;
+margin-top: 14px;
 }
 .role-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 7px;
-  margin-bottom: 4px;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 7px;
+margin-bottom: 4px;
 }
 .role-btn {
-  padding: 9px 8px;
-  border: 1px solid var(--bd);
-  border-radius: 10px;
-  background: var(--sf2);
-  color: var(--tm);
-  font-size: 0.74rem;
-  cursor: pointer;
-  text-align: center;
+padding: 9px 8px;
+border: 1px solid var(–bd);
+border-radius: 10px;
+background: var(–sf2);
+color: var(–tm);
+font-size: 0.74rem;
+cursor: pointer;
+text-align: center;
 }
-.role-btn.selected { border-color: var(--ac); color: var(--ac); background: rgba(232,201,122,0.1); }
+.role-btn.selected { border-color: var(–ac); color: var(–ac); background: rgba(232,201,122,0.1); }
 
 /* EXPORT MODAL */
 .export-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  z-index: 9000;
-  align-items: flex-end;
+display: none;
+position: fixed;
+inset: 0;
+background: rgba(0,0,0,0.7);
+z-index: 9000;
+align-items: flex-end;
 }
 .export-overlay.open { display: flex; }
 
 /* NETWORK */
 .net-card {
-  background: var(--sf);
-  border: 1px solid var(--bd);
-  border-radius: var(--r);
-  padding: 14px 16px;
-  margin-bottom: 10px;
-  position: relative;
+background: var(–sf);
+border: 1px solid var(–bd);
+border-radius: var(–r);
+padding: 14px 16px;
+margin-bottom: 10px;
+position: relative;
 }
 .net-card-top {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 10px;
+display: flex;
+align-items: center;
+gap: 12px;
+margin-bottom: 10px;
 }
 .net-avatar {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: rgba(232,201,122,0.12);
-  border: 1px solid var(--bd);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  flex-shrink: 0;
+width: 42px;
+height: 42px;
+border-radius: 50%;
+background: rgba(232,201,122,0.12);
+border: 1px solid var(–bd);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.2rem;
+flex-shrink: 0;
 }
-.net-name { font-size: 0.92rem; font-weight: 700; color: var(--tx); }
+.net-name { font-size: 0.92rem; font-weight: 700; color: var(–tx); }
 .net-role {
-  display: inline-block;
-  font-size: 0.6rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  padding: 2px 8px;
-  border-radius: 20px;
-  margin-top: 3px;
-  background: rgba(232,201,122,0.1);
-  border: 1px solid rgba(232,201,122,0.25);
-  color: var(--ac);
+display: inline-block;
+font-size: 0.6rem;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 0.07em;
+padding: 2px 8px;
+border-radius: 20px;
+margin-top: 3px;
+background: rgba(232,201,122,0.1);
+border: 1px solid rgba(232,201,122,0.25);
+color: var(–ac);
 }
 .net-met
 .net-actions {
-  display: flex;
-  gap: 8px;
+display: flex;
+gap: 8px;
 }
 .net-btn {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 9px;
-  border-radius: 10px;
-  font-size: 0.74rem;
-  font-weight: 600;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
+flex: 1;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 6px;
+padding: 9px;
+border-radius: 10px;
+font-size: 0.74rem;
+font-weight: 600;
+text-decoration: none;
+border: none;
+cursor: pointer;
 }
 .net-btn.call { background: rgba(52,199,89,0.15); color: #34c759; border: 1px solid rgba(52,199,89,0.25); }
 .net-btn.whatsapp { background: rgba(37,211,102,0.12); color: #25d366; border: 1px solid rgba(37,211,102,0.25); }
 .net-delete-btn {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: none;
-  border: none;
-  color: var(--tm);
-  font-size: 1rem;
-  cursor: pointer;
-  padding: 2px 6px;
-  line-height: 1;
+position: absolute;
+top: 12px;
+right: 12px;
+background: none;
+border: none;
+color: var(–tm);
+font-size: 1rem;
+cursor: pointer;
+padding: 2px 6px;
+line-height: 1;
 }
 
 /* MODAL */
 .modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  z-index: 500;
-  align-items: flex-end;
-  justify-content: center;
+display: none;
+position: fixed;
+inset: 0;
+background: rgba(0,0,0,0.7);
+z-index: 500;
+align-items: flex-end;
+justify-content: center;
 }
 .modal-overlay.open { display: flex; }
 .modal-box {
-  background: var(--sf);
-  border: 1px solid var(--bd);
-  border-radius: 20px 20px 0 0;
-  padding: 24px 18px 40px;
-  width: 100%;
-  max-width: 500px;
-  max-height: 85vh;
-  overflow-y: auto;
+background: var(–sf);
+border: 1px solid var(–bd);
+border-radius: 20px 20px 0 0;
+padding: 24px 18px 40px;
+width: 100%;
+max-width: 500px;
+max-height: 85vh;
+overflow-y: auto;
 }
 .modal-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.4rem;
-  font-weight: 300;
-  color: var(--ac);
-  margin-bottom: 16px;
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.4rem;
+font-weight: 300;
+color: var(–ac);
+margin-bottom: 16px;
 }
 .modal-label {
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: var(--tm);
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  margin-bottom: 5px;
-  margin-top: 12px;
+font-size: 0.68rem;
+font-weight: 700;
+color: var(–tm);
+text-transform: uppercase;
+letter-spacing: 0.07em;
+margin-bottom: 5px;
+margin-top: 12px;
 }
 .modal-select {
-  width: 100%;
-  background: var(--sf2);
-  border: 1px solid var(--bd);
-  border-radius: 10px;
-  color: var(--tx);
-  font-size: 0.84rem;
-  padding: 10px 12px;
-  outline: none;
-  -webkit-appearance: none;
+width: 100%;
+background: var(–sf2);
+border: 1px solid var(–bd);
+border-radius: 10px;
+color: var(–tx);
+font-size: 0.84rem;
+padding: 10px 12px;
+outline: none;
+-webkit-appearance: none;
 }
 
 /* EXPORT MODAL */
 .export-btn {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: var(--sf2);
-  border: 1px solid var(--bd);
-  border-radius: var(--r);
-  padding: 14px 16px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  width: 100%;
-  text-align: left;
-  color: var(--tx);
+display: flex;
+align-items: center;
+gap: 12px;
+background: var(–sf2);
+border: 1px solid var(–bd);
+border-radius: var(–r);
+padding: 14px 16px;
+margin-bottom: 10px;
+cursor: pointer;
+width: 100%;
+text-align: left;
+color: var(–tx);
 }
 .export-btn:active { opacity: 0.75; }
 
 /* WELCOME SCREEN */
 #welcome-screen {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 10000;
-  background: var(--bg);
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 0 24px 48px;
+display: none;
+position: fixed;
+inset: 0;
+z-index: 10000;
+background: var(–bg);
+flex-direction: column;
+align-items: center;
+justify-content: flex-end;
+padding: 0 24px 48px;
 }
 #welcome-hero {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  width: 100%;
+flex: 1;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-align: center;
+width: 100%;
 }
 .welcome-logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2.8rem;
-  font-weight: 300;
-  color: var(--ac);
-  margin-bottom: 6px;
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 2.8rem;
+font-weight: 300;
+color: var(–ac);
+margin-bottom: 6px;
 }
 .welcome-sub {
-  font-size: 0.65rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--tm);
-  margin-bottom: 40px;
+font-size: 0.65rem;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: var(–tm);
+margin-bottom: 40px;
 }
 .welcome-tagline {
-  font-size: 0.9rem;
-  color: var(--tx);
-  line-height: 1.7;
-  max-width: 280px;
-  margin-bottom: 40px;
+font-size: 0.9rem;
+color: var(–tx);
+line-height: 1.7;
+max-width: 280px;
+margin-bottom: 40px;
 }
 .welcome-btn-primary {
-  width: 100%;
-  padding: 16px;
-  background: var(--ac);
-  color: #1a1208;
-  border: none;
-  border-radius: var(--r);
-  font-size: 0.92rem;
-  font-weight: 700;
-  cursor: pointer;
-  margin-bottom: 12px;
+width: 100%;
+padding: 16px;
+background: var(–ac);
+color: #1a1208;
+border: none;
+border-radius: var(–r);
+font-size: 0.92rem;
+font-weight: 700;
+cursor: pointer;
+margin-bottom: 12px;
 }
 .welcome-btn-secondary {
-  width: 100%;
-  padding: 15px;
-  background: transparent;
-  color: var(--tx);
-  border: 1px solid rgba(232,201,122,0.35);
-  border-radius: var(--r);
-  font-size: 0.88rem;
-  cursor: pointer;
-  margin-bottom: 12px;
+width: 100%;
+padding: 15px;
+background: transparent;
+color: var(–tx);
+border: 1px solid rgba(232,201,122,0.35);
+border-radius: var(–r);
+font-size: 0.88rem;
+cursor: pointer;
+margin-bottom: 12px;
 }
 .welcome-btn-ghost {
-  background: transparent;
-  border: none;
-  color: var(--tm);
-  font-size: 0.75rem;
-  cursor: pointer;
-  padding: 8px;
+background: transparent;
+border: none;
+color: var(–tm);
+font-size: 0.75rem;
+cursor: pointer;
+padding: 8px;
 }
 #auth-form { display: none; width: 100%; }
 .auth-back {
-  background: transparent;
-  border: none;
-  color: var(--tm);
-  font-size: 0.8rem;
-  cursor: pointer;
-  padding: 0;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
+background: transparent;
+border: none;
+color: var(–tm);
+font-size: 0.8rem;
+cursor: pointer;
+padding: 0;
+margin-bottom: 20px;
+display: flex;
+align-items: center;
+gap: 4px;
 }
 
 /* EVENTS */
 .ef-btn {
-  padding: 7px 14px;
-  border: 1px solid rgba(232,201,122,0.35);
-  border-radius: 20px;
-  background: var(--sf);
-  color: var(--tm);
-  font-size: 0.72rem;
-  cursor: pointer;
-  white-space: nowrap;
-  flex-shrink: 0;
+padding: 7px 14px;
+border: 1px solid rgba(232,201,122,0.35);
+border-radius: 20px;
+background: var(–sf);
+color: var(–tm);
+font-size: 0.72rem;
+cursor: pointer;
+white-space: nowrap;
+flex-shrink: 0;
 }
 .ef-btn.ef-active {
-  background: var(--ac);
-  color: #1a1208;
-  font-weight: 700;
-  border-color: var(--ac);
+background: var(–ac);
+color: #1a1208;
+font-weight: 700;
+border-color: var(–ac);
 }
 .event-card {
-  background: var(--sf);
-  border: 1px solid rgba(232,201,122,0.35);
-  border-radius: var(--r);
-  margin-bottom: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-  cursor: pointer;
+background: var(–sf);
+border: 1px solid rgba(232,201,122,0.35);
+border-radius: var(–r);
+margin-bottom: 12px;
+overflow: hidden;
+box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+cursor: pointer;
 }
 .event-flyer {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-  display: block;
+width: 100%;
+height: 160px;
+object-fit: cover;
+display: block;
 }
 .event-flyer-placeholder {
-  width: 100%;
-  height: 100px;
-  background: linear-gradient(135deg, #1a1a2e, #16213e);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.5rem;
+width: 100%;
+height: 100px;
+background: linear-gradient(135deg, #1a1a2e, #16213e);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 2.5rem;
 }
 .event-body { padding: 14px 16px; }
 .event-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
-.event-meta { font-size: 0.72rem; color: var(--tm); margin-bottom: 10px; line-height: 1.6; }
+.event-meta { font-size: 0.72rem; color: var(–tm); margin-bottom: 10px; line-height: 1.6; }
 .event-type-tag {
-  display: inline-block;
-  background: rgba(232,201,122,0.12);
-  border: 1px solid rgba(232,201,122,0.25);
-  border-radius: 20px;
-  padding: 2px 10px;
-  font-size: 0.65rem;
-  color: var(--ac);
-  margin-bottom: 8px;
+display: inline-block;
+background: rgba(232,201,122,0.12);
+border: 1px solid rgba(232,201,122,0.25);
+border-radius: 20px;
+padding: 2px 10px;
+font-size: 0.65rem;
+color: var(–ac);
+margin-bottom: 8px;
 }
 .event-going-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 10px;
-  border-top: 1px solid var(--bd);
-  margin-top: 8px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding-top: 10px;
+border-top: 1px solid var(–bd);
+margin-top: 8px;
 }
 .going-btn {
-  padding: 7px 16px;
-  border-radius: 20px;
-  border: none;
-  font-size: 0.75rem;
-  font-weight: 700;
-  cursor: pointer;
-  background: var(--ac);
-  color: #1a1208;
+padding: 7px 16px;
+border-radius: 20px;
+border: none;
+font-size: 0.75rem;
+font-weight: 700;
+cursor: pointer;
+background: var(–ac);
+color: #1a1208;
 }
 .going-btn.going-active {
-  background: #5fcf80;
-  color: #0f1a10;
+background: #5fcf80;
+color: #0f1a10;
 }
 
 /* LEAFLET POPUP DARK THEME */
 .net-popup .leaflet-popup-content-wrapper {
-  background: #1a1a2e;
-  color: #f0ead6;
-  border: 1px solid rgba(232,201,122,0.2);
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+background: #1a1a2e;
+color: #f0ead6;
+border: 1px solid rgba(232,201,122,0.2);
+border-radius: 10px;
+box-shadow: 0 4px 20px rgba(0,0,0,0.5);
 }
 .net-popup .leaflet-popup-tip { background: #1a1a2e; }
 
 /* TOAST */
 #toast {
-  position: fixed;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%) translateY(8px);
-  background: var(--ac);
-  color: #1a1208;
-  padding: 8px 20px;
-  border-radius: 20px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  opacity: 0;
-  transition: opacity 0.25s, transform 0.25s;
-  pointer-events: none;
-  z-index: 999;
+position: fixed;
+bottom: 80px;
+left: 50%;
+transform: translateX(-50%) translateY(8px);
+background: var(–ac);
+color: #1a1208;
+padding: 8px 20px;
+border-radius: 20px;
+font-size: 0.78rem;
+font-weight: 700;
+opacity: 0;
+transition: opacity 0.25s, transform 0.25s;
+pointer-events: none;
+z-index: 999;
 }
 #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 </style>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 // Fallback if Supabase fails to load
 // Set up supabase fallback immediately in case CDN fails
@@ -845,238 +841,242 @@ function setupSupabaseFallback() {
 }
 window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true);
 </script>
+
 </head>
 <body>
 
 <!-- SPLASH SCREEN -->
+
 <!-- AUTH SCREEN -->
 
-
 <!-- FORGOT PASSWORD SCREEN -->
-
-
-
 
 <div id="app">
 
   <!-- HOME SCREEN -->
+
   <div class="screen active" id="screen-home">
 
-    <!-- Header -->
-    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
-      <div>
-        <div style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:300; color:var(--ac);">Just For Today</div>
-        <div style="font-size:0.62rem; color:var(--tm); letter-spacing:0.08em; text-transform:uppercase;">Clean Living</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px;">
-        <button id="home-signout-btn" onclick="doSignOut()" style="display:none;font-size:0.65rem;color:#e74c3c;background:transparent;border:1px solid rgba(231,76,60,0.3);border-radius:12px;padding:5px 11px;cursor:pointer;">Sign Out</button>
-        <div style="position:relative;display:inline-block;">
-          <button id="home-signin-btn" onclick="showScreen('account')" style="width:34px;height:34px;border-radius:50%;background:var(--sf);border:1px solid rgba(232,201,122,0.35);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:var(--ac);">👤</button>
-          <div id="admin-badge" style="display:none;position:absolute;top:-3px;right:-3px;width:14px;height:14px;background:#e74c3c;border-radius:50%;font-size:0.55rem;font-weight:700;color:#fff;display:none;align-items:center;justify-content:center;" id="admin-badge"></div>
-        </div>
-      </div>
+```
+<!-- Header -->
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+  <div>
+    <div style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:300; color:var(--ac);">Just For Today</div>
+    <div style="font-size:0.62rem; color:var(--tm); letter-spacing:0.08em; text-transform:uppercase;">Clean Living</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <button id="home-signout-btn" onclick="doSignOut()" style="display:none;font-size:0.65rem;color:#e74c3c;background:transparent;border:1px solid rgba(231,76,60,0.3);border-radius:12px;padding:5px 11px;cursor:pointer;">Sign Out</button>
+    <div style="position:relative;display:inline-block;">
+      <button id="home-signin-btn" onclick="showScreen('account')" style="width:34px;height:34px;border-radius:50%;background:var(--sf);border:1px solid rgba(232,201,122,0.35);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:var(--ac);">👤</button>
+      <div id="admin-badge" style="display:none;position:absolute;top:-3px;right:-3px;width:14px;height:14px;background:#e74c3c;border-radius:50%;font-size:0.55rem;font-weight:700;color:#fff;display:none;align-items:center;justify-content:center;" id="admin-badge"></div>
     </div>
+  </div>
+</div>
 
-    <!-- Clean Date Counter -->
-    <div class="card">
-      <div style="display:flex; align-items:center; gap:14px;">
-        <div style="text-align:center; min-width:64px;">
-          <div id="days-count" style="font-family:'Cormorant Garamond',serif; font-size:2.8rem; font-weight:300; color:var(--ac); line-height:1;">0</div>
-          <div style="font-size:0.54rem; font-weight:700; color:var(--tm); letter-spacing:0.1em; text-transform:uppercase;">Days Clean</div>
-        </div>
-        <div style="flex:1;">
-          <div style="font-size:0.68rem; color:var(--tm); margin-bottom:6px;">Set your clean date</div>
-          <input type="date" id="clean-date-input" class="input" onchange="saveCleanDate(this.value)">
-          <div id="clean-date-label" style="font-size:0.64rem; color:var(--tm); margin-top:4px;"></div>
-        </div>
-      </div>
+<!-- Clean Date Counter -->
+<div class="card">
+  <div style="display:flex; align-items:center; gap:14px;">
+    <div style="text-align:center; min-width:64px;">
+      <div id="days-count" style="font-family:'Cormorant Garamond',serif; font-size:2.8rem; font-weight:300; color:var(--ac); line-height:1;">0</div>
+      <div style="font-size:0.54rem; font-weight:700; color:var(--tm); letter-spacing:0.1em; text-transform:uppercase;">Days Clean</div>
     </div>
-
-    <!-- Mood Check-in -->
-    <div class="card">
-      <div class="label">Today's Check-In</div>
-      <div class="mood-row">
-        <div class="mood-btn" id="mood-sad" onclick="setMood('sad')">
-          <div class="mood-emoji">&#x1F614;</div>
-          <div class="mood-label">Low</div>
-        </div>
-        <div class="mood-btn" id="mood-meh" onclick="setMood('meh')">
-          <div class="mood-emoji">&#x1F610;</div>
-          <div class="mood-label">Okay</div>
-        </div>
-        <div class="mood-btn" id="mood-good" onclick="setMood('good')">
-          <div class="mood-emoji">&#x1F642;</div>
-          <div class="mood-label">Good</div>
-        </div>
-        <div class="mood-btn" id="mood-great" onclick="setMood('great')">
-          <div class="mood-emoji">&#x1F60A;</div>
-          <div class="mood-label">Great</div>
-        </div>
-        <div class="mood-btn" id="mood-wow" onclick="setMood('wow')">
-          <div class="mood-emoji">&#x1F31F;</div>
-          <div class="mood-label">Amazing</div>
-        </div>
-      </div>
-      <div id="mood-history" style="font-size:0.74rem; color:var(--tm); margin-top:10px;"></div>
+    <div style="flex:1;">
+      <div style="font-size:0.68rem; color:var(--tm); margin-bottom:6px;">Set your clean date</div>
+      <input type="date" id="clean-date-input" class="input" onchange="saveCleanDate(this.value)">
+      <div id="clean-date-label" style="font-size:0.64rem; color:var(--tm); margin-top:4px;"></div>
     </div>
+  </div>
+</div>
 
-    <!-- Daily Quote -->
-    <div class="card" style="border-left: 3px solid var(--ac);">
-      <div id="daily-quote" style="font-style:italic; font-size:0.84rem; line-height:1.6;"></div>
+<!-- Mood Check-in -->
+<div class="card">
+  <div class="label">Today's Check-In</div>
+  <div class="mood-row">
+    <div class="mood-btn" id="mood-sad" onclick="setMood('sad')">
+      <div class="mood-emoji">&#x1F614;</div>
+      <div class="mood-label">Low</div>
     </div>
-
-
-    <!-- Daily Readings -->
-    <div class="label" style="margin-top:4px;">Today's Readings</div>
-    <a href="https://www.jftna.org/jft/" target="_blank" style="display:flex;align-items:center;gap:13px;background:var(--sf);border:1px solid rgba(232,201,122,0.35);border-radius:var(--r);padding:13px 15px;margin-bottom:8px;text-decoration:none;color:var(--tx);box-shadow:0 2px 8px rgba(0,0,0,0.25);">
-      <div style="font-size:1.4rem;">&#x1F4D4;</div>
-      <div style="flex:1;">
-        <div style="font-weight:600;font-size:0.86rem;">Just For Today</div>
-        <div style="font-size:0.7rem;color:var(--tm);margin-top:2px;">Read today's daily meditation</div>
-      </div>
-      <div style="color:var(--tm);">&#8250;</div>
-    </a>
-    <a href="https://spadna.org" target="_blank" style="display:flex;align-items:center;gap:13px;background:var(--sf);border:1px solid rgba(232,201,122,0.35);border-radius:var(--r);padding:13px 15px;margin-bottom:8px;text-decoration:none;color:var(--tx);box-shadow:0 2px 8px rgba(0,0,0,0.25);">
-      <div style="font-size:1.4rem;">&#x2728;</div>
-      <div style="flex:1;">
-        <div style="font-weight:600;font-size:0.86rem;">Spiritual Principle a Day</div>
-        <div style="font-size:0.7rem;color:var(--tm);margin-top:2px;">Read today's spiritual principle</div>
-      </div>
-      <div style="color:var(--tm);">&#8250;</div>
-    </a>
-
-    <!-- Quick Links -->
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:2px;">
-      <div class="card" onclick="showScreen('journal')" style="text-align:center; cursor:pointer; margin-bottom:0; padding:18px 16px;">
-        <div style="font-size:1.8rem;">&#x270D;</div>
-        <div style="font-size:0.76rem; font-weight:600; color:var(--tx); margin-top:6px;">Journal</div>
-      </div>
-      <div class="card" onclick="showScreen('my-events')" style="text-align:center; cursor:pointer; margin-bottom:0; padding:18px 16px; position:relative;">
-        <div style="font-size:1.8rem;">📅</div>
-        <div style="font-size:0.76rem; font-weight:600; color:var(--tx); margin-top:6px;">My Events</div>
-        <div id="home-events-badge" style="display:none;position:absolute;top:8px;right:8px;background:var(--ac);color:#1a1208;font-size:0.55rem;font-weight:800;border-radius:20px;padding:2px 6px;"></div>
-      </div>
-      <div class="card" onclick="showScreen('meetings')" style="text-align:center; cursor:pointer; margin-bottom:0; padding:18px 16px;">
-        <div style="font-size:1.8rem;">&#x1F5D3;</div>
-        <div style="font-size:0.76rem; font-weight:600; color:var(--tx); margin-top:6px;">Meetings</div>
-      </div>
+    <div class="mood-btn" id="mood-meh" onclick="setMood('meh')">
+      <div class="mood-emoji">&#x1F610;</div>
+      <div class="mood-label">Okay</div>
     </div>
-
-    <!-- Crisis Line -->
-    <div style="background:rgba(180,60,60,0.12); border:1px solid rgba(180,60,60,0.25); border-radius:var(--r); padding:12px 14px; margin-top:10px;">
-      <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
-        <div style="font-size:1rem;">📞</div>
-        <div style="font-size:0.74rem; font-weight:700; color:var(--tx);">Helplines</div>
-      </div>
-      <a href="tel:03009991212" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0; border-bottom:1px solid rgba(180,60,60,0.2);">
-        <div>
-          <div style="font-size:0.76rem; font-weight:700; color:#ff6b6b;">🇬🇧 UK Helpline</div>
-          <div style="font-size:0.63rem; color:var(--tm);">0300 999 1212 · 10am–midnight daily</div>
-        </div>
-        <div style="font-size:0.7rem; color:var(--tm);">Tap to call ›</div>
-      </a>
-      <a href="tel:+18187739999" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0; border-bottom:1px solid rgba(180,60,60,0.2);">
-        <div>
-          <div style="font-size:0.76rem; font-weight:700; color:#ff6b6b;">🌍 NA World Service Office</div>
-          <div style="font-size:0.63rem; color:var(--tm);">+1 818 773 9999 · Mon–Fri, 8am–5pm PST</div>
-        </div>
-        <div style="font-size:0.7rem; color:var(--tm);">Tap to call ›</div>
-      </a>
-      <a href="https://www.na.org/meetingsearch" target="_blank" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0;">
-        <div>
-          <div style="font-size:0.76rem; font-weight:700; color:#ff6b6b;">🔍 Find Your Local Helpline</div>
-          <div style="font-size:0.63rem; color:var(--tm);">na.org · Search by country or region</div>
-        </div>
-        <div style="font-size:0.7rem; color:var(--tm);">Open ›</div>
-      </a>
+    <div class="mood-btn" id="mood-good" onclick="setMood('good')">
+      <div class="mood-emoji">&#x1F642;</div>
+      <div class="mood-label">Good</div>
     </div>
+    <div class="mood-btn" id="mood-great" onclick="setMood('great')">
+      <div class="mood-emoji">&#x1F60A;</div>
+      <div class="mood-label">Great</div>
+    </div>
+    <div class="mood-btn" id="mood-wow" onclick="setMood('wow')">
+      <div class="mood-emoji">&#x1F31F;</div>
+      <div class="mood-label">Amazing</div>
+    </div>
+  </div>
+  <div id="mood-history" style="font-size:0.74rem; color:var(--tm); margin-top:10px;"></div>
+</div>
+
+<!-- Daily Quote -->
+<div class="card" style="border-left: 3px solid var(--ac);">
+  <div id="daily-quote" style="font-style:italic; font-size:0.84rem; line-height:1.6;"></div>
+</div>
+
+
+<!-- Daily Readings -->
+<div class="label" style="margin-top:4px;">Today's Readings</div>
+<a href="https://www.jftna.org/jft/" target="_blank" style="display:flex;align-items:center;gap:13px;background:var(--sf);border:1px solid rgba(232,201,122,0.35);border-radius:var(--r);padding:13px 15px;margin-bottom:8px;text-decoration:none;color:var(--tx);box-shadow:0 2px 8px rgba(0,0,0,0.25);">
+  <div style="font-size:1.4rem;">&#x1F4D4;</div>
+  <div style="flex:1;">
+    <div style="font-weight:600;font-size:0.86rem;">Just For Today</div>
+    <div style="font-size:0.7rem;color:var(--tm);margin-top:2px;">Read today's daily meditation</div>
+  </div>
+  <div style="color:var(--tm);">&#8250;</div>
+</a>
+<a href="https://spadna.org" target="_blank" style="display:flex;align-items:center;gap:13px;background:var(--sf);border:1px solid rgba(232,201,122,0.35);border-radius:var(--r);padding:13px 15px;margin-bottom:8px;text-decoration:none;color:var(--tx);box-shadow:0 2px 8px rgba(0,0,0,0.25);">
+  <div style="font-size:1.4rem;">&#x2728;</div>
+  <div style="flex:1;">
+    <div style="font-weight:600;font-size:0.86rem;">Spiritual Principle a Day</div>
+    <div style="font-size:0.7rem;color:var(--tm);margin-top:2px;">Read today's spiritual principle</div>
+  </div>
+  <div style="color:var(--tm);">&#8250;</div>
+</a>
+
+<!-- Quick Links -->
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:2px;">
+  <div class="card" onclick="showScreen('journal')" style="text-align:center; cursor:pointer; margin-bottom:0; padding:18px 16px;">
+    <div style="font-size:1.8rem;">&#x270D;</div>
+    <div style="font-size:0.76rem; font-weight:600; color:var(--tx); margin-top:6px;">Journal</div>
+  </div>
+  <div class="card" onclick="showScreen('my-events')" style="text-align:center; cursor:pointer; margin-bottom:0; padding:18px 16px; position:relative;">
+    <div style="font-size:1.8rem;">📅</div>
+    <div style="font-size:0.76rem; font-weight:600; color:var(--tx); margin-top:6px;">My Events</div>
+    <div id="home-events-badge" style="display:none;position:absolute;top:8px;right:8px;background:var(--ac);color:#1a1208;font-size:0.55rem;font-weight:800;border-radius:20px;padding:2px 6px;"></div>
+  </div>
+  <div class="card" onclick="showScreen('meetings')" style="text-align:center; cursor:pointer; margin-bottom:0; padding:18px 16px;">
+    <div style="font-size:1.8rem;">&#x1F5D3;</div>
+    <div style="font-size:0.76rem; font-weight:600; color:var(--tx); margin-top:6px;">Meetings</div>
+  </div>
+</div>
+
+<!-- Crisis Line -->
+<div style="background:rgba(180,60,60,0.12); border:1px solid rgba(180,60,60,0.25); border-radius:var(--r); padding:12px 14px; margin-top:10px;">
+  <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+    <div style="font-size:1rem;">📞</div>
+    <div style="font-size:0.74rem; font-weight:700; color:var(--tx);">Helplines</div>
+  </div>
+  <a href="tel:03009991212" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0; border-bottom:1px solid rgba(180,60,60,0.2);">
+    <div>
+      <div style="font-size:0.76rem; font-weight:700; color:#ff6b6b;">🇬🇧 UK Helpline</div>
+      <div style="font-size:0.63rem; color:var(--tm);">0300 999 1212 · 10am–midnight daily</div>
+    </div>
+    <div style="font-size:0.7rem; color:var(--tm);">Tap to call ›</div>
+  </a>
+  <a href="tel:+18187739999" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0; border-bottom:1px solid rgba(180,60,60,0.2);">
+    <div>
+      <div style="font-size:0.76rem; font-weight:700; color:#ff6b6b;">🌍 NA World Service Office</div>
+      <div style="font-size:0.63rem; color:var(--tm);">+1 818 773 9999 · Mon–Fri, 8am–5pm PST</div>
+    </div>
+    <div style="font-size:0.7rem; color:var(--tm);">Tap to call ›</div>
+  </a>
+  <a href="https://www.na.org/meetingsearch" target="_blank" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0;">
+    <div>
+      <div style="font-size:0.76rem; font-weight:700; color:#ff6b6b;">🔍 Find Your Local Helpline</div>
+      <div style="font-size:0.63rem; color:var(--tm);">na.org · Search by country or region</div>
+    </div>
+    <div style="font-size:0.7rem; color:var(--tm);">Open ›</div>
+  </a>
+</div>
+```
 
   </div><!-- end home -->
 
   <!-- PLACEHOLDER SCREENS (we'll build these next) -->
+
   <div class="screen" id="screen-journal">
 
-    <div style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:300; color:var(--ac); margin-bottom:2px;">Journal</div>
-    <div style="font-size:0.62rem; color:var(--tm); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:18px;">Your daily recovery writing</div>
+```
+<div style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:300; color:var(--ac); margin-bottom:2px;">Journal</div>
+<div style="font-size:0.62rem; color:var(--tm); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:18px;">Your daily recovery writing</div>
 
-    <!-- JOURNAL HOME - type selector -->
-    <div id="j-home">
-      <div class="label">Choose a journal type</div>
+<!-- JOURNAL HOME - type selector -->
+<div id="j-home">
+  <div class="label">Choose a journal type</div>
 
-      <div onclick="openJournal('gratitude')" class="j-type-card">
-        <div style="font-size:1.8rem;width:42px;text-align:center;">&#x1F64F;</div>
-        <div style="flex:1;">
-          <div style="font-weight:700; font-size:0.92rem;">Gratitude List</div>
-          <div style="font-size:0.74rem; color:var(--tm); margin-top:3px;">Count your blessings with guided prompts</div>
-        </div>
-        <div style="color:var(--tm);font-size:1.1rem;">&#8250;</div>
-      </div>
-
-      <div onclick="openJournal('spotcheck')" class="j-type-card">
-        <div style="font-size:1.8rem;width:42px;text-align:center;">&#x26A1;</div>
-        <div style="flex:1;">
-          <div style="font-weight:700; font-size:0.92rem;">Spot Check Inventory</div>
-          <div style="font-size:0.74rem; color:var(--tm); margin-top:3px;">Quick nightly check-in based on Step 10</div>
-        </div>
-        <div style="color:var(--tm);font-size:1.1rem;">&#8250;</div>
-      </div>
-
-      <div onclick="openJournal('step10')" class="j-type-card">
-        <div style="font-size:1.8rem;width:42px;text-align:center;">&#x1F4CB;</div>
-        <div style="flex:1;">
-          <div style="font-weight:700; font-size:0.92rem;">Full Step 10 Inventory</div>
-          <div style="font-size:0.74rem; color:var(--tm); margin-top:3px;">Complete daily inventory questions</div>
-        </div>
-        <div style="color:var(--tm);font-size:1.1rem;">&#8250;</div>
-      </div>
-
-      <div id="j-type-guiding" onclick="openJournal('guiding')" class="j-type-card">
-        <div style="font-size:1.8rem;width:42px;text-align:center;">&#x1F4D6;</div>
-        <div style="flex:1;">
-          <div style="font-weight:700; font-size:0.92rem;">Guiding Principles</div>
-          <div style="font-size:0.74rem; color:var(--tm); margin-top:3px;">Work through your Traditions questions</div>
-        </div>
-        <div style="color:var(--tm);font-size:1.1rem;">&#8250;</div>
-      </div>
-
-      <div onclick="openJournal('daily')" class="j-type-card">
-        <div style="font-size:1.8rem;width:42px;text-align:center;">&#x270D;</div>
-        <div style="flex:1;">
-          <div style="font-weight:700; font-size:0.92rem;">Daily Journal</div>
-          <div style="font-size:0.74rem; color:var(--tm); margin-top:3px;">Free writing with gentle prompts</div>
-        </div>
-        <div style="color:var(--tm);font-size:1.1rem;">&#8250;</div>
-      </div>
-
-      <!-- Past entries -->
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:20px;margin-bottom:8px;">
-        <div class="label" style="margin:0;">Recent Entries</div>
-        <button onclick="showExportPicker()" style="background:var(--sf);border:1px solid var(--bd);border-radius:20px;padding:5px 12px;font-size:0.66rem;color:var(--ac);cursor:pointer;">↑ Export</button>
-      </div>
-      <div id="j-entries"></div>
+  <div onclick="openJournal('gratitude')" class="j-type-card">
+    <div style="font-size:1.8rem;width:42px;text-align:center;">&#x1F64F;</div>
+    <div style="flex:1;">
+      <div style="font-weight:700; font-size:0.92rem;">Gratitude List</div>
+      <div style="font-size:0.74rem; color:var(--tm); margin-top:3px;">Count your blessings with guided prompts</div>
     </div>
+    <div style="color:var(--tm);font-size:1.1rem;">&#8250;</div>
+  </div>
 
-    <!-- JOURNAL WRITE VIEW -->
-    <div id="j-write" style="display:none;">
-      <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
-        <button onclick="closeJournal()" style="background:var(--sf);border:1px solid var(--bd);border-radius:50%;width:34px;height:34px;color:var(--tx);font-size:1rem;cursor:pointer;flex-shrink:0;">&#8592;</button>
-        <div>
-          <div id="j-write-title" style="font-weight:700; font-size:0.94rem;"></div>
-          <div id="j-write-date" style="font-size:0.68rem; color:var(--tm);"></div>
-        </div>
-      </div>
-
-      <!-- Prompts area -->
-      <div id="j-prompts"></div>
-
-      <!-- Text area -->
-      <textarea id="j-text" class="input" rows="10" placeholder="Write here..." style="resize:none; line-height:1.6; padding:12px;"></textarea>
-
-      <div style="display:flex; gap:8px; margin-top:10px;">
-        <button onclick="saveJournal()" class="btn" style="flex:1;">Save Entry</button>
-        <button id="j-delete-btn" onclick="deleteJournal()" style="display:none; background:transparent; border:1px solid rgba(180,60,60,0.4); border-radius:var(--r); padding:13px 16px; color:#ff6b6b; font-size:0.8rem; cursor:pointer;">Delete</button>
-      </div>
+  <div onclick="openJournal('spotcheck')" class="j-type-card">
+    <div style="font-size:1.8rem;width:42px;text-align:center;">&#x26A1;</div>
+    <div style="flex:1;">
+      <div style="font-weight:700; font-size:0.92rem;">Spot Check Inventory</div>
+      <div style="font-size:0.74rem; color:var(--tm); margin-top:3px;">Quick nightly check-in based on Step 10</div>
     </div>
+    <div style="color:var(--tm);font-size:1.1rem;">&#8250;</div>
+  </div>
+
+  <div onclick="openJournal('step10')" class="j-type-card">
+    <div style="font-size:1.8rem;width:42px;text-align:center;">&#x1F4CB;</div>
+    <div style="flex:1;">
+      <div style="font-weight:700; font-size:0.92rem;">Full Step 10 Inventory</div>
+      <div style="font-size:0.74rem; color:var(--tm); margin-top:3px;">Complete daily inventory questions</div>
+    </div>
+    <div style="color:var(--tm);font-size:1.1rem;">&#8250;</div>
+  </div>
+
+  <div id="j-type-guiding" onclick="openJournal('guiding')" class="j-type-card">
+    <div style="font-size:1.8rem;width:42px;text-align:center;">&#x1F4D6;</div>
+    <div style="flex:1;">
+      <div style="font-weight:700; font-size:0.92rem;">Guiding Principles</div>
+      <div style="font-size:0.74rem; color:var(--tm); margin-top:3px;">Work through your Traditions questions</div>
+    </div>
+    <div style="color:var(--tm);font-size:1.1rem;">&#8250;</div>
+  </div>
+
+  <div onclick="openJournal('daily')" class="j-type-card">
+    <div style="font-size:1.8rem;width:42px;text-align:center;">&#x270D;</div>
+    <div style="flex:1;">
+      <div style="font-weight:700; font-size:0.92rem;">Daily Journal</div>
+      <div style="font-size:0.74rem; color:var(--tm); margin-top:3px;">Free writing with gentle prompts</div>
+    </div>
+    <div style="color:var(--tm);font-size:1.1rem;">&#8250;</div>
+  </div>
+
+  <!-- Past entries -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-top:20px;margin-bottom:8px;">
+    <div class="label" style="margin:0;">Recent Entries</div>
+    <button onclick="showExportPicker()" style="background:var(--sf);border:1px solid var(--bd);border-radius:20px;padding:5px 12px;font-size:0.66rem;color:var(--ac);cursor:pointer;">↑ Export</button>
+  </div>
+  <div id="j-entries"></div>
+</div>
+
+<!-- JOURNAL WRITE VIEW -->
+<div id="j-write" style="display:none;">
+  <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+    <button onclick="closeJournal()" style="background:var(--sf);border:1px solid var(--bd);border-radius:50%;width:34px;height:34px;color:var(--tx);font-size:1rem;cursor:pointer;flex-shrink:0;">&#8592;</button>
+    <div>
+      <div id="j-write-title" style="font-weight:700; font-size:0.94rem;"></div>
+      <div id="j-write-date" style="font-size:0.68rem; color:var(--tm);"></div>
+    </div>
+  </div>
+
+  <!-- Prompts area -->
+  <div id="j-prompts"></div>
+
+  <!-- Text area -->
+  <textarea id="j-text" class="input" rows="10" placeholder="Write here..." style="resize:none; line-height:1.6; padding:12px;"></textarea>
+
+  <div style="display:flex; gap:8px; margin-top:10px;">
+    <button onclick="saveJournal()" class="btn" style="flex:1;">Save Entry</button>
+    <button id="j-delete-btn" onclick="deleteJournal()" style="display:none; background:transparent; border:1px solid rgba(180,60,60,0.4); border-radius:var(--r); padding:13px 16px; color:#ff6b6b; font-size:0.8rem; cursor:pointer;">Delete</button>
+  </div>
+</div>
+```
 
   </div>
 
@@ -1085,44 +1085,41 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
     <div style="font-size:0.62rem; color:var(--tm); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:18px;">Step work &amp; recovery worksheets</div>
         <!-- WORKSHEETS -->
 
+```
+<!-- CUSTOM QUESTIONS -->
+<div class="label" style="margin-top:20px;"><span style="margin-right:5px;">&#x270F;</span>My Own Questions</div>
+<div style="font-size:0.72rem;color:var(--tm);margin-bottom:12px;line-height:1.5;">Add your own questions from your workbook or sponsor. Once saved they'll appear in your journal automatically.</div>
 
-    
+<!-- Step 10 custom questions -->
+<div style="background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:16px;margin-bottom:10px;">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+    <div style="font-size:0.82rem;font-weight:700;color:var(--ac);">&#x1F4CB; Step 10 Questions</div>
+    <a href="https://cart-us.na.org/recovery-products/books/the-na-step-working-guides-1400" target="_blank" style="font-size:0.65rem;color:var(--tm);text-decoration:underline;">Buy the workbook ›</a>
+  </div>
+  <div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">One question per line — replaces the default questions in your Step 10 journal.</div>
+  <textarea id="custom-step10" style="width:100%;min-height:110px;background:var(--sf2);border:1px solid var(--bd);border-radius:10px;padding:10px;color:var(--tx);font-size:0.8rem;line-height:1.6;resize:vertical;box-sizing:border-box;" placeholder="Paste your questions here, one per line..."></textarea>
+  <div style="display:flex;gap:8px;margin-top:10px;">
+    <button onclick="saveCustomStep10()" class="btn" style="flex:2;margin-top:0;padding:11px;">Save</button>
+    <button onclick="clearCustomStep10()" style="flex:1;padding:11px;background:transparent;border:1px solid var(--bd);border-radius:var(--r);color:var(--tm);font-size:0.75rem;cursor:pointer;">Reset</button>
+  </div>
+  <div id="step10-saved-msg" style="display:none;margin-top:8px;font-size:0.72rem;color:#5fcf80;text-align:center;">&#x2713; Saved — your questions will appear in the Step 10 journal</div>
+</div>
 
-    
-
-    <!-- CUSTOM QUESTIONS -->
-    <div class="label" style="margin-top:20px;"><span style="margin-right:5px;">&#x270F;</span>My Own Questions</div>
-    <div style="font-size:0.72rem;color:var(--tm);margin-bottom:12px;line-height:1.5;">Add your own questions from your workbook or sponsor. Once saved they'll appear in your journal automatically.</div>
-
-    <!-- Step 10 custom questions -->
-    <div style="background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:16px;margin-bottom:10px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
-        <div style="font-size:0.82rem;font-weight:700;color:var(--ac);">&#x1F4CB; Step 10 Questions</div>
-        <a href="https://cart-us.na.org/recovery-products/books/the-na-step-working-guides-1400" target="_blank" style="font-size:0.65rem;color:var(--tm);text-decoration:underline;">Buy the workbook ›</a>
-      </div>
-      <div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">One question per line — replaces the default questions in your Step 10 journal.</div>
-      <textarea id="custom-step10" style="width:100%;min-height:110px;background:var(--sf2);border:1px solid var(--bd);border-radius:10px;padding:10px;color:var(--tx);font-size:0.8rem;line-height:1.6;resize:vertical;box-sizing:border-box;" placeholder="Paste your questions here, one per line..."></textarea>
-      <div style="display:flex;gap:8px;margin-top:10px;">
-        <button onclick="saveCustomStep10()" class="btn" style="flex:2;margin-top:0;padding:11px;">Save</button>
-        <button onclick="clearCustomStep10()" style="flex:1;padding:11px;background:transparent;border:1px solid var(--bd);border-radius:var(--r);color:var(--tm);font-size:0.75rem;cursor:pointer;">Reset</button>
-      </div>
-      <div id="step10-saved-msg" style="display:none;margin-top:8px;font-size:0.72rem;color:#5fcf80;text-align:center;">&#x2713; Saved — your questions will appear in the Step 10 journal</div>
-    </div>
-
-    <!-- Guiding Principles custom questions -->
-    <div style="background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:16px;margin-bottom:8px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
-        <div style="font-size:0.82rem;font-weight:700;color:var(--ac);">&#x1F4D6; Guiding Principles Questions</div>
-        <a href="javascript:buyBook('guiding-principles')" style="font-size:0.65rem;color:var(--tm);text-decoration:underline;">Buy the workbook ›</a>
-      </div>
-      <div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">One question per line — adds a Guiding Principles journal type once saved.</div>
-      <textarea id="custom-guiding" style="width:100%;min-height:110px;background:var(--sf2);border:1px solid var(--bd);border-radius:10px;padding:10px;color:var(--tx);font-size:0.8rem;line-height:1.6;resize:vertical;box-sizing:border-box;" placeholder="Paste your questions here, one per line..."></textarea>
-      <div style="display:flex;gap:8px;margin-top:10px;">
-        <button onclick="saveCustomGuiding()" class="btn" style="flex:2;margin-top:0;padding:11px;">Save</button>
-        <button onclick="clearCustomGuiding()" style="flex:1;padding:11px;background:transparent;border:1px solid var(--bd);border-radius:var(--r);color:var(--tm);font-size:0.75rem;cursor:pointer;">Reset</button>
-      </div>
-      <div id="guiding-saved-msg" style="display:none;margin-top:8px;font-size:0.72rem;color:#5fcf80;text-align:center;">&#x2713; Saved — Guiding Principles now appears in your journal</div>
-    </div>
+<!-- Guiding Principles custom questions -->
+<div style="background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:16px;margin-bottom:8px;">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+    <div style="font-size:0.82rem;font-weight:700;color:var(--ac);">&#x1F4D6; Guiding Principles Questions</div>
+    <a href="javascript:buyBook('guiding-principles')" style="font-size:0.65rem;color:var(--tm);text-decoration:underline;">Buy the workbook ›</a>
+  </div>
+  <div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">One question per line — adds a Guiding Principles journal type once saved.</div>
+  <textarea id="custom-guiding" style="width:100%;min-height:110px;background:var(--sf2);border:1px solid var(--bd);border-radius:10px;padding:10px;color:var(--tx);font-size:0.8rem;line-height:1.6;resize:vertical;box-sizing:border-box;" placeholder="Paste your questions here, one per line..."></textarea>
+  <div style="display:flex;gap:8px;margin-top:10px;">
+    <button onclick="saveCustomGuiding()" class="btn" style="flex:2;margin-top:0;padding:11px;">Save</button>
+    <button onclick="clearCustomGuiding()" style="flex:1;padding:11px;background:transparent;border:1px solid var(--bd);border-radius:var(--r);color:var(--tm);font-size:0.75rem;cursor:pointer;">Reset</button>
+  </div>
+  <div id="guiding-saved-msg" style="display:none;margin-top:8px;font-size:0.72rem;color:#5fcf80;text-align:center;">&#x2713; Saved — Guiding Principles now appears in your journal</div>
+</div>
+```
 
   </div><!-- end screen-steps -->
 
@@ -1130,117 +1127,119 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
     <div style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:300; color:var(--ac); margin-bottom:2px;">Meetings</div>
     <div style="font-size:0.62rem; color:var(--tm); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:20px;">Find your fellowship</div>
 
-    <!-- IN-PERSON FINDERS -->
-    <div class="label">📍 Find an In-Person Meeting</div>
+```
+<!-- IN-PERSON FINDERS -->
+<div class="label">📍 Find an In-Person Meeting</div>
 
-    <a href="https://na.org/meetingsearch/" target="_blank" class="meeting-card">
-      <div class="meeting-left">
-        <div class="meeting-flag">🌍</div>
-        <div>
-          <div class="meeting-title">NA World Meeting Search</div>
-          <div class="meeting-sub">Find meetings anywhere in the world</div>
-        </div>
-      </div>
-      <div class="meeting-arr">›</div>
-    </a>
-
-    <a href="https://meetings.ukna.org/meeting/search" target="_blank" class="meeting-card">
-      <div class="meeting-left">
-        <div class="meeting-flag">🇬🇧</div>
-        <div>
-          <div class="meeting-title">UK Meeting Finder</div>
-          <div class="meeting-sub">Search by postcode, town or county</div>
-        </div>
-      </div>
-      <div class="meeting-arr">›</div>
-    </a>
-
-    <a href="https://edmna.org/regions-and-events/" target="_blank" class="meeting-card">
-      <div class="meeting-left">
-        <div class="meeting-flag">🇪🇺</div>
-        <div>
-          <div class="meeting-title">European Meeting Finder</div>
-          <div class="meeting-sub">NA European Delegates Meeting — all regions</div>
-        </div>
-      </div>
-      <div class="meeting-arr">›</div>
-    </a>
-
-    <!-- ONLINE MEETINGS -->
-    <div class="label" style="margin-top:20px;">💻 Online & Virtual Meetings</div>
-    <div style="font-size:0.72rem; color:var(--tm); margin-bottom:12px; line-height:1.5;">Can't get to a meeting? Online meetings are available 24/7 from anywhere in the world.</div>
-
-    <a href="https://virtual-na.org/meetings/" target="_blank" class="meeting-card">
-      <div class="meeting-left">
-        <div class="meeting-flag">🌐</div>
-        <div>
-          <div class="meeting-title">Virtual NA</div>
-          <div class="meeting-sub">Worldwide online & phone meetings, sorted by language & day</div>
-        </div>
-      </div>
-      <div class="meeting-arr">›</div>
-    </a>
-
-    <a href="https://meetings.ukna.org/meeting/search/online" target="_blank" class="meeting-card">
-      <div class="meeting-left">
-        <div class="meeting-flag">🇬🇧</div>
-        <div>
-          <div class="meeting-title">UK Online Meetings</div>
-          <div class="meeting-sub">450+ online UK NA meetings</div>
-        </div>
-      </div>
-      <div class="meeting-arr">›</div>
-    </a>
-
-
-
-
-
-    <!-- SAVED ZOOM MEETINGS -->
-    <!-- SHARED MEETINGS -->
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:20px;margin-bottom:4px;">
-      <div class="label" style="margin:0;">🌐 Community Meetings</div>
-      <button onclick="openAddMeeting('shared')" style="background:var(--ac);border:none;border-radius:20px;padding:5px 12px;font-size:0.68rem;font-weight:700;color:#1a1208;cursor:pointer;">+ Add</button>
+<a href="https://na.org/meetingsearch/" target="_blank" class="meeting-card">
+  <div class="meeting-left">
+    <div class="meeting-flag">🌍</div>
+    <div>
+      <div class="meeting-title">NA World Meeting Search</div>
+      <div class="meeting-sub">Find meetings anywhere in the world</div>
     </div>
-    <div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">Shared with everyone — add your regular meetings here</div>
-    <div id="shared-meetings-list"></div>
-    <div id="shared-meetings-empty" style="font-size:0.76rem;color:var(--tm);text-align:center;padding:10px 0 14px;">No shared meetings yet — be the first to add one</div>
+  </div>
+  <div class="meeting-arr">›</div>
+</a>
 
-    <!-- PERSONAL FAVOURITES -->
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;margin-bottom:4px;">
-      <div class="label" style="margin:0;">⭐ My Favourites</div>
-      <button onclick="openAddMeeting('personal')" style="background:var(--sf);border:1px solid rgba(232,201,122,0.35);border-radius:20px;padding:5px 12px;font-size:0.68rem;font-weight:700;color:var(--ac);cursor:pointer;">+ Add</button>
+<a href="https://meetings.ukna.org/meeting/search" target="_blank" class="meeting-card">
+  <div class="meeting-left">
+    <div class="meeting-flag">🇬🇧</div>
+    <div>
+      <div class="meeting-title">UK Meeting Finder</div>
+      <div class="meeting-sub">Search by postcode, town or county</div>
     </div>
-    <div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">Just for you — private, only you can see these</div>
-    <div id="personal-meetings-list"></div>
-    <div id="personal-meetings-empty" style="font-size:0.76rem;color:var(--tm);text-align:center;padding:10px 0 14px;">No favourites yet</div>
-    <div style="margin-bottom:20px;"></div>
+  </div>
+  <div class="meeting-arr">›</div>
+</a>
 
-    <!-- HELPLINE REMINDER -->
-    <div style="background:var(--sf); border:1px solid var(--bd); border-radius:var(--r); padding:14px; margin-top:0;">
-      <div style="font-size:0.68rem; color:var(--tm); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:12px;">📞 Helplines</div>
-      <a href="tel:03009991212" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0; border-bottom:1px solid var(--bd);">
-        <div>
-          <div style="font-size:0.82rem; font-weight:700; color:var(--ac);">🇬🇧 UK Helpline</div>
-          <div style="font-size:0.68rem; color:var(--tm); margin-top:2px;">0300 999 1212 · 10am–midnight daily</div>
-        </div>
-        <div style="font-size:0.7rem; color:var(--tm);">Tap to call ›</div>
-      </a>
-      <a href="tel:+18187739999" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0; border-bottom:1px solid var(--bd);">
-        <div>
-          <div style="font-size:0.82rem; font-weight:700; color:var(--ac);">🌍 NA World Service Office</div>
-          <div style="font-size:0.68rem; color:var(--tm); margin-top:2px;">+1 818 773 9999 · Mon–Fri, 8am–5pm PST</div>
-        </div>
-        <div style="font-size:0.7rem; color:var(--tm);">Tap to call ›</div>
-      </a>
-      <a href="https://www.na.org/meetingsearch" target="_blank" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0;">
-        <div>
-          <div style="font-size:0.82rem; font-weight:700; color:var(--ac);">🔍 Find Your Local Helpline</div>
-          <div style="font-size:0.68rem; color:var(--tm); margin-top:2px;">na.org · Search by country or region</div>
-        </div>
-        <div style="font-size:0.7rem; color:var(--tm);">Open ›</div>
-      </a>
+<a href="https://edmna.org/regions-and-events/" target="_blank" class="meeting-card">
+  <div class="meeting-left">
+    <div class="meeting-flag">🇪🇺</div>
+    <div>
+      <div class="meeting-title">European Meeting Finder</div>
+      <div class="meeting-sub">NA European Delegates Meeting — all regions</div>
     </div>
+  </div>
+  <div class="meeting-arr">›</div>
+</a>
+
+<!-- ONLINE MEETINGS -->
+<div class="label" style="margin-top:20px;">💻 Online & Virtual Meetings</div>
+<div style="font-size:0.72rem; color:var(--tm); margin-bottom:12px; line-height:1.5;">Can't get to a meeting? Online meetings are available 24/7 from anywhere in the world.</div>
+
+<a href="https://virtual-na.org/meetings/" target="_blank" class="meeting-card">
+  <div class="meeting-left">
+    <div class="meeting-flag">🌐</div>
+    <div>
+      <div class="meeting-title">Virtual NA</div>
+      <div class="meeting-sub">Worldwide online & phone meetings, sorted by language & day</div>
+    </div>
+  </div>
+  <div class="meeting-arr">›</div>
+</a>
+
+<a href="https://meetings.ukna.org/meeting/search/online" target="_blank" class="meeting-card">
+  <div class="meeting-left">
+    <div class="meeting-flag">🇬🇧</div>
+    <div>
+      <div class="meeting-title">UK Online Meetings</div>
+      <div class="meeting-sub">450+ online UK NA meetings</div>
+    </div>
+  </div>
+  <div class="meeting-arr">›</div>
+</a>
+
+
+
+
+
+<!-- SAVED ZOOM MEETINGS -->
+<!-- SHARED MEETINGS -->
+<div style="display:flex;align-items:center;justify-content:space-between;margin-top:20px;margin-bottom:4px;">
+  <div class="label" style="margin:0;">🌐 Community Meetings</div>
+  <button onclick="openAddMeeting('shared')" style="background:var(--ac);border:none;border-radius:20px;padding:5px 12px;font-size:0.68rem;font-weight:700;color:#1a1208;cursor:pointer;">+ Add</button>
+</div>
+<div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">Shared with everyone — add your regular meetings here</div>
+<div id="shared-meetings-list"></div>
+<div id="shared-meetings-empty" style="font-size:0.76rem;color:var(--tm);text-align:center;padding:10px 0 14px;">No shared meetings yet — be the first to add one</div>
+
+<!-- PERSONAL FAVOURITES -->
+<div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;margin-bottom:4px;">
+  <div class="label" style="margin:0;">⭐ My Favourites</div>
+  <button onclick="openAddMeeting('personal')" style="background:var(--sf);border:1px solid rgba(232,201,122,0.35);border-radius:20px;padding:5px 12px;font-size:0.68rem;font-weight:700;color:var(--ac);cursor:pointer;">+ Add</button>
+</div>
+<div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">Just for you — private, only you can see these</div>
+<div id="personal-meetings-list"></div>
+<div id="personal-meetings-empty" style="font-size:0.76rem;color:var(--tm);text-align:center;padding:10px 0 14px;">No favourites yet</div>
+<div style="margin-bottom:20px;"></div>
+
+<!-- HELPLINE REMINDER -->
+<div style="background:var(--sf); border:1px solid var(--bd); border-radius:var(--r); padding:14px; margin-top:0;">
+  <div style="font-size:0.68rem; color:var(--tm); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:12px;">📞 Helplines</div>
+  <a href="tel:03009991212" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0; border-bottom:1px solid var(--bd);">
+    <div>
+      <div style="font-size:0.82rem; font-weight:700; color:var(--ac);">🇬🇧 UK Helpline</div>
+      <div style="font-size:0.68rem; color:var(--tm); margin-top:2px;">0300 999 1212 · 10am–midnight daily</div>
+    </div>
+    <div style="font-size:0.7rem; color:var(--tm);">Tap to call ›</div>
+  </a>
+  <a href="tel:+18187739999" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0; border-bottom:1px solid var(--bd);">
+    <div>
+      <div style="font-size:0.82rem; font-weight:700; color:var(--ac);">🌍 NA World Service Office</div>
+      <div style="font-size:0.68rem; color:var(--tm); margin-top:2px;">+1 818 773 9999 · Mon–Fri, 8am–5pm PST</div>
+    </div>
+    <div style="font-size:0.7rem; color:var(--tm);">Tap to call ›</div>
+  </a>
+  <a href="https://www.na.org/meetingsearch" target="_blank" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0;">
+    <div>
+      <div style="font-size:0.82rem; font-weight:700; color:var(--ac);">🔍 Find Your Local Helpline</div>
+      <div style="font-size:0.68rem; color:var(--tm); margin-top:2px;">na.org · Search by country or region</div>
+    </div>
+    <div style="font-size:0.7rem; color:var(--tm);">Open ›</div>
+  </a>
+</div>
+```
 
   </div>
 
@@ -1248,163 +1247,165 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
     <div style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:300; color:var(--ac); margin-bottom:2px;">Books</div>
     <div style="font-size:0.62rem; color:var(--tm); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:18px;">NA Literature Library</div>
 
-    <!-- MAIN BOOKS -->
-    <div class="label">📕 Main Books</div>
-    <div style="font-size:0.7rem; color:var(--tm); margin-bottom:12px;">Tap a book to see purchase options</div>
+```
+<!-- MAIN BOOKS -->
+<div class="label">📕 Main Books</div>
+<div style="font-size:0.7rem; color:var(--tm); margin-bottom:12px;">Tap a book to see purchase options</div>
 
-    <div class="book-expand-card">
-      <div class="book-card-header" onclick="toggleBook(this)">
-        <div class="book-icon">📘</div>
-        <div class="book-body"><div class="book-title">Basic Text</div><div class="book-sub">Narcotics Anonymous — 6th Edition</div></div>
-        <div class="book-chevron">&#8250;</div>
-      </div>
-      <div class="book-card-body">
-        <div class="book-section-label">📱 Digital Edition</div>
-        <div class="book-btn-row">
-          <a href="https://books.apple.com/us/book/narcotics-anonymous/id560639864" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
-          <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_Narcotics_Anonymo?id=560639864" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
-        </div>
-        <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
-        <a href="https://cart-us.na.org/recovery-products/books/basic-text-hardcover-1101" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
-        <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
-        <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
-      </div>
+<div class="book-expand-card">
+  <div class="book-card-header" onclick="toggleBook(this)">
+    <div class="book-icon">📘</div>
+    <div class="book-body"><div class="book-title">Basic Text</div><div class="book-sub">Narcotics Anonymous — 6th Edition</div></div>
+    <div class="book-chevron">&#8250;</div>
+  </div>
+  <div class="book-card-body">
+    <div class="book-section-label">📱 Digital Edition</div>
+    <div class="book-btn-row">
+      <a href="https://books.apple.com/us/book/narcotics-anonymous/id560639864" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
+      <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_Narcotics_Anonymo?id=560639864" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
     </div>
-    <div class="book-expand-card">
-      <div class="book-card-header" onclick="toggleBook(this)">
-        <div class="book-icon">📔</div>
-        <div class="book-body"><div class="book-title">Just for Today</div><div class="book-sub">Daily meditations for recovering addicts</div></div>
-        <div class="book-chevron">&#8250;</div>
-      </div>
-      <div class="book-card-body">
-        <div class="book-section-label">📱 Digital Edition</div>
-        <div class="book-btn-row">
-          <a href="https://books.apple.com/us/book/just-for-today/id1608426774" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
-          <a href="https://play.google.com/store/books/details?id=just-for-today-na" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
-        </div>
-        <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
-        <a href="https://cart-us.na.org/recovery-products/books/just-for-today-daily-meditation-book-1112" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
-        <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
-        <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
-      </div>
+    <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
+    <a href="https://cart-us.na.org/recovery-products/books/basic-text-hardcover-1101" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
+    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
+    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
+  </div>
+</div>
+<div class="book-expand-card">
+  <div class="book-card-header" onclick="toggleBook(this)">
+    <div class="book-icon">📔</div>
+    <div class="book-body"><div class="book-title">Just for Today</div><div class="book-sub">Daily meditations for recovering addicts</div></div>
+    <div class="book-chevron">&#8250;</div>
+  </div>
+  <div class="book-card-body">
+    <div class="book-section-label">📱 Digital Edition</div>
+    <div class="book-btn-row">
+      <a href="https://books.apple.com/us/book/just-for-today/id1608426774" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
+      <a href="https://play.google.com/store/books/details?id=just-for-today-na" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
     </div>
-    <div class="book-expand-card">
-      <div class="book-card-header" onclick="toggleBook(this)">
-        <div class="book-icon">📙</div>
-        <div class="book-body"><div class="book-title">It Works: How and Why</div><div class="book-sub">The 12 Steps & 12 Traditions of NA</div></div>
-        <div class="book-chevron">&#8250;</div>
-      </div>
-      <div class="book-card-body">
-        <div class="book-section-label">📱 Digital Edition</div>
-        <div class="book-btn-row">
-          <a href="https://books.apple.com/us/book/it-works-how-and-why/id564200715" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
-          <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_It_Works_How_and?id=564200715" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
-        </div>
-        <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
-        <a href="https://cart-us.na.org/recovery-products/books/it-works-5-how-and-why-hardcover-1140" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
-        <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
-        <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
-      </div>
+    <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
+    <a href="https://cart-us.na.org/recovery-products/books/just-for-today-daily-meditation-book-1112" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
+    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
+    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
+  </div>
+</div>
+<div class="book-expand-card">
+  <div class="book-card-header" onclick="toggleBook(this)">
+    <div class="book-icon">📙</div>
+    <div class="book-body"><div class="book-title">It Works: How and Why</div><div class="book-sub">The 12 Steps & 12 Traditions of NA</div></div>
+    <div class="book-chevron">&#8250;</div>
+  </div>
+  <div class="book-card-body">
+    <div class="book-section-label">📱 Digital Edition</div>
+    <div class="book-btn-row">
+      <a href="https://books.apple.com/us/book/it-works-how-and-why/id564200715" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
+      <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_It_Works_How_and?id=564200715" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
     </div>
-    <div class="book-expand-card">
-      <div class="book-card-header" onclick="toggleBook(this)">
-        <div class="book-icon">📖</div>
-        <div class="book-body"><div class="book-title">Guiding Principles</div><div class="book-sub">The Spirit of Our Traditions</div></div>
-        <div class="book-chevron">&#8250;</div>
-      </div>
-      <div class="book-card-body">
-        <div class="book-section-label">📱 Digital Edition</div>
-        <div class="book-btn-row">
-          <a href="https://books.apple.com/us/book/guiding-principles-the-spirit-of-our-traditions/id1478457214" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
-          <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_Guiding_Principle?id=1478457214" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
-        </div>
-        <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
-        <a href="https://cart-us.na.org/recovery-products/books" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
-        <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
-        <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
-      </div>
+    <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
+    <a href="https://cart-us.na.org/recovery-products/books/it-works-5-how-and-why-hardcover-1140" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
+    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
+    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
+  </div>
+</div>
+<div class="book-expand-card">
+  <div class="book-card-header" onclick="toggleBook(this)">
+    <div class="book-icon">📖</div>
+    <div class="book-body"><div class="book-title">Guiding Principles</div><div class="book-sub">The Spirit of Our Traditions</div></div>
+    <div class="book-chevron">&#8250;</div>
+  </div>
+  <div class="book-card-body">
+    <div class="book-section-label">📱 Digital Edition</div>
+    <div class="book-btn-row">
+      <a href="https://books.apple.com/us/book/guiding-principles-the-spirit-of-our-traditions/id1478457214" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
+      <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_Guiding_Principle?id=1478457214" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
     </div>
-    <div class="book-expand-card">
-      <div class="book-card-header" onclick="toggleBook(this)">
-        <div class="book-icon">🛤️</div>
-        <div class="book-body"><div class="book-title">Living Clean</div><div class="book-sub">The Journey Continues</div></div>
-        <div class="book-chevron">&#8250;</div>
-      </div>
-      <div class="book-card-body">
-        <div class="book-section-label">📱 Digital Edition</div>
-        <div class="book-btn-row">
-          <a href="https://books.apple.com/us/book/living-clean-the-journey-continues/id733950643" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
-          <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_Living_Clean_The?id=733950643" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
-        </div>
-        <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
-        <a href="https://cart-us.na.org/recovery-products/books/living-clean-1160" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
-        <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
-        <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
-      </div>
+    <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
+    <a href="https://cart-us.na.org/recovery-products/books" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
+    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
+    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
+  </div>
+</div>
+<div class="book-expand-card">
+  <div class="book-card-header" onclick="toggleBook(this)">
+    <div class="book-icon">🛤️</div>
+    <div class="book-body"><div class="book-title">Living Clean</div><div class="book-sub">The Journey Continues</div></div>
+    <div class="book-chevron">&#8250;</div>
+  </div>
+  <div class="book-card-body">
+    <div class="book-section-label">📱 Digital Edition</div>
+    <div class="book-btn-row">
+      <a href="https://books.apple.com/us/book/living-clean-the-journey-continues/id733950643" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
+      <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_Living_Clean_The?id=733950643" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
     </div>
-    <div class="book-expand-card">
-      <div class="book-card-header" onclick="toggleBook(this)">
-        <div class="book-icon">📋</div>
-        <div class="book-body"><div class="book-title">Step Working Guides</div><div class="book-sub">NA 12 Step working guides</div></div>
-        <div class="book-chevron">&#8250;</div>
-      </div>
-      <div class="book-card-body">
-        <div class="book-section-label">📱 Digital Edition</div>
-        <div class="book-btn-row">
-          <a href="https://books.apple.com/us/book/the-na-step-working-guides/id1036368127" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
-          <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_The_NA_Step_Worki?id=1036368127" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
-        </div>
-        <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
-        <a href="https://cart-us.na.org/recovery-products/books/the-na-step-working-guides-1400" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
-        <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
-        <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
-      </div>
+    <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
+    <a href="https://cart-us.na.org/recovery-products/books/living-clean-1160" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
+    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
+    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
+  </div>
+</div>
+<div class="book-expand-card">
+  <div class="book-card-header" onclick="toggleBook(this)">
+    <div class="book-icon">📋</div>
+    <div class="book-body"><div class="book-title">Step Working Guides</div><div class="book-sub">NA 12 Step working guides</div></div>
+    <div class="book-chevron">&#8250;</div>
+  </div>
+  <div class="book-card-body">
+    <div class="book-section-label">📱 Digital Edition</div>
+    <div class="book-btn-row">
+      <a href="https://books.apple.com/us/book/the-na-step-working-guides/id1036368127" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
+      <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_The_NA_Step_Worki?id=1036368127" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
     </div>
-    <div class="book-expand-card">
-      <div class="book-card-header" onclick="toggleBook(this)">
-        <div class="book-icon">✨</div>
-        <div class="book-body"><div class="book-title">A Spiritual Principle a Day</div><div class="book-sub">Daily readings on spiritual principles</div></div>
-        <div class="book-chevron">&#8250;</div>
-      </div>
-      <div class="book-card-body">
-        <div class="book-section-label">📱 Digital Edition</div>
-        <div class="book-btn-row">
-          <a href="https://books.apple.com/us/book/a-spiritual-principle-a-day/id1590889673" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
-          <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_A_Spiritual_Princ?id=1590889673" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
-        </div>
-        <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
-        <a href="https://cart-us.na.org/recovery-products/books/a-spiritual-principle-a-day-1170" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
-        <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
-        <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
-      </div>
+    <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
+    <a href="https://cart-us.na.org/recovery-products/books/the-na-step-working-guides-1400" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
+    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
+    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
+  </div>
+</div>
+<div class="book-expand-card">
+  <div class="book-card-header" onclick="toggleBook(this)">
+    <div class="book-icon">✨</div>
+    <div class="book-body"><div class="book-title">A Spiritual Principle a Day</div><div class="book-sub">Daily readings on spiritual principles</div></div>
+    <div class="book-chevron">&#8250;</div>
+  </div>
+  <div class="book-card-body">
+    <div class="book-section-label">📱 Digital Edition</div>
+    <div class="book-btn-row">
+      <a href="https://books.apple.com/us/book/a-spiritual-principle-a-day/id1590889673" target="_blank" class="buy-btn apple-btn">🍎 Apple Books</a>
+      <a href="https://play.google.com/store/books/details/Fellowship_of_Narcotics_Anonymous_A_Spiritual_Princ?id=1590889673" target="_blank" class="buy-btn google-btn">▶ Google Play</a>
     </div>
+    <div class="book-section-label" style="margin-top:12px;">📦 Buy Hardcopy</div>
+    <a href="https://cart-us.na.org/recovery-products/books/a-spiritual-principle-a-day-1170" target="_blank" class="buy-btn world-btn">🌍 NA World Store</a>
+    <a href="https://ukso.biz" target="_blank" class="buy-btn uk-btn">🇬🇧 UK Service Office</a>
+    <a href="https://cart-eu.na.org" target="_blank" class="buy-btn eu-btn">🇪🇺 NA Europe Store</a>
+  </div>
+</div>
 
-    <!-- BOOKLETS -->
-    <div class="label" style="margin-top:20px;">📄 Booklets</div>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN1500_LWB-Little-White-Book-English-Anglicized.pdf" target="_blank" class="book-card">
-      <div class="book-icon">📄</div><div class="book-body"><div class="book-title">The White Booklet</div><div class="book-sub">Free PDF — official na.org</div></div><div class="book-arr">›</div>
-    </a>
+<!-- BOOKLETS -->
+<div class="label" style="margin-top:20px;">📄 Booklets</div>
+<a href="https://na.org/wp-content/uploads/2024/05/AN1500_LWB-Little-White-Book-English-Anglicized.pdf" target="_blank" class="book-card">
+  <div class="book-icon">📄</div><div class="book-body"><div class="book-title">The White Booklet</div><div class="book-sub">Free PDF — official na.org</div></div><div class="book-arr">›</div>
+</a>
 
-    <!-- INFORMATIONAL PAMPHLETS -->
-    <div class="label" style="margin-top:16px;">📃 Informational Pamphlets</div>
-    <div style="font-size:0.7rem; color:var(--tm); margin-bottom:10px;">All free official PDFs from na.org</div>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3101_6-22-IP-1-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #1: Who, What, How, and Why</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3105-IP-5-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #5: Another Look</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3106-IP-6-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #6: Recovery &amp; Relapse</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3107-IP-7-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #7: Am I an Addict?</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3108-IP-8-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #8: Just for Today</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3109_10-22-IP-9-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #9: Living the Programme</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3111-IP-11-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #11: Sponsorship</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3112-IP-12-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #12: The Triangle of Self-Obsession</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3113-IP-13-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #13: Youth and Recovery</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3114-IP-14-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #14: One Addict's Experience</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3115_7-22-IP-15-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #15: PI and the NA Member</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3116-IP-16-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #16: For the Newcomer</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3119-IP-19-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #19: Self-Acceptance</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3120_7-22-IP-20-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #20: H&amp;I Service and the NA Member</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3122-IP-22-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #22: Welcome to Narcotics Anonymous</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3123-IP-23-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #23: Staying Clean on the Inside</div></div><div class="book-arr">›</div></a>
-    <a href="https://na.org/wp-content/uploads/2024/05/AN3124-IP-24-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #24: Why Are We Self-Supporting?</div></div><div class="book-arr">›</div></a>
+<!-- INFORMATIONAL PAMPHLETS -->
+<div class="label" style="margin-top:16px;">📃 Informational Pamphlets</div>
+<div style="font-size:0.7rem; color:var(--tm); margin-bottom:10px;">All free official PDFs from na.org</div>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3101_6-22-IP-1-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #1: Who, What, How, and Why</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3105-IP-5-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #5: Another Look</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3106-IP-6-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #6: Recovery &amp; Relapse</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3107-IP-7-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #7: Am I an Addict?</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3108-IP-8-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #8: Just for Today</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3109_10-22-IP-9-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #9: Living the Programme</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3111-IP-11-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #11: Sponsorship</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3112-IP-12-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #12: The Triangle of Self-Obsession</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3113-IP-13-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #13: Youth and Recovery</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3114-IP-14-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #14: One Addict's Experience</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3115_7-22-IP-15-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #15: PI and the NA Member</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3116-IP-16-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #16: For the Newcomer</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3119-IP-19-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #19: Self-Acceptance</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3120_7-22-IP-20-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #20: H&amp;I Service and the NA Member</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3122-IP-22-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #22: Welcome to Narcotics Anonymous</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3123-IP-23-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #23: Staying Clean on the Inside</div></div><div class="book-arr">›</div></a>
+<a href="https://na.org/wp-content/uploads/2024/05/AN3124-IP-24-English-Anglicized.pdf" target="_blank" class="book-card"><div class="book-icon">📃</div><div class="book-body"><div class="book-title">IP #24: Why Are We Self-Supporting?</div></div><div class="book-arr">›</div></a>
+```
 
   </div><!-- end screen-books -->
 
@@ -1412,129 +1413,131 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
     <div style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:300; color:var(--ac); margin-bottom:4px;">Movement</div>
     <div style="color:var(--tm); font-size:0.84rem; margin-bottom:18px;">Gentle practices to support your recovery — body, breath & mind</div>
 
-    <!-- YOGA -->
-    <div style="color:var(--ac); font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:10px;">🧘 Yoga</div>
+```
+<!-- YOGA -->
+<div style="color:var(--ac); font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:10px;">🧘 Yoga</div>
 
-    <a href="https://crpf.gov.in/writereaddata/images/pdf/Yoga_Beginner.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;">
-      <div class="meeting-left">
-        <div style="font-size:1.5rem;">📄</div>
-      </div>
-      <div style="flex:1;">
-        <div class="meeting-title">Breath, Movement & Stillness</div>
-        <div class="meeting-sub">A complete yoga manual for beginners — poses, safety guidance & philosophy</div>
-      </div>
-      <div class="meeting-arr">›</div>
-    </a>
+<a href="https://crpf.gov.in/writereaddata/images/pdf/Yoga_Beginner.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;">
+  <div class="meeting-left">
+    <div style="font-size:1.5rem;">📄</div>
+  </div>
+  <div style="flex:1;">
+    <div class="meeting-title">Breath, Movement & Stillness</div>
+    <div class="meeting-sub">A complete yoga manual for beginners — poses, safety guidance & philosophy</div>
+  </div>
+  <div class="meeting-arr">›</div>
+</a>
 
-    <a href="https://darebee.com/pdf/programs/30-days-of-yoga.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;">
-      <div class="meeting-left">
-        <div style="font-size:1.5rem;">📄</div>
-      </div>
-      <div style="flex:1;">
-        <div class="meeting-title">30 Days of Yoga</div>
-        <div class="meeting-sub">A free beginner programme — one session per day, building gently over a month</div>
-      </div>
-      <div class="meeting-arr">›</div>
-    </a>
+<a href="https://darebee.com/pdf/programs/30-days-of-yoga.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;">
+  <div class="meeting-left">
+    <div style="font-size:1.5rem;">📄</div>
+  </div>
+  <div style="flex:1;">
+    <div class="meeting-title">30 Days of Yoga</div>
+    <div class="meeting-sub">A free beginner programme — one session per day, building gently over a month</div>
+  </div>
+  <div class="meeting-arr">›</div>
+</a>
 
-    <a href="https://tintyoga.com/wp-content/uploads/2019/11/Yoga-Class-Plans.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:18px;">
-      <div class="meeting-left">
-        <div style="font-size:1.5rem;">📄</div>
-      </div>
-      <div style="flex:1;">
-        <div class="meeting-title">Beginner Yoga Sequence</div>
-        <div class="meeting-sub">A 60-minute class plan with alignment focus — accessible for complete beginners</div>
-      </div>
-      <div class="meeting-arr">›</div>
-    </a>
+<a href="https://tintyoga.com/wp-content/uploads/2019/11/Yoga-Class-Plans.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:18px;">
+  <div class="meeting-left">
+    <div style="font-size:1.5rem;">📄</div>
+  </div>
+  <div style="flex:1;">
+    <div class="meeting-title">Beginner Yoga Sequence</div>
+    <div class="meeting-sub">A 60-minute class plan with alignment focus — accessible for complete beginners</div>
+  </div>
+  <div class="meeting-arr">›</div>
+</a>
 
-    <!-- BREATHWORK -->
-    <div style="color:var(--ac); font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:10px;">🌬️ Breathwork</div>
+<!-- BREATHWORK -->
+<div style="color:var(--ac); font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:10px;">🌬️ Breathwork</div>
 
-    <a href="https://uhs.berkeley.edu/sites/default/files/breathing_exercises_0.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;">
-      <div class="meeting-left">
-        <div style="font-size:1.5rem;">📄</div>
-      </div>
-      <div style="flex:1;">
-        <div class="meeting-title">Breathing Exercises Guide</div>
-        <div class="meeting-sub">UC Berkeley Health — simple techniques including diaphragmatic & box breathing</div>
-      </div>
-      <div class="meeting-arr">›</div>
-    </a>
+<a href="https://uhs.berkeley.edu/sites/default/files/breathing_exercises_0.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;">
+  <div class="meeting-left">
+    <div style="font-size:1.5rem;">📄</div>
+  </div>
+  <div style="flex:1;">
+    <div class="meeting-title">Breathing Exercises Guide</div>
+    <div class="meeting-sub">UC Berkeley Health — simple techniques including diaphragmatic & box breathing</div>
+  </div>
+  <div class="meeting-arr">›</div>
+</a>
 
-    <a href="https://umsonline.org/printerfriendly/pranayama.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;">
-      <div class="meeting-left">
-        <div style="font-size:1.5rem;">📄</div>
-      </div>
-      <div style="flex:1;">
-        <div class="meeting-title">Pranayama & the Art of Breathing</div>
-        <div class="meeting-sub">An introduction to yogic breathwork — what it is, how it works & techniques to try</div>
-      </div>
-      <div class="meeting-arr">›</div>
-    </a>
+<a href="https://umsonline.org/printerfriendly/pranayama.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;">
+  <div class="meeting-left">
+    <div style="font-size:1.5rem;">📄</div>
+  </div>
+  <div style="flex:1;">
+    <div class="meeting-title">Pranayama & the Art of Breathing</div>
+    <div class="meeting-sub">An introduction to yogic breathwork — what it is, how it works & techniques to try</div>
+  </div>
+  <div class="meeting-arr">›</div>
+</a>
 
-    <a href="https://www.artofliving.org/us-en/breathwork/pranayama/breathing-exercises" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:18px;">
-      <div class="meeting-left">
-        <div style="font-size:1.5rem;">🌐</div>
-      </div>
-      <div style="flex:1;">
-        <div class="meeting-title">Beginner's Guide to Breathwork</div>
-        <div class="meeting-sub">Art of Living — 5 techniques to try today with step-by-step instructions</div>
-      </div>
-      <div class="meeting-arr">›</div>
-    </a>
+<a href="https://www.artofliving.org/us-en/breathwork/pranayama/breathing-exercises" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:18px;">
+  <div class="meeting-left">
+    <div style="font-size:1.5rem;">🌐</div>
+  </div>
+  <div style="flex:1;">
+    <div class="meeting-title">Beginner's Guide to Breathwork</div>
+    <div class="meeting-sub">Art of Living — 5 techniques to try today with step-by-step instructions</div>
+  </div>
+  <div class="meeting-arr">›</div>
+</a>
 
-    <!-- MEDITATION -->
-    <div style="color:var(--ac); font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:10px;">🪷 Meditation</div>
+<!-- MEDITATION -->
+<div style="color:var(--ac); font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:10px;">🪷 Meditation</div>
 
-    <a href="https://share.upmc.com/wp-content/uploads/2021/10/HBEAT521847_Mindfulness_MeditationPDF_FNL-1.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;">
-      <div class="meeting-left">
-        <div style="font-size:1.5rem;">📄</div>
-      </div>
-      <div style="flex:1;">
-        <div class="meeting-title">A Beginner's Guide to Mindfulness</div>
-        <div class="meeting-sub">UPMC Health — what mindfulness is, breathing techniques & how to start today</div>
-      </div>
-      <div class="meeting-arr">›</div>
-    </a>
+<a href="https://share.upmc.com/wp-content/uploads/2021/10/HBEAT521847_Mindfulness_MeditationPDF_FNL-1.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;">
+  <div class="meeting-left">
+    <div style="font-size:1.5rem;">📄</div>
+  </div>
+  <div style="flex:1;">
+    <div class="meeting-title">A Beginner's Guide to Mindfulness</div>
+    <div class="meeting-sub">UPMC Health — what mindfulness is, breathing techniques & how to start today</div>
+  </div>
+  <div class="meeting-arr">›</div>
+</a>
 
-    <a href="https://chloeyturner.com/wp-content/uploads/2023/04/eBook-Mindfulness-Meditation-for-Beginners-3.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;">
-      <div class="meeting-left">
-        <div style="font-size:1.5rem;">📄</div>
-      </div>
-      <div style="flex:1;">
-        <div class="meeting-title">Simple Guide to Mindfulness Meditation</div>
-        <div class="meeting-sub">Covers posture, breathing, attitudes & sitting meditation — beginner-friendly eBook</div>
-      </div>
-      <div class="meeting-arr">›</div>
-    </a>
+<a href="https://chloeyturner.com/wp-content/uploads/2023/04/eBook-Mindfulness-Meditation-for-Beginners-3.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;">
+  <div class="meeting-left">
+    <div style="font-size:1.5rem;">📄</div>
+  </div>
+  <div style="flex:1;">
+    <div class="meeting-title">Simple Guide to Mindfulness Meditation</div>
+    <div class="meeting-sub">Covers posture, breathing, attitudes & sitting meditation — beginner-friendly eBook</div>
+  </div>
+  <div class="meeting-arr">›</div>
+</a>
 
-    <a href="https://zenfulspirit.com/wp-content/uploads/2017/07/Meditation-for-Beginners-Book-1.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;">
-      <div class="meeting-left">
-        <div style="font-size:1.5rem;">📄</div>
-      </div>
-      <div style="flex:1;">
-        <div class="meeting-title">Meditation for Beginners</div>
-        <div class="meeting-sub">A comprehensive guide — how to start, how long to sit & what to expect</div>
-      </div>
-      <div class="meeting-arr">›</div>
-    </a>
+<a href="https://zenfulspirit.com/wp-content/uploads/2017/07/Meditation-for-Beginners-Book-1.pdf" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;">
+  <div class="meeting-left">
+    <div style="font-size:1.5rem;">📄</div>
+  </div>
+  <div style="flex:1;">
+    <div class="meeting-title">Meditation for Beginners</div>
+    <div class="meeting-sub">A comprehensive guide — how to start, how long to sit & what to expect</div>
+  </div>
+  <div class="meeting-arr">›</div>
+</a>
 
-    <a href="https://www.nhs.uk/mental-health/self-help/tips-and-support/mindfulness/" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;">
-      <div class="meeting-left">
-        <div style="font-size:1.5rem;">🌐</div>
-      </div>
-      <div style="flex:1;">
-        <div class="meeting-title">NHS Mindfulness Guide</div>
-        <div class="meeting-sub">Trusted UK resource — what mindfulness is, how it helps & free audio exercises</div>
-      </div>
-      <div class="meeting-arr">›</div>
-    </a>
+<a href="https://www.nhs.uk/mental-health/self-help/tips-and-support/mindfulness/" target="_blank" class="meeting-card" style="text-decoration:none; display:flex; margin-bottom:10px;">
+  <div class="meeting-left">
+    <div style="font-size:1.5rem;">🌐</div>
+  </div>
+  <div style="flex:1;">
+    <div class="meeting-title">NHS Mindfulness Guide</div>
+    <div class="meeting-sub">Trusted UK resource — what mindfulness is, how it helps & free audio exercises</div>
+  </div>
+  <div class="meeting-arr">›</div>
+</a>
+```
 
   </div>
 
-
   <!-- EVENTS SCREEN -->
+
   <div class="screen" id="screen-events">
     <div style="margin-bottom:2px;">
       <div style="font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:var(--ac);">Events</div>
@@ -1545,163 +1548,171 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
     <button onclick="openSubmitEvent()" style="position:fixed;bottom:80px;right:16px;z-index:500;width:52px;height:52px;border-radius:50%;background:var(--ac);border:none;font-size:1.5rem;color:#1a1208;cursor:pointer;box-shadow:0 4px 16px rgba(232,201,122,0.4);display:flex;align-items:center;justify-content:center;">+</button>
     <div style="font-size:0.62rem;color:var(--tm);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px;">Global recovery events</div>
 
-    <!-- SEARCH + MONTH/YEAR -->
-    <div style="display:flex;gap:8px;margin-bottom:10px;">
-      <input id="ev-search" class="input" type="text" placeholder="🔍 Search events..." style="flex:1;margin:0;" oninput="renderEvents()">
-      <select id="ev-month-filter" class="input" style="width:110px;margin:0;appearance:none;text-align:center;" onchange="renderEvents()">
-        <option value="">Any month</option>
-        <option>January</option><option>February</option><option>March</option>
-        <option>April</option><option>May</option><option>June</option>
-        <option>July</option><option>August</option><option>September</option>
-        <option>October</option><option>November</option><option>December</option>
-      </select>
-      <select id="ev-year-filter" class="input" style="width:80px;margin:0;appearance:none;text-align:center;" onchange="renderEvents()">
-        <option value="">Any year</option>
-        <option>2025</option><option>2026</option><option>2027</option><option>2028</option>
-      </select>
-    </div>
+```
+<!-- SEARCH + MONTH/YEAR -->
+<div style="display:flex;gap:8px;margin-bottom:10px;">
+  <input id="ev-search" class="input" type="text" placeholder="🔍 Search events..." style="flex:1;margin:0;" oninput="renderEvents()">
+  <select id="ev-month-filter" class="input" style="width:110px;margin:0;appearance:none;text-align:center;" onchange="renderEvents()">
+    <option value="">Any month</option>
+    <option>January</option><option>February</option><option>March</option>
+    <option>April</option><option>May</option><option>June</option>
+    <option>July</option><option>August</option><option>September</option>
+    <option>October</option><option>November</option><option>December</option>
+  </select>
+  <select id="ev-year-filter" class="input" style="width:80px;margin:0;appearance:none;text-align:center;" onchange="renderEvents()">
+    <option value="">Any year</option>
+    <option>2025</option><option>2026</option><option>2027</option><option>2028</option>
+  </select>
+</div>
 
-    <!-- FILTERS -->
-    <div style="display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px;">
-      <button onclick="filterEvents('all')" id="ef-all" class="ef-btn ef-active">All</button>
-      <button onclick="filterEvents('british-isles')" id="ef-british-isles" class="ef-btn">🇬🇧 British Isles</button>
-      <button onclick="filterEvents('europe')" id="ef-europe" class="ef-btn">🇪🇺 Europe</button>
-      <button onclick="filterEvents('north-america')" id="ef-north-america" class="ef-btn">🌎 N. America</button>
-      <button onclick="filterEvents('latin-america')" id="ef-latin-america" class="ef-btn">🌎 Latin America</button>
-      <button onclick="filterEvents('asia')" id="ef-asia" class="ef-btn">🌏 Asia</button>
-      <button onclick="filterEvents('pacific')" id="ef-pacific" class="ef-btn">🌏 Pacific</button>
-      <button onclick="filterEvents('africa')" id="ef-africa" class="ef-btn">🌍 Africa</button>
-      <button onclick="filterEvents('worldwide')" id="ef-worldwide" class="ef-btn">🌐 Worldwide</button>
-    </div>
+<!-- FILTERS -->
+<div style="display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px;">
+  <button onclick="filterEvents('all')" id="ef-all" class="ef-btn ef-active">All</button>
+  <button onclick="filterEvents('british-isles')" id="ef-british-isles" class="ef-btn">🇬🇧 British Isles</button>
+  <button onclick="filterEvents('europe')" id="ef-europe" class="ef-btn">🇪🇺 Europe</button>
+  <button onclick="filterEvents('north-america')" id="ef-north-america" class="ef-btn">🌎 N. America</button>
+  <button onclick="filterEvents('latin-america')" id="ef-latin-america" class="ef-btn">🌎 Latin America</button>
+  <button onclick="filterEvents('asia')" id="ef-asia" class="ef-btn">🌏 Asia</button>
+  <button onclick="filterEvents('pacific')" id="ef-pacific" class="ef-btn">🌏 Pacific</button>
+  <button onclick="filterEvents('africa')" id="ef-africa" class="ef-btn">🌍 Africa</button>
+  <button onclick="filterEvents('worldwide')" id="ef-worldwide" class="ef-btn">🌐 Worldwide</button>
+</div>
 
-    <!-- EVENTS LIST -->
-    <div id="events-list"></div>
-    <div id="events-empty" style="display:none;text-align:center;padding:40px 0;">
-      <div style="font-size:2rem;margin-bottom:10px;">🌍</div>
-      <div style="font-size:0.84rem;color:var(--tm);">No events yet</div>
-      <div style="font-size:0.72rem;color:var(--tm);margin-top:4px;">Be the first to submit one</div>
-    </div>
-    <div id="events-loading" style="text-align:center;padding:30px 0;color:var(--tm);font-size:0.8rem;">Loading events...</div>
+<!-- EVENTS LIST -->
+<div id="events-list"></div>
+<div id="events-empty" style="display:none;text-align:center;padding:40px 0;">
+  <div style="font-size:2rem;margin-bottom:10px;">🌍</div>
+  <div style="font-size:0.84rem;color:var(--tm);">No events yet</div>
+  <div style="font-size:0.72rem;color:var(--tm);margin-top:4px;">Be the first to submit one</div>
+</div>
+<div id="events-loading" style="text-align:center;padding:30px 0;color:var(--tm);font-size:0.8rem;">Loading events...</div>
+```
+
   </div>
 
   <!-- SUBMIT EVENT MODAL -->
+
   <div class="modal-overlay" id="submit-event-modal" onclick="closeSubmitEvent(event)">
     <div class="modal-sheet" onclick="event.stopPropagation()" style="max-height:92vh;">
       <div class="modal-title">Submit an Event</div>
       <div style="font-size:0.72rem;color:var(--tm);margin-bottom:14px;">All submissions are reviewed before going live.</div>
 
-      <!-- AI AUTOFILL -->
-      <div style="background:rgba(232,201,122,0.08);border:1px solid rgba(232,201,122,0.3);border-radius:12px;padding:14px;margin-bottom:16px;">
-        <div style="font-size:0.72rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">✨ Auto-fill from URL or Flyer</div>
-        <div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">Paste a website link or upload a flyer image — we'll fill in the details for you</div>
-        <input id="ev-autofill-url" class="input" type="url" placeholder="https://event-website.com..." style="margin-bottom:8px;">
-        <div style="display:flex;gap:8px;margin-bottom:8px;">
-          <button onclick="autofillFromUrl()" style="flex:1;padding:10px;background:var(--ac);border:none;border-radius:10px;color:#1a1208;font-size:0.78rem;font-weight:700;cursor:pointer;">Fill from URL</button>
-          <label style="flex:1;padding:10px;background:var(--sf);border:1px solid var(--bd);border-radius:10px;color:var(--ac);font-size:0.78rem;font-weight:700;cursor:pointer;text-align:center;">
-            📷 Upload Flyer
-            <input type="file" id="ev-flyer-upload" accept="image/*" style="display:none;" onchange="autofillFromImage(this)">
-          </label>
-        </div>
-        <div id="ev-autofill-status" style="display:none;font-size:0.82rem;font-weight:700;text-align:center;padding:14px;border-radius:10px;background:#2a2410;border:2px solid #e8c97a;color:#e8c97a;margin-top:4px;"></div>
-      </div>
-
-      <!-- FLYER PREVIEW -->
-      <div id="ev-flyer-preview-wrap" style="display:none;margin-bottom:14px;">
-        <img id="ev-flyer-preview" style="width:100%;border-radius:10px;max-height:200px;object-fit:cover;">
-      </div>
-
-      <div class="modal-label">Event Name *</div>
-      <input id="ev-name" class="input" type="text" placeholder="e.g. European Convention 2025">
-
-      <div class="modal-label">Type</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
-        <div class="role-btn" onclick="selectEvType(this,'Convention')">🏛️ Convention</div>
-        <div class="role-btn" onclick="selectEvType(this,'Marathon')">⏱️ Marathon</div>
-        <div class="role-btn" onclick="selectEvType(this,'Speaker Meeting')">🎤 Speaker</div>
-        <div class="role-btn" onclick="selectEvType(this,'Workshop')">📚 Workshop</div>
-        <div class="role-btn" onclick="selectEvType(this,'Other')">✨ Other</div>
-      </div>
-
-      <div class="modal-label">Date *</div>
-      <input id="ev-date" class="input" type="date">
-
-      <div class="modal-label">End Date (if multi-day)</div>
-      <input id="ev-enddate" class="input" type="date">
-
-      <div class="modal-label">Location / Venue *</div>
-      <input id="ev-location" class="input" type="text" placeholder="e.g. Birmingham, UK">
-
-      <div class="modal-label">Country *</div>
-      <select id="ev-country" class="input" style="appearance:none;">
-        <option value="">Select country...</option>
-        <optgroup label="🇬🇧 British Isles">
-          <option>UK</option><option>Ireland</option>
-        </optgroup>
-        <optgroup label="🌍 Europe">
-          <option>Austria</option><option>Belgium</option><option>Croatia</option>
-          <option>Czech Republic</option><option>Denmark</option><option>Finland</option>
-          <option>France</option><option>Germany</option><option>Greece</option>
-          <option>Hungary</option><option>Iceland</option><option>Italy</option>
-          <option>Luxembourg</option><option>Malta</option><option>Netherlands</option>
-          <option>Norway</option><option>Poland</option><option>Portugal</option>
-          <option>Romania</option><option>Russia</option><option>Serbia</option>
-          <option>Slovakia</option><option>Slovenia</option><option>Spain</option>
-          <option>Sweden</option><option>Switzerland</option><option>Turkey</option>
-          <option>Ukraine</option>
-        </optgroup>
-        <optgroup label="🌎 North America">
-          <option>USA</option><option>Canada</option><option>Mexico</option>
-        </optgroup>
-        <optgroup label="🌎 Latin America &amp; Caribbean">
-          <option>Argentina</option><option>Brazil</option><option>Chile</option>
-          <option>Colombia</option><option>Costa Rica</option><option>Cuba</option>
-          <option>Ecuador</option><option>Jamaica</option><option>Panama</option>
-          <option>Peru</option><option>Puerto Rico</option><option>Uruguay</option>
-          <option>Venezuela</option>
-        </optgroup>
-        <optgroup label="🌏 Asia">
-          <option>Bahrain</option><option>China</option><option>Hong Kong</option>
-          <option>India</option><option>Indonesia</option><option>Israel</option>
-          <option>Japan</option><option>Jordan</option><option>Kuwait</option>
-          <option>Lebanon</option><option>Malaysia</option><option>Nepal</option>
-          <option>Oman</option><option>Pakistan</option><option>Philippines</option>
-          <option>Qatar</option><option>Saudi Arabia</option><option>Singapore</option>
-          <option>South Korea</option><option>Sri Lanka</option><option>Taiwan</option>
-          <option>Thailand</option><option>UAE</option><option>Vietnam</option>
-        </optgroup>
-        <optgroup label="🌏 Pacific">
-          <option>Australia</option><option>Bali</option><option>Fiji</option>
-          <option>New Zealand</option><option>Papua New Guinea</option>
-        </optgroup>
-        <optgroup label="🌍 Africa">
-          <option>Egypt</option><option>Ghana</option><option>Kenya</option>
-          <option>Morocco</option><option>Nigeria</option><option>South Africa</option>
-          <option>Tanzania</option><option>Uganda</option><option>Zimbabwe</option>
-        </optgroup>
-        <optgroup label="🌐 Other">
-          <option>Worldwide</option><option>Other</option>
-        </optgroup>
-      </select>
-
-      <div class="modal-label">Website / Booking Link</div>
-      <input id="ev-url" class="input" type="url" placeholder="https://...">
-
-      <div class="modal-label">Flyer Image URL</div>
-      <input id="ev-flyer" class="input" type="url" placeholder="Link to flyer image (optional)">
-      <div style="font-size:0.68rem;color:var(--tm);margin-top:-8px;margin-bottom:14px;">Upload your flyer to Imgur or Google Drive and paste the link here</div>
-
-      <div class="modal-label">Description</div>
-      <textarea id="ev-desc" class="input" style="min-height:80px;resize:vertical;" placeholder="Tell people about the event..."></textarea>
-
-      <div style="display:flex;gap:8px;margin-top:16px;">
-        <button onclick="closeSubmitEventDirect()" style="flex:1;padding:13px;border:1px solid var(--bd);border-radius:var(--r);background:transparent;color:var(--tm);cursor:pointer;">Cancel</button>
-        <button onclick="submitEvent()" class="btn" style="flex:2;margin-top:0;">Submit for Review</button>
-      </div>
-      <div id="ev-submit-msg" style="display:none;margin-top:12px;font-size:0.78rem;text-align:center;color:#5fcf80;">✓ Submitted! We'll review it shortly.</div>
+```
+  <!-- AI AUTOFILL -->
+  <div style="background:rgba(232,201,122,0.08);border:1px solid rgba(232,201,122,0.3);border-radius:12px;padding:14px;margin-bottom:16px;">
+    <div style="font-size:0.72rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">✨ Auto-fill from URL or Flyer</div>
+    <div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">Paste a website link or upload a flyer image — we'll fill in the details for you</div>
+    <input id="ev-autofill-url" class="input" type="url" placeholder="https://event-website.com..." style="margin-bottom:8px;">
+    <div style="display:flex;gap:8px;margin-bottom:8px;">
+      <button onclick="autofillFromUrl()" style="flex:1;padding:10px;background:var(--ac);border:none;border-radius:10px;color:#1a1208;font-size:0.78rem;font-weight:700;cursor:pointer;">Fill from URL</button>
+      <label style="flex:1;padding:10px;background:var(--sf);border:1px solid var(--bd);border-radius:10px;color:var(--ac);font-size:0.78rem;font-weight:700;cursor:pointer;text-align:center;">
+        📷 Upload Flyer
+        <input type="file" id="ev-flyer-upload" accept="image/*" style="display:none;" onchange="autofillFromImage(this)">
+      </label>
     </div>
+    <div id="ev-autofill-status" style="display:none;font-size:0.82rem;font-weight:700;text-align:center;padding:14px;border-radius:10px;background:#2a2410;border:2px solid #e8c97a;color:#e8c97a;margin-top:4px;"></div>
+  </div>
+
+  <!-- FLYER PREVIEW -->
+  <div id="ev-flyer-preview-wrap" style="display:none;margin-bottom:14px;">
+    <img id="ev-flyer-preview" style="width:100%;border-radius:10px;max-height:200px;object-fit:cover;">
+  </div>
+
+  <div class="modal-label">Event Name *</div>
+  <input id="ev-name" class="input" type="text" placeholder="e.g. European Convention 2025">
+
+  <div class="modal-label">Type</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+    <div class="role-btn" onclick="selectEvType(this,'Convention')">🏛️ Convention</div>
+    <div class="role-btn" onclick="selectEvType(this,'Marathon')">⏱️ Marathon</div>
+    <div class="role-btn" onclick="selectEvType(this,'Speaker Meeting')">🎤 Speaker</div>
+    <div class="role-btn" onclick="selectEvType(this,'Workshop')">📚 Workshop</div>
+    <div class="role-btn" onclick="selectEvType(this,'Other')">✨ Other</div>
+  </div>
+
+  <div class="modal-label">Date *</div>
+  <input id="ev-date" class="input" type="date">
+
+  <div class="modal-label">End Date (if multi-day)</div>
+  <input id="ev-enddate" class="input" type="date">
+
+  <div class="modal-label">Location / Venue *</div>
+  <input id="ev-location" class="input" type="text" placeholder="e.g. Birmingham, UK">
+
+  <div class="modal-label">Country *</div>
+  <select id="ev-country" class="input" style="appearance:none;">
+    <option value="">Select country...</option>
+    <optgroup label="🇬🇧 British Isles">
+      <option>UK</option><option>Ireland</option>
+    </optgroup>
+    <optgroup label="🌍 Europe">
+      <option>Austria</option><option>Belgium</option><option>Croatia</option>
+      <option>Czech Republic</option><option>Denmark</option><option>Finland</option>
+      <option>France</option><option>Germany</option><option>Greece</option>
+      <option>Hungary</option><option>Iceland</option><option>Italy</option>
+      <option>Luxembourg</option><option>Malta</option><option>Netherlands</option>
+      <option>Norway</option><option>Poland</option><option>Portugal</option>
+      <option>Romania</option><option>Russia</option><option>Serbia</option>
+      <option>Slovakia</option><option>Slovenia</option><option>Spain</option>
+      <option>Sweden</option><option>Switzerland</option><option>Turkey</option>
+      <option>Ukraine</option>
+    </optgroup>
+    <optgroup label="🌎 North America">
+      <option>USA</option><option>Canada</option><option>Mexico</option>
+    </optgroup>
+    <optgroup label="🌎 Latin America &amp; Caribbean">
+      <option>Argentina</option><option>Brazil</option><option>Chile</option>
+      <option>Colombia</option><option>Costa Rica</option><option>Cuba</option>
+      <option>Ecuador</option><option>Jamaica</option><option>Panama</option>
+      <option>Peru</option><option>Puerto Rico</option><option>Uruguay</option>
+      <option>Venezuela</option>
+    </optgroup>
+    <optgroup label="🌏 Asia">
+      <option>Bahrain</option><option>China</option><option>Hong Kong</option>
+      <option>India</option><option>Indonesia</option><option>Israel</option>
+      <option>Japan</option><option>Jordan</option><option>Kuwait</option>
+      <option>Lebanon</option><option>Malaysia</option><option>Nepal</option>
+      <option>Oman</option><option>Pakistan</option><option>Philippines</option>
+      <option>Qatar</option><option>Saudi Arabia</option><option>Singapore</option>
+      <option>South Korea</option><option>Sri Lanka</option><option>Taiwan</option>
+      <option>Thailand</option><option>UAE</option><option>Vietnam</option>
+    </optgroup>
+    <optgroup label="🌏 Pacific">
+      <option>Australia</option><option>Bali</option><option>Fiji</option>
+      <option>New Zealand</option><option>Papua New Guinea</option>
+    </optgroup>
+    <optgroup label="🌍 Africa">
+      <option>Egypt</option><option>Ghana</option><option>Kenya</option>
+      <option>Morocco</option><option>Nigeria</option><option>South Africa</option>
+      <option>Tanzania</option><option>Uganda</option><option>Zimbabwe</option>
+    </optgroup>
+    <optgroup label="🌐 Other">
+      <option>Worldwide</option><option>Other</option>
+    </optgroup>
+  </select>
+
+  <div class="modal-label">Website / Booking Link</div>
+  <input id="ev-url" class="input" type="url" placeholder="https://...">
+
+  <div class="modal-label">Flyer Image URL</div>
+  <input id="ev-flyer" class="input" type="url" placeholder="Link to flyer image (optional)">
+  <div style="font-size:0.68rem;color:var(--tm);margin-top:-8px;margin-bottom:14px;">Upload your flyer to Imgur or Google Drive and paste the link here</div>
+
+  <div class="modal-label">Description</div>
+  <textarea id="ev-desc" class="input" style="min-height:80px;resize:vertical;" placeholder="Tell people about the event..."></textarea>
+
+  <div style="display:flex;gap:8px;margin-top:16px;">
+    <button onclick="closeSubmitEventDirect()" style="flex:1;padding:13px;border:1px solid var(--bd);border-radius:var(--r);background:transparent;color:var(--tm);cursor:pointer;">Cancel</button>
+    <button onclick="submitEvent()" class="btn" style="flex:2;margin-top:0;">Submit for Review</button>
+  </div>
+  <div id="ev-submit-msg" style="display:none;margin-top:12px;font-size:0.78rem;text-align:center;color:#5fcf80;">✓ Submitted! We'll review it shortly.</div>
+</div>
+```
+
   </div>
 
   <!-- EVENT DETAIL MODAL -->
+
   <div class="modal-overlay" id="event-detail-modal" onclick="closeEventDetail(event)">
     <div class="modal-sheet" onclick="event.stopPropagation()" style="max-height:92vh;">
       <div id="event-detail-content"></div>
@@ -1710,25 +1721,39 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
   </div>
 
   <!-- ADMIN PANEL MODAL -->
+
   <div class="modal-overlay" id="admin-modal" onclick="closeAdminModal(event)">
     <div class="modal-sheet" onclick="event.stopPropagation()" style="max-height:92vh;">
       <div class="modal-title">&#x1F6E1; Admin Panel</div>
 
-      <div style="background:rgba(232,201,122,0.08);border:1px solid rgba(232,201,122,0.2);border-radius:var(--r);padding:14px;margin-bottom:16px;">
-        <div style="font-size:0.65rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">🌐 Bulk Import from Website</div>
-        <div style="font-size:0.75rem;color:var(--tm);margin-bottom:10px;">Paste a URL from an events calendar — AI will extract all events at once</div>
-        <input id="bulk-import-url" class="input" type="url" placeholder="https://ukna.org/events..." style="margin-bottom:8px;">
-        <button onclick="bulkImportEvents()" id="bulk-import-btn" style="width:100%;padding:11px;background:var(--ac);border:none;border-radius:var(--r);color:#1a1208;font-weight:700;cursor:pointer;font-size:0.82rem;">🤖 Import Events with AI</button>
-        <div id="bulk-import-status" style="display:none;font-size:0.82rem;font-weight:700;text-align:center;padding:14px;border-radius:10px;background:#2a2410;border:2px solid #e8c97a;color:#e8c97a;margin-top:8px;"></div>
-      </div>
+```
+  <div style="background:rgba(232,201,122,0.08);border:1px solid rgba(232,201,122,0.2);border-radius:var(--r);padding:14px;margin-bottom:16px;">
+    <div style="font-size:0.65rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">🌐 Bulk Import from Website</div>
+    <div style="font-size:0.75rem;color:var(--tm);margin-bottom:10px;">Paste a URL from an events calendar — AI will extract all events at once</div>
+    <input id="bulk-import-url" class="input" type="url" placeholder="https://ukna.org/events..." style="margin-bottom:8px;">
+    <button onclick="bulkImportEvents()" id="bulk-import-btn" style="width:100%;padding:11px;background:var(--ac);border:none;border-radius:var(--r);color:#1a1208;font-weight:700;cursor:pointer;font-size:0.82rem;">🤖 Import Events with AI</button>
+    <div id="bulk-import-status" style="display:none;font-size:0.82rem;font-weight:700;text-align:center;padding:14px;border-radius:10px;background:#2a2410;border:2px solid #e8c97a;color:#e8c97a;margin-top:8px;"></div>
+  </div>
 
-      <div style="font-size:0.65rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;">⏳ Pending Approval</div>
-      <div id="admin-pending-list"></div>
-      <button onclick="closeAdminModalDirect()" style="width:100%;margin-top:12px;padding:13px;border:1px solid var(--bd);border-radius:var(--r);background:transparent;color:var(--tm);cursor:pointer;">Close</button>
-    </div>
+  <!-- DEDUPE TOOL -->
+  <div style="background:#1a0a0a;border:2px solid #e74c3c;border-radius:var(--r);padding:14px;margin-bottom:16px;">
+    <div style="font-size:0.65rem;font-weight:800;color:#e74c3c;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">🧹 Remove Duplicates</div>
+    <div style="font-size:0.72rem;color:var(--tm);margin-bottom:10px;">Find and remove duplicate events with the same name and date</div>
+    <button onclick="findAndRemoveDuplicates()" id="dedupe-btn" style="width:100%;padding:11px;background:#e74c3c;border:none;border-radius:var(--r);color:#fff;font-size:0.82rem;font-weight:700;cursor:pointer;">🔍 Find &amp; Remove Duplicates</button>
+    <div id="dedupe-status" style="display:none;font-size:0.82rem;font-weight:700;text-align:center;padding:14px;border-radius:10px;background:#2a2410;border:2px solid #e8c97a;color:#e8c97a;margin-top:8px;"></div>
+    <div id="dedupe-list" style="margin-top:10px;"></div>
+  </div>
+
+  <div style="font-size:0.65rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;">⏳ Pending Approval</div>
+  <div id="admin-pending-list"></div>
+  <button onclick="closeAdminModalDirect()" style="width:100%;margin-top:12px;padding:13px;border:1px solid var(--bd);border-radius:var(--r);background:transparent;color:var(--tm);cursor:pointer;">Close</button>
+</div>
+```
+
   </div>
 
   <!-- NETWORK SCREEN -->
+
   <div class="screen" id="screen-network">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;">
       <div style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:300; color:var(--ac);">My Network</div>
@@ -1736,64 +1761,72 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
     </div>
     <div style="font-size:0.62rem; color:var(--tm); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:12px;">Your recovery people</div>
 
-    <!-- NETWORK MAP -->
-    <div id="net-map-wrap" style="border-radius:16px;overflow:hidden;margin-bottom:16px;border:1px solid var(--bd);position:relative;">
-      <div id="net-map" style="height:220px;width:100%;background:var(--sf2);"></div>
-      <div style="position:absolute;bottom:8px;left:8px;display:flex;gap:6px;z-index:1000;pointer-events:none;">
-        <div style="background:rgba(15,15,26,0.85);border-radius:20px;padding:3px 8px;font-size:0.58rem;color:#fff;display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#e74c3c;display:inline-block;"></span>Sponsor</div>
-        <div style="background:rgba(15,15,26,0.85);border-radius:20px;padding:3px 8px;font-size:0.58rem;color:#fff;display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#2ecc71;display:inline-block;"></span>Sponsee / Sister / Brother</div>
-        <div style="background:rgba(15,15,26,0.85);border-radius:20px;padding:3px 8px;font-size:0.58rem;color:#fff;display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#f1c40f;display:inline-block;"></span>Friend</div>
-      </div>
-    </div>
+```
+<!-- NETWORK MAP -->
+<div id="net-map-wrap" style="border-radius:16px;overflow:hidden;margin-bottom:16px;border:1px solid var(--bd);position:relative;">
+  <div id="net-map" style="height:220px;width:100%;background:var(--sf2);"></div>
+  <div style="position:absolute;bottom:8px;left:8px;display:flex;gap:6px;z-index:1000;pointer-events:none;">
+    <div style="background:rgba(15,15,26,0.85);border-radius:20px;padding:3px 8px;font-size:0.58rem;color:#fff;display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#e74c3c;display:inline-block;"></span>Sponsor</div>
+    <div style="background:rgba(15,15,26,0.85);border-radius:20px;padding:3px 8px;font-size:0.58rem;color:#fff;display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#2ecc71;display:inline-block;"></span>Sponsee / Sister / Brother</div>
+    <div style="background:rgba(15,15,26,0.85);border-radius:20px;padding:3px 8px;font-size:0.58rem;color:#fff;display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#f1c40f;display:inline-block;"></span>Friend</div>
+  </div>
+</div>
 
-    <div id="net-list"></div>
-    <div id="net-empty" style="display:none;text-align:center;padding:40px 0 20px;">
-      <div style="font-size:2rem;margin-bottom:10px;">🤝</div>
-      <div style="font-size:0.84rem;color:var(--tm);">No contacts yet</div>
-      <div style="font-size:0.72rem;color:var(--tm);margin-top:4px;">Tap + to add someone from your network</div>
-    </div>
+<div id="net-list"></div>
+<div id="net-empty" style="display:none;text-align:center;padding:40px 0 20px;">
+  <div style="font-size:2rem;margin-bottom:10px;">🤝</div>
+  <div style="font-size:0.84rem;color:var(--tm);">No contacts yet</div>
+  <div style="font-size:0.72rem;color:var(--tm);margin-top:4px;">Tap + to add someone from your network</div>
+</div>
+```
+
   </div>
 
   <!-- ADD CONTACT MODAL -->
+
   <div class="modal-overlay" id="contact-modal" onclick="closeContactModal(event)">
     <div class="modal-sheet" onclick="event.stopPropagation()">
       <div class="modal-title" id="contact-modal-title">Add Contact</div>
 
-      <div class="modal-label">Name</div>
-      <input id="cn-name" class="input" type="text" placeholder="Their name">
+```
+  <div class="modal-label">Name</div>
+  <input id="cn-name" class="input" type="text" placeholder="Their name">
 
-      <div class="modal-label">Relationship</div>
-      <div class="role-grid">
-        <div class="role-btn" onclick="selectRole(this,'Sponsor')">💛 Sponsor</div>
-        <div class="role-btn" onclick="selectRole(this,'Sponsee')">🌱 Sponsee</div>
-        <div class="role-btn" onclick="selectRole(this,'Sponsor Sister')">💜 Sponsor Sister</div>
-        <div class="role-btn" onclick="selectRole(this,'Sponsor Brother')">💙 Sponsor Brother</div>
-        <div class="role-btn" onclick="selectRole(this,'Friend in Recovery')" style="grid-column:span 2;">🤝 Friend in Recovery</div>
-      </div>
+  <div class="modal-label">Relationship</div>
+  <div class="role-grid">
+    <div class="role-btn" onclick="selectRole(this,'Sponsor')">💛 Sponsor</div>
+    <div class="role-btn" onclick="selectRole(this,'Sponsee')">🌱 Sponsee</div>
+    <div class="role-btn" onclick="selectRole(this,'Sponsor Sister')">💜 Sponsor Sister</div>
+    <div class="role-btn" onclick="selectRole(this,'Sponsor Brother')">💙 Sponsor Brother</div>
+    <div class="role-btn" onclick="selectRole(this,'Friend in Recovery')" style="grid-column:span 2;">🤝 Friend in Recovery</div>
+  </div>
 
-      <div class="modal-label">Phone Number</div>
-      <input id="cn-phone" class="input" type="tel" placeholder="+44 7700 000000">
+  <div class="modal-label">Phone Number</div>
+  <input id="cn-phone" class="input" type="tel" placeholder="+44 7700 000000">
 
-      <div class="modal-label">WhatsApp Number <span style="color:var(--tm);font-weight:400;">(if different)</span></div>
-      <input id="cn-whatsapp" class="input" type="tel" placeholder="Same as phone if blank">
+  <div class="modal-label">WhatsApp Number <span style="color:var(--tm);font-weight:400;">(if different)</span></div>
+  <input id="cn-whatsapp" class="input" type="tel" placeholder="Same as phone if blank">
 
-      <div class="modal-label">Town / City</div>
-      <input id="cn-location" class="input" type="text" placeholder="e.g. Manchester">
+  <div class="modal-label">Town / City</div>
+  <input id="cn-location" class="input" type="text" placeholder="e.g. Manchester">
 
-      <div class="modal-label">Clean Date</div>
-      <input id="cn-cleandate" class="input" type="date">
+  <div class="modal-label">Clean Date</div>
+  <input id="cn-cleandate" class="input" type="date">
 
-      <div style="display:flex;gap:8px;margin-top:18px;">
-        <button onclick="closeContactModalDirect()" style="flex:1;padding:13px;border:1px solid var(--bd);border-radius:var(--r);background:transparent;color:var(--tm);cursor:pointer;">Cancel</button>
-        <button onclick="saveContact()" class="btn" style="flex:2;margin-top:0;">Save</button>
-      </div>
-      <div id="cn-delete-wrap" style="display:none;margin-top:10px;">
-        <button onclick="deleteContact()" style="width:100%;padding:12px;border:1px solid rgba(180,60,60,0.4);border-radius:var(--r);background:transparent;color:#ff6b6b;font-size:0.8rem;cursor:pointer;">Remove Contact</button>
-      </div>
-    </div>
+  <div style="display:flex;gap:8px;margin-top:18px;">
+    <button onclick="closeContactModalDirect()" style="flex:1;padding:13px;border:1px solid var(--bd);border-radius:var(--r);background:transparent;color:var(--tm);cursor:pointer;">Cancel</button>
+    <button onclick="saveContact()" class="btn" style="flex:2;margin-top:0;">Save</button>
+  </div>
+  <div id="cn-delete-wrap" style="display:none;margin-top:10px;">
+    <button onclick="deleteContact()" style="width:100%;padding:12px;border:1px solid rgba(180,60,60,0.4);border-radius:var(--r);background:transparent;color:#ff6b6b;font-size:0.8rem;cursor:pointer;">Remove Contact</button>
+  </div>
+</div>
+```
+
   </div>
 
   <!-- EXPORT MODAL -->
+
   <div class="export-overlay" id="export-modal" onclick="closeExportModalDirect()">
     <div class="modal-sheet" onclick="event.stopPropagation()">
       <div id="export-picker-view">
@@ -1814,6 +1847,7 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
   </div>
 
   <!-- MY EVENTS SCREEN -->
+
   <div class="screen" id="screen-my-events">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
       <button onclick="showScreen('home')" style="background:transparent;border:none;color:var(--ac);font-size:1.8rem;cursor:pointer;padding:0;line-height:1;">‹</button>
@@ -1823,14 +1857,19 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
   </div>
 
   <!-- ACCOUNT SCREEN -->
+
   <div class="screen" id="screen-account">
     <div style="font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:var(--ac);margin-bottom:4px;">My Account</div>
     <div style="font-size:0.62rem;color:var(--tm);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:24px;">Profile & Settings</div>
 
-    <div id="account-screen-content"></div>
+```
+<div id="account-screen-content"></div>
+```
+
   </div>
 
   <!-- NAV -->
+
   <nav>
     <div class="nav-item active" id="nav-home" onclick="showScreen('home')">
       <div class="nav-icon">&#x1F3E0;</div>
@@ -3687,8 +3726,6 @@ function showAutofillStatus(msg, type) {
   el.style.background = type === 'error' ? '#3a0a0a' : '#2a2410';
   el.style.color = type === 'error' ? '#ff6b6b' : '#e8c97a';
   el.style.border = '2px solid ' + (type === 'error' ? '#e74c3c' : '#e8c97a');
-  el.style.fontWeight = '700';
-  el.style.padding = '14px';
 }
 
 function fillEventForm(data) {
@@ -4460,8 +4497,104 @@ async function bulkImportEvents() {
   }
 }
 
+
+// =====================
+// DUPLICATE REMOVAL
+// =====================
+async function findAndRemoveDuplicates() {
+  var btn = document.getElementById('dedupe-btn');
+  var status = document.getElementById('dedupe-status');
+  var list = document.getElementById('dedupe-list');
+  btn.disabled = true;
+  btn.textContent = '⏳ Scanning...';
+  status.style.display = 'block';
+  status.textContent = 'Loading all events...';
+  status.style.background = '#2a2410';
+  status.style.color = '#e8c97a';
+  status.style.border = '2px solid #e8c97a';
+  while (list.firstChild) list.removeChild(list.firstChild);
+
+  try {
+    var res = await supa.from('events').select('id, name, date, location, approved').order('created_at', { ascending: true });
+    var events = res.data || [];
+
+    var groups = {};
+    events.forEach(function(ev) {
+      var key = ev.name.toLowerCase().trim() + '|' + ev.date;
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(ev);
+    });
+
+    var dupeGroups = Object.keys(groups).filter(function(k){ return groups[k].length > 1; });
+
+    if (!dupeGroups.length) {
+      status.textContent = '✅ No duplicates found — all clean!';
+      btn.textContent = '🔍 Find & Remove Duplicates';
+      btn.disabled = false;
+      return;
+    }
+
+    var toRemoveIds = [];
+    dupeGroups.forEach(function(key) {
+      var group = groups[key];
+      var keep = group[0];
+      var remove = group.slice(1);
+      remove.forEach(function(ev){ toRemoveIds.push(ev.id); });
+
+      var card = document.createElement('div');
+      card.style.cssText = 'background:var(--sf2);border:1px solid var(--bd);border-radius:10px;padding:10px;margin-bottom:8px;font-size:0.75rem;';
+      var nameEl = document.createElement('div');
+      nameEl.style.cssText = 'font-weight:700;margin-bottom:4px;';
+      nameEl.textContent = keep.name;
+      var dateEl = document.createElement('div');
+      dateEl.style.cssText = 'color:var(--tm);margin-bottom:4px;';
+      dateEl.textContent = new Date(keep.date).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+      var dupEl = document.createElement('div');
+      dupEl.style.cssText = 'color:#e74c3c;';
+      dupEl.textContent = remove.length + ' duplicate' + (remove.length > 1 ? 's' : '') + ' will be removed';
+      card.appendChild(nameEl);
+      card.appendChild(dateEl);
+      card.appendChild(dupEl);
+      list.appendChild(card);
+    });
+
+    status.textContent = 'Found ' + toRemoveIds.length + ' duplicates across ' + dupeGroups.length + ' events';
+
+    var removeBtn = document.createElement('button');
+    removeBtn.style.cssText = 'width:100%;padding:12px;background:#e74c3c;border:none;border-radius:var(--r);color:#fff;font-weight:700;cursor:pointer;font-size:0.85rem;margin-top:8px;';
+    removeBtn.textContent = '🗑️ Remove All ' + toRemoveIds.length + ' Duplicates';
+    removeBtn.onclick = async function() {
+      removeBtn.disabled = true;
+      removeBtn.textContent = '⏳ Removing...';
+      var batchSize = 20;
+      for (var i = 0; i < toRemoveIds.length; i += batchSize) {
+        await supa.from('events').delete().in('id', toRemoveIds.slice(i, i + batchSize));
+      }
+      status.textContent = '✅ Removed ' + toRemoveIds.length + ' duplicates!';
+      while (list.firstChild) list.removeChild(list.firstChild);
+      btn.textContent = '🔍 Find & Remove Duplicates';
+      btn.disabled = false;
+      loadEvents();
+    };
+    list.appendChild(removeBtn);
+
+    btn.textContent = '🔍 Find & Remove Duplicates';
+    btn.disabled = false;
+
+  } catch(e) {
+    status.textContent = '❌ Error: ' + e.message;
+    status.style.background = '#3a0a0a';
+    status.style.color = '#ff6b6b';
+    status.style.border = '2px solid #e74c3c';
+    btn.textContent = '🔍 Find & Remove Duplicates';
+    btn.disabled = false;
+  }
+}
+
 </script>
+
   <!-- WELCOME / AUTH SCREEN -->
+
   <div id="welcome-screen" style="display:none;">
     <!-- Hero -->
     <div id="welcome-hero">
@@ -4474,122 +4607,132 @@ async function bulkImportEvents() {
       <button class="welcome-btn-ghost" onclick="continueAsGuest()">Browse as guest</button>
     </div>
 
-    <!-- Auth Form -->
-    <div id="auth-form">
-      <button class="auth-back" onclick="document.getElementById('welcome-hero').style.display='flex';document.getElementById('auth-form').style.display='none';">&#8592; Back</button>
-      <div id="auth-mode" data-mode="signin"></div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--ac);margin-bottom:6px;" id="auth-title">Welcome back</div>
-      <div style="font-size:0.72rem;color:var(--tm);margin-bottom:24px;">Sign in to access your recovery tools</div>
+```
+<!-- Auth Form -->
+<div id="auth-form">
+  <button class="auth-back" onclick="document.getElementById('welcome-hero').style.display='flex';document.getElementById('auth-form').style.display='none';">&#8592; Back</button>
+  <div id="auth-mode" data-mode="signin"></div>
+  <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--ac);margin-bottom:6px;" id="auth-title">Welcome back</div>
+  <div style="font-size:0.72rem;color:var(--tm);margin-bottom:24px;">Sign in to access your recovery tools</div>
 
-      <div class="modal-label">Email</div>
-      <input id="auth-email" class="input" type="email" placeholder="your@email.com" autocomplete="email" style="margin-bottom:14px;">
+  <div class="modal-label">Email</div>
+  <input id="auth-email" class="input" type="email" placeholder="your@email.com" autocomplete="email" style="margin-bottom:14px;">
 
-      <div class="modal-label">Password</div>
-      <input id="auth-password" class="input" type="password" placeholder="Password" autocomplete="current-password" style="margin-bottom:6px;">
+  <div class="modal-label">Password</div>
+  <input id="auth-password" class="input" type="password" placeholder="Password" autocomplete="current-password" style="margin-bottom:6px;">
 
-      <div id="auth-msg" style="display:none;font-size:0.75rem;margin-bottom:12px;text-align:center;padding:8px;border-radius:8px;background:rgba(0,0,0,0.2);"></div>
+  <div id="auth-msg" style="display:none;font-size:0.75rem;margin-bottom:12px;text-align:center;padding:8px;border-radius:8px;background:rgba(0,0,0,0.2);"></div>
 
-      <button id="auth-submit-btn" class="btn" style="width:100%;margin-bottom:12px;" onclick="doAuth()">Sign In</button>
+  <button id="auth-submit-btn" class="btn" style="width:100%;margin-bottom:12px;" onclick="doAuth()">Sign In</button>
 
-      <button id="auth-forgot" onclick="doAuthReset()" style="width:100%;padding:8px;border:none;background:transparent;color:var(--tm);cursor:pointer;font-size:0.72rem;display:block;">Forgot password?</button>
+  <button id="auth-forgot" onclick="doAuthReset()" style="width:100%;padding:8px;border:none;background:transparent;color:var(--tm);cursor:pointer;font-size:0.72rem;display:block;">Forgot password?</button>
 
-      <div style="text-align:center;margin-top:16px;">
-        <span id="auth-switch-text" style="font-size:0.75rem;color:var(--tm);">Don't have an account?</span>
-        <button id="auth-switch-btn" onclick="switchAuthMode()" style="background:transparent;border:none;color:var(--ac);font-size:0.75rem;cursor:pointer;padding:0 0 0 4px;">Sign up</button>
-      </div>
-    </div>
+  <div style="text-align:center;margin-top:16px;">
+    <span id="auth-switch-text" style="font-size:0.75rem;color:var(--tm);">Don't have an account?</span>
+    <button id="auth-switch-btn" onclick="switchAuthMode()" style="background:transparent;border:none;color:var(--ac);font-size:0.75rem;cursor:pointer;padding:0 0 0 4px;">Sign up</button>
+  </div>
+</div>
+```
+
   </div>
 
   <!-- ADD MEETING MODAL -->
+
   <div class="modal-overlay" id="add-meeting-modal" onclick="closeAddMeeting(event)">
     <div class="modal-sheet" onclick="event.stopPropagation()">
       <div class="modal-title" id="zm-modal-title">Add a Meeting</div>
       <div id="zm-modal-subtitle" style="font-size:0.72rem;color:var(--tm);margin-bottom:16px;"></div>
 
-      <div class="modal-label">Meeting Name</div>
-      <input id="zm-name" class="input" type="text" placeholder="e.g. Monday Night Step Study">
+```
+  <div class="modal-label">Meeting Name</div>
+  <input id="zm-name" class="input" type="text" placeholder="e.g. Monday Night Step Study">
 
-      <div class="modal-label">Day / Time</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
-        <div class="role-btn" onclick="toggleMeetingDay(this,'Mon')">Mon</div>
-        <div class="role-btn" onclick="toggleMeetingDay(this,'Tue')">Tue</div>
-        <div class="role-btn" onclick="toggleMeetingDay(this,'Wed')">Wed</div>
-        <div class="role-btn" onclick="toggleMeetingDay(this,'Thu')">Thu</div>
-        <div class="role-btn" onclick="toggleMeetingDay(this,'Fri')">Fri</div>
-        <div class="role-btn" onclick="toggleMeetingDay(this,'Sat')">Sat</div>
-        <div class="role-btn" onclick="toggleMeetingDay(this,'Sun')">Sun</div>
-        <div class="role-btn" onclick="toggleMeetingDay(this,'Daily')" style="grid-column:span 2;">Every Day</div>
-      </div>
-      <input id="zm-time" class="input" type="text" placeholder="Time e.g. 7pm GMT">
+  <div class="modal-label">Day / Time</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+    <div class="role-btn" onclick="toggleMeetingDay(this,'Mon')">Mon</div>
+    <div class="role-btn" onclick="toggleMeetingDay(this,'Tue')">Tue</div>
+    <div class="role-btn" onclick="toggleMeetingDay(this,'Wed')">Wed</div>
+    <div class="role-btn" onclick="toggleMeetingDay(this,'Thu')">Thu</div>
+    <div class="role-btn" onclick="toggleMeetingDay(this,'Fri')">Fri</div>
+    <div class="role-btn" onclick="toggleMeetingDay(this,'Sat')">Sat</div>
+    <div class="role-btn" onclick="toggleMeetingDay(this,'Sun')">Sun</div>
+    <div class="role-btn" onclick="toggleMeetingDay(this,'Daily')" style="grid-column:span 2;">Every Day</div>
+  </div>
+  <input id="zm-time" class="input" type="text" placeholder="Time e.g. 7pm GMT">
 
-      <div class="modal-label">Zoom Meeting ID</div>
-      <input id="zm-id" class="input" type="text" placeholder="e.g. 123 456 7890" inputmode="numeric">
+  <div class="modal-label">Zoom Meeting ID</div>
+  <input id="zm-id" class="input" type="text" placeholder="e.g. 123 456 7890" inputmode="numeric">
 
-      <div class="modal-label">Zoom Password <span style="color:var(--tm);font-weight:400;">(if required)</span></div>
-      <input id="zm-password" class="input" type="text" placeholder="e.g. recovery">
+  <div class="modal-label">Zoom Password <span style="color:var(--tm);font-weight:400;">(if required)</span></div>
+  <input id="zm-password" class="input" type="text" placeholder="e.g. recovery">
 
-      <div class="modal-label" style="margin-top:4px;">
-        <span style="font-size:0.68rem;color:var(--tm);">— or paste a full link instead —</span>
-      </div>
-      <input id="zm-url" class="input" type="url" placeholder="https://zoom.us/j/... or Teams/Google Meet link">
+  <div class="modal-label" style="margin-top:4px;">
+    <span style="font-size:0.68rem;color:var(--tm);">— or paste a full link instead —</span>
+  </div>
+  <input id="zm-url" class="input" type="url" placeholder="https://zoom.us/j/... or Teams/Google Meet link">
 
-      <div style="display:flex;gap:8px;margin-top:16px;">
-        <button onclick="closeAddMeetingDirect()" style="flex:1;padding:13px;border:1px solid var(--bd);border-radius:var(--r);background:transparent;color:var(--tm);cursor:pointer;">Cancel</button>
-        <button onclick="saveMeeting()" class="btn" style="flex:2;margin-top:0;">Save Meeting</button>
-      </div>
-      <div id="zm-delete-wrap" style="display:none;margin-top:10px;">
-        <button onclick="deleteMeeting()" style="width:100%;padding:12px;border:1px solid rgba(180,60,60,0.4);border-radius:var(--r);background:transparent;color:#ff6b6b;font-size:0.8rem;cursor:pointer;">Remove Meeting</button>
-      </div>
-    </div>
+  <div style="display:flex;gap:8px;margin-top:16px;">
+    <button onclick="closeAddMeetingDirect()" style="flex:1;padding:13px;border:1px solid var(--bd);border-radius:var(--r);background:transparent;color:var(--tm);cursor:pointer;">Cancel</button>
+    <button onclick="saveMeeting()" class="btn" style="flex:2;margin-top:0;">Save Meeting</button>
+  </div>
+  <div id="zm-delete-wrap" style="display:none;margin-top:10px;">
+    <button onclick="deleteMeeting()" style="width:100%;padding:12px;border:1px solid rgba(180,60,60,0.4);border-radius:var(--r);background:transparent;color:#ff6b6b;font-size:0.8rem;cursor:pointer;">Remove Meeting</button>
+  </div>
+</div>
+```
+
   </div>
 
   <!-- PAYWALL MODAL -->
-  
 
   <!-- ACCOUNT SHEET -->
+
   <div class="modal-overlay" id="account-sheet" onclick="closeAccountSheet(event)">
     <div class="modal-sheet" onclick="event.stopPropagation()" style="max-height:90vh;">
 
-      <!-- Signed Out View -->
-      <div id="account-signedout">
-        <div style="text-align:center;margin-bottom:20px;">
-          <div style="font-size:2.5rem;margin-bottom:8px;">👤</div>
-          <div style="font-size:1.1rem;font-weight:600;color:var(--tx);">Sign in to Clean Living</div>
-          <div style="font-size:0.75rem;color:var(--tm);margin-top:4px;">Access your recovery tools across all devices</div>
-        </div>
-        <button class="btn" style="width:100%;margin-bottom:10px;" onclick="closeAccountSheet(event);showWelcomeScreen();">Sign In / Create Account</button>
-      </div>
-
-      <!-- Signed In View -->
-      <div id="account-signedin" style="display:none;">
-
-        <!-- Profile -->
-        <div style="display:flex;align-items:center;gap:14px;padding:4px 0 20px;border-bottom:1px solid var(--bd);margin-bottom:16px;">
-          <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--ac),#b8965a);display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:700;color:#1a1208;" id="account-avatar">C</div>
-          <div>
-            <div style="font-weight:700;font-size:0.95rem;" id="account-name">Clare</div>
-            <div style="font-size:0.72rem;color:var(--tm);" id="account-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bcdfd0ddced9d4d3decfd3d2fcd5dfd0d3c9d892dfd3d1">[email&#160;protected]</a></div>
-          </div>
-          <div id="account-tier-badge" style="margin-left:auto;padding:4px 10px;border-radius:20px;font-size:0.62rem;font-weight:800;text-transform:uppercase;"></div>
-        </div>
-
-        <!-- Membership -->
-        <div style="background:var(--sf2);border:1px solid rgba(232,201,122,0.35);border-radius:var(--r);padding:14px 16px;margin-bottom:12px;">
-          <div style="font-size:0.62rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Membership</div>
-          <div id="account-membership-detail" style="font-size:0.8rem;color:var(--tx);line-height:1.6;"></div>
-        </div>
-
-        <!-- Admin Section (iCloud only) -->
-        <div id="account-admin-section" style="display:none;background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:var(--r);padding:14px 16px;margin-bottom:12px;">
-          <div style="font-size:0.62rem;font-weight:800;color:#e74c3c;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;">Admin</div>
-          <button onclick="closeAccountSheet(event);openAdminPanel();" style="width:100%;padding:11px;background:rgba(231,76,60,0.2);border:1px solid rgba(231,76,60,0.4);border-radius:10px;color:#e74c3c;font-size:0.8rem;font-weight:600;cursor:pointer;">Review Pending Events</button>
-        </div>
-
-        <!-- Sign Out -->
-        <button onclick="doSignOut();" style="width:100%;padding:13px;border:1px solid rgba(192,57,43,0.3);border-radius:var(--r);background:transparent;color:#e74c3c;cursor:pointer;">Sign Out</button>
-      </div>
-
+```
+  <!-- Signed Out View -->
+  <div id="account-signedout">
+    <div style="text-align:center;margin-bottom:20px;">
+      <div style="font-size:2.5rem;margin-bottom:8px;">👤</div>
+      <div style="font-size:1.1rem;font-weight:600;color:var(--tx);">Sign in to Clean Living</div>
+      <div style="font-size:0.75rem;color:var(--tm);margin-top:4px;">Access your recovery tools across all devices</div>
     </div>
+    <button class="btn" style="width:100%;margin-bottom:10px;" onclick="closeAccountSheet(event);showWelcomeScreen();">Sign In / Create Account</button>
+  </div>
+
+  <!-- Signed In View -->
+  <div id="account-signedin" style="display:none;">
+
+    <!-- Profile -->
+    <div style="display:flex;align-items:center;gap:14px;padding:4px 0 20px;border-bottom:1px solid var(--bd);margin-bottom:16px;">
+      <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--ac),#b8965a);display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:700;color:#1a1208;" id="account-avatar">C</div>
+      <div>
+        <div style="font-weight:700;font-size:0.95rem;" id="account-name">Clare</div>
+        <div style="font-size:0.72rem;color:var(--tm);" id="account-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bcdfd0ddced9d4d3decfd3d2fcd5dfd0d3c9d892dfd3d1">[email&#160;protected]</a></div>
+      </div>
+      <div id="account-tier-badge" style="margin-left:auto;padding:4px 10px;border-radius:20px;font-size:0.62rem;font-weight:800;text-transform:uppercase;"></div>
+    </div>
+
+    <!-- Membership -->
+    <div style="background:var(--sf2);border:1px solid rgba(232,201,122,0.35);border-radius:var(--r);padding:14px 16px;margin-bottom:12px;">
+      <div style="font-size:0.62rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Membership</div>
+      <div id="account-membership-detail" style="font-size:0.8rem;color:var(--tx);line-height:1.6;"></div>
+    </div>
+
+    <!-- Admin Section (iCloud only) -->
+    <div id="account-admin-section" style="display:none;background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:var(--r);padding:14px 16px;margin-bottom:12px;">
+      <div style="font-size:0.62rem;font-weight:800;color:#e74c3c;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;">Admin</div>
+      <button onclick="closeAccountSheet(event);openAdminPanel();" style="width:100%;padding:11px;background:rgba(231,76,60,0.2);border:1px solid rgba(231,76,60,0.4);border-radius:10px;color:#e74c3c;font-size:0.8rem;font-weight:600;cursor:pointer;">Review Pending Events</button>
+    </div>
+
+    <!-- Sign Out -->
+    <button onclick="doSignOut();" style="width:100%;padding:13px;border:1px solid rgba(192,57,43,0.3);border-radius:var(--r);background:transparent;color:#e74c3c;cursor:pointer;">Sign Out</button>
+  </div>
+
+</div>
+```
+
   </div>
 
 </body>
