@@ -2807,10 +2807,15 @@ async function loadEvents() {
     document.getElementById('events-list').innerHTML = '';
     document.getElementById('events-empty').style.display = 'none';
 
+    var today = new Date();
+    today.setHours(0,0,0,0);
+    var todayStr = today.toISOString().split('T')[0];
+
     var result = await supa
       .from('events')
       .select('*')
       .eq('approved', true)
+      .gte('date', todayStr)
       .order('date', { ascending: true });
 
     document.getElementById('events-loading').style.display = 'none';
