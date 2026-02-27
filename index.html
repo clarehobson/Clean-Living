@@ -1138,29 +1138,12 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
     <div style="margin-bottom:20px;"></div>
     <!-- HELPLINE REMINDER -->
     <div style="background:var(--sf); border:1px solid var(--bd); border-radius:var(--r); padding:14px; margin-top:0;">
-      <div style="font-size:0.68rem; color:var(--tm); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:12px;">📞 Helplines</div>
-      <a href="tel:03009991212" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0; border-bottom:1px solid var(--bd);">
-        <div>
-          <div style="font-size:0.82rem; font-weight:700; color:var(--ac);">🇬🇧 UK Helpline</div>
-          <div style="font-size:0.68rem; color:var(--tm); margin-top:2px;">0300 999 1212 · 10am–midnight daily</div>
-        </div>
-        <div style="font-size:0.7rem; color:var(--tm);">Tap to call ›</div>
-      </a>
-      <a href="tel:+18187739999" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0; border-bottom:1px solid var(--bd);">
-        <div>
-          <div style="font-size:0.82rem; font-weight:700; color:var(--ac);">🌍 NA World Service Office</div>
-          <div style="font-size:0.68rem; color:var(--tm); margin-top:2px;">+1 818 773 9999 · Mon–Fri, 8am–5pm PST</div>
-        </div>
-        <div style="font-size:0.7rem; color:var(--tm);">Tap to call ›</div>
-      </a>
-      <a href="https://www.na.org/meetingsearch" target="_blank" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; padding:8px 0;">
-        <div>
-          <div style="font-size:0.82rem; font-weight:700; color:var(--ac);">🔍 Find Your Local Helpline</div>
-          <div style="font-size:0.68rem; color:var(--tm); margin-top:2px;">na.org · Search by country or region</div>
-        </div>
-        <div style="font-size:0.7rem; color:var(--tm);">Open ›</div>
-      </a>
-    </div>
+
+```
+  </a>
+</div>
+```
+
   </div>
   <div class="screen" id="screen-books">
     <div style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:300; color:var(--ac); margin-bottom:2px;">Books</div>
@@ -1626,7 +1609,18 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
     </div>
     <div id="net-content"></div>
   </div>
-  --ac);margin-bottom:4px;">My Account</div>
+  <!-- ACCOUNT SCREEN -->
+  <!-- MY EVENTS SCREEN -->
+  <div class="screen" id="screen-my-events">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+      <button onclick="showScreen('home')" style="background:transparent;border:none;color:var(--ac);font-size:1.8rem;cursor:pointer;padding:0;line-height:1;">&#8249;</button>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:var(--ac);">My Events</div>
+    </div>
+    <div id="my-events-list"></div>
+  </div>
+
+  <div class="screen" id="screen-account">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:var(--ac);margin-bottom:4px;">My Account</div>
     <div style="font-size:0.62rem;color:var(--tm);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:24px;">Profile & Settings</div>
     <div id="account-screen-content"></div>
   </div>
