@@ -866,7 +866,10 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
   </div>
   <div style="display:flex;align-items:center;gap:8px;">
     <button id="home-signout-btn" onclick="doSignOut()" style="display:none;font-size:0.65rem;color:#e74c3c;background:transparent;border:1px solid rgba(231,76,60,0.3);border-radius:12px;padding:5px 11px;cursor:pointer;">Sign Out</button>
-    <button id="home-signin-btn" onclick="showScreen('account')" style="width:34px;height:34px;border-radius:50%;background:var(--sf);border:1px solid rgba(232,201,122,0.35);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:var(--ac);">👤</button>
+    <div style="position:relative;display:inline-block;">
+      <button id="home-signin-btn" onclick="showScreen('account')" style="width:34px;height:34px;border-radius:50%;background:var(--sf);border:1px solid rgba(232,201,122,0.35);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:var(--ac);">👤</button>
+      <div id="admin-badge" style="display:none;position:absolute;top:-3px;right:-3px;width:14px;height:14px;background:#e74c3c;border-radius:50%;font-size:0.55rem;font-weight:700;color:#fff;display:none;align-items:center;justify-content:center;" id="admin-badge"></div>
+    </div>
   </div>
 </div>
 
@@ -2705,10 +2708,10 @@ var allEvents = [];
 var currentFilter = 'all';
 var selectedEvType = '';
 var eventsLoaded = false;
-var ADMIN_EMAIL = 'clarehobson@icloud.com';
+var ADMIN_EMAILS = ['clarehobson@icloud.com','monahan.c78@gmail.com'];
 
 function isAdmin() {
-  return currentUser && currentUser.email === ADMIN_EMAIL;
+  return currentUser && ADMIN_EMAILS.indexOf(currentUser.email) > -1;
 }
 
 async function loadEvents() {
@@ -2733,6 +2736,8 @@ async function loadEvents() {
     // Show admin review button if admin
     var adminEvBtn = document.getElementById('admin-events-btn');
     if (adminEvBtn) adminEvBtn.style.display = isAdmin() ? 'inline' : 'none';
+    // Check for pending events and show badge
+    if (isAdmin()) checkPendingBadge();
 
 
   } catch(e) {
@@ -3147,11 +3152,12 @@ async function doSignIn() {
     currentUser = result.data.user;
     pullFromCloud();
     updateSigninBtn();
-    showAdminBtnIfNeeded();
+    hideWelcomeScreen();
     document.getElementById('signin-modal').classList.remove('open');
-    toast('Signed in');
-    // Reload events with auth
+    toast('Welcome back ' + currentUser.email.split('@')[0]);
     eventsLoaded = false;
+    // Check pending events for admins
+    setTimeout(function() { checkPendingBadge(); }, 1000);
   } catch(e) { showSigninMsg('Sign in failed - try again', '#e74c3c'); }
 }
 
@@ -3328,6 +3334,22 @@ function closePaywall(e) {
 
 
 
+
+
+function checkPendingBadge() {
+  if (!supa || !isAdmin()) return;
+  supa.from('events').select('id').eq('approved', false).then(function(r) {
+    var badge = document.getElementById('admin-badge');
+    if (!badge) return;
+    var count = (r.data && r.data.length) || 0;
+    if (count > 0) {
+      badge.textContent = count;
+      badge.style.display = 'flex';
+    } else {
+      badge.style.display = 'none';
+    }
+  });
+}
 
 // =====================
 // ACCOUNT SCREEN
@@ -3898,6 +3920,7 @@ document.addEventListener('DOMContentLoaded', function() {
         currentUser = r.data.session.user;
         pullFromCloud();
         updateSigninBtn();
+        setTimeout(function() { checkPendingBadge(); }, 1500);
         // app is already visible, welcome screen is hidden
       } else {
         // Not signed in - show welcome screen
