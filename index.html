@@ -3324,17 +3324,8 @@ var BETA_CODE = 'CLEANLIVING2025';
 
 function getUserTier() {
   if (!currentUser) return null;
-  // Admin / founder account always gets full member access
-  if (currentUser.email === 'clarehobson@icloud.com' || currentUser.email === 'monahan.c78@gmail.com' || currentUser.email === 'saundersdean386@yahoo.co.uk') {
-    return 'member';
-  }
-  // Beta code gives full member access
-  if (localStorage.getItem('cl_beta_code') === BETA_CODE) {
-    return 'member';
-  }
-  // Check Supabase user metadata for tier
-  var meta = currentUser.user_metadata || {};
-  return meta.tier || 'free';
+  // TESTING MODE - everyone gets full member access
+  return 'member';
 }
 
 function canAccess(screen) {
