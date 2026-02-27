@@ -1610,7 +1610,7 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
         <input type="file" id="ev-flyer-upload" accept="image/*" style="display:none;" onchange="autofillFromImage(this)">
       </label>
     </div>
-    <div id="ev-autofill-status" style="display:none;font-size:0.78rem;font-weight:600;text-align:center;padding:12px 14px;border-radius:10px;background:rgba(232,201,122,0.15);border:1.5px solid rgba(232,201,122,0.5);color:var(--ac);margin-top:4px;"></div>
+    <div id="ev-autofill-status" style="display:none;font-size:0.82rem;font-weight:700;text-align:center;padding:14px;border-radius:10px;background:#2a2410;border:2px solid #e8c97a;color:#e8c97a;margin-top:4px;"></div>
   </div>
 
   <!-- FLYER PREVIEW -->
@@ -1732,7 +1732,7 @@ window.addEventListener('error', function(e) { setupSupabaseFallback(); }, true)
     <div style="font-size:0.75rem;color:var(--tm);margin-bottom:10px;">Paste a URL from an events calendar — AI will extract all events at once</div>
     <input id="bulk-import-url" class="input" type="url" placeholder="https://ukna.org/events..." style="margin-bottom:8px;">
     <button onclick="bulkImportEvents()" id="bulk-import-btn" style="width:100%;padding:11px;background:var(--ac);border:none;border-radius:var(--r);color:#1a1208;font-weight:700;cursor:pointer;font-size:0.82rem;">🤖 Import Events with AI</button>
-    <div id="bulk-import-status" style="display:none;font-size:0.78rem;font-weight:600;text-align:center;padding:12px 14px;border-radius:10px;background:rgba(232,201,122,0.15);border:1.5px solid rgba(232,201,122,0.5);color:var(--ac);margin-top:8px;"></div>
+    <div id="bulk-import-status" style="display:none;font-size:0.82rem;font-weight:700;text-align:center;padding:14px;border-radius:10px;background:#2a2410;border:2px solid #e8c97a;color:#e8c97a;margin-top:8px;"></div>
   </div>
 
   <div style="font-size:0.65rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;">⏳ Pending Approval</div>
@@ -3714,11 +3714,11 @@ function showAutofillStatus(msg, type) {
   if (!el) return;
   el.textContent = msg;
   el.style.display = 'block';
-  el.style.background = type === 'error' ? 'rgba(231,76,60,0.2)' : 'rgba(232,201,122,0.15)';
-  el.style.color = type === 'error' ? '#e74c3c' : 'var(--ac)';
-  el.style.border = '1.5px solid ' + (type === 'error' ? 'rgba(231,76,60,0.5)' : 'rgba(232,201,122,0.5)');
-  el.style.fontWeight = '600';
-  el.style.padding = '12px 14px';
+  el.style.background = type === 'error' ? '#3a0a0a' : '#2a2410';
+  el.style.color = type === 'error' ? '#ff6b6b' : '#e8c97a';
+  el.style.border = '2px solid ' + (type === 'error' ? '#e74c3c' : '#e8c97a');
+  el.style.fontWeight = '700';
+  el.style.padding = '14px';
 }
 
 function fillEventForm(data) {
