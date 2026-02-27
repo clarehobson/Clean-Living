@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clean Living — Admin</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0f0f1a; color: #e8e0d0; font-family: -apple-system, sans-serif; padding: 20px; }
+  h1 { font-family: 'Georgia', serif; color: #e8c97a; margin-bottom: 4px; }
+  .sub { font-size: 0.75rem; color: #888; margin-bottom: 24px; }
+  .card { background: #1a1a2e; border: 1px solid rgba(232,201,122,0.2); border-radius: 14px; padding: 16px; margin-bottom: 14px; }
+  .event-name { font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
+  .event-meta { font-size: 0.75rem; color: #aaa; margin-bottom: 4px; }
+  .flyer { width: 100%; border-radius: 8px; margin: 10px 0; max-height: 200px; object-fit: cover; }
+  .btn-row { display: flex; gap: 10px; margin-top: 12px; }
+  .approve { flex: 1; padding: 11px; background: #27ae60; border: none; border-radius: 10px; color: #fff; font-weight: 700; font-size: 0.85rem; cursor: pointer; }
+  .reject { flex: 1; padding: 11px; background: transparent; border: 1px solid rgba(231,76,60,0.4); border-radius: 10px; color: #e74c3c; font-size: 0.85rem; cursor: pointer; }
+  .empty { text-align: center; padding: 40px; color: #666; }
+  .loading { text-align: center; padding: 40px; color: #888; }
+  .badge { display: inline-block; padding: 3px 8px; border-radius: 20px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; margin-left: 8px; }
+  .approved-badge { background: rgba(39,174,96,0.2); color: #27ae60; border: 1px solid rgba(39,174,96,0.3); }
+  .pending-badge { background: rgba(231,76,60,0.2); color: #e74c3c; border: 1px solid rgba(231,76,60,0.3); }
+  .section-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #e8c97a; margin: 20px 0 10px; }
+  .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #27ae60; color: #fff; padding: 10px 20px; border-radius: 20px; font-size: 0.82rem; display: none; }
+</style>
+</head>
+<body>
+
+<h1>🌿 Admin Panel</h1>
+<div class="sub">Clean Living App — Event Management</div>
+
+<div class="section-title">⏳ Pending Approval</div>
+<div id="pending-list"><div class="loading">Loading...</div></div>
+
+<div class="section-title">✅ Approved Events</div>
+<div id="approved-list"><div class="loading">Loading...</div></div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPA_URL = 'https://gencdhyxlyekpjvuwvpu.supabase.co';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlbmNkaHl4bHlla3BqdnV3dnB1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5NzEyNDEsImV4cCI6MjA4NzU0NzI0MX0.BR9biMN2K8Vj6SBbfBrEChppsuIMp2lSL3WOW7Z-1Ss';
+const supa = supabase.createClient(SUPA_URL, SUPA_KEY);
+
+function toast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.display = 'block';
+  setTimeout(function(){ t.style.display = 'none'; }, 2500);
+}
+
+function formatDate(d) {
+  if (!d) return '';
+  return new Date(d).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+}
+
+function buildCard(event, isPending) {
+  var card = document.createElement('div');
+  card.className = 'card';
+
+  var name = document.createElement('div');
+  name.className = 'event-name';
+  name.textContent = event.name;
+  card.appendChild(name);
+
+  var meta1 = document.createElement('div');
+  meta1.className = 'event-meta';
+  meta1.textContent = '📅 ' + formatDate(event.date) + (event.end_date ? ' — ' + formatDate(event.end_date) : '') + '  📍 ' + (event.location || '') + ', ' + (event.country || '');
+  card.appendChild(meta1);
+
+  if (event.type) {
+    var meta2 = document.createElement('div');
+    meta2.className = 'event-meta';
+    meta2.textContent = '🏷️ ' + event.type + '  👤 Submitted by: ' + (event.submitted_by || 'anonymous');
+    card.appendChild(meta2);
+  }
+
+  if (event.description) {
+    var desc = document.createElement('div');
+    desc.style.cssText = 'font-size:0.78rem;color:#ccc;margin-top:8px;line-height:1.5;';
+    desc.textContent = event.description;
+    card.appendChild(desc);
+  }
+
+  if (event.flyer_url) {
+    var img = document.createElement('img');
+    img.className = 'flyer';
+    img.src = event.flyer_url;
+    img.onerror = function(){ this.style.display='none'; };
+    card.appendChild(img);
+  }
+
+  if (event.url) {
+    var link = document.createElement('a');
+    link.href = event.url;
+    link.target = '_blank';
+    link.style.cssText = 'font-size:0.72rem;color:#e8c97a;display:block;margin-top:6px;';
+    link.textContent = '🔗 ' + event.url;
+    card.appendChild(link);
+  }
+
+  var btnRow = document.createElement('div');
+  btnRow.className = 'btn-row';
+
+  if (isPending) {
+    var approveBtn = document.createElement('button');
+    approveBtn.className = 'approve';
+    approveBtn.textContent = '✓ Approve';
+    approveBtn.onclick = async function() {
+      await supa.from('events').update({ approved: true }).eq('id', event.id);
+      toast('Event approved ✓');
+      loadEvents();
+    };
+    btnRow.appendChild(approveBtn);
+  }
+
+  var rejectBtn = document.createElement('button');
+  rejectBtn.className = 'reject';
+  rejectBtn.textContent = isPending ? '✕ Reject' : '🗑️ Delete';
+  rejectBtn.onclick = async function() {
+    if (confirm('Are you sure you want to delete this event?')) {
+      await supa.from('events').delete().eq('id', event.id);
+      toast('Event deleted');
+      loadEvents();
+    }
+  };
+  btnRow.appendChild(rejectBtn);
+  card.appendChild(btnRow);
+
+  return card;
+}
+
+async function loadEvents() {
+  var pendingList = document.getElementById('pending-list');
+  var approvedList = document.getElementById('approved-list');
+  pendingList.innerHTML = '<div class="loading">Loading...</div>';
+  approvedList.innerHTML = '<div class="loading">Loading...</div>';
+
+  try {
+    var pending = await supa.from('events').select('*').eq('approved', false).order('created_at', { ascending: false });
+    var approved = await supa.from('events').select('*').eq('approved', true).order('date', { ascending: true });
+
+    pendingList.innerHTML = '';
+    if (!pending.data || !pending.data.length) {
+      pendingList.innerHTML = '<div class="empty">No pending events 🎉</div>';
+    } else {
+      pending.data.forEach(function(e){ pendingList.appendChild(buildCard(e, true)); });
+    }
+
+    approvedList.innerHTML = '';
+    if (!approved.data || !approved.data.length) {
+      approvedList.innerHTML = '<div class="empty">No approved events yet</div>';
+    } else {
+      approved.data.forEach(function(e){ approvedList.appendChild(buildCard(e, false)); });
+    }
+  } catch(err) {
+    pendingList.innerHTML = '<div class="empty">Error loading events: ' + err.message + '</div>';
+  }
+}
+
+loadEvents();
+</script>
+
+</body>
+</html>
