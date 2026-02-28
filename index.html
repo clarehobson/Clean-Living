@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -811,67 +812,58 @@ if (typeof window !== 'undefined' && !window.supabase) { console.log('Supabase l
 </head>
 <body>
 <div id="app">
- <div class="screen active" id="screen-home">
+   <div class="screen active" id="screen-home">
     <!-- Header -->
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
       <div>
         <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--ac);line-height:1;">Clean Living</div>
-        <div style="font-size:0.65rem;color:var(--tm);letter-spacing:0.1em;text-transform:uppercase;">Recovery · Community · Growth</div>
+        <div style="font-size:0.65rem;color:var(--tm);letter-spacing:0.1em;text-transform:uppercase;">Recovery &middot; Community &middot; Growth</div>
       </div>
       <button onclick="openAccountSheet()" id="avatar-btn" style="width:42px;height:42px;border-radius:50%;background:rgba(232,201,122,0.15);border:1px solid rgba(232,201,122,0.35);display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;color:var(--ac);cursor:pointer;position:relative;">
         <span id="avatar-letter">?</span>
-        <span id="avatar-badge" style="display:none;position:absolute;top:-2px;right:-2px;width:14px;height:14px;background:#e74c3c;border-radius:50%;font-size:0.5rem;color:#fff;display:flex;align-items:center;justify-content:center;line-height:1;"></span>
       </button>
     </div>
-    <!-- Quote of the day -->
-    <div class="card" style="margin-bottom:14px;text-align:center;cursor:pointer;" onclick="cycleQuote()">
-      <div style="font-size:0.6rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;">Today's Reflection</div>
+    <!-- Daily Reflection -->
+    <div class="card" style="margin-bottom:14px;cursor:pointer;" onclick="cycleQuote()">
+      <div style="font-size:0.6rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;">Today's Reflection</div>
       <div id="home-quote" style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:300;color:var(--tx);line-height:1.6;font-style:italic;"></div>
       <div id="home-quote-source" style="font-size:0.65rem;color:var(--tm);margin-top:8px;"></div>
     </div>
-    <!-- Mood check-in -->
+    <!-- Mood -->
     <div class="card" style="margin-bottom:14px;">
-      <div style="font-size:0.6rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;">How are you feeling?</div>
-      <div style="display:flex;justify-content:space-around;">
-        <button onclick="setMood('😔')" class="mood-btn" data-mood="😔" style="font-size:1.8rem;background:none;border:none;cursor:pointer;padding:8px;border-radius:12px;">😔</button>
-        <button onclick="setMood('😐')" class="mood-btn" data-mood="😐" style="font-size:1.8rem;background:none;border:none;cursor:pointer;padding:8px;border-radius:12px;">😐</button>
-        <button onclick="setMood('🙂')" class="mood-btn" data-mood="🙂" style="font-size:1.8rem;background:none;border:none;cursor:pointer;padding:8px;border-radius:12px;">🙂</button>
-        <button onclick="setMood('😊')" class="mood-btn" data-mood="😊" style="font-size:1.8rem;background:none;border:none;cursor:pointer;padding:8px;border-radius:12px;">😊</button>
-        <button onclick="setMood('🌟')" class="mood-btn" data-mood="🌟" style="font-size:1.8rem;background:none;border:none;cursor:pointer;padding:8px;border-radius:12px;">🌟</button>
+      <div style="font-size:0.6rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;">How are you feeling today?</div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div id="mood-face" onclick="openMoodPicker()" style="font-size:2.4rem;cursor:pointer;line-height:1;">&#x1F610;</div>
+        <div id="mood-display" style="font-size:0.8rem;color:var(--tm);flex:1;">Tap to set your mood</div>
       </div>
-      <div id="mood-display" style="text-align:center;font-size:0.72rem;color:var(--tm);margin-top:8px;min-height:18px;"></div>
     </div>
-    <!-- Quick links -->
+    <!-- Clean Time -->
+    <div class="card" style="margin-bottom:14px;text-align:center;cursor:pointer;" onclick="cycleCleanTimeFormat()">
+      <div style="font-size:0.6rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;">Clean Time</div>
+      <div id="home-days" style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:var(--ac);line-height:1;">-</div>
+      <div id="home-date-msg" style="font-size:0.7rem;color:var(--tm);margin-top:6px;"></div>
+      <div style="font-size:0.6rem;color:var(--tm);margin-top:4px;opacity:0.6;">tap to change format</div>
+    </div>
+    <!-- Quick Links -->
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
-      <div class="card" onclick="openJournal('daily')" style="text-align:center;cursor:pointer;padding:18px 16px;">
-        <div style="font-size:1.8rem;margin-bottom:6px;">📓</div>
+      <div class="card" onclick="showScreen('journal')" style="text-align:center;cursor:pointer;padding:18px 16px;">
+        <div style="font-size:1.8rem;margin-bottom:6px;">&#x270D;</div>
         <div style="font-weight:600;font-size:0.88rem;">Journal</div>
       </div>
-      <div class="card" onclick="showScreen('my-events')" style="text-align:center;cursor:pointer;padding:18px 16px;position:relative;">
-        <div style="font-size:1.8rem;margin-bottom:6px;">📅</div>
+      <div class="card" onclick="showScreen('my-events')" style="text-align:center;cursor:pointer;padding:18px 16px;">
+        <div style="font-size:1.8rem;margin-bottom:6px;">&#x1F4C5;</div>
         <div style="font-weight:600;font-size:0.88rem;">My Events</div>
-        <span id="home-events-badge" style="display:none;position:absolute;top:10px;right:10px;background:var(--ac);color:#1a1208;border-radius:12px;padding:2px 7px;font-size:0.62rem;font-weight:800;"></span>
       </div>
       <div class="card" onclick="showScreen('meetings')" style="text-align:center;cursor:pointer;padding:18px 16px;">
-        <div style="font-size:1.8rem;margin-bottom:6px;">🤝</div>
+        <div style="font-size:1.8rem;margin-bottom:6px;">&#x1F91D;</div>
         <div style="font-weight:600;font-size:0.88rem;">Meetings</div>
       </div>
       <div class="card" onclick="showScreen('network')" style="text-align:center;cursor:pointer;padding:18px 16px;">
-        <div style="font-size:1.8rem;margin-bottom:6px;">🌐</div>
+        <div style="font-size:1.8rem;margin-bottom:6px;">&#x1F310;</div>
         <div style="font-weight:600;font-size:0.88rem;">Network</div>
       </div>
     </div>
-    <!-- Sobriety counter -->
-    <div class="card" style="text-align:center;margin-bottom:14px;">
-      <div style="font-size:0.6rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;">Clean Time</div>
-      <div id="home-days" style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:var(--ac);line-height:1;">–</div>
-      <div style="font-size:0.7rem;color:var(--tm);margin-top:4px;">days clean</div>
-      <div id="home-date-msg" style="font-size:0.72rem;color:var(--tm);margin-top:6px;"></div>
-    </div>
   </div>
-
-  <!-- HOME SCREEN -->
-
 
   <div class="screen" id="screen-journal">
     <div style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:300; color:var(--ac); margin-bottom:2px;">Journal</div>
@@ -1473,37 +1465,7 @@ if (typeof window !== 'undefined' && !window.supabase) { console.log('Supabase l
 
 </div><!-- end app -->
 <div id="toast"></div>
-<nav>
-    <div class="nav-item active" id="nav-home" onclick="showScreen('home')">
-      <div class="nav-icon">&#x1F3E0;</div>
-      <div>Home</div>
-    </div>
-    <div class="nav-item" id="nav-journal" onclick="showScreen('journal')">
-      <div class="nav-icon">&#x270D;</div>
-      <div>Journal</div>
-    </div>
-    <div class="nav-item" id="nav-steps" onclick="showScreen('steps')">
-      <div class="nav-icon">&#x1F4D6;</div>
-      <div>Worksheets</div>
-    </div>
-    <div class="nav-item" id="nav-books" onclick="showScreen('books')">
-      <div class="nav-icon">&#x1F4DA;</div>
-      <div>Books</div>
-    </div>
-    <div class="nav-item" id="nav-meetings" onclick="showScreen('meetings')">
-      <div class="nav-icon">&#x1F5D3;</div>
-      <div>Meetings</div>
-    </div>
-    <div class="nav-item" id="nav-network" onclick="showScreen('network')">
-      <div class="nav-icon">🤝</div>
-      <div>Network</div>
-    </div>
-    <div class="nav-item" id="nav-events" onclick="showScreen('events')">
-      <div class="nav-icon">&#x1F30D;</div>
-      <div>Events</div>
-    </div>
 
-  </nav>
 <div id="welcome-screen" style="display:none;">
     <!-- Hero -->
     <div id="welcome-hero">
@@ -3259,25 +3221,17 @@ document.addEventListener('DOMContentLoaded', function() {
         pullFromCloud();
         updateSigninBtn();
         setTimeout(function() { checkPendingBadge(); loadHomeCalendar(); }, 1500);
-        showDailyQuote();
-        updateDaysCount();
-        // Restore mood display
-        var today2 = new Date().toISOString().split('T')[0];
-        var ml = JSON.parse(localStorage.getItem('na_mood_log') || '[]');
-        var todayMood = ml.find(function(m){ return m.date === today2; });
-        if (todayMood) { var md = document.getElementById('mood-display'); if(md) md.textContent = 'Feeling ' + todayMood.mood + ' today'; }
+        initHomeScreen();
         // app is already visible, welcome screen is hidden
       } else {
         // Not signed in - show welcome screen
         showWelcomeScreen();
-        showDailyQuote();
-        updateDaysCount();
+        initHomeScreen();
       }
     }).catch(function(){
       // Can't reach Supabase - show app anyway
       console.log('Session check failed - showing app');
-      showDailyQuote();
-      updateDaysCount();
+      initHomeScreen();
     });
   } else {
     showWelcomeScreen();
@@ -4170,29 +4124,569 @@ function exportPDF(entryId) {
   var entry = entryId ? entries.find(function(e){ return e.id == entryId; }) : entries[entries.length-1];
   if (!entry) { showToast('No entry found'); return; }
   var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Journal ' + entry.date + '</title><style>body{font-family:Georgia,serif;max-width:600px;margin:40px auto;padding:20px;line-height:1.8;color:#333;}h2{color:#8a6a1a;}p{white-space:pre-wrap;}</style></head><body><h2>Journal Entry - ' + entry.date + '</h2>' + (entry.mood ? '<p><strong>Mood:</strong> ' + entry.mood + '</p>' : '') + '<p>' + (entry.text||'').replace(/</g,'&lt;') + '</p></body></html>';
-  var blob = new Blob([html], {type:'text/html'});
-  var url = URL.createObjectURL(blob);
-  var a = document.createElement('a');
-  a.href = url;
-  a.download = 'journal-' + (entry.date||'entry').replace(/[^a-z0-9]/gi,'-') + '.html';
-  a.click();
-  URL.revokeObjectURL(url);
-  showToast('PDF saved - open file and print to PDF');
-}
 
+var blob = new Blob([html], {type:‘text/html’});
+var url = URL.createObjectURL(blob);
+var a = document.createElement(‘a’);
+a.href = url;
+a.download = ‘journal-’ + (entry.date||‘entry’).replace(/[^a-z0-9]/gi,’-’) + ‘.html’;
+a.click();
+URL.revokeObjectURL(url);
+showToast(‘PDF saved - open file and print to PDF’);
+}
 
 function showToast(msg, duration) {
-  var t = document.getElementById('toast');
-  if (!t) return;
-  t.textContent = msg;
-  t.style.display = 'block';
-  t.style.opacity = '1';
-  setTimeout(function() {
-    t.style.opacity = '0';
-    setTimeout(function() { t.style.display = 'none'; }, 400);
-  }, duration || 2500);
+var t = document.getElementById(‘toast’);
+if (!t) return;
+t.textContent = msg;
+t.style.display = ‘block’;
+t.style.opacity = ‘1’;
+setTimeout(function() {
+t.style.opacity = ‘0’;
+setTimeout(function() { t.style.display = ‘none’; }, 400);
+}, duration || 2500);
 }
 
+// =====================
+// 365 DAILY REFLECTIONS
+// =====================
+var DAILY_REFLECTIONS = [
+null, // index 0 unused - days are 1-indexed per month
+// JANUARY
+{m:1,d:1,text:“Yesterday is done. Today is all you have. Use it.”},
+{m:1,d:2,text:“The fight you keep losing? Stop fighting it. Surrender is where the real work begins.”},
+{m:1,d:3,text:“Lying to yourself is the most expensive habit you have. And you can’t afford it anymore.”},
+{m:1,d:4,text:“You don’t need to see the whole staircase. Just take the next step.”},
+{m:1,d:5,text:“You don’t have to want to. You just have to be willing to try. That’s the whole deal.”},
+{m:1,d:6,text:“Your best thinking got you here. Maybe it’s time to try someone else’s.”},
+{m:1,d:7,text:“Find one thing today that you’re glad exists. Start there.”},
+{m:1,d:8,text:“The past is a place you’ve already been. Stop going back.”},
+{m:1,d:9,text:“Fighting reality is exhausting. And reality always wins.”},
+{m:1,d:10,text:“You don’t have all the answers. Neither does anyone else. But together we have enough.”},
+{m:1,d:11,text:“Get out of your own head by getting into someone else’s corner.”},
+{m:1,d:12,text:“Courage today looks like making the call you’ve been putting off. Make it.”},
+{m:1,d:13,text:“You don’t need certainty. You need enough faith to take the next action.”},
+{m:1,d:14,text:“Whatever you’re white-knuckling right now - ask yourself if holding on is actually helping.”},
+{m:1,d:15,text:“You know the truth. The question is whether you’re ready to stop pretending you don’t.”},
+{m:1,d:16,text:“You are not meant to do this alone. That’s not weakness - that’s just how this works.”},
+{m:1,d:17,text:“There is no finish line. There is just today, done well.”},
+{m:1,d:18,text:“Something shifted when you got clean. Don’t overthink it. Just don’t waste it.”},
+{m:1,d:19,text:“The results you want are coming. They’re just arriving on recovery’s timeline, not yours.”},
+{m:1,d:20,text:“Resentment is you drinking poison and waiting for them to get sick. Let it go.”},
+{m:1,d:21,text:“The steps ask hard things of you. So did using. At least this one leads somewhere worth going.”},
+{m:1,d:22,text:“You are no longer a prisoner of the next fix. That is not nothing. That is everything.”},
+{m:1,d:23,text:“You spent years becoming someone you didn’t like. Recovery gives you the chance to meet who you actually are.”},
+{m:1,d:24,text:“Your story - the real one, the messy one - is exactly what someone else needs to hear today.”},
+{m:1,d:25,text:“Peace isn’t the absence of problems. It’s deciding the problems don’t get to run the show.”},
+{m:1,d:26,text:“Everything you want is on the other side of the thing you keep avoiding.”},
+{m:1,d:27,text:“Saying I’m struggling is not weakness. Pretending you’re fine when you’re not - that’s what keeps you stuck.”},
+{m:1,d:28,text:“Your recovery makes mine stronger. That’s not a metaphor. That’s just true.”},
+{m:1,d:29,text:“Living clean isn’t just about what you stopped doing. It’s about what you’re building instead.”},
+{m:1,d:30,text:“Growth feels like discomfort while it’s happening. That feeling you’re trying to avoid? That’s the work.”},
+{m:1,d:31,text:“How was today, honestly? Not performing for anyone - just you, being real with yourself.”},
+// FEBRUARY
+{m:2,d:1,text:“You are allowed to take up space. You always were.”},
+{m:2,d:2,text:“The people who matter will respect your boundaries. The ones who don’t - that’s information.”},
+{m:2,d:3,text:“An amend isn’t an apology. It’s a change in behaviour. Words are easy. Show up differently.”},
+{m:2,d:4,text:“You cannot pour from an empty cup. Looking after yourself is not selfish. It’s essential.”},
+{m:2,d:5,text:“Trust is rebuilt in small moments, not grand gestures. Keep showing up.”},
+{m:2,d:6,text:“You don’t have to earn your place in recovery. You belong here. Full stop.”},
+{m:2,d:7,text:“Relationships in recovery require honesty. Not brutal honesty. Just honesty.”},
+{m:2,d:8,text:“The version of you that used - they were doing the best they could. So is this version.”},
+{m:2,d:9,text:“Setting a boundary isn’t pushing someone away. It’s deciding what you will and won’t accept.”},
+{m:2,d:10,text:“You spent years numbing feelings. Now the feelings are back. That’s not a problem. That’s progress.”},
+{m:2,d:11,text:“Self-worth isn’t built in a day. It’s built in every moment you choose yourself over the chaos.”},
+{m:2,d:12,text:“Not every relationship survives recovery. Some aren’t meant to. Let them go with grace.”},
+{m:2,d:13,text:“You don’t need to be liked by everyone. You need to be honest with yourself. Start there.”},
+{m:2,d:14,text:“Love in recovery starts with the person in the mirror. Everything else flows from that.”},
+{m:2,d:15,text:“You are not your past. But you are responsible for what you do with it.”},
+{m:2,d:16,text:“Needing people isn’t a weakness. Isolation is what nearly killed you. Connection is what’s saving you.”},
+{m:2,d:17,text:“You taught people how to treat you. Recovery gives you the chance to reset those lessons.”},
+{m:2,d:18,text:“Grief is part of recovery. You’re allowed to mourn the years, the relationships, the time. Feel it.”},
+{m:2,d:19,text:“Making amends to yourself is also part of the work. Don’t skip that one.”},
+{m:2,d:20,text:“Comparison is a trap. Your recovery is yours. Someone else’s journey is none of your business.”},
+{m:2,d:21,text:“Boundaries said with kindness are still boundaries. You don’t have to be cruel to be clear.”},
+{m:2,d:22,text:“The people who were there when it was hard - hold them close. They’re rare.”},
+{m:2,d:23,text:“You are worth the effort of getting better. In case nobody told you that today.”},
+{m:2,d:24,text:“Healthy relationships feel boring to someone used to chaos. Boring is good. Boring is safe.”},
+{m:2,d:25,text:“You can love someone and still not allow their behaviour in your life. Both things are true.”},
+{m:2,d:26,text:“The work you’re doing on yourself - it ripples out. People around you feel it, even if they don’t say so.”},
+{m:2,d:27,text:“Forgive yourself first. Everything else gets easier after that.”},
+{m:2,d:28,text:“You made it through February. Some days that’s the whole victory.”},
+{m:2,d:29,text:“Leap years remind us that time doesn’t always follow the rules. Neither does recovery. Keep going anyway.”},
+// MARCH
+{m:3,d:1,text:“Thinking about changing and actually changing are two very different things. Which one are you doing?”},
+{m:3,d:2,text:“You can’t think your way into right action. You have to act your way into right thinking.”},
+{m:3,d:3,text:“Responsibility isn’t about blame. It’s about ownership. Own your part. Then move forward.”},
+{m:3,d:4,text:“The meeting you don’t want to go to is usually the one you need most.”},
+{m:3,d:5,text:“Excuses keep you exactly where you are. What’s one thing you can do today instead of explaining why you can’t?”},
+{m:3,d:6,text:“Procrastination in recovery isn’t laziness. It’s usually fear. Name the fear. Then do the thing anyway.”},
+{m:3,d:7,text:“You’ve already done the hardest thing - you got clean. The rest is just showing up.”},
+{m:3,d:8,text:“Making things right doesn’t erase the past. But it changes your relationship with it.”},
+{m:3,d:9,text:“Action is the answer to almost every problem in recovery. What’s your next one?”},
+{m:3,d:10,text:“You don’t have to feel motivated to move. Movement creates motivation. Start moving.”},
+{m:3,d:11,text:“The step you’re avoiding - that’s the one with all the freedom behind it.”},
+{m:3,d:12,text:“Clean time doesn’t mean comfortable time. Stay uncomfortable. That’s where the growth is.”},
+{m:3,d:13,text:“Every time you do the right thing when nobody’s watching, you’re becoming someone you can trust.”},
+{m:3,d:14,text:“You have everything you need to get through today. Just today. That’s enough.”},
+{m:3,d:15,text:“Half measures got you half a life. Full commitment is what recovery actually asks of you.”},
+{m:3,d:16,text:“The programme works if you work it. Not if you observe it. Not if you think about it. Work it.”},
+{m:3,d:17,text:“Showing up imperfectly is infinitely better than not showing up at all.”},
+{m:3,d:18,text:“You don’t have to have it all figured out. You just have to keep going.”},
+{m:3,d:19,text:“The person you’re becoming requires you to leave behind some of who you were. That’s okay.”},
+{m:3,d:20,text:“Spring reminds us - things that looked dead can come back to life. You’re proof of that.”},
+{m:3,d:21,text:“Take the action. Let go of the outcome. That’s the whole formula.”},
+{m:3,d:22,text:“If you’re waiting until you feel ready, you’ll be waiting forever. Ready is a myth.”},
+{m:3,d:23,text:“Your word is your integrity. In recovery, keep them aligned.”},
+{m:3,d:24,text:“One honest conversation today could change everything. Who do you need to call?”},
+{m:3,d:25,text:“Discipline is just commitment on the days you don’t feel like it.”},
+{m:3,d:26,text:“The amends you keep putting off - they’re heavier than the conversation will be.”},
+{m:3,d:27,text:“You are capable of far more than your addiction ever let you believe.”},
+{m:3,d:28,text:“Don’t wait for the perfect moment. The perfect moment is the one you’re in.”},
+{m:3,d:29,text:“Every clean day is an act of defiance against everything that tried to destroy you.”},
+{m:3,d:30,text:“Progress isn’t always visible. Sometimes it’s just not going backwards. That counts.”},
+{m:3,d:31,text:“Quarter of the year done. You’re still here, still clean, still trying. That’s not small.”},
+// APRIL
+{m:4,d:1,text:“Recovery isn’t a joke. But you’re allowed to laugh at yourself. Humour is part of healing.”},
+{m:4,d:2,text:“A fearless moral inventory means fearless. Not comfortable. Not selective. Fearless.”},
+{m:4,d:3,text:“Your character defects aren’t unique. They’re human. What matters is what you do with them.”},
+{m:4,d:4,text:“Asking for help is the most efficient thing you can do. It still takes guts. Ask anyway.”},
+{m:4,d:5,text:“The things you’re most ashamed of - those are exactly what the programme is designed for.”},
+{m:4,d:6,text:“New growth looks messy before it looks beautiful. You’re in the messy bit. Keep going.”},
+{m:4,d:7,text:“Honesty in step work isn’t about punishing yourself. It’s about finally seeing yourself clearly.”},
+{m:4,d:8,text:“You cannot fix what you refuse to look at.”},
+{m:4,d:9,text:“Defects of character aren’t life sentences. They’re patterns you can change. One day at a time.”},
+{m:4,d:10,text:“Sharing your inventory doesn’t make you weak. It makes the weight something you no longer carry alone.”},
+{m:4,d:11,text:“The truth will set you free. But first it will make you deeply uncomfortable. Sit with that.”},
+{m:4,d:12,text:“Recovery asks you to look at yourself honestly. Most people never do that. You’re doing the hard thing.”},
+{m:4,d:13,text:“Self-pity is seductive. It feels like feeling, but it keeps you stuck. Notice it. Move through it.”},
+{m:4,d:14,text:“You are not defined by what you did. You are defined by what you do now.”},
+{m:4,d:15,text:“Spring cleaning isn’t just for houses. What are you holding onto that needs to go?”},
+{m:4,d:16,text:“The sponsor who pushes you is the one who believes you can handle more. Let them be right.”},
+{m:4,d:17,text:“Your secrets keep you sick. Your honesty sets you free.”},
+{m:4,d:18,text:“Perfectionism is just fear with better PR. Done is better than perfect. Every time.”},
+{m:4,d:19,text:“You’ve survived 100% of your worst days so far. Remember that today.”},
+{m:4,d:20,text:“Growth isn’t comfortable. Neither was using. Choose the discomfort that leads somewhere.”},
+{m:4,d:21,text:“When the programme feels hard, remember - you’ve done harder things in worse conditions.”},
+{m:4,d:22,text:“Tend to your recovery the way you’d tend to something precious. Because it is.”},
+{m:4,d:23,text:“Resentments are rent-free tenants living in your head. Evict them.”},
+{m:4,d:24,text:“The character you’re building in recovery - that’s the real you. Keep building.”},
+{m:4,d:25,text:“You don’t have to be the same person you were last year. That’s the whole point.”},
+{m:4,d:26,text:“Share honestly. Listen openly. Show up fully. That’s the whole of fellowship.”},
+{m:4,d:27,text:“Courage isn’t the absence of fear. It’s doing it scared.”},
+{m:4,d:28,text:“You are not too broken to get better. Nobody is.”},
+{m:4,d:29,text:“The step you’ve been avoiding is the door you need to walk through.”},
+{m:4,d:30,text:“Four months in - or wherever you are. The effort you’re making matters more than you know.”},
+// MAY
+{m:5,d:1,text:“You can’t think straight when you’re running on empty. Sleep. Eat. Rest. Then tackle it.”},
+{m:5,d:2,text:“Meditation isn’t emptying your mind. It’s noticing what’s in it without letting it run the show.”},
+{m:5,d:3,text:“Be as kind to yourself today as you would be to a newcomer. You deserve that too.”},
+{m:5,d:4,text:“Conscious contact with a higher power doesn’t have to look like anyone else’s. Make it yours.”},
+{m:5,d:5,text:“Mental health is part of recovery. Not a separate issue. Not a weakness. Part of it.”},
+{m:5,d:6,text:“Slowing down is not giving up. Sometimes it’s the most productive thing you can do.”},
+{m:5,d:7,text:“Prayer doesn’t have to be formal. Sometimes it’s just - help. That’s enough.”},
+{m:5,d:8,text:“You are allowed to have a bad day without it meaning everything is falling apart.”},
+{m:5,d:9,text:“Self-compassion is not letting yourself off the hook. It’s treating yourself with the same grace you’d offer anyone else.”},
+{m:5,d:10,text:“Anxiety in recovery is real. Talk about it. Get support. Don’t white-knuckle it alone.”},
+{m:5,d:11,text:“Five minutes of stillness a day can change everything. Try it before you dismiss it.”},
+{m:5,d:12,text:“Your higher power doesn’t require you to have it all figured out. Just a willingness to listen.”},
+{m:5,d:13,text:“The voice that tells you you’re not good enough - that’s not the truth. It’s just old noise.”},
+{m:5,d:14,text:“Rest is not a reward for finishing. It’s part of the work.”},
+{m:5,d:15,text:“You’ve been hard on yourself for years. What would it feel like to ease up, just for today?”},
+{m:5,d:16,text:“Spirituality in recovery isn’t about religion. It’s about connection - to yourself, to others, to something bigger.”},
+{m:5,d:17,text:“Feelings are information, not instructions. Notice them. You don’t have to act on every one.”},
+{m:5,d:18,text:“The mind that once obsessed over using can learn to obsess over healing. Point it in the right direction.”},
+{m:5,d:19,text:“You are allowed to ask for what you need. People cannot read your mind.”},
+{m:5,d:20,text:“When everything feels too much - break it down. Just this hour. Just this task. Just this breath.”},
+{m:5,d:21,text:“Gratitude and anxiety cannot fully occupy the same space. Lean into gratitude.”},
+{m:5,d:22,text:“Your emotional sobriety matters as much as your physical sobriety. Work on both.”},
+{m:5,d:23,text:“You don’t have to earn rest. You are allowed to simply be, without achieving.”},
+{m:5,d:24,text:“The programme gives you tools. But you have to pick them up.”},
+{m:5,d:25,text:“Some days recovery feels like flying. Some days it feels like crawling. Both count.”},
+{m:5,d:26,text:“What would you tell a friend who was thinking what you’re thinking right now? Tell yourself that.”},
+{m:5,d:27,text:“Silence is not emptiness. It’s where you learn to hear yourself again.”},
+{m:5,d:28,text:“You’ve come too far to be undone by a feeling. Feel it. Let it pass.”},
+{m:5,d:29,text:“Connection is the opposite of addiction. Reach out today - to anyone.”},
+{m:5,d:30,text:“You are not your thoughts. You are the one noticing them.”},
+{m:5,d:31,text:“Five months. Or five days. Or five years. However long - it matters. You matter.”},
+// JUNE
+{m:6,d:1,text:“The newcomer in the room is you, six months or six years ago. Remember that.”},
+{m:6,d:2,text:“Service work isn’t optional extra credit. It’s part of what keeps you well.”},
+{m:6,d:3,text:“Your sponsor sees you more clearly than you see yourself right now. Trust that.”},
+{m:6,d:4,text:“The best thing you can do for your recovery today is help someone else with theirs.”},
+{m:6,d:5,text:“Fellowship is imperfect because people are imperfect. Stay anyway.”},
+{m:6,d:6,text:“You have something no professional can offer - lived experience. That’s powerful. Use it.”},
+{m:6,d:7,text:“Showing up for someone else when you’re struggling is one of the fastest ways to feel better.”},
+{m:6,d:8,text:“The programme keeps working because people keep giving it away. Be one of those people.”},
+{m:6,d:9,text:“Your story isn’t just yours. It belongs to everyone who needs to hear it.”},
+{m:6,d:10,text:“Sponsorship is a two-way street. The sponsor learns as much as the sponsee.”},
+{m:6,d:11,text:“You don’t have to be perfect to help someone. You just have to be honest.”},
+{m:6,d:12,text:“Community isn’t just the meeting room. It’s the coffee after. The phone call. The showing up.”},
+{m:6,d:13,text:“Someone today is where you were on your worst day. Your presence could change everything for them.”},
+{m:6,d:14,text:“You can’t keep what you don’t give away. Give generously.”},
+{m:6,d:15,text:“The longest journey in recovery is from the head to the heart. Fellowship helps get you there.”},
+{m:6,d:16,text:“Real connection requires vulnerability. Take the risk. It’s worth it.”},
+{m:6,d:17,text:“If nobody’s called you in a while - you make the call. That’s how it works.”},
+{m:6,d:18,text:“Your clean time is evidence that recovery is possible. Someone needs to see that today.”},
+{m:6,d:19,text:“We recover in community, not in isolation. Reach out before you need to, not after.”},
+{m:6,d:20,text:“Don’t wait to be asked to help. Look for the need and meet it.”},
+{m:6,d:21,text:“The meeting where you feel most like leaving is usually the one you most need to stay for.”},
+{m:6,d:22,text:“What you put into your recovery is exactly what you’ll get out of it.”},
+{m:6,d:23,text:“Being of service costs you nothing and gives you everything. Strange maths. True maths.”},
+{m:6,d:24,text:“Your recovery has value beyond yourself. Never forget that.”},
+{m:6,d:25,text:“Every person in that room chose to be there. That’s not nothing. That’s everything.”},
+{m:6,d:26,text:“The person who hasn’t picked up their chips yet - they might need to see yours. Show up.”},
+{m:6,d:27,text:“You belong in the rooms. Not despite your past. Because of it.”},
+{m:6,d:28,text:“Carry the message, not the mess. Get your own house in order, then help someone else.”},
+{m:6,d:29,text:“Recovery is not a solo sport. Stop treating it like one.”},
+{m:6,d:30,text:“Half a year. Look at what community has helped you build.”},
+// JULY
+{m:7,d:1,text:“You are free. Actually free. Not the illusion of freedom that using sold you - real freedom.”},
+{m:7,d:2,text:“Life on life’s terms doesn’t mean life is hard. It also means sunsets, laughter, and clean mornings.”},
+{m:7,d:3,text:“You have earned the right to enjoy today. Don’t waste it waiting for something to go wrong.”},
+{m:7,d:4,text:“Independence means something different now. You are no longer dependent on a substance to face your day.”},
+{m:7,d:5,text:“Fun without consequences. That’s real. You can have that now. Let yourself.”},
+{m:7,d:6,text:“Recovery gave you your life back. Are you actually living it?”},
+{m:7,d:7,text:“The senses you numbed are back. The warmth of the sun, the taste of good food, the sound of laughter. Notice them.”},
+{m:7,d:8,text:“You are allowed to be happy. Fully, unguiltily happy. Let that in.”},
+{m:7,d:9,text:“Some of the best moments of your life are still ahead of you. Stay clean long enough to live them.”},
+{m:7,d:10,text:“Today is a good day to do something you love. Not tomorrow. Today.”},
+{m:7,d:11,text:“The life you dreamed of in early recovery - are you building it? If not, start today.”},
+{m:7,d:12,text:“Boredom is not dangerous. Boredom is just a sign that you need to find something that interests you.”},
+{m:7,d:13,text:“Recovery doesn’t mean a small, careful life. It means a full one. Claim it.”},
+{m:7,d:14,text:“You deserve good things. This is not up for debate.”},
+{m:7,d:15,text:“Go outside. Call someone you love. Eat something good. Do one thing today just because it feels good.”},
+{m:7,d:16,text:“The addict in you will try to convince you that happiness is suspicious. It isn’t. Enjoy it.”},
+{m:7,d:17,text:“You’ve done the hard work. Now let yourself reap some of it.”},
+{m:7,d:18,text:“Laughter is medicine. Find something funny today. Laugh at yourself if necessary.”},
+{m:7,d:19,text:“Who do you want to be? Not who you were. Who do you want to be? Start being that person today.”},
+{m:7,d:20,text:“The summer of your recovery. Make it count.”},
+{m:7,d:21,text:“Adventure is available to the clean. Go find some.”},
+{m:7,d:22,text:“Rest without guilt. Play without anxiety. Exist without having to earn it. This is recovery.”},
+{m:7,d:23,text:“Presence is the greatest gift you can give. Be here, fully, today.”},
+{m:7,d:24,text:“You are allowed to want more from life. Recovery is a beginning, not a ceiling.”},
+{m:7,d:25,text:“Find your joy. Not what’s supposed to bring joy - what actually brings you joy. Pursue that.”},
+{m:7,d:26,text:“The people who love you are glad you’re here. Really, truly glad. Let that land.”},
+{m:7,d:27,text:“Recovery made space for everything - love, connection, beauty, meaning. Fill that space.”},
+{m:7,d:28,text:“Don’t sleepwalk through the good days. They are the point.”},
+{m:7,d:29,text:“You’ve been given a second chance at life. Take it seriously by actually living.”},
+{m:7,d:30,text:“Summer won’t last forever. Neither will today. Be in it.”},
+{m:7,d:31,text:“Seven months. Seven seasons of change. You’re still here. Still growing.”},
+// AUGUST
+{m:8,d:1,text:“Complacency is the quiet enemy of long-term recovery. Stay sharp.”},
+{m:8,d:2,text:“Success in recovery can be as dangerous as struggle. Stay humble either way.”},
+{m:8,d:3,text:“The longer you’re clean, the easier it is to forget why you stopped. Don’t forget.”},
+{m:8,d:4,text:“Keep doing the basics - meetings, steps, service, honesty. They work because they’re simple.”},
+{m:8,d:5,text:“Staying grounded when things are going well is its own kind of discipline.”},
+{m:8,d:6,text:“You’ve come far enough to know that this is worth protecting. Protect it.”},
+{m:8,d:7,text:“Old behaviour in new clothes is still old behaviour. Stay honest about what’s really going on.”},
+{m:8,d:8,text:“Long-term recovery isn’t about never struggling. It’s about having the tools to handle the struggle.”},
+{m:8,d:9,text:“Your recovery is an asset. Treat it like one.”},
+{m:8,d:10,text:“The danger zones in long-term recovery are the H.A.L.T ones - hungry, angry, lonely, tired. Check in.”},
+{m:8,d:11,text:“You cannot afford to get too comfortable. Recovery requires continued attention.”},
+{m:8,d:12,text:“Gratitude is not a feeling you wait for. It’s a practice you maintain.”},
+{m:8,d:13,text:“The programme that got you here will keep you here - if you keep using it.”},
+{m:8,d:14,text:“One day at a time still applies at ten years as much as ten days.”},
+{m:8,d:15,text:“Never let your clean time make you think you’re immune. Nobody is.”},
+{m:8,d:16,text:“Growth never stops in recovery. If you feel like you’ve arrived, look again.”},
+{m:8,d:17,text:“The foundations you’ve built - keep strengthening them. They’re carrying a life.”},
+{m:8,d:18,text:“Somewhere, someone is on day one because of a relapse that started with complacency. Stay vigilant.”},
+{m:8,d:19,text:“Your best days in recovery are available to you. But they require your continued effort.”},
+{m:8,d:20,text:“Recovery is not a thing you had. It’s a thing you’re doing. Keep doing it.”},
+{m:8,d:21,text:“The tools don’t stop working. People stop using them. Keep picking them up.”},
+{m:8,d:22,text:“Long-term recovery is built on thousands of small decisions. Today’s decision matters.”},
+{m:8,d:23,text:“Stay connected to new people in recovery. They’ll remind you of what’s at stake.”},
+{m:8,d:24,text:“There’s no amount of clean time that makes you bulletproof. Stay close to the programme.”},
+{m:8,d:25,text:“Continue to do the work. The rewards compound over time in ways that will astonish you.”},
+{m:8,d:26,text:“What got you clean won’t necessarily keep you clean. Keep growing, keep learning.”},
+{m:8,d:27,text:“You are still a work in progress. That’s not an insult - it’s the most hopeful thing there is.”},
+{m:8,d:28,text:“The hardest relapse to see coming is the one after a long stretch of good days. Keep watching.”},
+{m:8,d:29,text:“Protecting your recovery is protecting your life. Take it seriously.”},
+{m:8,d:30,text:“Look how far you’ve come. Now keep going.”},
+{m:8,d:31,text:“Eight months - or eight years. Today is what matters. Today, choose recovery again.”},
+// SEPTEMBER
+{m:9,d:1,text:“Back to basics isn’t a punishment. It’s a reminder of what actually works.”},
+{m:9,d:2,text:“When did you last do a proper inventory? If you can’t remember, it’s probably time.”},
+{m:9,d:3,text:“Routine isn’t boring in recovery. Routine is scaffolding. It holds you up.”},
+{m:9,d:4,text:“Slip back into the basics when things get hard - meetings, sponsor, steps. They still work.”},
+{m:9,d:5,text:“What’s working in your recovery right now? Do more of that.”},
+{m:9,d:6,text:“What isn’t working? Be honest. Then do something about it.”},
+{m:9,d:7,text:“The programme is only as strong as your current relationship with it.”},
+{m:9,d:8,text:“You don’t graduate from the steps. You cycle back through them, and each time you go deeper.”},
+{m:9,d:9,text:“Something feeling off? That’s information. Pay attention to it.”},
+{m:9,d:10,text:“Mental health check - how are you actually doing? Not the version you tell people. The real version.”},
+{m:9,d:11,text:“Recovery asked for your whole life. Not just the using part. The whole thing. Give it.”},
+{m:9,d:12,text:“Is your recovery expanding or contracting? Both are possible. Choose expansion.”},
+{m:9,d:13,text:“New season, same commitment. The leaves change. Your programme doesn’t have to.”},
+{m:9,d:14,text:“The sponsor relationship only works if you’re honest. Are you being honest?”},
+{m:9,d:15,text:“Maintenance work in recovery isn’t glamorous. It’s essential.”},
+{m:9,d:16,text:“What habits have crept back in that you need to look at? You know what they are.”},
+{m:9,d:17,text:“Being around longer doesn’t mean needing the basics less. It might mean needing them more.”},
+{m:9,d:18,text:“Step Ten exists because life keeps happening and we keep having to check ourselves.”},
+{m:9,d:19,text:“A daily inventory is just asking - how am I doing, really? Ask it.”},
+{m:9,d:20,text:“Autumn is a natural time to let things go. What are you holding onto that needs to go?”},
+{m:9,d:21,text:“Recovery is seasonal. Some periods feel rich and full. Some feel bare. Both are part of it.”},
+{m:9,d:22,text:“Don’t wait until you’re in crisis to pick the tools back up. Pick them up now.”},
+{m:9,d:23,text:“The basics aren’t below you. They’re beneath everything you’ve built. Don’t neglect them.”},
+{m:9,d:24,text:“A quiet day in recovery is not a wasted day. Peace is part of the programme.”},
+{m:9,d:25,text:“Check your connections - to your higher power, to your sponsor, to your fellow recovering people. Are they strong?”},
+{m:9,d:26,text:“If everything feels fine, stay curious about why. Fine can sometimes be numbness in disguise.”},
+{m:9,d:27,text:“Your programme should be evolving with you. Is it?”},
+{m:9,d:28,text:“The willingness to keep looking at yourself honestly - that’s what long-term recovery is built on.”},
+{m:9,d:29,text:“Three quarters of the year. What have you learned about yourself? What will you do with it?”},
+{m:9,d:30,text:“September done. You’re still here. Still choosing. That’s everything.”},
+// OCTOBER
+{m:10,d:1,text:“Fear is a liar. It tells you that you can’t handle what’s coming. You’ve handled worse. Keep going.”},
+{m:10,d:2,text:“Grief and recovery are not strangers. You are allowed to mourn. Feel it. Don’t use over it.”},
+{m:10,d:3,text:“The dark seasons come for everyone. Recovery gives you a way through that doesn’t make things worse.”},
+{m:10,d:4,text:“Resilience isn’t about never falling. It’s about getting up one more time than you fall.”},
+{m:10,d:5,text:“Loss is part of life. Using was never actually a solution to it. You know that now.”},
+{m:10,d:6,text:“Face the thing you’re most afraid of. It rarely turns out to be as catastrophic as your mind said.”},
+{m:10,d:7,text:“When everything feels dark, do the next right thing. Just one. Then the next.”},
+{m:10,d:8,text:“Hard times in recovery are not a sign that recovery isn’t working. They’re a sign that life is happening.”},
+{m:10,d:9,text:“You have survived dark periods before - and you came through them. You will come through this one too.”},
+{m:10,d:10,text:“Your feelings will not kill you. They will pass. All of them.”},
+{m:10,d:11,text:“The courage to keep going when you can’t see the point - that’s real courage. Keep going.”},
+{m:10,d:12,text:“Difficult emotions are not emergencies. They are information. Breathe. Get support. Don’t use.”},
+{m:10,d:13,text:“You are stronger than the hardest day you’ve ever faced. And you’re still here.”},
+{m:10,d:14,text:“When you can’t find the light, be the light. For yourself, for someone else.”},
+{m:10,d:15,text:“Recovery doesn’t promise an easy life. It promises a real one. Hold onto that.”},
+{m:10,d:16,text:“Ask for help before you’re desperate. Desperation makes good decision-making harder.”},
+{m:10,d:17,text:“The night is darkest before dawn. That’s not a cliche. It’s something people in recovery know to be true.”},
+{m:10,d:18,text:“You are not alone in this. Someone in your fellowship is available right now. Call them.”},
+{m:10,d:19,text:“Struggle does not mean failure. It means you’re in the middle of something. Stay in the middle.”},
+{m:10,d:20,text:“There is a version of you on the other side of this that you cannot yet see. Keep moving toward it.”},
+{m:10,d:21,text:“Bad days are not evidence that recovery isn’t worth it. They’re just bad days.”},
+{m:10,d:22,text:“Let people in when it’s hard. That’s what they’re there for.”},
+{m:10,d:23,text:“You don’t have to be strong all the time. You just have to keep going.”},
+{m:10,d:24,text:“The tools in your kit were built for exactly this. Reach for them.”},
+{m:10,d:25,text:“One of the bravest things in recovery is admitting - I am not okay right now. Say it.”},
+{m:10,d:26,text:“This too shall pass. It always does.”},
+{m:10,d:27,text:“Dark seasons grow the deepest roots. You are growing.”},
+{m:10,d:28,text:“When you get through this - and you will - you’ll have something new to offer someone else.”},
+{m:10,d:29,text:“Your recovery has survived hard times before. It will survive this one.”},
+{m:10,d:30,text:“Hold on. Just hold on.”},
+{m:10,d:31,text:“Whatever is haunting you right now - you don’t have to face it alone. Reach out.”},
+// NOVEMBER
+{m:11,d:1,text:“Gratitude is not toxic positivity. It’s choosing to notice what’s real and good, even when hard things are also real.”},
+{m:11,d:2,text:“Count what you have, not what you’ve lost. Both lists are long. Focus on the right one.”},
+{m:11,d:3,text:“You woke up clean today. For some people, that is the miracle. Let it be yours too.”},
+{m:11,d:4,text:“Giving thanks for your recovery doesn’t mean pretending the journey wasn’t brutal. It was. And here you are.”},
+{m:11,d:5,text:“Name three things today that exist because you got clean. Hold them.”},
+{m:11,d:6,text:“Gratitude shared is gratitude doubled. Tell someone today what they mean to you.”},
+{m:11,d:7,text:“The life you have today - the ordinary, unremarkable Tuesday of it - was once something you could only dream of.”},
+{m:11,d:8,text:“Someone is grateful you’re in their life. Do you know who? Have you told them you’re grateful for them?”},
+{m:11,d:9,text:“Recovery has given you the ability to feel again. Gratitude is one of those feelings. Let it in.”},
+{m:11,d:10,text:“Even on bad days there is something. Find it. It matters.”},
+{m:11,d:11,text:“Remembering where you came from isn’t living in the past. It’s fuelling the gratitude for where you are.”},
+{m:11,d:12,text:“The relationships that survived your addiction - those people loved you when you couldn’t love yourself. Honour that.”},
+{m:11,d:13,text:“Generosity flows naturally from gratitude. What can you give today?”},
+{m:11,d:14,text:“Your clean time is a gift - to yourself and to everyone who loves you.”},
+{m:11,d:15,text:“Gratitude is a daily practice, not a feeling you wait to arrive. Practice it.”},
+{m:11,d:16,text:“The ordinary things - a warm drink, a safe place to sleep, a day without chaos - are extraordinary. See them.”},
+{m:11,d:17,text:“Someone prayed for your recovery before you were willing to. Be grateful for that person.”},
+{m:11,d:18,text:“Tell the people who helped you that they helped you. Don’t assume they know.”},
+{m:11,d:19,text:“Gratitude and resentment cannot live in the same moment. Choose which one to feed.”},
+{m:11,d:20,text:“The worst day clean is still better than the best day using. Remember that when it’s hard.”},
+{m:11,d:21,text:“Your presence in recovery makes the rooms richer. That’s worth being grateful for.”},
+{m:11,d:22,text:“What do you take for granted that you once prayed for? See it today.”},
+{m:11,d:23,text:“Be grateful for the struggle too. It made you into someone who can help others.”},
+{m:11,d:24,text:“Gratitude for small things leads to the ability to receive big things. Start small.”},
+{m:11,d:25,text:“The fellowship that catches you when you fall - that is a gift beyond measure.”},
+{m:11,d:26,text:“Recovery gave you back the capacity to love and be loved. That is not nothing.”},
+{m:11,d:27,text:“Thank the people who showed up for you before you could show up for yourself.”},
+{m:11,d:28,text:“Count your blessings. Not because everything is perfect - but because perspective is a practice.”},
+{m:11,d:29,text:“You are someone’s miracle. Do you know that?”},
+{m:11,d:30,text:“End of November. Grateful for the hard months and the good ones. Both taught you something.”},
+// DECEMBER
+{m:12,d:1,text:“The festive season is not always easy in recovery. Plan ahead. Stay close to your support.”},
+{m:12,d:2,text:“Year end reflection: who were you in January? Who are you now? The distance between those two is your work.”},
+{m:12,d:3,text:“Family gatherings can be hard. You don’t have to white-knuckle it alone. Have an exit plan. Have a person.”},
+{m:12,d:4,text:“The holidays are not a reason to use. They are a reason to double down on your support.”},
+{m:12,d:5,text:“You have survived every difficult Christmas so far. You can survive this one too.”},
+{m:12,d:6,text:“Expectation is the enemy of acceptance. Go into the season expecting it to be imperfect. Be right.”},
+{m:12,d:7,text:“Plan your recovery support for the festive period like you’d plan anything important. It is important.”},
+{m:12,d:8,text:“It’s okay if the holidays feel complicated. You don’t have to pretend it’s all magic.”},
+{m:12,d:9,text:“Stay in contact with your support network during December. Don’t go quiet.”},
+{m:12,d:10,text:“The lights, the noise, the pressure - none of it is worth your recovery. Protect it.”},
+{m:12,d:11,text:“Give yourself permission to leave situations that threaten your recovery. Every time.”},
+{m:12,d:12,text:“Someone in your fellowship will be struggling this December. Check in on them.”},
+{m:12,d:13,text:“Clean celebrations are possible. Plan for them. They can be genuinely joyful.”},
+{m:12,d:14,text:“Your recovery is the best gift you have given yourself and everyone who loves you.”},
+{m:12,d:15,text:“If this time of year brings grief - let it. Grief is not relapse. Feel it. Get support.”},
+{m:12,d:16,text:“Comparison at Christmas is toxic. Your recovery is not less valuable because it looks different to others.”},
+{m:12,d:17,text:“The new year will come whether you’re ready or not. You don’t have to have it all figured out.”},
+{m:12,d:18,text:“End of year inventory: where have you grown? Where do you still need to? Both answers matter.”},
+{m:12,d:19,text:“Stay close to what keeps you well. Especially now.”},
+{m:12,d:20,text:“Recovery through the winter takes courage. You have it. Use it.”},
+{m:12,d:21,text:“The longest night. If you’re in darkness right now - you are not alone. Reach out.”},
+{m:12,d:22,text:“Clean time through the hard seasons means more. You’re earning something real.”},
+{m:12,d:23,text:“Don’t isolate. Whatever it takes - a meeting, a call, a coffee. Stay connected.”},
+{m:12,d:24,text:“Christmas Eve in recovery. You don’t have to feel what you think you should feel. Just stay clean.”},
+{m:12,d:25,text:“Today, however it looks, you are clean. That is the gift. It is enough.”},
+{m:12,d:26,text:“The day after. Still here. Still clean. That matters.”},
+{m:12,d:27,text:“The quiet days between Christmas and New Year - use them for reflection, not rumination.”},
+{m:12,d:28,text:“Look back at who you were this time last year. See the growth, even when it’s hard to.”},
+{m:12,d:29,text:“Three days left of the year. What do you want to take into the next one?”},
+{m:12,d:30,text:“Tomorrow is New Year’s Eve. Plan for it. Recovery doesn’t take a night off.”},
+{m:12,d:31,text:“Another year clean. Or your first clean New Year’s Eve. Either way - this is extraordinary. You did it.”}
+];
+
+function getTodayReflection() {
+var now = new Date();
+var m = now.getMonth() + 1;
+var d = now.getDate();
+var found = DAILY_REFLECTIONS.find(function(q){ return q && q.m === m && q.d === d; });
+return found || {text: “One day at a time. That’s all any of us can do.”, m: m, d: d};
+}
+
+function cycleQuote() {
+var q = getTodayReflection();
+var el = document.getElementById(‘home-quote’);
+var src = document.getElementById(‘home-quote-source’);
+var months = [’’,‘January’,‘February’,‘March’,‘April’,‘May’,‘June’,‘July’,‘August’,‘September’,‘October’,‘November’,‘December’];
+if (el) el.textContent = q.text;
+if (src) src.textContent = months[q.m] + ’ ’ + q.d;
+}
+
+// =====================
+// MOOD PICKER
+// =====================
+var MOODS = [
+{emoji: ‘😭’, label: ‘Really struggling’},
+{emoji: ‘😔’, label: ‘Not great’},
+{emoji: ‘😐’, label: ‘OK’},
+{emoji: ‘🙂’, label: ‘Pretty good’},
+{emoji: ‘😁’, label: ‘Really good’},
+{emoji: ‘🌟’, label: ‘Amazing’}
+];
+
+function openMoodPicker() {
+var overlay = document.createElement(‘div’);
+overlay.style.cssText = ‘position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:flex-end;’;
+var sheet = document.createElement(‘div’);
+sheet.style.cssText = ‘background:var(–sf);border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;max-width:480px;margin:0 auto;’;
+sheet.innerHTML = ‘<div style="font-size:0.65rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:20px;">How are you feeling today?</div>’;
+var grid = document.createElement(‘div’);
+grid.style.cssText = ‘display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;’;
+MOODS.forEach(function(mood) {
+var btn = document.createElement(‘button’);
+btn.style.cssText = ‘background:var(–sf2);border:1px solid var(–bd);border-radius:14px;padding:16px 8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;’;
+btn.innerHTML = ‘<span style="font-size:2rem;">’ + mood.emoji + ‘</span><span style="font-size:0.7rem;color:var(--tm);font-weight:600;">’ + mood.label + ‘</span>’;
+btn.onclick = function() {
+saveMood(mood.emoji, mood.label);
+document.body.removeChild(overlay);
+};
+grid.appendChild(btn);
+});
+sheet.appendChild(grid);
+var cancel = document.createElement(‘button’);
+cancel.style.cssText = ‘width:100%;padding:14px;background:transparent;border:1px solid var(–bd);border-radius:var(–r);color:var(–tm);font-size:0.9rem;cursor:pointer;’;
+cancel.textContent = ‘Cancel’;
+cancel.onclick = function() { document.body.removeChild(overlay); };
+sheet.appendChild(cancel);
+overlay.appendChild(sheet);
+overlay.onclick = function(e) { if(e.target===overlay) document.body.removeChild(overlay); };
+document.body.appendChild(overlay);
+}
+
+function saveMood(emoji, label) {
+var today = new Date().toISOString().split(‘T’)[0];
+var ml = JSON.parse(localStorage.getItem(‘na_mood_log’) || ‘[]’);
+ml = ml.filter(function(m){ return m.date !== today; });
+ml.push({date: today, mood: emoji, label: label});
+if (ml.length > 90) ml = ml.slice(-90);
+localStorage.setItem(‘na_mood_log’, JSON.stringify(ml));
+updateMoodDisplay(emoji, label);
+if (typeof pushToCloud === ‘function’) pushToCloud();
+}
+
+function updateMoodDisplay(emoji, label) {
+var face = document.getElementById(‘mood-face’);
+var display = document.getElementById(‘mood-display’);
+if (face) face.innerHTML = emoji;
+if (display) display.textContent = label || ‘Tap to update’;
+}
+
+function loadTodayMood() {
+var today = new Date().toISOString().split(‘T’)[0];
+var ml = JSON.parse(localStorage.getItem(‘na_mood_log’) || ‘[]’);
+var entry = ml.find(function(m){ return m.date === today; });
+if (entry) updateMoodDisplay(entry.mood, entry.label);
+}
+
+// =====================
+// CLEAN TIME FORMATS
+// =====================
+var cleanTimeFormat = 0;
+var FORMAT_LABELS = [‘days’, ‘years-days’, ‘full’, ‘seconds’];
+
+function cycleCleanTimeFormat() {
+cleanTimeFormat = (cleanTimeFormat + 1) % 4;
+updateDaysCount();
+}
+
+function updateDaysCount() {
+var hd = document.getElementById(‘home-days’);
+var hm = document.getElementById(‘home-date-msg’);
+var dc = document.getElementById(‘days-count’);
+var lbl = document.getElementById(‘clean-date-label’);
+
+if (!cleanDate) {
+if (hd) hd.textContent = ‘-’;
+if (hm) hm.textContent = ‘Set your clean date in Account’;
+if (dc) dc.textContent = ‘0’;
+if (lbl) lbl.textContent = ‘0 days clean’;
+return;
+}
+
+// Calculate days correctly using local date (no timezone shift)
+var parts = cleanDate.split(’-’);
+var start = new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+var now = new Date();
+var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+var totalDays = Math.max(0, Math.floor((today - start) / 86400000));
+
+// Format for home screen
+var displayText = ‘’;
+var fmt = FORMAT_LABELS[cleanTimeFormat];
+if (fmt === ‘days’) {
+displayText = totalDays.toLocaleString();
+if (hm) hm.textContent = ‘days clean  -  tap to change’;
+} else if (fmt === ‘years-days’) {
+var years = Math.floor(totalDays / 365);
+var rem = totalDays % 365;
+displayText = years + ’y ’ + rem + ‘d’;
+if (hm) hm.textContent = ‘years & days  -  tap to change’;
+} else if (fmt === ‘full’) {
+var y = Math.floor(totalDays / 365);
+var rem2 = totalDays % 365;
+var mo = Math.floor(rem2 / 30);
+var d = rem2 % 30;
+displayText = y + ’y ’ + mo + ’m ’ + d + ‘d’;
+if (hm) hm.textContent = ‘years, months & days  -  tap to change’;
+} else if (fmt === ‘seconds’) {
+displayText = (totalDays * 86400).toLocaleString();
+if (hm) hm.textContent = ‘seconds clean  -  tap to change’;
+}
+
+if (hd) hd.textContent = displayText;
+
+// Also update account screen
+if (dc) dc.textContent = totalDays;
+if (lbl) lbl.textContent = totalDays === 1 ? ‘1 day clean’ : totalDays.toLocaleString() + ’ days clean’;
+}
+
+function showDailyQuote() {
+cycleQuote();
+}
+
+function initHomeScreen() {
+cycleQuote();
+updateDaysCount();
+loadTodayMood();
+}
 </script>
+
 </body>
 </html>
