@@ -5750,7 +5750,7 @@ function checkMilestoneCelebration(cleanDateStr) {
     var d = Math.floor((today-start)/86400000);
     if (d<0) return;
     var m = MILESTONES.find(function(x){return x.days===d;});
-    if (!m && d>548) { var y=Math.round(d/365); if(Math.abs(d-(y*365))<=1&&y>=2) { m={days:d,label:y+' Years',keytag:'⭐',message:y>=10?y+' years clean. A life rebuilt, one day at a time, for over a decade. The person you've become is a gift — to yourself and everyone around you.':y+' years. Think about who you were and who you are now. You did that. Keep going.'}; } }
+    if (!m && d>548) { var y=Math.round(d/365); if(Math.abs(d-(y*365))<=1&&y>=2) { m={days:d,label:y+" Years",keytag:"⭐",message:y>=10?y+" years clean. A life rebuilt, one day at a time, for over a decade. The person you've become is a gift — to yourself and everyone around you.":y+" years. Think about who you were and who you are now. You did that. Keep going."}; } }
     if (!m) return;
     var k='cl_ms_'+m.days+'_'+cleanDateStr;
     if (localStorage.getItem(k)) return;
@@ -6028,61 +6028,6 @@ function aeeMsg(msg){var el=document.getElementById('aee-msg');if(el){el.textCon
     <div id="milestone-label" style="font-size:0.72rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:var(--ac);margin-bottom:18px;">1 Year</div>
     <div id="milestone-message" style="font-size:1rem;line-height:1.65;color:#e8d9b5;font-weight:400;margin-bottom:32px;"></div>
     <button onclick="closeMilestone()" style="width:100%;padding:15px;background:linear-gradient(135deg,var(--ac),#b8965a);color:#1a1208;border:none;border-radius:14px;font-weight:800;font-size:0.95rem;cursor:pointer;letter-spacing:0.03em;">Keep going 🙏</button>
-  </div>
-</div>
-
-<!-- MILESTONE OVERLAY -->
-<div id="milestone-overlay" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.88);align-items:center;justify-content:center;padding:24px;">
-  <div style="background:var(--card);border-radius:24px;padding:40px 28px;max-width:340px;width:100%;text-align:center;border:1px solid rgba(232,201,122,0.3);">
-    <div id="milestone-keytag" style="font-size:3.5rem;margin-bottom:14px;"></div>
-    <div id="milestone-label" style="font-size:1.5rem;font-weight:800;color:var(--ac);margin-bottom:16px;"></div>
-    <div id="milestone-message" style="font-size:0.92rem;color:var(--ft);line-height:1.65;margin-bottom:28px;"></div>
-    <button onclick="closeMilestone()" style="width:100%;padding:14px;background:linear-gradient(135deg,var(--ac),#b8965a);color:#1a1208;border:none;border-radius:12px;font-weight:800;font-size:0.9rem;cursor:pointer;">Keep going 🙏</button>
-  </div>
-</div>
-
-<!-- ONBOARDING OVERLAY -->
-<div id="onboarding-overlay" style="display:none;position:fixed;inset:0;z-index:10000;background:var(--bg);overflow-y:auto;">
-  <div style="max-width:480px;margin:0 auto;padding:40px 24px 80px;">
-    <div style="text-align:center;margin-bottom:32px;">
-      <div style="font-size:2.5rem;margin-bottom:12px;">🙏</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--ac);margin-bottom:8px;">Welcome to Clean Living</div>
-      <div style="font-size:0.82rem;color:var(--tm);line-height:1.55;">Set up your profile before you go in. This is how other members find and connect with you.</div>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:14px;">
-      <div>
-        <div class="modal-label">Your Name <span style="color:#e74c3c;">*</span></div>
-        <input id="ob-name" class="input" type="text" placeholder="First name or chosen name">
-        <div style="font-size:0.65rem;color:var(--tm);margin-top:4px;">Your full name is never required — anonymity protected.</div>
-      </div>
-      <div>
-        <div class="modal-label">Clean Date <span style="color:#e74c3c;">*</span></div>
-        <input id="ob-cleandate" class="input" type="date">
-      </div>
-      <div>
-        <div class="modal-label">Country <span style="color:#e74c3c;">*</span></div>
-        <select id="ob-country" class="input" style="appearance:none;-webkit-appearance:none;">
-          <option value="">Select your country...</option>
-          <option>Australia</option><option>Austria</option><option>Belgium</option><option>Brazil</option><option>Canada</option><option>Colombia</option><option>Czech Republic</option><option>Denmark</option><option>Finland</option><option>France</option><option>Germany</option><option>Greece</option><option>India</option><option>Ireland</option><option>Israel</option><option>Italy</option><option>Japan</option><option>Mexico</option><option>Netherlands</option><option>New Zealand</option><option>Norway</option><option>Poland</option><option>Portugal</option><option>Russia</option><option>South Africa</option><option>Spain</option><option>Sweden</option><option>Switzerland</option><option>UAE</option><option>UK</option><option>USA</option><option>Other</option>
-        </select>
-      </div>
-      <div>
-        <div class="modal-label">Social Links <span style="color:#e74c3c;">*</span></div>
-        <div style="font-size:0.7rem;color:var(--tm);margin-bottom:10px;">🔒 Only revealed to people you mutually connect with. Add at least one.</div>
-        <div style="display:grid;gap:8px;">
-          <input id="ob-instagram" class="input" type="text" placeholder="Instagram (e.g. @username)">
-          <div style="display:flex;gap:8px;">
-            <select id="ob-whatsapp-code" class="input" style="width:110px;flex-shrink:0;appearance:none;-webkit-appearance:none;">
-              <option value="1">🇺🇸 +1</option><option value="44" selected>🇬🇧 +44</option><option value="61">🇦🇺 +61</option><option value="353">🇮🇪 +353</option><option value="49">🇩🇪 +49</option><option value="33">🇫🇷 +33</option><option value="34">🇪🇸 +34</option><option value="39">🇮🇹 +39</option><option value="31">🇳🇱 +31</option><option value="46">🇸🇪 +46</option><option value="27">🇿🇦 +27</option><option value="91">🇮🇳 +91</option>
-            </select>
-            <input id="ob-whatsapp" class="input" type="tel" placeholder="Mobile (without leading 0)" style="flex:1;">
-          </div>
-          <input id="ob-facebook" class="input" type="text" placeholder="Facebook name or URL">
-        </div>
-      </div>
-      <div id="ob-msg" style="display:none;font-size:0.8rem;padding:10px 14px;border-radius:8px;background:rgba(231,76,60,0.1);color:#e74c3c;"></div>
-      <button id="ob-submit-btn" onclick="saveOnboarding()" style="width:100%;padding:15px;background:linear-gradient(135deg,var(--ac),#b8965a);color:#1a1208;border:none;border-radius:14px;font-weight:800;font-size:0.95rem;cursor:pointer;margin-top:4px;">Let's go 🙏</button>
-    </div>
   </div>
 </div>
 
