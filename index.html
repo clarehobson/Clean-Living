@@ -1577,14 +1577,10 @@ if (typeof window !== 'undefined' && !window.supabase) { console.log('Supabase l
       <input id="auth-email" class="input" type="email" placeholder="your@email.com" autocomplete="email" style="margin-bottom:14px;">
       <div class="modal-label">Password</div>
       <input id="auth-password" class="input" type="password" placeholder="Password" autocomplete="current-password" style="margin-bottom:6px;">
-      <div id="auth-beta-wrap" style="display:none;margin-bottom:6px;">
-        <div class="modal-label">Beta Access Code</div>
-        <input id="auth-beta-code" class="input" type="text" placeholder="Enter your beta code" style="text-transform:uppercase;letter-spacing:0.08em;">
-        <div style="font-size:0.68rem;color:var(--tm);margin-top:5px;">Don't have a code? Beta access is by invitation only for now.</div>
-      </div>
+
       <div id="beta-code-wrap" style="display:none;margin-top:10px;">
         <div class="modal-label">Beta Access Code</div>
-        <input id="auth-beta-code" class="input" type="text" placeholder="Enter your beta code e.g. CLEAN-A7X2" autocomplete="off" style="margin-bottom:6px;text-transform:uppercase;">
+        <input id="auth-beta-code" class="input" type="text" placeholder="Enter your beta access code" autocomplete="off" style="margin-bottom:6px;text-transform:uppercase;">
         <div style="font-size:0.7rem;color:var(--tm);margin-bottom:6px;">Don't have a code? Beta access is by invitation only for now.</div>
       </div>
       <div id="auth-msg" style="display:none;font-size:0.75rem;margin-bottom:12px;text-align:center;padding:8px;border-radius:8px;background:rgba(0,0,0,0.2);"></div>
@@ -2995,28 +2991,7 @@ async function doAuth() {
   if (!email || !password) { showAuthMsg('Please enter your email and password'); return; }
   if (mode === 'signup' && password.length < 6) { showAuthMsg('Password must be at least 6 characters'); return; }
   if (mode === 'signup') { var eb=(document.getElementById('auth-beta-code').value||'').trim().toUpperCase(); if(eb!==BETA_CODE){showAuthMsg("Invalid beta code — contact the app admin for access",'#e74c3c');return;} }
-  // Beta code check on signup
-  if (mode === 'signup') {
-    var betaCode = (document.getElementById('auth-beta-code').value || '').trim().toUpperCase();
-    if (!betaCode) { showAuthMsg('Please enter your beta access code', '#e74c3c'); return; }
-    // Check code in Supabase
-    document.getElementById('auth-submit-btn').textContent = 'Checking code...';
-    document.getElementById('auth-submit-btn').disabled = true;
-    try {
-      var codeCheck = await supa.from('beta_codes').select('*').eq('code', betaCode).eq('used', false).single();
-      if (codeCheck.error || !codeCheck.data) {
-        document.getElementById('auth-submit-btn').disabled = false;
-        document.getElementById('auth-submit-btn').textContent = 'Create Account';
-        showAuthMsg('Invalid or already used beta code', '#e74c3c');
-        return;
-      }
-    } catch(e) {
-      document.getElementById('auth-submit-btn').disabled = false;
-      document.getElementById('auth-submit-btn').textContent = 'Create Account';
-      showAuthMsg('Could not verify code - try again', '#e74c3c');
-      return;
-    }
-  }
+
   document.getElementById('auth-submit-btn').textContent = 'Please wait...';
   document.getElementById('auth-submit-btn').disabled = true;
   try {
@@ -3030,9 +3005,7 @@ async function doAuth() {
     document.getElementById('auth-submit-btn').textContent = mode === 'signin' ? 'Sign In' : 'Create Account';
     if (result.error) { showAuthMsg(result.error.message, '#e74c3c'); return; }
     if (mode === 'signup') {
-      // Mark beta code as used
-      var usedCode = (document.getElementById('auth-beta-code').value || '').trim().toUpperCase();
-      await supa.from('beta_codes').update({ used: true, used_by: email, used_at: new Date().toISOString() }).eq('code', usedCode);
+
       showAuthMsg('Account created! Check your email to confirm, then sign in.', '#5fcf80');
       return;
     }
