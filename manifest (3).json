@@ -1,0 +1,84 @@
+{
+  "id": "app.cleanliving",
+  "name": "Clean Living",
+  "short_name": "Clean Living",
+  "description": "Recovery community app — events, meetings, connections, journals",
+  "start_url": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "background_color": "#0d0d1a",
+  "theme_color": "#e8c97a",
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "categories": ["health", "lifestyle", "social"],
+  "shortcuts": [
+    {
+      "name": "Meetings",
+      "url": "/?tab=meetings",
+      "description": "Find NA meetings worldwide"
+    },
+    {
+      "name": "Events",
+      "url": "/?tab=events",
+      "description": "Browse recovery events"
+    },
+    {
+      "name": "Journal",
+      "url": "/?tab=journal",
+      "description": "Open your recovery journal"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/screenshot-1-home.png",
+      "sizes": "721x1568",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Home screen with daily reflection and clean time counter"
+    },
+    {
+      "src": "/screenshots/screenshot-2-network.png",
+      "sizes": "721x1568",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Network — discover and connect with members worldwide"
+    },
+    {
+      "src": "/screenshots/screenshot-3-journal.png",
+      "sizes": "721x1568",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Journal — daily recovery writing with guided prompts"
+    },
+    {
+      "src": "/screenshots/screenshot-4-events.png",
+      "sizes": "721x1568",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Events — global NA recovery events and conventions"
+    }
+  ]
+}
