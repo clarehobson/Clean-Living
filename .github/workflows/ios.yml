@@ -1,0 +1,45 @@
+name: Build and Upload to App Store
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Install Apple Certificate
+      uses: apple-actions/import-codesign-certs@v2
+      with:
+        p12-file-base64: ${{ secrets.DISTRIBUTION_CERTIFICATE_P12 }}
+        p12-password: ${{ secrets.DISTRIBUTION_CERTIFICATE_PASSWORD }}
+    
+    - name: Install Provisioning Profile
+      uses: apple-actions/import-provisioning-profiles@v1
+      with:
+        profiles-json: ${{ secrets.PROVISIONING_PROFILE }}
+    
+    - name: Install CocoaPods
+      run: |
+        cd ios
+        pod install
+    
+    - name: Build Archive
+      run: |
+        xcodebuild -workspace "ios/Clean Living.xcworkspace" \
+          -scheme "Clean Living" \
+          -configuration Release \
+          -archivePath $RUNNER_TEMP/CleanLiving.xcarchive \
+          archive
+    
+    - name: Upload to App Store
+      uses: apple-actions/upload-testflight-build@v1
+      with:
+        app-path: $RUNNER_TEMP/CleanLiving.xcarchive
+        issuer-id: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+        api-key-id: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+        api-private-key: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
