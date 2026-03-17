@@ -1,4 +1,4 @@
-git_url("https://github.com/clarehobson/certificates.git")
+git_url("https://clarehobson:#{ENV['MATCH_GIT_BASIC_AUTHORIZATION']}@github.com/clarehobson/certificates.git")
 storage_mode("git")
 type("appstore")
 app_identifier("app.cleanliving")
