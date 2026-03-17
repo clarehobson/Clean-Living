@@ -14,7 +14,8 @@ platform :ios do
       app_identifier: "app.cleanliving",
       git_url: "https://github.com/clarehobson/certificates",
       api_key: api_key,
-      readonly: false
+      readonly: false,
+      clone_branch_directly: true
     )
     
     build_app(
