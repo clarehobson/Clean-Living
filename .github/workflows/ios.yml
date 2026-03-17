@@ -8,7 +8,7 @@ jobs:
     runs-on: macos-latest
     
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
@@ -25,9 +25,9 @@ jobs:
         APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
         APP_STORE_CONNECT_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        FASTLANE_SKIP_UPDATE_CHECK: "1"
+        MATCH_READONLY: "false"
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         cd ios
         fastlane release
-FASTLANE_SKIP_UPDATE_CHECK: "1"
-MATCH_READONLY: "false"
