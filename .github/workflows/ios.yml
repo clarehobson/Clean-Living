@@ -28,6 +28,4 @@ jobs:
         FASTLANE_SKIP_UPDATE_CHECK: "1"
         MATCH_READONLY: "false"
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        cd ios
-        fastlane release
+      run: fastlane release
