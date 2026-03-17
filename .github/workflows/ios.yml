@@ -29,3 +29,5 @@ jobs:
       run: |
         cd ios
         fastlane release
+FASTLANE_SKIP_UPDATE_CHECK: "1"
+MATCH_READONLY: "false"
