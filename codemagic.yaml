@@ -7,7 +7,7 @@ workflows:
     environment:
       vars:
         BUNDLE_ID: "app.cleanliving"
-        BUILD_NUMBER: "2"
+        BUILD_NUMBER: "3"
       xcode: latest
     scripts:
       - name: Install CocoaPods
