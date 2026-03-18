@@ -1,8 +1,6 @@
 name: Build and Upload to App Store
-
 on:
   workflow_dispatch:
-
 jobs:
   build:
     runs-on: macos-latest
@@ -18,14 +16,19 @@ jobs:
     
     - name: Install Fastlane
       run: gem install fastlane
-    
+
+    - name: Install CocoaPods
+      run: |
+        cd ios/src
+        pod install
+
     - name: Run Fastlane
       env:
         APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
         APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
         APP_STORE_CONNECT_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
         FASTLANE_SKIP_UPDATE_CHECK: "1"
         MATCH_READONLY: "false"
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: fastlane release
