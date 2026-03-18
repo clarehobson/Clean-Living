@@ -6,8 +6,8 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: app.cleanliving
-        certificate: Clean Living Distribution
-        provisioning_profile: app_cleanliving_appstore
+      integrations:
+        app_store_connect: Clean Living
       xcode: latest
     scripts:
       - name: Install CocoaPods
@@ -24,6 +24,5 @@ workflows:
       - build/ios/ipa/*.ipa
     publishing:
       app_store_connect:
-        api_key: $APP_STORE_CONNECT_PRIVATE_KEY
-        key_id: $APP_STORE_CONNECT_KEY_ID
-        issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+        api_key: Clean Living
+        submit_to_testflight: false
