@@ -5,8 +5,6 @@ workflows:
     integrations:
       app_store_connect: Clean Living
     environment:
-      groups:
-        - default
       vars:
         BUNDLE_ID: "app.cleanliving"
       xcode: latest
