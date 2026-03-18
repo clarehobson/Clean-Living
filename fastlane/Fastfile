@@ -25,7 +25,8 @@ platform :ios do
       workspace: "ios/src/Clean Living.xcworkspace",
       scheme: "Clean Living",
       configuration: "Release",
-      export_team_id: "D3NH4Q92W8"
+      export_team_id: "D3NH4Q92W8",
+      xcargs: "CODE_SIGN_STYLE=Manual CODE_SIGN_IDENTITY='Apple Distribution' DEVELOPMENT_TEAM=D3NH4Q92W8"
     )
     
     upload_to_app_store(
