@@ -7,6 +7,7 @@ workflows:
     environment:
       vars:
         BUNDLE_ID: "app.cleanliving"
+        BUILD_NUMBER: "2"
       xcode: latest
     scripts:
       - name: Install CocoaPods
@@ -25,6 +26,10 @@ workflows:
         script: keychain add-certificates
       - name: Set up code signing
         script: xcode-project use-profiles
+      - name: Set build number
+        script: |
+          cd $CM_BUILD_DIR/ios/src
+          agvtool new-version -all $BUILD_NUMBER
       - name: Build iOS
         script: |
           xcode-project build-ipa \
