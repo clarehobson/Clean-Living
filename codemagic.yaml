@@ -5,6 +5,8 @@ workflows:
     integrations:
       app_store_connect: Clean Living
     environment:
+      groups:
+        - default
       ios_signing:
         distribution_type: app_store
         bundle_identifier: app.cleanliving
@@ -16,7 +18,7 @@ workflows:
           pod install
       - name: Build iOS
         script: |
-          xcode-project use-profiles --type app-store
+          xcode-project use-profiles
           xcode-project build-ipa \
             --workspace "$CM_BUILD_DIR/ios/src/Clean Living.xcworkspace" \
             --scheme "Clean Living"
