@@ -4,7 +4,6 @@ on:
 jobs:
   build:
     runs-on: macos-latest
-    
     steps:
     - uses: actions/checkout@v4
     
@@ -17,6 +16,10 @@ jobs:
     - name: Install Fastlane
       run: gem install fastlane
 
+    - name: Configure Git for Match
+      run: |
+        git config --global url."https://clarehobson:${{ secrets.MATCH_GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
+
     - name: Install CocoaPods
       run: |
         cd ios/src
@@ -28,7 +31,5 @@ jobs:
         APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
         APP_STORE_CONNECT_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-        MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
         FASTLANE_SKIP_UPDATE_CHECK: "1"
-        MATCH_READONLY: "false"
       run: fastlane release
