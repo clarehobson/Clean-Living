@@ -18,7 +18,8 @@ platform :ios do
       api_key: api_key,
       readonly: false,
       keychain_name: "fastlane_tmp_keychain",
-      keychain_password: ""
+      keychain_password: "",
+      force: true
     )
     
     build_app(
