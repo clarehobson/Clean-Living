@@ -12,7 +12,7 @@ platform :ios do
     match(
       type: "appstore",
       app_identifier: "app.cleanliving",
-      git_url: "https://clarehobson:#{ENV['MATCH_GIT_BASIC_AUTHORIZATION']}@github.com/clarehobson/certificates.git",
+      git_url: "https://github.com/clarehobson/certificates.git",
       api_key: api_key,
       readonly: false
     )
