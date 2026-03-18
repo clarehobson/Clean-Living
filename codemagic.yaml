@@ -6,10 +6,8 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: app.cleanliving
-      vars:
-        BUNDLE_ID: "app.cleanliving"
-        XCODE_WORKSPACE: "ios/src/Clean Living.xcworkspace"
-        XCODE_SCHEME: "Clean Living"
+        certificate: Clean Living Distribution
+        provisioning_profile: app_cleanliving_appstore
       xcode: latest
     scripts:
       - name: Install CocoaPods
@@ -20,8 +18,8 @@ workflows:
         script: |
           xcode-project use-profiles
           xcode-project build-ipa \
-            --workspace "$XCODE_WORKSPACE" \
-            --scheme "$XCODE_SCHEME"
+            --workspace "$CM_BUILD_DIR/ios/src/Clean Living.xcworkspace" \
+            --scheme "Clean Living"
     artifacts:
       - build/ios/ipa/*.ipa
     publishing:
