@@ -1,5 +1,6 @@
 import UIKit
 import WebKit
+import OneSignalFramework
 
 var webView: WKWebView! = nil
 
@@ -41,9 +42,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
         initWebView()
         initToolbarView()
         loadRootUrl()
-    
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification , object: nil)
-        
     }
 
     override func viewDidLayoutSubviews() {
@@ -58,9 +57,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
     func initWebView() {
         CleanLiving.webView = createWebView(container: webviewView, WKSMH: self, WKND: self, NSO: self, VC: self)
         webviewView.addSubview(CleanLiving.webView);
-        
         CleanLiving.webView.uiDelegate = self;
-        
         CleanLiving.webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
 
         if(pullToRefresh){
@@ -100,14 +97,10 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
         let toolbarView = UIToolbar(frame: CGRect(x: 0, y: 0, width: webviewView.frame.width, height: 0))
         toolbarView.sizeToFit()
         toolbarView.frame = CGRect(x: 0, y: 0, width: webviewView.frame.width, height: toolbarView.frame.height + statusBarHeight)
-//        toolbarView.autoresizingMask = [.flexibleTopMargin, .flexibleRightMargin, .flexibleWidth]
-        
         let flex = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let close = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(loadRootUrl))
         toolbarView.setItems([close,flex], animated: true)
-        
         toolbarView.isHidden = true
-        
         return toolbarView
     }
     
@@ -124,8 +117,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
     }
     
     func initToolbarView() {
-        toolbarView =  createToolbarView()
-        
+        toolbarView = createToolbarView()
         webviewView.addSubview(toolbarView)
     }
     
@@ -133,45 +125,34 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
         CleanLiving.webView.load(URLRequest(url: SceneDelegate.universalLinkToLaunch ?? SceneDelegate.shortcutLinkToLaunch ?? rootUrl, cachePolicy: cachePolicy))
     }
     
-    func reloadWebview(
-        loadingMode: LoadingMode = LoadingMode.defaultCachePolicy
-    ) {
+    func reloadWebview(loadingMode: LoadingMode = LoadingMode.defaultCachePolicy) {
         switch loadingMode {
         case LoadingMode.defaultCachePolicy:
             loadRootUrl(cachePolicy: .useProtocolCachePolicy);
-
         case LoadingMode.forceCache:
             loadRootUrl(cachePolicy: .useProtocolCachePolicy);
         }
-
         self.loadingMode = loadingMode
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!){
         htmlIsLoaded = true
-        
         self.setProgress(1.0, true)
         self.animateConnectionProblem(false)
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
             CleanLiving.webView.isHidden = false
             self.loadingView.isHidden = true
-           
             self.setProgress(0.0, false)
-            
             self.overrideUIStyle()
         }
     }
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         htmlIsLoaded = false;
-        
         if (error as NSError)._code == (-999) { return }
-        
         self.overrideUIStyle(toDefault: true);
         webView.isHidden = true;
         loadingView.isHidden = false;
-
         if loadingMode == LoadingMode.defaultCachePolicy {
             DispatchQueue.main.async {
                 self.reloadWebview(loadingMode: LoadingMode.forceCache)
@@ -179,7 +160,6 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
         } else {
             animateConnectionProblem(true);
             setProgress(0.05, true);
-            
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 self.setProgress(0.1, true);
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
@@ -190,16 +170,13 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-
         if (keyPath == #keyPath(WKWebView.estimatedProgress) &&
                 CleanLiving.webView.isLoading &&
                 !self.loadingView.isHidden &&
                 !self.htmlIsLoaded) {
                     var progress = Float(CleanLiving.webView.estimatedProgress);
-                    
                     if (progress >= 0.8) { progress = 1.0; };
                     if (progress >= 0.3) { self.animateConnectionProblem(false); }
-                    
                     self.setProgress(progress, true);
         }
     }
@@ -208,7 +185,6 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
         self.progressView.setProgress(progress, animated: animated);
     }
     
-    
     func animateConnectionProblem(_ show: Bool) {
         if (show) {
             self.connectionProblemView.isHidden = false;
@@ -216,10 +192,9 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
             UIView.animate(withDuration: 0.7, delay: 0, options: [.repeat, .autoreverse], animations: {
                 self.connectionProblemView.alpha = 1
             })
-        }
-        else {
+        } else {
             UIView.animate(withDuration: 0.3, delay: 0, options: [], animations: {
-                self.connectionProblemView.alpha = 0 // Here you will get the animation you want
+                self.connectionProblemView.alpha = 0
             }, completion: { _ in
                 self.connectionProblemView.isHidden = true;
                 self.connectionProblemView.layer.removeAllAnimations();
@@ -233,43 +208,23 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
 }
 
 extension UIColor {
-    // Check if the color is light or dark, as defined by the injected lightness threshold.
-    // Some people report that 0.7 is best. I suggest to find out for yourself.
-    // A nil value is returned if the lightness couldn't be determined.
     func isLight(threshold: Float = 0.5) -> Bool? {
         let originalCGColor = self.cgColor
-
-        // Now we need to convert it to the RGB colorspace. UIColor.white / UIColor.black are greyscale and not RGB.
-        // If you don't do this then you will crash when accessing components index 2 below when evaluating greyscale colors.
         let RGBCGColor = originalCGColor.converted(to: CGColorSpaceCreateDeviceRGB(), intent: .defaultIntent, options: nil)
-        guard let components = RGBCGColor?.components else {
-            return nil
-        }
-        guard components.count >= 3 else {
-            return nil
-        }
-
+        guard let components = RGBCGColor?.components else { return nil }
+        guard components.count >= 3 else { return nil }
         let brightness = Float(((components[0] * 299) + (components[1] * 587) + (components[2] * 114)) / 1000)
         return (brightness > threshold)
     }
 }
 
 extension ViewController: WKScriptMessageHandler {
-  func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == "print" {
             printView(webView: CleanLiving.webView)
         }
         if message.name == "push-subscribe" {
             handleSubscribeTouch(message: message)
         }
-        if message.name == "push-permission-request" {
-            handlePushPermission()
-        }
-        if message.name == "push-permission-state" {
-            handlePushState()
-        }
-        if message.name == "push-token" {
-            handleFCMToken()
-        }
-  }
+    }
 }
