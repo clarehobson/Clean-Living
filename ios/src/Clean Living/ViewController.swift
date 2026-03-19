@@ -223,8 +223,5 @@ extension ViewController: WKScriptMessageHandler {
         if message.name == "print" {
             printView(webView: CleanLiving.webView)
         }
-        if message.name == "push-subscribe" {
-            handleSubscribeTouch(message: message)
-        }
     }
 }
