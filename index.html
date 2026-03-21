@@ -3232,7 +3232,99 @@ function closeJournalFolder() {
 // =====================
 // FOLDER MEMBERS EDITOR
 // =====================
-function openFolderMembersEditor(folder) {
+async function openFolderMembersEditor(folder) {
+  if (!currentUser || !supa) { toast('Please sign in first'); return; }
+
+  var connRes = await supa.from('connections').select('*');
+  var conns = (connRes.data || []).filter(function(c) {
+    return c.status === 'accepted' && (c.requester_id === currentUser.id || c.receiver_id === currentUser.id);
+  });
+  var ids = conns.map(function(c) { return c.requester_id === currentUser.id ? c.receiver_id : c.requester_id; });
+  if (!ids.length) { toast('No connections yet — connect with people in the Network tab first'); return; }
+
+  var pr = await supa.from('profiles').select('id,username').in('id', ids);
+  var profiles = pr.data || [];
+  if (!profiles.length) { toast('No connections found'); return; }
+
+  var membRes = await supa.from('journal_folder_members')
+    .select('member_id')
+    .eq('folder_id', folder.id)
+    .eq('owner_id', currentUser.id);
+  var currentMemberIds = (membRes.data || []).map(function(m) { return m.member_id; });
+  var memberIds = currentMemberIds.slice();
+
+  var overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);z-index:10000;display:flex;align-items:flex-end;';
+  var sheet = document.createElement('div');
+  sheet.style.cssText = 'background:var(--sf);border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;max-height:85vh;overflow-y:auto;';
+
+  sheet.innerHTML = '<div style="font-size:0.65rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;">Folder Members</div>' +
+    '<div style="font-size:0.72rem;color:var(--tm);margin-bottom:16px;">People you add will be notified and can join the chat</div>';
+
+  profiles.forEach(function(p) {
+    var checked = memberIds.indexOf(p.id) > -1;
+    var row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;';
+    var cb = document.createElement('div');
+    cb.style.cssText = 'width:22px;height:22px;border-radius:50%;border:2px solid '+(checked?'var(--ac)':'rgba(232,201,122,0.3)')+';background:'+(checked?'var(--ac)':'transparent')+';flex-shrink:0;display:flex;align-items:center;justify-content:center;';
+    cb.innerHTML = checked ? '<span style="color:#1a1208;font-size:0.7rem;font-weight:900;">✓</span>' : '';
+    var label = document.createElement('div');
+    label.style.cssText = 'font-size:0.86rem;color:var(--tx);';
+    label.textContent = p.username || 'Member';
+    row.appendChild(cb); row.appendChild(label);
+    (function(pid, checkbox) {
+      row.onclick = function() {
+        var idx = memberIds.indexOf(pid);
+        if (idx > -1) {
+          memberIds.splice(idx, 1);
+          checkbox.style.border = '2px solid rgba(232,201,122,0.3)';
+          checkbox.style.background = 'transparent';
+          checkbox.innerHTML = '';
+        } else {
+          memberIds.push(pid);
+          checkbox.style.border = '2px solid var(--ac)';
+          checkbox.style.background = 'var(--ac)';
+          checkbox.innerHTML = '<span style="color:#1a1208;font-size:0.7rem;font-weight:900;">✓</span>';
+        }
+      };
+    })(p.id, cb);
+    sheet.appendChild(row);
+  });
+
+  var saveBtn = document.createElement('button');
+  saveBtn.style.cssText = 'width:100%;margin-top:16px;padding:13px;background:var(--ac);border:none;border-radius:10px;color:#1a1208;font-weight:700;cursor:pointer;font-size:0.88rem;';
+  saveBtn.textContent = 'Save Members';
+  saveBtn.onclick = async function() {
+    saveBtn.textContent = 'Saving...'; saveBtn.disabled = true;
+    await supa.from('journal_folder_members').delete()
+      .eq('folder_id', folder.id).eq('owner_id', currentUser.id);
+    if (memberIds.length) {
+      var rows = memberIds.map(function(mid) {
+        return { folder_id: folder.id, folder_name: folder.name, folder_emoji: folder.emoji, owner_id: currentUser.id, member_id: mid };
+      });
+      var ins = await supa.from('journal_folder_members').insert(rows);
+      if (ins.error) { toast('Could not save: ' + ins.error.message); saveBtn.textContent = 'Save Members'; saveBtn.disabled = false; return; }
+    }
+    var fi = journalFolders.findIndex(function(f){ return f.id === folder.id; });
+    if (fi > -1) { journalFolders[fi].memberIds = memberIds; folder.memberIds = memberIds; saveJournalFolders(); }
+    document.body.removeChild(overlay);
+    openJournalFolder(folder);
+    toast('Members saved ✓');
+  };
+  sheet.appendChild(saveBtn);
+
+  var cancelBtn = document.createElement('button');
+  cancelBtn.style.cssText = 'width:100%;margin-top:8px;padding:11px;background:transparent;border:1px solid var(--bd);border-radius:10px;color:var(--tm);cursor:pointer;font-size:0.82rem;';
+  cancelBtn.textContent = 'Cancel';
+  cancelBtn.onclick = function() { document.body.removeChild(overlay); };
+  sheet.appendChild(cancelBtn);
+
+  overlay.appendChild(sheet);
+  overlay.onclick = function(e) { if (e.target === overlay) document.body.removeChild(overlay); };
+  document.body.appendChild(overlay);
+
+  // --- old code replaced above, remove the old closing pattern below ---
+  supa.from('connections').select('*').then(function(res) {
   if (!currentUser || !supa) { toast('Please sign in first'); return; }
   supa.from('connections').select('*').then(function(res) {
     var conns = (res.data || []).filter(function(c) {
