@@ -11,7 +11,7 @@ self.addEventListener('activate', function(e) {
   e.waitUntil(clients.claim());
 });
 
-// ── PUSH NOTIFICATION RECEIVED ───────────────────────────────────
+// ── PUSH NOTIFICATION RECEIVED ──────────────────────────────────
 self.addEventListener('push', function(e) {
   var data = {};
   try { data = e.data ? e.data.json() : {}; } catch(err) {}
