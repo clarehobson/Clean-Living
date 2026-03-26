@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recovery Pro — Clean Living</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "DM Sans", sans-serif;
+  background: #0f0f1a;
+  color: #f0ead6;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.container {
+  width: 100%;
+  max-width: 420px;
+}
+.logo {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.logo-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 300;
+  color: #e8c97a;
+  margin-bottom: 4px;
+}
+.logo-sub {
+  font-size: 0.7rem;
+  color: #8a8090;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.card {
+  background: linear-gradient(160deg,#1a1208,#2a1e0a);
+  border: 1px solid rgba(232,201,122,0.3);
+  border-radius: 24px;
+  padding: 32px 24px;
+  margin-bottom: 16px;
+}
+.card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: #e8c97a;
+  text-align: center;
+  margin-bottom: 8px;
+}
+.card-sub {
+  font-size: 0.82rem;
+  color: #8a8090;
+  text-align: center;
+  margin-bottom: 24px;
+}
+.features {
+  background: rgba(232,201,122,0.06);
+  border: 1px solid rgba(232,201,122,0.18);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+.features-title {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #e8c97a;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+}
+.features-list {
+  font-size: 0.82rem;
+  color: #f0ead6;
+  line-height: 2.1;
+}
+.plans {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.plan-monthly {
+  display: block;
+  background: linear-gradient(135deg,#e8c97a,#b8965a);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  color: #1a1208;
+}
+.plan-annual {
+  display: block;
+  background: rgba(232,201,122,0.08);
+  border: 2px solid rgba(232,201,122,0.4);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  color: #f0ead6;
+  position: relative;
+}
+.best-value {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #e8c97a;
+  color: #1a1208;
+  font-size: 0.62rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+.plan-name { font-weight: 800; font-size: 1rem; }
+.plan-price { font-size: 1.5rem; font-weight: 800; margin: 4px 0; }
+.plan-monthly .plan-price { color: #1a1208; }
+.plan-annual .plan-price { color: #e8c97a; }
+.plan-detail { font-size: 0.75rem; opacity: 0.8; }
+.plan-annual .plan-detail { color: #8a8090; opacity: 1; }
+.stripe-note {
+  font-size: 0.7rem;
+  color: #8a8090;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.back-link {
+  display: block;
+  text-align: center;
+  font-size: 0.82rem;
+  color: #8a8090;
+  text-decoration: none;
+  padding: 12px;
+  border: 1px solid rgba(232,201,122,0.2);
+  border-radius: 14px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="logo">
+    <div class="logo-title">Clean Living</div>
+    <div class="logo-sub">Recovery &middot; Community &middot; Growth</div>
+  </div>
+  <div class="card">
+    <div style="font-size:2.2rem;text-align:center;margin-bottom:12px;">🌿</div>
+    <div class="card-title">Recovery Pro</div>
+    <div class="card-sub">Your full recovery companion</div>
+    <div class="features">
+      <div class="features-title">What you get</div>
+      <div class="features-list">
+        ✓ Journal — save, export &amp; share entries<br>
+        ✓ Worksheets — save, export &amp; send<br>
+        ✓ Daily reflection &amp; clean time counter<br>
+        ✓ Connect with other members<br>
+        ✓ Event &amp; journal group chats<br>
+        ✓ Social events &amp; My Events<br>
+        ✓ Push notifications for all messages
+      </div>
+    </div>
+    <div class="plans">
+      <a href="https://buy.stripe.com/eVq9AS1YO3Qd8uH4hibfO00" class="plan-monthly" id="monthly-link">
+        <div class="plan-name">Monthly</div>
+        <div class="plan-price">£3.99</div>
+        <div class="plan-detail">per month · cancel anytime</div>
+      </a>
+      <a href="https://buy.stripe.com/dRmeVc1YObiF26jg00bfO01" class="plan-annual" id="annual-link">
+        <div class="best-value">Best value</div>
+        <div class="plan-name">Annual</div>
+        <div class="plan-price">£35</div>
+        <div class="plan-detail">per year · save £12.88</div>
+      </a>
+    </div>
+    <div class="stripe-note">Payments processed securely by Stripe. Cancel anytime.</div>
+    <a href="https://cleanliving.app" class="back-link">← Back to Clean Living</a>
+  </div>
+</div>
+<script>
+  // Append user ID to Stripe links if available
+  try {
+    var params = new URLSearchParams(window.location.search);
+    var uid = params.get('uid');
+    if (uid) {
+      document.getElementById('monthly-link').href += '?client_reference_id=' + uid;
+      document.getElementById('annual-link').href += '?client_reference_id=' + uid;
+    }
+  } catch(e) {}
+</script>
+</body>
+</html>
