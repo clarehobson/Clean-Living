@@ -9,7 +9,7 @@ workflows:
         - Default
       vars:
         BUNDLE_ID: "app.cleanliving"
-        BUILD_NUMBER: "8"
+        BUILD_NUMBER: "9"
       xcode: latest
     scripts:
       - name: Install CocoaPods
