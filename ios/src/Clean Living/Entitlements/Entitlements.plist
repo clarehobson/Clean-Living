@@ -9,11 +9,6 @@
 		<string>applinks:cleanliving.app</string>
 		<string>webcredentials:cleanliving.app</string>
 	</array>
-	<key>com.apple.developer.in-app-payments</key>
-	<array>
-		<string>app.cleanliving.recoverypro</string>
-		<string>app.cleanliving.recoverypro.annual</string>
-	</array>
 	<key>com.apple.security.app-sandbox</key>
 	<true/>
 	<key>com.apple.security.device.audio-input</key>
