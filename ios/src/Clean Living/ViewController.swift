@@ -9,7 +9,7 @@ var webView: WKWebView! = nil
 // IAP MANAGER
 // =====================
 let iapMonthlyId = "app.cleanliving.pro.monthly"
-let iapAnnualId  = "app.cleanliving.pro.annual"
+let iapAnnualId  = "app.cleanliving.pro.Annual"
 
 class IAPManager: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObserver {
 
