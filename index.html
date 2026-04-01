@@ -858,6 +858,95 @@ nav {
 #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  
+  <script>
+// =====================
+// CLEAN TIER SYSTEM
+// =====================
+
+let _userTier = 'free';      // 'free', 'trial', 'pro', 'lifetime'
+let _trialEnd = null;
+
+function getUserTier() {
+  if (_userTier === 'lifetime') return 'lifetime';
+  if (_userTier === 'pro') return 'pro';
+  if (_userTier === 'subscriber') return 'pro'; // legacy support
+
+  // Check trial
+  if (_userTier === 'trial' && _trialEnd) {
+    const now = new Date();
+    now.setHours(0,0,0,0);
+    const end = new Date(_trialEnd);
+    if (now <= end) return 'trial';
+  }
+  return 'free';
+}
+
+function isSubscribed() {
+  const tier = getUserTier();
+  return tier === 'pro' || tier === 'lifetime';
+}
+
+// Load tier from Supabase on sign-in
+async function loadUserTier() {
+  if (!currentUser || !supa) return;
+  try {
+    const { data, error } = await supa
+      .from('profiles')
+      .select('tier, trial_end')
+      .eq('id', currentUser.id)
+      .single();
+
+    if (error) console.log('loadUserTier error:', error);
+    if (data) {
+      _userTier = data.tier || 'free';
+      _trialEnd = data.trial_end || null;
+    }
+  } catch(e) {
+    console.log('loadUserTier error:', e);
+  }
+}
+
+// Called by Swift after successful Apple purchase
+window.onIAPResult = function(success, productId, error) {
+  if (success) {
+    _userTier = 'pro';
+    // Save to Supabase so it persists
+    if (supa && currentUser) {
+      supa.from('profiles')
+        .update({ tier: 'pro', trial_end: null })
+        .eq('id', currentUser.id);
+    }
+    showProSuccessScreen();
+    // Refresh any open screens
+    if (typeof renderCommunity === 'function') renderCommunity();
+    if (typeof renderJournal === 'function') renderJournal();
+  } else {
+    toast('Purchase failed: ' + (error || 'Please try again'));
+  }
+};
+
+// Simple success screen after purchase
+function showProSuccessScreen() {
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;';
+  overlay.innerHTML = `
+    <div style="background:var(--sf);border:1px solid var(--ac);border-radius:24px;padding:40px 28px;max-width:360px;width:100%;text-align:center;">
+      <div style="font-size:3rem;margin-bottom:16px;">🌿</div>
+      <div style="font-size:1.4rem;font-weight:700;color:var(--ac);margin-bottom:12px;">Welcome to Recovery Pro!</div>
+      <div style="font-size:0.9rem;color:var(--tx);line-height:1.6;margin-bottom:24px;">
+        You now have unlimited journaling, custom folders, full event chats, 
+        unlimited direct messaging, and AI-powered tools.
+      </div>
+      <button onclick="this.closest('div[style*=\"fixed\"]').remove()" 
+              style="width:100%;padding:16px;background:var(--ac);border:none;border-radius:16px;color:#1a1208;font-weight:800;font-size:1rem;cursor:pointer;">
+        Continue to Clean Living
+      </button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+}
+</script>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-4VXR0FZHFF"></script>
 <script>
