@@ -10,6 +10,7 @@ workflows:
       vars:
         BUNDLE_ID: "app.cleanliving"
         BUILD_NUMBER: "18"
+        MARKETING_VERSION: "1.1"
       xcode: latest
     scripts:
       - name: Install CocoaPods
@@ -32,6 +33,10 @@ workflows:
         script: |
           cd $CM_BUILD_DIR/ios/src
           agvtool new-version -all $BUILD_NUMBER
+      - name: Set version number
+        script: |
+          cd $CM_BUILD_DIR/ios/src
+          agvtool new-marketing-version $MARKETING_VERSION
       - name: Build iOS
         script: |
           xcode-project build-ipa \
