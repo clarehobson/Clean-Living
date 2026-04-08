@@ -396,7 +396,7 @@ class NotificationClickHandler: NSObject, OSNotificationClickListener {
         self.viewController = viewController
     }
 
-    func onClick(_ event: OSNotificationClickEvent) {
+    func onClick(event: OSNotificationClickEvent) {
         guard let data = event.notification.additionalData as? [String: Any] else { return }
         DispatchQueue.main.async {
             guard let vc = self.viewController else { return }
