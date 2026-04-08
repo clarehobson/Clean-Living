@@ -172,22 +172,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
         }, fallbackToSettings: false)
         
         // Handle notification taps — store deep link data until WebView is ready
-        OneSignal.Notifications.addClickListener { event in
-            if let data = event.notification.additionalData as? [String: Any] {
-                DispatchQueue.main.async {
-                    if self.htmlIsLoaded {
-                        // WebView already loaded — fire immediately
-                        if let jsonData = try? JSONSerialization.data(withJSONObject: data),
-                           let jsonString = String(data: jsonData, encoding: .utf8) {
-                            CleanLiving.webView.evaluateJavaScript("handleDeepLink(\(jsonString))", completionHandler: nil)
-                        }
-                    } else {
-                        // WebView not ready yet — store for didFinish
-                        self.pendingDeepLink = data
-                    }
-                }
-            }
-        }
+        OneSignal.Notifications.addClickListener(NotificationClickHandler(viewController: self))
         
         initWebView()
         initToolbarView()
@@ -399,6 +384,30 @@ extension ViewController: WKScriptMessageHandler {
             }
         } else if message.name == "onesignal-logout" {
             OneSignal.logout()
+        }
+    }
+}
+
+// MARK: - OneSignal notification tap handler
+class NotificationClickHandler: NSObject, OSNotificationClickListener {
+    weak var viewController: ViewController?
+
+    init(viewController: ViewController) {
+        self.viewController = viewController
+    }
+
+    func onClick(_ event: OSNotificationClickEvent) {
+        guard let data = event.notification.additionalData as? [String: Any] else { return }
+        DispatchQueue.main.async {
+            guard let vc = self.viewController else { return }
+            if vc.htmlIsLoaded {
+                if let jsonData = try? JSONSerialization.data(withJSONObject: data),
+                   let jsonString = String(data: jsonData, encoding: .utf8) {
+                    CleanLiving.webView.evaluateJavaScript("handleDeepLink(\(jsonString))", completionHandler: nil)
+                }
+            } else {
+                vc.pendingDeepLink = data
+            }
         }
     }
 }
