@@ -1,78 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Support — Clean Living</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&display=swap');
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:#1a1a2e; color:#e8e0d0; padding:20px; line-height:1.7; }
-  .container { max-width:680px; margin:0 auto; padding-bottom:60px; }
-  .header { text-align:center; padding:40px 0 30px; }
-  .header h1 { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:300; color:#e8c97a; margin-bottom:4px; }
-  .header .sub { font-size:0.7rem; color:#8a8070; }
-  h2 { font-size:0.95rem; font-weight:700; color:#e8c97a; margin:28px 0 10px; }
-  p { font-size:0.82rem; color:#c8c0b0; margin-bottom:12px; }
-  .footer { text-align:center; padding:30px 0; font-size:0.65rem; color:rgba(255,255,255,0.25); border-top:1px solid rgba(232,201,122,0.1); margin-top:40px; }
-  a { color:#e8c97a; }
-  .email-btn {
-    display:inline-block; margin-top:8px; padding:12px 24px;
-    background:#e8c97a; color:#1a1a2e; border-radius:20px;
-    font-weight:700; font-size:0.85rem; text-decoration:none;
+  :root{
+    --bg:#0d0d1a; --bg2:#12122a;
+    --ink:#d9d9e3; --ink-strong:#f5f2e9; --muted:#8a8aa0;
+    --gold:#c9a84c; --gold-soft:#e8c97a;
+    --line:rgba(201,168,76,.18);
+    --maxw:720px;
   }
-  .faq-item { margin-bottom:20px; }
-  .faq-item p:first-child { color:#e8c97a; font-weight:700; margin-bottom:4px; }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--bg);
+    background-image:
+      radial-gradient(900px 500px at 50% -10%, rgba(201,168,76,.10), transparent 60%),
+      radial-gradient(700px 600px at 100% 100%, rgba(72,120,90,.08), transparent 55%);
+    background-attachment:fixed;
+    color:var(--ink);
+    font-family:'Karla',-apple-system,BlinkMacSystemFont,sans-serif;
+    font-size:17px; line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:56px 22px 88px;}
+  .mark{display:flex; align-items:center; gap:10px; margin-bottom:38px;}
+  .leaf{font-size:24px; line-height:1;}
+  .mark .name{font-family:'Fraunces',serif; font-weight:500; font-size:21px; color:var(--gold-soft); letter-spacing:.3px;}
+  h1{font-family:'Fraunces',serif; font-weight:500; font-size:clamp(34px,7vw,46px); line-height:1.1; color:var(--ink-strong); margin:0 0 8px;}
+  .lead{font-size:18.5px; color:var(--ink-strong); margin:6px 0 30px;}
+  h2{font-family:'Fraunces',serif; font-weight:600; font-size:23px; color:var(--gold); margin:46px 0 14px; padding-top:18px; border-top:1px solid var(--line);}
+  p{margin:0 0 16px;}
+  a{color:var(--gold-soft); text-decoration:none; border-bottom:1px solid rgba(232,201,122,.35);}
+  a:hover{border-bottom-color:var(--gold-soft);}
+  strong{color:var(--ink-strong); font-weight:700;}
+  .contact{display:block; background:var(--bg2); border:1px solid var(--line); border-radius:16px; padding:22px 24px; margin:8px 0 8px; text-align:center;}
+  .contact .label{color:var(--muted); font-size:13px; letter-spacing:.6px; text-transform:uppercase; margin-bottom:6px;}
+  .contact .email{font-family:'Fraunces',serif; font-size:24px; color:var(--gold-soft); border:none;}
+  .faq{margin:0;}
+  .q{font-family:'Karla',sans-serif; font-weight:700; font-size:17px; color:var(--ink-strong); margin:22px 0 4px;}
+  .a{margin:0 0 4px;}
+  .note{background:var(--bg2); border:1px solid var(--line); border-radius:14px; padding:18px 20px; margin:22px 0;}
+  .note p:last-child{margin-bottom:0;}
+  footer{margin-top:64px; padding-top:24px; border-top:1px solid var(--line); color:var(--muted); font-size:13.5px; line-height:1.6;}
+  footer a{color:var(--muted); border-bottom-color:rgba(138,138,160,.4);}
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="header">
-    <h1>Support</h1>
-    <div class="sub">cleanliving.app — We're here to help</div>
+<div class="wrap">
+
+  <div class="mark"><span class="leaf">🌿</span><span class="name">Clean Living</span></div>
+
+  <h1>Support</h1>
+  <p class="lead">Need a hand with Clean Living? We're a small, independent project built by someone in recovery, and we're happy to help.</p>
+
+  <a class="contact" href="mailto:hello@cleanliving.app">
+    <div class="label">Email us</div>
+    <span class="email">hello@cleanliving.app</span>
+  </a>
+  <p style="text-align:center; color:var(--muted); font-size:14px;">We aim to reply within a couple of days.</p>
+
+  <h2>Common questions</h2>
+  <div class="faq">
+
+    <p class="q">How do I start or manage my Recovery Pro subscription?</p>
+    <p class="a">In the app, open the menu and go to your profile, then the Subscription section. New subscribers start with a 14-day free trial. You can manage or cancel any time in your Apple ID settings: <strong>Settings → [your name] → Subscriptions</strong>.</p>
+
+    <p class="q">How do I cancel my subscription?</p>
+    <p class="a">Subscriptions are handled by Apple. Go to <strong>Settings → [your name] → Subscriptions</strong>, tap Clean Living, and choose Cancel. If you cancel during the free trial you won't be charged.</p>
+
+    <p class="q">How do I restore a purchase?</p>
+    <p class="a">On the subscription screen, tap <strong>Restore Purchases</strong>. This re-links a subscription you've already bought with the same Apple ID.</p>
+
+    <p class="q">What's free, and what needs Recovery Pro?</p>
+    <p class="a">Most of the app is free — finding meetings, browsing events, tracking your clean time, the community feed, connecting with members, and Noah's check-ins. Recovery Pro unlocks unlimited journaling and step work, your full Sponsorship Tree, direct messaging, and more.</p>
+
+    <p class="q">How do I report a post?</p>
+    <p class="a">Tap the <strong>···</strong> menu on any community post and choose <strong>Report post</strong>. We review every report and act within 24 hours.</p>
+
+    <p class="q">How do I block someone?</p>
+    <p class="a">Tap the <strong>···</strong> menu on a post and choose <strong>Block</strong>. Their posts disappear from your feed immediately. You can manage blocked members from your account profile.</p>
+
+    <p class="q">How do I delete my account?</p>
+    <p class="a">Open your profile, go to the Account section, and choose <strong>Delete Account</strong>. This permanently removes your profile, journal entries, connections, and all associated data. It cannot be undone.</p>
+
+    <p class="q">Is Clean Living connected to NA?</p>
+    <p class="a">No. Clean Living is an independent recovery tool and is not affiliated with or endorsed by Narcotics Anonymous or NA World Services.</p>
+
   </div>
 
-  <p>If you need help with Clean Living, we're here for you. Email us and we'll get back to you within 24 hours.</p>
-
-  <p><a class="email-btn" href="mailto:support@cleanliving.app">support@cleanliving.app</a></p>
-
-  <h2>Frequently Asked Questions</h2>
-
-  <div class="faq-item">
-    <p>How do I cancel my subscription?</p>
-    <p>You can cancel your Recovery Pro subscription at any time through your Apple ID account settings. Go to Settings → Your Name → Subscriptions on your iPhone or iPad.</p>
+  <h2>If you're struggling right now</h2>
+  <div class="note">
+    <p>Clean Living is a community tool, not a crisis service. If you are in crisis or thinking about harming yourself, please reach out to your local emergency services or a helpline straight away. You don't have to do this alone.</p>
   </div>
 
-  <div class="faq-item">
-    <p>I forgot my password — how do I reset it?</p>
-    <p>On the login screen, tap "Forgot password?" and enter your email address. You'll receive a reset link within a few minutes. Check your spam folder if it doesn't arrive.</p>
-  </div>
+  <footer>
+    <p>Clean Living is an independent recovery tool. It is not affiliated with, endorsed by, or sponsored by Narcotics Anonymous or NA World Services.</p>
+    <p><a href="https://cleanliving.app/terms.html">Terms of Service</a> &nbsp;·&nbsp; <a href="https://cleanliving.app/privacy.html">Privacy Policy</a></p>
+  </footer>
 
-  <div class="faq-item">
-    <p>How do I delete my account?</p>
-    <p>Go to your Profile tab, scroll to the bottom and tap "Delete Account". This permanently removes all your data and cannot be undone.</p>
-  </div>
-
-  <div class="faq-item">
-    <p>Push notifications aren't working — what do I do?</p>
-    <p>Go to your device Settings → Clean Living → Notifications and make sure notifications are enabled. Then open the app and go to Profile → enable notifications from within the app too.</p>
-  </div>
-
-  <div class="faq-item">
-    <p>I purchased Recovery Pro but the app still shows free — what do I do?</p>
-    <p>Try logging out and back in. If that doesn't work, contact us at support@cleanliving.app with your Apple ID email and we'll sort it out.</p>
-  </div>
-
-  <div class="faq-item">
-    <p>How do I report a member or abusive content?</p>
-    <p>Tap the ··· menu on any post in the community feed and select "Report this post". We review all reports within 24 hours.</p>
-  </div>
-
-  <h2>Other Resources</h2>
-  <p><a href="/privacy.html">Privacy Policy</a></p>
-  <p><a href="/terms.html">Terms of Service</a></p>
-
-  <div class="footer">© cleanliving.app</div>
 </div>
 </body>
 </html>
