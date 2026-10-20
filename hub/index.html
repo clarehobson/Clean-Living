@@ -62,10 +62,10 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="mark"><span class="leaf">🌿</span><span class="name">Clean Living</span></div>
+  <div class="mark"><span class="leaf" aria-hidden="true">🌿</span><span class="name">Clean Living</span></div>
 
   <h1>Switch on your free Pro+</h1>
-  <p class="lead">Your treatment centre has given you Clean Living Pro+ free for 12 months. You won’t need a card, nothing renews, and there’s nothing to cancel.</p>
+  <p class="lead">Your recovery centre has given you Clean Living Pro+ free for 12 months. You won’t need a card, nothing renews, and there’s nothing to cancel.</p>
 
   <!-- Step 1: sign in -->
   <form id="signin" class="card" autocomplete="on">
@@ -74,7 +74,7 @@
     <label>Email<input id="email" type="email" autocomplete="username" required></label>
     <label>Password<input id="password" type="password" autocomplete="current-password" required></label>
     <button id="signinBtn" type="submit">Sign in</button>
-    <p id="signinMsg" class="msg bad" hidden></p>
+    <p id="signinMsg" class="msg bad" role="status" aria-live="polite" hidden></p>
     <button id="forgot" class="link" type="button">Forgotten your password?</button>
     <p class="small">No account yet? Download Clean Living first, sign up, then come back to this page.</p>
     <div class="stores">
@@ -85,17 +85,18 @@
 
   <!-- Step 2: the code -->
   <form id="redeem" class="card" hidden>
-    <div class="step">Step 2 · Your centre’s code</div>
+    <div class="step">Step 2 · The code on your card</div>
     <p class="small" id="who"></p>
-    <label>Code<input id="code" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" required></label>
+    <label>Code<input id="code" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="BTN-XXXX-XXXX" required></label>
+    <p class="small">Each card works once, for one person.</p>
     <label class="check"><input id="share" type="checkbox"> <span>Let my centre see anonymous group figures. They only ever see totals for the whole group, never anything about me on my own. I get Pro+ either way.</span></label>
     <button id="redeemBtn" type="submit">Switch on Pro+</button>
-    <p id="redeemMsg" class="msg" hidden></p>
+    <p id="redeemMsg" class="msg" role="status" aria-live="polite" hidden></p>
     <button id="signout" class="link" type="button">Not you? Sign out</button>
   </form>
 
   <!-- Done -->
-  <div id="done" class="card" hidden>
+  <div id="done" class="card" tabindex="-1" role="status" aria-live="polite" hidden>
     <div class="step">All set</div>
     <p id="doneMsg" class="msg good"></p>
     <p class="small">Open Clean Living on your phone. If Pro+ doesn’t show straight away, close the app fully and open it again.</p>
@@ -151,9 +152,11 @@
   const MESSAGES = {
     ok:               ['Pro+ is switched on for 12 months. Enjoy it.', true],
     already:          ['You already have Pro+ from your centre. Nothing else to do.', true],
+    already_used:     ['Your free year from a centre has already been used. If you think that’s wrong, email hello@cleanliving.app.', false],
     already_lifetime: ['You already have Clean Living for life, so you’re all set.', true],
-    already_paid:     ['You already have a Pro+ subscription through Apple or Google. To use this free year instead, cancel it in your phone’s subscription settings first, then come back.', false],
-    bad_code:         ['That code isn’t recognised. Check it with your centre.', false],
+    already_paid:     ['You already have a paid Clean Living subscription through Apple or Google. To use this free year instead, cancel it in your phone’s subscription settings, then come back here once it has ended.', false],
+    bad_code:         ['That code isn’t recognised. Check the code on your card and try again.', false],
+    code_used:        ['This card has already been used. Each card works once, so ask your centre for a new one.', false],
     full:             ['This centre’s free places have all been used. Ask your centre, or email hello@cleanliving.app.', false],
     signin:           ['Please sign in again.', false],
     no_profile:       ['We couldn’t find your Clean Living profile. Open the app once, then try again.', false]
@@ -171,6 +174,7 @@
       $('redeem').hidden = true;
       $('doneMsg').textContent = text + ($('share').checked ? ' Thank you for being counted in your centre’s group figures. You can change this any time in the app, under Account.' : '');
       $('done').hidden = false;
+      $('done').focus();
       sb.auth.signOut();
     } else {
       show($('redeemMsg'), text, false);
