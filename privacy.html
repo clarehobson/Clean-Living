@@ -84,8 +84,14 @@
   <p>If you choose to add a phone number to your profile, we use it to send you important account and service messages &mdash; including updates about the app, your account, and changes that affect your ability to use Clean Living. These are sent by SMS. You can opt out at any time by replying <strong>STOP</strong> to any message; you may still receive essential service messages where the law allows.</p>
 
   <h3>How you use the app</h3>
-  <p>We collect basic, app-level usage information (for example, that a feature was opened or a meeting search was run) to understand what's working and improve Clean Living. We do <strong>not</strong> track your precise location, and we do not build advertising profiles.</p>
+  <p>We keep simple counts of how the app is used, so we know what&rsquo;s working and what to improve. These counts are <strong>anonymous</strong>: when a meeting search is run, a meeting finder or speaker share is opened, the journal is opened, a message is sent to the AI Coach, or a workout is started, we record only which feature it was, whether it was the iPhone or Android app, and when. Nothing about who you are is attached to them. We do not build advertising profiles.</p>
   <p>While the app is open, it lets us know you're using it. We keep the time you were last active (so members can see who is online) and a simple daily record: which days you used the app, whether on iPhone or Android, the first and last time you were active that day, and roughly how long. This is used only to understand how many people use Clean Living and how often, so we can improve it. It does not include what you write, read or log, and it is never sold or used for advertising. It is removed when you delete your account.</p>
+
+  <h3>Finding meetings near you</h3>
+  <p>If you choose to find meetings near you, your phone shares its location with the app at that moment. The app sends that position to the fellowship&rsquo;s public meeting list (for example NA&rsquo;s worldwide meeting database, or the UK meeting list) so it can find meetings nearby. If you search by town instead, the town name is turned into a map position by Apple&rsquo;s or Google&rsquo;s map service. We do <strong>not</strong> store your location and we do not track where you go.</p>
+
+  <h3>Adding a meeting from a fellowship&rsquo;s website</h3>
+  <p>Some meeting lists open inside the app. If you tap <strong>+ Add this meeting</strong>, the text of the page you are looking at (or a PDF meeting schedule) is sent to Anthropic, through our secure proxy, only so the meeting&rsquo;s name, day, time and place can be filled in for you. Nothing about you is sent with it, and the page itself is not kept. You check the details before anything is saved, and only the meeting you choose to save is stored in your account.</p>
 
   <h3>Emails</h3>
   <p>If you tick the box to receive updates, we may email you about new features and changes to Clean Living, from <strong>hello@cleanliving.app</strong>. Every email has an unsubscribe link, and you can also change this in your profile at any time. Emails you need about your account itself may still be sent.</p>
@@ -118,9 +124,16 @@
   <h3>Perimenopause &amp; HRT tracker (optional, Pro+)</h3>
   <p>If you choose to use the Perimenopause &amp; HRT tracker, we save to your account what you enter: the medicines you add and their schedules, the doses you mark as taken (including where you put a patch, if you choose to record it), coil or ring dates, and your daily symptoms, periods and notes.</p>
   <div class="note">
-    <p>This information is <strong>private to you</strong>. It is protected so that only your account can read it. It is not shown to other members, it is <strong>never shared with the AI Coach</strong>, and it is not passed to any third party, used for advertising or sold.</p>
+    <p>This information is <strong>private to you</strong>. It is protected so that only your account can read it. It is not shown to other members, it is <strong>never shared with the AI Coach</strong>, it is never included in any figures for a treatment centre, and it is not passed to any third party, used for advertising or sold.</p>
   </div>
   <p>Reminders are scheduled on your own phone. You can choose not to show a medicine&rsquo;s name on your lock screen. Deleting a medicine removes its history, and deleting your account removes all of your tracker data. The tracker is a personal record: it does not give medical advice, and it never suggests doses.</p>
+
+  <h3>Linking a treatment centre (optional)</h3>
+  <p>Some treatment centres use Clean Living to support people after they leave treatment. If your centre gives you a code, you can choose to add it in <strong>Account</strong>. It is entirely your choice, and you can remove it at any time.</p>
+  <div class="note">
+    <p>A linked centre only ever sees figures for its <strong>whole group</strong>, and only once at least 5 people have linked to it: for example, how many members were active or went to a meeting this week, how many are still using Clean Living after 30 and 90 days, and the group&rsquo;s average mood. A centre <strong>never</strong> sees your name, your journal, your step work, your messages, your own mood, your clean time, your Perimenopause &amp; HRT tracker or anything about you on your own. It has no access to your account.</p>
+  </div>
+  <p>The link is saved to your account and is removed if you remove it or delete your account.</p>
 
   <h2>3. AI features</h2>
   <p>Clean Living includes optional AI features. When you use any of them, the information needed is passed to <strong>Anthropic</strong> (the maker of Claude AI), through our secure proxy, only so a reply, reading or estimate can be generated. Anthropic processes this data under its commercial terms, which do not allow it to be used to train its models.</p>
@@ -128,6 +141,7 @@
     <li><strong>AI Coach</strong> (Pro+) &mdash; the messages you send, your first name and clean time, and a summary of your last week in the app: workouts you finished in the app (including lifts), meetings, mood, stillness, reflection days, and how many days you used the food diary. The summary <strong>never</strong> includes calories, your weight, the content of your journal or step work, any data read from Apple Health or Health Connect, or anything from the Perimenopause &amp; HRT tracker. It is on unless you switch it off at the top of the chat. Your conversation is stored on your phone, not by us.</li>
     <li><strong>Copy a plan from a photo</strong> &mdash; the photos you choose, so the plan can be read. We do not store them.</li>
     <li><strong>Meal estimates</strong> &mdash; only the description you type and your country (so portion sizes fit where you live).</li>
+    <li><strong>Event flyers and meeting pages</strong> &mdash; a flyer you photograph, or a meeting page when you tap + Add this meeting, so the details can be read. Nothing about you is sent with it.</li>
   </ul>
   <p>Our earlier AI companions, Noah and Saj, are no longer offered, and Noah no longer sends check-ins. Any past Noah conversations and check-ins stay in your account until you delete your account or ask us to remove them. Using any AI feature is entirely optional.</p>
   <div class="note">
@@ -154,11 +168,12 @@
     <li><strong>Twilio</strong> &mdash; delivers SMS messages to the phone number you provide.</li>
     <li><strong>OneSignal</strong> &mdash; delivers push notifications, and update emails to members who have opted in (your email address and username are held by OneSignal for this).</li>
     <li><strong>RevenueCat</strong> &mdash; keeps track of subscription purchases, trials, renewals and cancellations from Apple and Google, linked to your account ID (see section 6).</li>
-    <li><strong>Anthropic</strong> &mdash; generates AI Coach replies, reads workout plan photos and generates meal estimates (only the information described in section 3, while you use the feature).</li>
+    <li><strong>Anthropic</strong> &mdash; generates AI Coach replies, reads workout plan photos, event flyers and meeting pages, and generates meal estimates (only the information described in section 3, while you use the feature).</li>
     <li><strong>YMove</strong> &mdash; provides the exercise videos. We request videos by exercise only; none of your personal information is shared.</li>
     <li><strong>Cloudflare</strong> &mdash; provides the secure proxy that routes those AI requests, and caches and delivers photographs shared to the community feed.</li>
     <li><strong>Open Food Facts</strong> &mdash; receives product search words and barcode numbers when you look up a product (nothing that identifies you).</li>
   </ul>
+  <p>When you find meetings near you, your position at that moment is sent to the fellowship&rsquo;s public meeting list, as described in section 2. If you choose to link a treatment centre, it receives figures for its whole group only, as described in section 2.</p>
   <p>We may also disclose information if required by law, or to protect the safety of our members.</p>
 
   <h2>6. Subscriptions</h2>
@@ -166,7 +181,7 @@
   <p>To keep track of subscriptions, we use <strong>RevenueCat</strong>. When you subscribe, start a free trial, renew, cancel or your subscription ends, Apple or Google tells RevenueCat, and RevenueCat passes the details to us: which plan, the store, the dates, the price, and the trial or renewal status. It is linked to your Clean Living account using your account ID (not your name or email). We store this so your plan works correctly and so we can see how many members subscribe. Card details are never included.</p>
 
   <h2>7. How long we keep your data</h2>
-  <p>We keep your information for as long as your account is active. Photographs you share to the community feed are kept for as long as the post exists &mdash; deleting the post removes the stored image files too. When you delete your account, we permanently remove your profile, journal entries, connections, social events, programme progress, meal plans, food diary, Perimenopause &amp; HRT tracker entries and associated data. This cannot be undone. Anything the app wrote to Apple Health or Health Connect stays there, under your control, until you remove it in that app. Your AI Coach conversation is kept only on your phone, until you clear it in the chat or delete the app.</p>
+  <p>We keep your information for as long as your account is active. Photographs you share to the community feed are kept for as long as the post exists &mdash; deleting the post removes the stored image files too. When you delete your account, we permanently remove your profile, journal entries, connections, social events, programme progress, meal plans, food diary, Perimenopause &amp; HRT tracker entries, any treatment centre link and associated data. This cannot be undone. Anonymous usage counts are not linked to you, so there is nothing in them to remove. Anything the app wrote to Apple Health or Health Connect stays there, under your control, until you remove it in that app. Your AI Coach conversation is kept only on your phone, until you clear it in the chat or delete the app.</p>
 
   <h2>8. Security</h2>
   <p>We use reasonable technical and organisational measures to protect your information, including encryption of data in transit and access controls on our database. No method of storage or transmission is ever completely secure, but we work to keep your data safe.</p>
@@ -180,6 +195,8 @@
     <li><strong>Camera &amp; photos</strong> &mdash; decline access and still use the rest of the app, including typing foods in by hand.</li>
     <li><strong>Apple Health / Health Connect</strong> &mdash; decline reading, writing, or both, or withdraw either later in your device settings, and use the rest of the app as normal.</li>
     <li><strong>AI features</strong> &mdash; ignore them entirely, or switch off the AI Coach&rsquo;s weekly summary at the top of the chat.</li>
+    <li><strong>Location</strong> &mdash; search for meetings by town instead of near you, or decline location access, and use the rest of the app as normal.</li>
+    <li><strong>Treatment centre</strong> &mdash; link one only if you want to, and remove the link at any time in Account.</li>
   </ul>
   <p>If you'd like help exercising any of these, email us at <a href="mailto:hello@cleanliving.app">hello@cleanliving.app</a>.</p>
 
@@ -193,7 +210,7 @@
   <p>Questions about your privacy? Email <a href="mailto:hello@cleanliving.app">hello@cleanliving.app</a> and we'll be glad to help.</p>
 
   <footer>
-    <p>Clean Living is an independent recovery tool. It is not affiliated with, endorsed by, or sponsored by Narcotics Anonymous or NA World Services.</p>
+    <p>Clean Living is an independent recovery tool. It is not affiliated with, endorsed by, or sponsored by Narcotics Anonymous, Cocaine Anonymous, Alcoholics Anonymous, or any of their service bodies.</p>
     <p><a href="https://cleanliving.app/terms.html">Terms of Service</a> &nbsp;·&nbsp; <a href="https://cleanliving.app/support.html">Support</a></p>
   </footer>
 
