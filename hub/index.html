@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Switch on Pro+ — Clean Living</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0d1a; --bg2:#12122a;
+    --ink:#d9d9e3; --ink-strong:#f5f2e9; --muted:#8a8aa0;
+    --gold:#c9a84c; --gold-soft:#e8c97a; --on-gold:#14132a;
+    --line:rgba(201,168,76,.18); --bad:#e8a598;
+    --maxw:520px;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--bg);
+    background-image:radial-gradient(900px 500px at 50% -10%, rgba(201,168,76,.10), transparent 60%);
+    background-attachment:fixed;
+    color:var(--ink);
+    font-family:'Karla',-apple-system,BlinkMacSystemFont,sans-serif;
+    font-size:17px; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:48px 20px 72px;}
+  .mark{display:flex; align-items:center; gap:10px; margin-bottom:30px;}
+  .leaf{font-size:24px; line-height:1;}
+  .mark .name{font-family:'Fraunces',serif; font-weight:500; font-size:21px; color:var(--gold-soft);}
+  h1{font-family:'Fraunces',serif; font-weight:500; font-size:clamp(30px,8vw,40px); line-height:1.1; color:var(--ink-strong); margin:0 0 10px; text-wrap:balance;}
+  .lead{color:var(--ink); margin:0 0 28px;}
+  .card{background:var(--bg2); border:1px solid var(--line); border-radius:16px; padding:22px 20px; display:flex; flex-direction:column; gap:14px;}
+  .step{font-size:13px; letter-spacing:1.2px; text-transform:uppercase; color:var(--gold); font-weight:700;}
+  label{display:flex; flex-direction:column; gap:6px; font-size:15px; color:var(--ink-strong); font-weight:500;}
+  input[type=email],input[type=password],input[type=text]{
+    font:inherit; color:var(--ink-strong); background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.14); border-radius:10px; padding:12px 14px; width:100%;
+  }
+  input:focus{outline:2px solid var(--gold); outline-offset:1px;}
+  .check{flex-direction:row; align-items:flex-start; gap:12px; font-weight:400; color:var(--ink);}
+  .check input{width:22px; height:22px; margin-top:2px; accent-color:var(--gold); flex:none;}
+  button{
+    font:inherit; font-weight:700; color:var(--on-gold); background:var(--gold);
+    border:0; border-radius:12px; padding:14px 18px; cursor:pointer; width:100%;
+  }
+  button[disabled]{opacity:.55; cursor:default;}
+  .link{background:none; color:var(--gold-soft); padding:0; width:auto; font-weight:500; text-decoration:underline; text-underline-offset:3px;}
+  .small{font-size:14px; color:var(--muted); margin:0;}
+  .msg{border-radius:12px; padding:14px 16px; margin:0;}
+  .msg.good{background:rgba(201,168,76,.14); color:var(--ink-strong); border:1px solid var(--gold);}
+  .msg.bad{background:rgba(232,165,152,.10); color:var(--ink-strong); border:1px solid var(--bad);}
+  .stores{display:flex; gap:12px; flex-wrap:wrap;}
+  a{color:var(--gold-soft);}
+  footer{margin-top:44px; color:var(--muted); font-size:13.5px; line-height:1.6;}
+  footer a{color:var(--muted);}
+  [hidden]{display:none!important;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="mark"><span class="leaf">🌿</span><span class="name">Clean Living</span></div>
+
+  <h1>Switch on your free Pro+</h1>
+  <p class="lead">Your treatment centre has given you Clean Living Pro+ free for 12 months. You won’t need a card, nothing renews, and there’s nothing to cancel.</p>
+
+  <!-- Step 1: sign in -->
+  <form id="signin" class="card" autocomplete="on">
+    <div class="step">Step 1 · Sign in</div>
+    <p class="small">Use the email and password you signed up with in the Clean Living app.</p>
+    <label>Email<input id="email" type="email" autocomplete="username" required></label>
+    <label>Password<input id="password" type="password" autocomplete="current-password" required></label>
+    <button id="signinBtn" type="submit">Sign in</button>
+    <p id="signinMsg" class="msg bad" hidden></p>
+    <button id="forgot" class="link" type="button">Forgotten your password?</button>
+    <p class="small">No account yet? Download Clean Living first, sign up, then come back to this page.</p>
+    <div class="stores">
+      <a href="https://apps.apple.com/app/id6760635834">App Store</a>
+      <a href="https://play.google.com/store/apps/details?id=app.cleanliving">Google Play</a>
+    </div>
+  </form>
+
+  <!-- Step 2: the code -->
+  <form id="redeem" class="card" hidden>
+    <div class="step">Step 2 · Your centre’s code</div>
+    <p class="small" id="who"></p>
+    <label>Code<input id="code" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" required></label>
+    <label class="check"><input id="share" type="checkbox"> <span>Let my centre see anonymous group figures. They only ever see totals for the whole group, never anything about me on my own. I get Pro+ either way.</span></label>
+    <button id="redeemBtn" type="submit">Switch on Pro+</button>
+    <p id="redeemMsg" class="msg" hidden></p>
+    <button id="signout" class="link" type="button">Not you? Sign out</button>
+  </form>
+
+  <!-- Done -->
+  <div id="done" class="card" hidden>
+    <div class="step">All set</div>
+    <p id="doneMsg" class="msg good"></p>
+    <p class="small">Open Clean Living on your phone. If Pro+ doesn’t show straight away, close the app fully and open it again.</p>
+  </div>
+
+  <footer>
+    <p>Questions? Email <a href="mailto:hello@cleanliving.app">hello@cleanliving.app</a>.</p>
+    <p><a href="https://cleanliving.app/privacy.html">Privacy Policy</a> · <a href="https://cleanliving.app/terms.html">Terms</a></p>
+    <p>Clean Living is an independent recovery tool and is not affiliated with NA, CA or AA.</p>
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+  const sb = supabase.createClient(
+    'https://gencdhyxlyekpjvuwvpu.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlbmNkaHl4bHlla3BqdnV3dnB1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5NzEyNDEsImV4cCI6MjA4NzU0NzI0MX0.BR9biMN2K8Vj6SBbfBrEChppsuIMp2lSL3WOW7Z-1Ss',
+    { auth: { persistSession: false } }
+  );
+  const $ = (id) => document.getElementById(id);
+  const show = (el, text, good) => { el.textContent = text; el.className = 'msg ' + (good ? 'good' : 'bad'); el.hidden = false; };
+
+  // A code in the link (?c=CODE) fills itself in.
+  const fromLink = new URLSearchParams(location.search).get('c');
+  if (fromLink) $('code').value = fromLink.toUpperCase();
+
+  $('signin').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    $('signinMsg').hidden = true;
+    $('signinBtn').disabled = true;
+    const { data, error } = await sb.auth.signInWithPassword({ email: $('email').value.trim(), password: $('password').value });
+    $('signinBtn').disabled = false;
+    $('password').value = '';
+    if (error) { show($('signinMsg'), "That email and password didn’t match. Check them, or reset your password below.", false); return; }
+    $('who').textContent = 'Signed in as ' + (data.user && data.user.email ? data.user.email : 'you') + '.';
+    $('signin').hidden = true;
+    $('redeem').hidden = false;
+    $('code').focus();
+  });
+
+  $('forgot').addEventListener('click', async () => {
+    const email = $('email').value.trim();
+    if (!email) { show($('signinMsg'), 'Type your email above first, then tap this again.', false); return; }
+    await sb.auth.resetPasswordForEmail(email, { redirectTo: 'https://cleanliving.app/reset-password/' });
+    show($('signinMsg'), 'If that email has an account, a reset link is on its way. Check your inbox.', true);
+  });
+
+  $('signout').addEventListener('click', async () => {
+    await sb.auth.signOut();
+    $('redeem').hidden = true; $('signin').hidden = false; $('redeemMsg').hidden = true;
+  });
+
+  const MESSAGES = {
+    ok:               ['Pro+ is switched on for 12 months. Enjoy it.', true],
+    already:          ['You already have Pro+ from your centre. Nothing else to do.', true],
+    already_lifetime: ['You already have Clean Living for life, so you’re all set.', true],
+    already_paid:     ['You already have a Pro+ subscription through Apple or Google. To use this free year instead, cancel it in your phone’s subscription settings first, then come back.', false],
+    bad_code:         ['That code isn’t recognised. Check it with your centre.', false],
+    full:             ['This centre’s free places have all been used. Ask your centre, or email hello@cleanliving.app.', false],
+    signin:           ['Please sign in again.', false],
+    no_profile:       ['We couldn’t find your Clean Living profile. Open the app once, then try again.', false]
+  };
+
+  $('redeem').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    $('redeemMsg').hidden = true;
+    $('redeemBtn').disabled = true;
+    const { data, error } = await sb.rpc('redeem_hub_code', { p_code: $('code').value, p_share: $('share').checked });
+    $('redeemBtn').disabled = false;
+    if (error) { show($('redeemMsg'), 'Something went wrong. Try again in a moment.', false); return; }
+    const [text, good] = MESSAGES[data] || ['Something went wrong. Try again in a moment.', false];
+    if (good) {
+      $('redeem').hidden = true;
+      $('doneMsg').textContent = text + ($('share').checked ? ' Thank you for being counted in your centre’s group figures. You can change this any time in the app, under Account.' : '');
+      $('done').hidden = false;
+      sb.auth.signOut();
+    } else {
+      show($('redeemMsg'), text, false);
+    }
+  });
+</script>
+</body>
+</html>
