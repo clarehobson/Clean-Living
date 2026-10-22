@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.cleanliving",
+      "sha256_cert_fingerprints": ["43:D4:7F:70:A9:D8:FC:E6:FD:7D:A0:AD:7C:11:34:E7:DC:24:01:60:96:51:6B:52:5A:59:DA:52:77:F7:76:68"]
+    }
+  }
+]

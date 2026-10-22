@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["D3NH4Q92W8.app.cleanliving"],
+        "components": [
+          { "/": "/hub", "comment": "Treatment centre card links open the app" },
+          { "/": "/hub/", "comment": "Treatment centre card links open the app" }
+        ]
+      }
+    ]
+  }
+}
