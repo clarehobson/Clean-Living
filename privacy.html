@@ -76,6 +76,8 @@
 
   <h3>Your recovery activity</h3>
   <p>Content you create in the app, such as journal entries, step work, community posts, photographs you share to the community feed, mood check-ins, meeting logs, stillness sessions, service commitments, your sponsorship tree, your progress through fitness programmes, the workouts you finish and build, the events you say you&rsquo;re attending, and everything you do in the nutrition feature (see below). Your journal entries and step work are private and visible only to you. Community posts, including photographs, are visible to other signed-in members.</p>
+  <p>If you tag another member in a post or comment with <strong>@</strong>, the post records who was tagged so their name can be shown, and that member gets a notification saying you mentioned them. Only members can be tagged, and members you have blocked are never suggested.</p>
+  <p><strong>What helps me</strong> (in the No matter what tab) looks at the moods, meetings and stillness sessions you have already logged to show which days you tend to feel better. It is worked out from your own data, shown only to you, and nothing new is collected for it. If you tap <strong>Share to the wall</strong>, a picture of that card is posted to the community, and you can delete the post at any time.</p>
 
   <h3>Messages</h3>
   <p>If you message another member, the content of those messages is processed and stored by our chat provider so it can be delivered and shown to you both.</p>
@@ -84,11 +86,12 @@
   <p>If you choose to add a phone number to your profile, we use it to send you important account and service messages &mdash; including updates about the app, your account, and changes that affect your ability to use Clean Living. These are sent by SMS. You can opt out at any time by replying <strong>STOP</strong> to any message; you may still receive essential service messages where the law allows.</p>
 
   <h3>How you use the app</h3>
-  <p>We keep simple counts of how the app is used, so we know what&rsquo;s working and what to improve. These counts are <strong>anonymous</strong>: when a meeting search is run, a meeting finder or speaker share is opened, the journal is opened, a message is sent to the AI Coach, or a workout is started, we record only which feature it was, whether it was the iPhone or Android app, and when. Nothing about who you are is attached to them. We do not build advertising profiles.</p>
+  <p>We keep simple counts of how the app is used, so we know what&rsquo;s working and what to improve. These counts are <strong>anonymous</strong>: when a meeting search is run, a meeting finder, daily reading or speaker share is opened, a message is sent to the AI Coach, a workout is started, or the upgrade screen is shown and a subscription is started, completed or cancelled, we record only which feature it was, whether it was the iPhone or Android app, and when. Nothing about who you are is attached to them. We do not build advertising profiles.</p>
+  <p>If you tap <strong>Rate Clean Living</strong>, we note against your account that you tapped it, so the app doesn&rsquo;t keep asking you.</p>
   <p>While the app is open, it lets us know you're using it. We keep the time you were last active (so members can see who is online) and a simple daily record: which days you used the app, whether on iPhone or Android, the first and last time you were active that day, and roughly how long. This is used only to understand how many people use Clean Living and how often, so we can improve it. It does not include what you write, read or log, and it is never sold or used for advertising. It is removed when you delete your account.</p>
 
   <h3>Finding meetings near you</h3>
-  <p>If you choose to find meetings near you, your phone shares its location with the app at that moment. The app sends that position to the fellowship&rsquo;s public meeting list (for example NA&rsquo;s worldwide meeting database, or the UK meeting list) so it can find meetings nearby. If you search by town instead, the town name is turned into a map position by Apple&rsquo;s or Google&rsquo;s map service. We do <strong>not</strong> store your location and we do not track where you go.</p>
+  <p>If you choose to find meetings near you, your phone shares its location with the app at that moment. The app sends that position to the fellowship&rsquo;s public meeting list (for example NA&rsquo;s worldwide meeting database, or the UK meeting list) so it can find meetings nearby. If you search by town instead, the town name is turned into a map position by Apple&rsquo;s or Google&rsquo;s map service. We do <strong>not</strong> store your location and we do not track where you go. Location is also used to measure your walks and runs; see <em>Walks and runs</em> below.</p>
 
   <h3>Adding a meeting from a fellowship&rsquo;s website</h3>
   <p>Some meeting lists open inside the app. If you tap <strong>+ Add this meeting</strong>, the text of the page you are looking at (or a PDF meeting schedule) is sent to Anthropic, through our secure proxy, only so the meeting&rsquo;s name, day, time and place can be filled in for you. Nothing about you is sent with it, and the page itself is not kept. You check the details before anything is saved, and only the meeting you choose to save is stored in your account.</p>
@@ -98,6 +101,8 @@
 
   <h3>Device permissions</h3>
   <ul>
+    <li><strong>Location</strong> &mdash; used when you choose to find meetings near you, and during a walk or run that you start, to measure how far you have gone (including while your screen is off). See <em>Walks and runs</em> below.</li>
+    <li><strong>Motion &amp; physical activity</strong> &mdash; during a walk or run, your phone&rsquo;s step sensor is used to measure distance when GPS can&rsquo;t, for example on a treadmill. This stays on your phone.</li>
     <li><strong>Notifications</strong> &mdash; if you allow them, we use a notification token to send you alerts about messages, connection requests, and activity. You can turn these off any time in your device settings.</li>
     <li><strong>Camera &amp; photos</strong> &mdash; only used if you choose to add a profile photo, share a daily photograph to the community feed, photograph an event flyer so the app can read its details, photograph a written workout plan so the app can turn it into workouts (the photo is sent to be read and is not stored), or scan a barcode in the food diary. Barcode scanning happens on your phone: the camera picture is not saved or sent anywhere, only the barcode number is used to look the product up. Photographs you share are resized on your device before upload and that resized copy is what we store; location and other metadata held in the original file are not kept, and your original stays on your phone.</li>
   </ul>
@@ -113,7 +118,12 @@
 
   <h3>Programmes</h3>
   <p>Which week and session you have reached in a programme such as Clean to 5K, and a record of each session you complete (its length and whether you finished it), are saved to your account so they survive a new phone. This is your own data, visible only to you.</p>
-  <p>While a Clean to 5K session is running, the app shows an ongoing notification and keeps a timer going in the background. This is what allows the spoken guidance to carry on when your screen is off and your phone is in your pocket. It stops as soon as the session ends.</p>
+  <p>Runs you finish in a plan such as Clean to 10K, Clean to Half, Clean to Marathon or an AI Coach plan are saved in the same way: the plan, week and session, when you started, how long it took and whether you finished it. This lets you see every workout you&rsquo;ve done, and your week and month, in Fitness. It is visible only to you.</p>
+
+  <h3>Walks and runs</h3>
+  <p>While a walk or run is going, the app keeps a timer running in the background and shows that it is in progress &mdash; as an ongoing notification on Android, and on the lock screen on iPhone &mdash; so the spoken guidance carries on when your screen is off and your phone is in your pocket.</p>
+  <p>If you allow location, the app also uses your phone&rsquo;s GPS during the walk or run to measure how far you have gone, including while your screen is locked. When GPS can&rsquo;t measure it (for example on a treadmill), the phone&rsquo;s step sensor is used instead. Your route and position <strong>stay on your phone</strong>: they are not uploaded, not stored by us and not shared. Location stops as soon as you finish or end the session. If the app is closed during a run, it remembers the run on your phone for a few hours so it can pick up where you left off.</p>
+  <p>Location is optional: you can say no and still follow every programme.</p>
 
   <p>Workouts you finish in Clean Strength, Clean Yoga or My workouts (the programme, exercises, sets, reps and weights), and workouts you build yourself, are saved to your account in the same way, so your history and next weights are there on any phone.</p>
 
